@@ -1,104 +1,191 @@
+{ "success":true,
+  "data":[{"path": "/admin/dashboard",
+"title": "Dashboard",
+"iconType": "material-icons-two-tone",
+"icon": "space_dashboard",
+"class": "",
+"groupTitle": false,
+"badge": "",
+"badgeClass": "",
+"role": ["Admin"],
+"submenu":[]
+},
+{"path": "/admin/dashboard",
+"title": "Location",
+"iconType": "material-icons-two-tone",
+"icon": "location_on",
+"class": "menu-toggle",
+"groupTitle": false,
+"badge": "",
+"badgeClass": "",
+"role": ["Admin"],
+"submenu": [{
+    "path": "/admin/location",
+    "title": "Country",
+    "iconType": "",
+    "icon": "",
+    "class": "ml-menu",
+    "groupTitle": false,
+   "badge": "",
+    "badgeClass": "",
+    "role": [""],
+    "submenu": []
+  },
+  {
+    "path": "/admin/zone",
+    "title": "Zone",
+    "iconType": "",
+    "icon": "",
+    "class": "ml-menu",
+    "groupTitle": false,
+   "badge": "",
+    "badgeClass": "",
+    "role": [""],
+    "submenu": []
+  },
+  {
+    "path": "/admin/region",
+    "title": "Region",
+    "iconType": "",
+    "icon": "",
+    "class": "ml-menu",
+    "groupTitle": false,
+   "badge": "",
+    "badgeClass": "",
+    "role": [""],
+    "submenu": []
+  },
+  {
+    "path": "/admin/state",
+    "title": "State",
+    "iconType": "",
+    "icon": "",
+    "class": "ml-menu",
+    "groupTitle": false,
+   "badge": "",
+    "badgeClass": "",
+    "role": [""],
+    "submenu": []
+  },
+  {
+    "path": "/admin/city",
+    "title": "City",
+    "iconType": "",
+    "icon": "",
+    "class": "ml-menu",
+    "groupTitle": false,
+   "badge": "",
+    "badgeClass": "",
+    "role": [""],
+    "submenu": []
+  },
+  {
+    "path": "/admin/postalcode",
+    "title": "Postal Code",
+    "iconType": "",
+    "icon": "",
+    "class": "ml-menu",
+    "groupTitle": false,
+   "badge": "",
+    "badgeClass": "",
+    "role": [""],
+    "submenu": []
+  },
+  {
+    "path": "/admin/locality",
+    "title": "Locality",
+    "iconType": "",
+    "icon": "",
+    "class": "ml-menu",
+    "groupTitle": false,
+   "badge": "",
+    "badgeClass": "",
+    "role": [""],
+    "submenu": []
+  }]
+},
+{"path": "/admin/users",
+"title": "Users",
+"iconType": "material-icons-two-tone",
+"icon": "space_dashboard",
+"class": "",
+"groupTitle": false,
+"badge": "",
+"badgeClass": "",
+"role": ["Admin"],
+"submenu":[ {
+  "path": "/admin/users/role",
+  "title": "Locality",
+  "iconType": "",
+  "icon": "",
+  "class": "ml-menu",
+  "groupTitle": false,
+ "badge": "",
+  "badgeClass": "",
+  "role": [""],
+  "submenu": []
+},
 {
-  "MENUITEMS": {
-    "MAIN": {
-      "TEXT": "Main"
-    },
-    "DASHBOARD": {
-      "TEXT": "Dashboard",
-      "LIST": {
-        "DASHBOARD1": "Dashboard 1",
-        "DASHBOARD2": "Dashboard 2",
-        "DOCTOR-DASHBOARD": "Doctor Dashboard",
-        "PATIENT-DASHBOARD": "Patient Dashboard"
-      }
-    },
-    "APPOINTMENTS": {
-      "TEXT": "Appointments",
-      "LIST": {
-        "VIEW-APPOINTMENT": "View Appointment",
-        "BOOK-APPOINTMENT": "Book Appointment",
-        "EDIT-APPOINTMENT": "Edit Appointment"
-      }
-    },
-    "DOCTORS": {
-      "TEXT": "Doctors",
-      "LIST": {
-        "ALL-DOCTOR": "All Doctors",
-        "ADD-DOCTOR": "Add Doctor",
-        "EDIT-DOCTOR": "Edit Doctor",
-        "PROFILE": "Doctor Profile"
-      }
-    },
-    "STAFF": {
-      "TEXT": "Staff",
-      "LIST": {
-        "ALL-STAFF": "All Staff",
-        "ADD-STAFF": "Add Staff",
-        "EDIT-STAFF": "Edit Staff",
-        "PROFILE": "Staff Profile"
-      }
-    },
-    "PATIENTS": {
-      "TEXT": "Patients",
-      "LIST": {
-        "ALL-PATIENT": "All Patients",
-        "ADD-PATIENT": "Add Patient",
-        "EDIT-PATIENT": "Edit Patient",
-        "PROFILE": "Patient Profile"
-      }
-    },
-    "ROOMS": {
-      "TEXT": "Room Allotment",
-      "LIST": {
-        "ALLOTED-ROOMS": "Alloted Rooms",
-        "NEW-ALLOTMENT": "New Allotment",
-        "EDIT-ALLOTMENT": "Edit Allotment"
-      }
-    },
-    "PAYMENTS": {
-      "TEXT": "Payments",
-      "LIST": {
-        "ALL-PAYMENTS": "All Payments",
-        "ADD-PAYMENT": "Add Payment",
-        "INVOICE": "Invoice"
-      }
-    },
-    "DOCTOR": {    
-        "DASHBOARD": "Dashboard",
-        "APPOINTMENTS": "Appointments",
-        "DOCTORS": "Doctors",
-        "PATIENTS": "Patients",
-        "SETTINGS": "Settings",
-        "CHAT": "Chat"
-    },
-    "PATIENT": {    
-      "TEXT": "Patient",
-      "DASHBOARD": "Dashboard",
-      "APPOINTMENTS": {
-        "TEXT": "Appointments",
-        "LIST": {
-          "TODAY": "Today Appointments",
-          "UPCOMING": "Upcoming Appointments",
-          "PAST": "Past Appointments"
-        }
-      },
-      "PRESCRIPTIONS": "Prescriptions",
-      "MEDICAL-RECORD": "Medical Record",
-      "BILLING": "Billing",
-      "CHAT": "Chat",
-      "SETTINGS": "Settings"
-    },
-    "APPS": {
-      "TEXT": "-- Apps"
-    },
-    "CALENDAR": {
-      "TEXT": "Calendar"
-    },
-    "TASK": {
-      "TEXT": "Task"
-    },
-    "CONTACTS": {
-      "TEXT": "Contacts"
-    }
-  }
+  "path": "/admin/users/user",
+  "title": "User",
+  "iconType": "",
+  "icon": "",
+  "class": "ml-menu",
+  "groupTitle": false,
+ "badge": "",
+  "badgeClass": "",
+  "role": [""],
+  "submenu": []
 }
+]
+},
+{"path": "/admin/businesses",
+"title": "Businesses",
+"iconType": "material-icons-two-tone",
+"icon": "space_dashboard",
+"class": "",
+"groupTitle": false,
+"badge": "",
+"badgeClass": "",
+"role": ["Admin"],
+"submenu":[ {
+  "path": "/admin/businesses/business",
+  "title": "Business",
+  "iconType": "",
+  "icon": "",
+  "class": "ml-menu",
+  "groupTitle": false,
+ "badge": "",
+  "badgeClass": "",
+  "role": [""],
+  "submenu": []
+},
+{
+  "path": "/admin/businesses/branch",
+  "title": "Branch",
+  "iconType": "",
+  "icon": "",
+  "class": "ml-menu",
+  "groupTitle": false,
+ "badge": "",
+  "badgeClass": "",
+  "role": [""],
+  "submenu": []
+},
+{
+  "path": "/admin/businesses/office",
+  "title": "Office",
+  "iconType": "",
+  "icon": "",
+  "class": "ml-menu",
+  "groupTitle": false,
+ "badge": "",
+  "badgeClass": "",
+  "role": [""],
+  "submenu": []
+}
+]
+}
+]}
+
+

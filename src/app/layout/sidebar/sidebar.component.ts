@@ -12,6 +12,7 @@ import {
 import { ROUTES } from "./sidebar-items";
 import { AuthService } from "src/app/core/service/auth.service";
 import { Role } from "src/app/core/models/role";
+import { LeftmenulistService } from "src/app/core/service/leftmenulist.service";
 @Component({
   selector: "app-sidebar",
   templateUrl: "./sidebar.component.html",
@@ -35,7 +36,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     public elementRef: ElementRef,
     private authService: AuthService,
-    private router: Router
+    private router: Router, public leftmenuservice:LeftmenulistService
   ) {
     const body = this.elementRef.nativeElement.closest("body");
     this.routerObj = this.router.events.subscribe((event) => {
@@ -77,19 +78,37 @@ export class SidebarComponent implements OnInit, OnDestroy {
         " " +
         this.authService.currentUserValue.lastName;
       this.userImg = this.authService.currentUserValue.img;
-
-      this.sidebarItems = ROUTES.filter(
-        (x) => x.role.indexOf(userRole) !== -1 || x.role.indexOf("All") !== -1
-      );
-      if (userRole === Role.Admin) {
-        this.userType = Role.Admin;
-      } else if (userRole === Role.Patient) {
-        this.userType = Role.Patient;
-      } else if (userRole === Role.Doctor) {
-        this.userType = Role.Doctor;
-      } else {
-        this.userType = Role.Admin;
-      }
+      this.leftmenuservice.getMenulist().subscribe(res=>{
+        this.sidebarItems=res.data;
+        console.log(res.data)
+        // this.sidebarItems = 
+        // ROUTES.filter(
+        //   (x) => x.role.indexOf(userRole) !== -1 || x.role.indexOf("All") !== -1
+        // );
+        // if (userRole === Role.Admin) {
+        //   this.userType = Role.Admin;
+        // } else if (userRole === Role.Patient) {
+        //   this.userType = Role.Patient;
+        // } else if (userRole === Role.Doctor) {
+        //   this.userType = Role.Doctor;
+        // } else {
+        //   this.userType = Role.Admin;
+        // }
+      })
+      ROUTES.filter(
+          (x) => x.role.indexOf(userRole) !== -1 || x.role.indexOf("All") !== -1
+        );
+        if (userRole === Role.Admin) {
+          this.userType = Role.Admin;
+        } else if (userRole === Role.Patient) {
+          this.userType = Role.Patient;
+        } else if (userRole === Role.Doctor) {
+          this.userType = Role.Doctor;
+        } else {
+          this.userType = Role.Admin;
+        }
+      
+     
     }
 
     // this.sidebarItems = ROUTES.filter((sidebarItem) => sidebarItem);

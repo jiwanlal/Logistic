@@ -1,0 +1,19 @@
+<div class="addContainer">
+  
+      <div mat-dialog-content>
+        <h2>Are you sure you want to delete?</h2>
+      
+       
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <div class="example-button-row">
+                <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">No</button>
+                <button mat-raised-button color="primary" type="submit"
+                  [mat-dialog-close]="1" (click)="onSubmit(data.actionName)">Yes</button>
+                
+              </div>
+            </div>
+          </div>
+       
+        </div>
+    </div>

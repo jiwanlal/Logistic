@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { LocationdialogComponent } from './locationdialog.component';
+
+describe('LocationdialogComponent', () => {
+  let component: LocationdialogComponent;
+  let fixture: ComponentFixture<LocationdialogComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ LocationdialogComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(LocationdialogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
