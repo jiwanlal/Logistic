@@ -14,6 +14,16 @@
   </div>
   <div mat-dialog-content>
     <form class="register-form m-4" [formGroup]="formdata">
+      <div class="row" *ngIf="data.popupForm!='countryDailog' && data.tabledatadeatils.popupForm!='countryDailog'">
+        <div class="col-md-12 col-sm-12 mb-2">
+          <mat-form-field   class="example-full-width" appearance="fill">
+            <mat-label>Select</mat-label>
+            <mat-select formControlName="commonselect" (change)="change($event)">
+              <mat-option  *ngFor="let options of data.countrylist " [value]="options.country_id">{{options.country_name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+    </div>
       <div class="row">
         <div class="col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
@@ -26,8 +36,11 @@
           </mat-form-field>
         </div>
     </div>
+   
+  
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+         
           <div class="example-button-row">
             <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid"
               [mat-dialog-close]="1" (click)="onSubmit(data.actionName)">Save</button>

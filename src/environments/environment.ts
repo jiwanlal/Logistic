@@ -3,9 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
- // apiUrl: 'http://10.1.0.3:8080/',
-   apiUrl:'http://location:4200'
+  production: true,
+  apiUrl: 'http://34.70.100.59:8080/api/',
+  countery:'places/country',
+  zone:'places/zone',
+  region:'places/region'
+   //apiUrl:'http://location:4200'
 };
 
 /*

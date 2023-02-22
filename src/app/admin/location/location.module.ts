@@ -23,7 +23,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { CountrylistService } from './country/countrylist.service';
+import { ZoneComponent } from './zone/zone.component';
+import { RegionComponent } from './region/region.component';
+import { StateComponent } from './state/state.component';
+import { CityComponent } from './city/city.component';
+import { PostalcodeComponent } from './postalcode/postalcode.component';
+import { LocalityComponent } from './locality/locality.component';
+import { LocationService } from './location.service';
 
 
 
@@ -33,6 +39,12 @@ import { CountrylistService } from './country/countrylist.service';
     LocationdeleteComponent,
     LocationdialogComponent,
     LactiontableComponent,
+    ZoneComponent,
+    RegionComponent,
+    StateComponent,
+    CityComponent,
+    PostalcodeComponent,
+    LocalityComponent,
   ],
   imports: [CommonModule,
     LoctionRoutingModule,
@@ -58,7 +70,7 @@ import { CountrylistService } from './country/countrylist.service';
     SharedModule 
    
   ],
-  providers:[ CountrylistService],
+  providers:[ LocationService],
   entryComponents:[LocationdialogComponent,LocationdeleteComponent]
 })
 export class LocationModule { }

@@ -1,19 +1,14 @@
-<div class="addContainer">
-  
+
+    <div class="container">
+      <h3 mat-dialog-title>Are you sure you want to delete?</h3>
       <div mat-dialog-content>
-        <h2>Are you sure you want to delete?</h2>
-      
        
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-              <div class="example-button-row">
-                <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">No</button>
-                <button mat-raised-button color="primary" type="submit"
-                  [mat-dialog-close]="1" (click)="onSubmit(data.actionName)">Yes</button>
-                
-              </div>
-            </div>
-          </div>
+      </div>
+      <div mat-dialog-actions align="center" class="mb-1 text-center">
+        <button mat-flat-button color="warn" (click)="onNoClick()" tabindex="-1">No</button>
+        <button mat-flat-button color="primary" type="submit"
+          [mat-dialog-close]="1" (click)="onSubmit(data.actionName,data.tabledatadeatils.country_id)">Yes</button>
        
-        </div>
+      </div>
     </div>
+    

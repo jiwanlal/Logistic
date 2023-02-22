@@ -1,1 +1,11 @@
-<app-lactiontable *ngIf="inload" (dataChange)="addItem($event)" [tabledata]="dataForTable" [Titlename]="Titlename" [tableheader]="countryheader"></app-lactiontable>
+<!-- <div class="block-header">
+  
+    <app-breadcrumb [title]="'Ambulance List'" [items]="['Ambulance']" [active_item]="'List'">
+    </app-breadcrumb>
+  </div> -->
+ 
+<app-lactiontable *ngIf="inload" (dataChange)="addItem($event)" [pagename]="'countryDailog'"  [tabledata]="dataForTable" [Titlename]="Titlename" [tableheader]="countryheader"></app-lactiontable>
+<div *ngIf="inload" class="tbl-spinner">
+  <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+  </mat-progress-spinner>
+</div>
