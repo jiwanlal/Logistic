@@ -10,7 +10,9 @@ import { countrydatamodal} from './location.modal';
   styleUrls: ['./country.component.sass']
 })
 export class CountryComponent implements OnInit, OnChanges{
-public Titlename="Country List"
+public Titlename="Country"
+public pagename="countryDailog"
+public selectoption=''
 @ViewChild(LactiontableComponent) child
  public coutrydataobject:any = new countrydatamodal()
  public inload=false
@@ -23,7 +25,6 @@ ngOnInit(): void {
 }
 ngOnChanges(changes: SimpleChanges): void {
   console.log(changes)
-  //this.addItem(changes)
 }
 showNotification(colorName, text, placementFrom, placementAlign) {
   this.snackBar.open(text, "", {
@@ -50,16 +51,8 @@ if(event.action=='Delete'){
 }
 
 updateRowData(row_obj){
-  // this.dataForTable= this.dataForTable.filter((value,key)=>{
-  //   if(value.country_id== row_obj.country_id){
-  //     value.country_name = row_obj.title;
-  //     console.log( this.dataForTable)
-   
-  let itemvalue={
-               // country_id:row_obj.country_id,
-                country_name:row_obj.title 
-                }
-    this.contrylistservice.countryput(row_obj.country_id,itemvalue).subscribe(res=>{
+ let itemvalue={country_name:row_obj.title }
+    this.contrylistservice.countryput(row_obj.Id,itemvalue).subscribe(res=>{
       console.log(res)
       this.showNotification(
         "black",
@@ -71,15 +64,9 @@ updateRowData(row_obj){
     })
    
   }
-   // return true;
- // });
 
 addRowData(row_obj){
- // var d = new Date();
-//  this.dataForTable.push({
-//     id:row_obj.id,
-//     country_name:row_obj.title
-//   });
+ 
   let itemvalue={
     country_name:row_obj.title
   }
@@ -94,20 +81,12 @@ addRowData(row_obj){
       this.Oncountrylist()
     })
   console.log(this.dataForTable)
- 
- // this.table.renderRows();
-  
-}
+ }
 deleteRowData(row_obj){
-  console.log(row_obj)
-//   this.tabledata = this.tabledata.filter((value,key)=>{
-//     return value.id != row_obj.id;
-//   });
-
-this.contrylistservice.countrydelete(row_obj.country_id).subscribe(res=>{
+ this.contrylistservice.countrydelete(row_obj.Id).subscribe(res=>{
   this.showNotification(
     "snackbar-danger",
-    row_obj.country_name + " Record Delete Successfully...!!!",
+    row_obj.Name + " Record Delete Successfully...!!!",
     "top",
     "right"
   );
@@ -125,47 +104,32 @@ Oncountrylist(){
  
       let tableColNamesFromAPI=[]
         let tableColNamesWithSpace={}
-      if(this.coutrydataobject.data.length>0){
-            let i=0
-            let Actions=['Edit','Delete']
-            let actionIcon=['edit','delete']
-            this.coutrydataobject.data.forEach(element => {
-              element.id=i+1
-              element.country_name=element.country_name==null?'':element.country_name.charAt(0).toUpperCase()+ element.country_name.slice(1)
-              
-              
-              element.Actions=Actions
-              element.actionIcon=actionIcon
-              element.popupForm='countryDailog'
-              
-              i+=1
-             
-            })
+      if(this.coutrydataobject.data.values){
+         
+            this.coutrydataobject.data.values.forEach(element => {
+                element.popupForm=this.pagename
+               })
     
-              tableColNamesFromAPI=Object.keys(this.coutrydataobject.data[0])
+              tableColNamesFromAPI=Object.keys(this.coutrydataobject.data.values[0])
               for(let i=0;i<tableColNamesFromAPI.length;i++){
                 tableColNamesWithSpace[tableColNamesFromAPI[i]] = this.insertSpaces(tableColNamesFromAPI[i])
               }
               this.countryheader=tableColNamesWithSpace
-              this.countryheader.id='ID'
-              //changed from Ui need cahnge col name fron Db
-              this.countryheader.country_name='Country Name'
-              delete this.countryheader.actionIcon
+            this.countryheader.Name=this.Titlename+' '+this.countryheader.Name
+              delete this.countryheader.actionIcons
               delete this.countryheader.popupForm
               delete this.countryheader.is_visible
-                            
-              delete this.countryheader.country_id
-              //delete this.countryheader.id
-              this.dataForTable= this.coutrydataobject.data
-              console.log(this.coutrydataobject.data, this.countryheader)
-              this.inload=true
+              delete this.countryheader.Id
+              this.dataForTable= this.coutrydataobject.data.values
+              console.log(this.coutrydataobject.data.values, this.countryheader)
+              
       }
-    
+      this.inload=true
       }
 
   })
 
-//  console.log( this.coutrydataobject.data)
+
 
   
 }

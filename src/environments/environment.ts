@@ -7,7 +7,12 @@ export const environment = {
   apiUrl: 'http://34.70.100.59:8080/api/',
   countery:'places/country',
   zone:'places/zone',
-  region:'places/region'
+  region:'places/region',
+  state:'places/state',
+  city:'places/city',
+  postcode:'places/postcode',
+  locality:'places/locality'
+  
    //apiUrl:'http://location:4200'
 };
 

@@ -11,7 +11,9 @@ export class LocationService {
     private readonly API_URL = environment.apiUrl
   itema = []
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient) {
+    
+   }
 
   contrylist() {
     const url = this.API_URL + environment.countery
@@ -56,6 +58,7 @@ export class LocationService {
       );
 
   }
+// Country api call end/////
 
   public zonelist() {
     const url = this.API_URL + environment.zone
@@ -99,6 +102,7 @@ export class LocationService {
       );
 
   }
+  // Zone api call end
   public regionlist() {
     const url = this.API_URL + environment.region
     return this.http.get<any>(url)
@@ -141,7 +145,183 @@ export class LocationService {
       );
 
   }
+// Region api call end
+  
+  public statelist() {
+    const url = this.API_URL + environment.state
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public statepost(data): Observable<any> {
+    const url = this.API_URL + environment.state
+    return this.http.post<any>(url, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public stateput(id: number, data: any): Observable<any> {
+    const url = this.API_URL + environment.state + `/${id}`;
+    console.log(url)
+    return this.http.put<any>(url, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public statedelete(id: number): Observable<any> {
+    const url = this.API_URL + environment.state + `/${id}`;
+    console.log(url)
+    return this.http.delete<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  // state Api call end////
+  public citylist() {
+    const url = this.API_URL + environment.city
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public citypost(data): Observable<any> {
+    const url = this.API_URL + environment.city
+    return this.http.post<any>(url, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public cityput(id: number, data: any): Observable<any> {
+    const url = this.API_URL + environment.city + `/${id}`;
+    console.log(url)
+    return this.http.put<any>(url, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public citydelete(id: number): Observable<any> {
+    const url = this.API_URL + environment.city + `/${id}`;
+    console.log(url)
+    return this.http.delete<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  // city Api call end////
+  public postcodelist() {
+    const url = this.API_URL + environment.postcode
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public postcodepost(data): Observable<any> {
+    const url = this.API_URL + environment.postcode
+    return this.http.post<any>(url, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public postcodeput(id: number, data: any): Observable<any> {
+    const url = this.API_URL + environment.postcode + `/${id}`;
+    console.log(url)
+    return this.http.put<any>(url, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public postcodedelete(id: number): Observable<any> {
+    const url = this.API_URL + environment.postcode + `/${id}`;
+    console.log(url)
+    return this.http.delete<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  // city Api call end////
+  public  localitylist() {
+    const url = this.API_URL + environment.locality
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public localitypost(data): Observable<any> {
+    const url = this.API_URL + environment.locality
+    return this.http.post<any>(url, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public localityput(id: number, data: any): Observable<any> {
+    const url = this.API_URL + environment.locality + `/${id}`;
+    console.log(url)
+    return this.http.put<any>(url, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public localitydelete(id: number): Observable<any> {
+    const url = this.API_URL + environment.locality + `/${id}`;
+    console.log(url)
+    return this.http.delete<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+
+  
 }
+
 function observableThrowError(error: any): any {
   throw new Error('Function not implemented.');
 }

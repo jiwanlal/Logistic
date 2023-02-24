@@ -10,7 +10,8 @@ import { LocationService } from '../location.service';
   styleUrls: ['./zone.component.sass']
 })
 export class ZoneComponent implements OnInit, OnChanges {
-  public Titlename="Zone List"
+  public Titlename="Zone"
+  public selectoption="Country"
   @ViewChild(LactiontableComponent) child
    public coutrydataobject:any = new zonedatamodal()
    public inload=false
@@ -25,8 +26,7 @@ export class ZoneComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
-    //this.addItem(changes)
+   
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
@@ -54,18 +54,11 @@ export class ZoneComponent implements OnInit, OnChanges {
   }
   
   updateRowData(row_obj){
-    // this.dataForTable= this.dataForTable.filter((value,key)=>{
-    //   if(value.country_id== row_obj.country_id){
-    //     value.zone_name = row_obj.title;
-    //     console.log( this.dataForTable)
-     
-    let itemvalue={
-                 // country_id:row_obj.country_id,
+  let itemvalue={
                   zone_name:row_obj.title,
                   country_id:row_obj.country_id
-
                   }
-      this.zonelistservice.zoneput(row_obj.zone_id,itemvalue).subscribe(res=>{
+      this.zonelistservice.zoneput(row_obj.Id,itemvalue).subscribe(res=>{
         console.log(res)
         this.showNotification(
           "black",
@@ -77,16 +70,10 @@ export class ZoneComponent implements OnInit, OnChanges {
       })
      
     }
-     // return true;
-   // });
+  
   
   addRowData(row_obj){
-   // var d = new Date();
-  //  this.dataForTable.push({
-  //     id:row_obj.id,
-  //     zone_name:row_obj.title
-  //   });
-    let itemvalue={
+  let itemvalue={
       zone_name:row_obj.title,
       country_id:row_obj.country_id
     }
@@ -101,20 +88,13 @@ export class ZoneComponent implements OnInit, OnChanges {
         this.Onzonelist()
       })
     console.log(this.dataForTable)
-   
-   // this.table.renderRows();
     
   }
   deleteRowData(row_obj){
-    console.log(row_obj)
-  //   this.tabledata = this.tabledata.filter((value,key)=>{
-  //     return value.id != row_obj.id;
-  //   });
- 
-    this.zonelistservice.zonedelete(row_obj.zone_id).subscribe(res=>{
+  this.zonelistservice.zonedelete(row_obj.Id).subscribe(res=>{
     this.showNotification(
       "snackbar-danger",
-      row_obj.zone_name+ " Record Delete Successfully...!!!",
+          row_obj.Name+ " Record Delete Successfully...!!!",
       "top",
       "right"
     );
@@ -133,44 +113,30 @@ export class ZoneComponent implements OnInit, OnChanges {
    
         let tableColNamesFromAPI=[]
           let tableColNamesWithSpace={}
-        if(this.coutrydataobject.data.length>0){
-              let i=0
+        if(this.coutrydataobject.data.values){
+           
               let Actions=['Edit','Delete']
               let actionIcon=['edit','delete']
-              this.coutrydataobject.data.forEach(element => {
-               
-                element.id=i+1
-                element.zone_name=element.zone_name==null?'':element.zone_name.charAt(0).toUpperCase()+ element.zone_name.slice(1)
-                element.Actions=Actions
-                element.actionIcon=actionIcon
-                element.popupForm='zoneDailog'
-                
-                i+=1
-               
-              })
+              this.coutrydataobject.data.values.forEach(element => {
+               element.popupForm='zoneDailog'
+               })
       
-                tableColNamesFromAPI=Object.keys(this.coutrydataobject.data[0])
+                tableColNamesFromAPI=Object.keys(this.coutrydataobject.data.values[0])
                 for(let i=0;i<tableColNamesFromAPI.length;i++){
                   tableColNamesWithSpace[tableColNamesFromAPI[i]] = this.insertSpaces(tableColNamesFromAPI[i])
                 }
                 this.countryheader=tableColNamesWithSpace
-                this.countryheader.id='ID'
-                //changed from Ui need cahnge col name fron Db
-                this.countryheader.zone_name='Zone Name'
-                this.countryheader.country_name='Country Name'
-                delete this.countryheader.actionIcon
+                this.countryheader.Name=this.Titlename+' '+ this.countryheader.Name
+                delete this.countryheader.actionIcons
                 delete this.countryheader.popupForm
                 delete this.countryheader.is_visible
-                              
-                delete this.countryheader.country_id
-                delete this.countryheader.zone_id
-                //delete this.countryheader.id
-                this.dataForTable= this.coutrydataobject.data
-                console.log(this.coutrydataobject.data, this.countryheader)
+                delete this.countryheader.Id
+                this.dataForTable= this.coutrydataobject.data.values
+                console.log(this.coutrydataobject.data.values, this.countryheader)
                 
         }
         this.OnCountrylist()
-        this.inload=true
+       
         }
   
     })
@@ -178,16 +144,19 @@ export class ZoneComponent implements OnInit, OnChanges {
 OnCountrylist(){
   
   this.zonelistservice.contrylist().subscribe(res=>{
-   
-    
     this.dropdowndata=res
     if(this.dropdowndata.success==true){
-      this.selectboxdata=this.dropdowndata.data
-     
-      console.log(res,this.selectboxdata)
+      this.selectboxdata = this.dropdowndata.data.values
+      // this.selectboxdata = this.dropdowndata.data.values.map(item => {
+      //   return {
+      //     Name: item.Name,
+      //     Id: item.Id
+      //   };
+      // });
+   
     }
    
-    
+    this.inload=true
 
   })
 }

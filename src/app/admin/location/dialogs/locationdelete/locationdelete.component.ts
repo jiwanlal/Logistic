@@ -20,46 +20,17 @@ ngOnInit(): void {
   console.log(this.data.tabledatadeatils.popupForm)
   }
 
-onSubmit(item,id){
- console.log(id)
- if(this.data.tabledatadeatils.popupForm=='countryDailog'){
-  let sumiteddata={
-    action:item,
-    itemsumbited:{
-        country_id:this.data.tabledatadeatils.country_id,
-        country_name:this.data.tabledatadeatils.country_name
-
-      }
-  }
-  this.dialogRef.close(sumiteddata)
- }
- if(this.data.tabledatadeatils.popupForm=='zoneDailog'){
-  let sumiteddata={
-    action:item,
-    itemsumbited:{
-        zone_id:this.data.tabledatadeatils.zone_id,
-        zone_name:this.data.tabledatadeatils.zone_name
-
-      }
-  }
-  this.dialogRef.close(sumiteddata)
- }
- if(this.data.tabledatadeatils.popupForm=='regionDailog'){
-  let sumiteddata={
-    action:item,
-    itemsumbited:{
-        zone_id:this.data.tabledatadeatils.region_id,
-        zone_name:this.data.tabledatadeatils.region_name
-
-      }
-  }
-  this.dialogRef.close(sumiteddata)
- }
+onSubmit(item,Id){
  
+  let sumiteddata={
+    action:item,
+    itemsumbited:{
+        Id:Id,
+        Name:this.data.tabledatadeatils.Name
 
-
-  
-
+      }
+  }
+  this.dialogRef.close(sumiteddata)
 }
 
 

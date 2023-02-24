@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CityComponent } from './city/city.component';
 import { CountryComponent } from './country/country.component';
 import { LocalityComponent } from './locality/locality.component';
 import { PostalcodeComponent } from './postalcode/postalcode.component';
@@ -24,7 +25,7 @@ const routes: Routes = [
     path: 'state', component:StateComponent
   },
   {
-    path: 'city', component:StateComponent
+    path: 'city', component:CityComponent
   },
   {
     path: 'postalcode', component:PostalcodeComponent

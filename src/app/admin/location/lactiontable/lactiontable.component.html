@@ -1,6 +1,6 @@
-<section class="content">
+<section class="content ">
     <div class="content-block">
-      <div class="block-header">
+      <div class="block-header mt-3">
         <!-- breadcrumb -->
         <!-- <app-breadcrumb [title]="'Ambulance List'" [items]="['Ambulance']" [active_item]="'List'">
         </app-breadcrumb> -->
@@ -42,15 +42,15 @@
                 <mat-table  matTableExporter [dataSource]="datasource" matSort class="mat-cell">
                
                   <ng-container  [matColumnDef]="column" *ngFor="let column of  objectKeys(tableheader)" >
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{tableheader[column]}}</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{tableheader[column]|titlecase}}</mat-header-cell>
                     <mat-cell *matCellDef="let row">
                       <div *ngIf="isArray(row[column]); else elseBlock " class="d-flex">
                         <div *ngFor="let action of row[column];let i = index" >
-                          <button *ngIf="row.Actions[i]=='Edit'" mat-icon-button (click)="Opendailogbox(row,action)">
+                          <button *ngIf="row.actions[i]=='Edit'" mat-icon-button (click)="Opendailogbox(row,action)">
                             <!-- <mat-icon>{{row.actionIcon[i]}}</mat-icon> -->
                             <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                           </button>
-                          <button *ngIf="row.Actions[i]=='Delete'" mat-icon-button (click)="Ondelete(row,action)">
+                          <button *ngIf="row.actions[i]=='Delete'" mat-icon-button (click)="Ondelete(row,action)">
                             <!-- <mat-icon>{{row.actionIcon[i]}}</mat-icon> -->
                             <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
                            

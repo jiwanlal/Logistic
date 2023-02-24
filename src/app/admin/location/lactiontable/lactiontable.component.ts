@@ -3,8 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
-import { coutryattribute } from '../country/location.modal';
 import { LocationdeleteComponent } from '../dialogs/locationdelete/locationdelete.component';
 import { LocationdialogComponent } from '../dialogs/locationdialog/locationdialog.component';
 import { LocationService } from '../location.service';
@@ -21,6 +19,7 @@ export class LactiontableComponent implements OnInit, AfterViewInit
   @Input()Titlename:string
   @Input()pagename:string
   @Input()selectboxdata:any
+  @Input()Joinwith:string
  
   @Output() dataChange = new EventEmitter();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -30,7 +29,7 @@ export class LactiontableComponent implements OnInit, AfterViewInit
   
   public keyword:string
   public datasource
-  public countrylist
+  public dropdownlist
  
   constructor(public dialog: MatDialog,public contrylistservice:LocationService){ }
  
@@ -40,8 +39,11 @@ export class LactiontableComponent implements OnInit, AfterViewInit
     setTimeout(() => {
       this.pagename=this.pagename
       console.log(this.pagename)
-      this.countrylist=this.selectboxdata
+      this.dropdownlist=this.selectboxdata
+      console.log(this.dropdownlist,this.selectboxdata)
     })
+   
+   // console.log( Object.keys(this.tabledata))
   
     // if(this.pagename=='zone')
     // {
@@ -58,6 +60,8 @@ export class LactiontableComponent implements OnInit, AfterViewInit
     this.datasource.paginator = this.paginator;
   }
   isArray(obj : any ) {
+    
+    //console.log(obj)
    
     return Array.isArray(obj)
   }
@@ -66,31 +70,16 @@ export class LactiontableComponent implements OnInit, AfterViewInit
   
 
     public  Opendailogbox(actionName,popupForm) {
-         var item={}
-      if(actionName.popupForm=='countryDailog'){
-        item ={
+       actionName =   this.isArray(actionName)?actionName[0]: actionName;
+
+      const dialogRef=this.dialog.open(LocationdialogComponent, {
+       data:{
           actionName:popupForm,
           tabledatadeatils:actionName,
-          countrylist:[]
+          list:actionName.popupForm!='countryDailog'?this.selectboxdata:[],
+          dropdownname:this.Joinwith
           
-        }
-    }
-    if(actionName.popupForm=='zoneDailog' || actionName.popupForm=='regionDailog'){
-       item ={
-        actionName:popupForm,
-        tabledatadeatils:actionName,
-        countrylist:this.selectboxdata,
-        
-      }
-    }
-
-      console.log(this.countrylist)
-      
-      actionName =   this.isArray(actionName)?actionName[0]: actionName;
-
-  const dialogRef=this.dialog.open(LocationdialogComponent, {
-   
-        data:item,
+        },
         minWidth:'400px'
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -124,7 +113,8 @@ export class LactiontableComponent implements OnInit, AfterViewInit
     const dialogRef=this.dialog.open(LocationdeleteComponent, {
      
           data: { actionName:popupForm,
-            tabledatadeatils:actionName
+            tabledatadeatils:actionName,
+            
           },
           minWidth:'400px'
         });
@@ -148,8 +138,9 @@ export class LactiontableComponent implements OnInit, AfterViewInit
           data: {
             actionName:value,
             tabledatadeatils:'',
-            countrylist:this.selectboxdata,
-            popupform:item
+            list:this.selectboxdata,
+            popupForm:item,
+            dropdownname:this.Joinwith
             
           },
           minWidth:'400px'

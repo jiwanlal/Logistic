@@ -10,7 +10,8 @@ import { LocationService } from '../location.service';
   styleUrls: ['./region.component.sass']
 })
 export class RegionComponent implements OnInit, OnChanges {
-  public Titlename="Region List"
+  public Titlename="Region"
+  public selectoption="Zone"
   @ViewChild(LactiontableComponent) child
    public coutrydataobject:any = new regionmodal()
    public inload=false
@@ -66,7 +67,7 @@ export class RegionComponent implements OnInit, OnChanges {
                   zone_id:row_obj.zone_id
 
                   }
-      this.regionservice.regionput(row_obj.region_id,itemvalue).subscribe(res=>{
+      this.regionservice.regionput(row_obj.Id,itemvalue).subscribe(res=>{
         console.log(res)
         this.showNotification(
           "black",
@@ -113,10 +114,10 @@ export class RegionComponent implements OnInit, OnChanges {
   //     return value.id != row_obj.id;
   //   });
  
-    this.regionservice.regiondelete(row_obj.region_id).subscribe(res=>{
+    this.regionservice.regiondelete(row_obj.Id).subscribe(res=>{
     this.showNotification(
       "snackbar-danger",
-      row_obj.region_name+ " Record Delete Successfully...!!!",
+      row_obj.Name + " Record Delete Successfully...!!!",
       "top",
       "right"
     );
@@ -127,50 +128,42 @@ export class RegionComponent implements OnInit, OnChanges {
   Onregionlist(){
     this.inload=false
     this.regionservice.regionlist().subscribe(res=>{
-      console.log(res)
-      this.coutrydataobject=res
      
+      this.coutrydataobject=res
       if(this.coutrydataobject.success==true){
         
    
         let tableColNamesFromAPI=[]
           let tableColNamesWithSpace={}
-        if(this.coutrydataobject.data.length>0){
-              let i=0
-              let Actions=['Edit','Delete']
-              let actionIcon=['edit','delete']
-              this.coutrydataobject.data.forEach(element => {
+        if(this.coutrydataobject.data.values){
+            
+              this.coutrydataobject.data.values.forEach(element => {
                
-                element.id=i+1
-                element.region_name=element.region_name==null?'':element.region_name.charAt(0).toUpperCase()+ element.region_name.slice(1)
-                element.Actions=Actions
-                element.actionIcon=actionIcon
+              //  element.region_name=element.region_name==null?'':element.region_name.charAt(0).toUpperCase()+ element.region_name.slice(1)
+             
                 element.popupForm=this.pagename
-                
-                i+=1
+               
                
               })
       
-                tableColNamesFromAPI=Object.keys(this.coutrydataobject.data[0])
+                tableColNamesFromAPI=Object.keys(this.coutrydataobject.data.values[0])
                 for(let i=0;i<tableColNamesFromAPI.length;i++){
                   tableColNamesWithSpace[tableColNamesFromAPI[i]] = this.insertSpaces(tableColNamesFromAPI[i])
                 }
                 this.countryheader=tableColNamesWithSpace
-                this.countryheader.id='ID'
-                //changed from Ui need cahnge col name fron Db
-                this.countryheader.region_name='Zone Name'
-                this.countryheader.zone_name='Region Name'
-                delete this.countryheader.actionIcon
+                
+                this.countryheader.Name=this.Titlename+' '+this.countryheader.Name
                 delete this.countryheader.popupForm
                 delete this.countryheader.is_visible
                 delete this.countryheader.zone_id
-                //delete this.countryheader.id
-                this.dataForTable= this.coutrydataobject.data
+                delete this.countryheader.Id
+                delete this.countryheader.actionIcons
+                this.dataForTable= this.coutrydataobject.data.values
                 console.log(this.coutrydataobject.data, this.countryheader)
                 
         }
         this.Onzonelist()
-        this.inload=true
+        
         }
   
     })
@@ -179,9 +172,19 @@ Onzonelist(){
   
   this.regionservice.zonelist().subscribe(res=>{
    this.dropdowndata=res
+   console.log(res)
     if(this.dropdowndata.success==true){
-      this.selectboxdata=this.dropdowndata.data
+      this.selectboxdata=this.dropdowndata.data.values
+      // this.selectboxdata = this.dropdowndata.data.values.map(item => {
+      //   return {
+      //     Name: item.Name,
+      //     Id: item.Id
+      //   };
+      // });
+      // console.log(this.selectboxdata)
+      
     }
+    this.inload=true
    })
 }
 insertSpaces(string) {

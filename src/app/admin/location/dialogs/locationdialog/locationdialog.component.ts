@@ -17,7 +17,9 @@ console.log(data)
 this.dialogtitle=data.actionName
 }
 ngOnInit(): void {
+  
   this.formdata = this.formBuilder.group({
+    
     CommonName:['',[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
     commonselect:[null,[Validators.required]]
   
@@ -31,24 +33,57 @@ ngOnInit(): void {
       this.formdata.get('commonselect').clearValidators();
       this.formdata.get('commonselect').updateValueAndValidity();
       this.formdata = this.formBuilder.group({
-        CommonName:[this.data.tabledatadeatils.country_name],
+        CommonName:[this.data.tabledatadeatils.Name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
         commonselect:['']
        })
        
 
+
     }
     if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.popupForm=='zoneDailog' ){
       this.formdata = this.formBuilder.group({
-        CommonName:[this.data.tabledatadeatils.zone_name],
-        commonselect:[this.data.tabledatadeatils.country_id]
+        CommonName:[this.data.tabledatadeatils.Name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
+        commonselect:[this.data.tabledatadeatils.CountryId]
       
         })
 
     }
     if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.popupForm=='regionDailog' ){
       this.formdata = this.formBuilder.group({
-        CommonName:[this.data.tabledatadeatils.region_name],
-        commonselect:[this.data.tabledatadeatils.zone_id]
+        CommonName:[this.data.tabledatadeatils.Name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
+        commonselect:[this.data.tabledatadeatils.ZoneId]
+      
+        })
+
+    }
+    if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.popupForm=='stateDailog' ){
+      this.formdata = this.formBuilder.group({
+        CommonName:[this.data.tabledatadeatils.Name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
+        commonselect:[this.data.tabledatadeatils.RegionId]
+      
+        })
+
+    }
+    if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.popupForm=='cityDailog' ){
+      this.formdata = this.formBuilder.group({
+        CommonName:[this.data.tabledatadeatils.Name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
+        commonselect:[this.data.tabledatadeatils.StateId]
+      
+        })
+
+    }
+    if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.popupForm=='postcodeDailog' ){
+      this.formdata = this.formBuilder.group({
+        CommonName:[this.data.tabledatadeatils.Name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
+        commonselect:[this.data.tabledatadeatils.CityId]
+      
+        })
+
+    }
+    if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.popupForm=='localityDailog' ){
+      this.formdata = this.formBuilder.group({
+        CommonName:[this.data.tabledatadeatils.Name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
+        commonselect:[this.data.tabledatadeatils.PostCodeId]
       
         })
 
@@ -67,38 +102,108 @@ onSubmit(item){
 
   // }
   else{
-    if(this.data.popupform=='countryDailog' || this.data.tabledatadeatils.popupForm =='countryDailog'){
+    if(this.data.popupForm=='countryDailog' || this.data.tabledatadeatils.popupForm =='countryDailog'){
       let sumiteddata={
         action:item,
         itemsumbited:{
-          country_id:this.data.tabledatadeatils.country_id,
-          title:this.formdata.controls['CommonName'].value,
+          Id:this.data.tabledatadeatils.Id,
+          title:this.formdata.controls['CommonName'].value.trim(),
       
         }
       }
       this.dialogRef.close(sumiteddata)
 
     }
-    if(this.data.popupform=='zoneDailog' || this.data.tabledatadeatils.popupForm=='zoneDailog'){
+    if(this.data.popupForm=='zoneDailog' || this.data.tabledatadeatils.popupForm=='zoneDailog'){
       let sumiteddata={
         action:item,
         itemsumbited:{
-          zone_id:this.data.tabledatadeatils.zone_id,
+          Id:this.data.tabledatadeatils.Id,
           country_id:this.formdata.controls['commonselect'].value,
-          title:this.formdata.controls['CommonName'].value,
+          title:this.formdata.controls['CommonName'].value.trim(),
       
         }
       }
       this.dialogRef.close(sumiteddata)
 
     }
-    if(this.data.popupform=='regionDailog' || this.data.tabledatadeatils.popupForm=='regionDailog'){
+    if(this.data.popupForm=='regionDailog' || this.data.tabledatadeatils.popupForm=='regionDailog'){
       let sumiteddata={
         action:item,
         itemsumbited:{
+         Id:this.data.tabledatadeatils.Id,
+          title:this.formdata.controls['CommonName'].value.trim(),
+          zone_id:this.formdata.controls['commonselect'].value,
+         
+      
+        }
+      }
+      this.dialogRef.close(sumiteddata)
+
+    }
+    if(this.data.popupForm=='stateDailog' || this.data.tabledatadeatils.popupForm=='stateDailog'){
+      let sumiteddata={
+        action:item,
+        itemsumbited:{
+          Id:this.data.tabledatadeatils.Id,
+          title:this.formdata.controls['CommonName'].value.trim(),
           region_id:this.formdata.controls['commonselect'].value,
-          title:this.formdata.controls['CommonName'].value,
-          zone_id:this.data.tabledatadeatils.zone_id,
+         
+      
+        }
+      }
+      this.dialogRef.close(sumiteddata)
+
+    }
+    if(this.data.popupForm=='cityDailog' || this.data.tabledatadeatils.popupForm=='cityDailog'){
+      let sumiteddata={
+        action:item,
+        itemsumbited:{
+          Id:this.data.tabledatadeatils.Id,
+          title:this.formdata.controls['CommonName'].value.trim(),
+          state_id:this.formdata.controls['commonselect'].value,
+         
+      
+        }
+      }
+      this.dialogRef.close(sumiteddata)
+
+    }
+    if(this.data.popupForm=='postcodeDailog' || this.data.tabledatadeatils.popupForm=='postcodeDailog'){
+      let sumiteddata={
+        action:item,
+        itemsumbited:{
+          Id:this.data.tabledatadeatils.Id,
+          title:this.formdata.controls['CommonName'].value.trim(),
+          city_id:this.formdata.controls['commonselect'].value,
+         
+      
+        }
+      }
+      this.dialogRef.close(sumiteddata)
+
+    }
+    if(this.data.popupForm=='postcodeDailog' || this.data.tabledatadeatils.popupForm=='postcodeDailog'){
+      let sumiteddata={
+        action:item,
+        itemsumbited:{
+          Id:this.data.tabledatadeatils.Id,
+          title:this.formdata.controls['CommonName'].value.trim(),
+          city_id:this.formdata.controls['commonselect'].value,
+         
+      
+        }
+      }
+      this.dialogRef.close(sumiteddata)
+
+    }
+    if(this.data.popupForm=='localityDailog' || this.data.tabledatadeatils.popupForm=='localityDailog'){
+      let sumiteddata={
+        action:item,
+        itemsumbited:{
+          Id:this.data.tabledatadeatils.Id,
+          title:this.formdata.controls['CommonName'].value.trim(),
+          post_code_id:this.formdata.controls['commonselect'].value,
          
       
         }

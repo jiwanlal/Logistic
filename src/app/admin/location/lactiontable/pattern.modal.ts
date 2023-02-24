@@ -1,6 +1,6 @@
 
 export class custompattern{
-public onlyalph='[a-zA-Z_ ]+'
+public onlyalph=/^$|.*\S+.*/
 //public onlyalph='[a-z A-Z]+'
 
 }

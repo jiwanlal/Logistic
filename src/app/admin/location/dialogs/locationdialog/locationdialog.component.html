@@ -16,12 +16,21 @@
     <form class="register-form m-4" [formGroup]="formdata">
       <div class="row" *ngIf="data.popupForm!='countryDailog' && data.tabledatadeatils.popupForm!='countryDailog'">
         <div class="col-md-12 col-sm-12 mb-2">
-          <mat-form-field   class="example-full-width" appearance="fill">
-            <mat-label>Select</mat-label>
+         
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Select {{data.dropdownname}}</mat-label>
             <mat-select formControlName="commonselect" (change)="change($event)">
-              <mat-option  *ngFor="let options of data.countrylist " [value]="options.country_id">{{options.country_name}}</mat-option>
+              <mat-option *ngFor="let item of data.list" [value]="item.Id">
+                {{ item.Name }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
+          <!-- <mat-form-field   class="example-full-width" appearance="fill">
+            <mat-label>Select</mat-label>
+            <mat-select formControlName="commonselect" (change)="change($event)">
+              <mat-option  *ngFor="let options of data.countrylist" [value]="options">{{options.country_name}}</mat-option>
+            </mat-select>
+          </mat-form-field> -->
         </div>
     </div>
       <div class="row">
