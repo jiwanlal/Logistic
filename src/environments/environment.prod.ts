@@ -9,6 +9,7 @@ export const environment = {
   state:'places/state',
   city:'places/city',
   postcode:'places/postcode',
-  locality:'places/locality'
+  locality:'places/locality',
+  users:'users/role'
   
 };

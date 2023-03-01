@@ -10,7 +10,7 @@
 "role": ["Admin"],
 "submenu":[]
 },
-{"path": "/admin/dashboard",
+{"path": "/admin/location",
 "title": "Location",
 "iconType": "material-icons-two-tone",
 "icon": "location_on",
@@ -20,7 +20,7 @@
 "badgeClass": "",
 "role": ["Admin"],
 "submenu": [{
-    "path": "/admin/location",
+    "path": "/admin/location/country",
     "title": "Country",
     "iconType": "",
     "icon": "",
@@ -115,7 +115,7 @@
 "role": ["Admin"],
 "submenu":[ {
   "path": "/admin/users/role",
-  "title": "Locality",
+  "title": "Role",
   "iconType": "",
   "icon": "",
   "class": "ml-menu",
@@ -143,13 +143,13 @@
 "title": "Businesses",
 "iconType": "material-icons-two-tone",
 "icon": "space_dashboard",
-"class": "",
+"class": "menu-toggle",
 "groupTitle": false,
 "badge": "",
 "badgeClass": "",
 "role": ["Admin"],
 "submenu":[ {
-  "path": "/admin/businesses/business",
+  "path": "/admin/businesses/businesses-type",
   "title": "Business",
   "iconType": "",
   "icon": "",
@@ -161,7 +161,7 @@
   "submenu": []
 },
 {
-  "path": "/admin/businesses/branch",
+  "path": "/admin/businesses/branch-type",
   "title": "Branch",
   "iconType": "",
   "icon": "",

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CountryComponent } from './country/country.component';
-import { LocationdeleteComponent } from './dialogs/locationdelete/locationdelete.component';
-import { LocationdialogComponent } from './dialogs/locationdialog/locationdialog.component';
 import { LoctionRoutingModule } from './location-routing.module';
 import { LactiontableComponent } from './lactiontable/lactiontable.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +28,10 @@ import { CityComponent } from './city/city.component';
 import { PostalcodeComponent } from './postalcode/postalcode.component';
 import { LocalityComponent } from './locality/locality.component';
 import { LocationService } from './location.service';
+import { LocationdeleteComponent } from './dialogs/locationdelete/locationdelete.component';
+import { LocationdialogComponent} from './dialogs/locationdialog/locationdialog.component';
+import { DatatableModule } from '../common/datatable.module';
+
 
 
 
@@ -45,6 +47,7 @@ import { LocationService } from './location.service';
     CityComponent,
     PostalcodeComponent,
     LocalityComponent,
+    
   ],
   imports: [CommonModule,
     LoctionRoutingModule,
@@ -67,10 +70,11 @@ import { LocationService } from './location.service';
     MatTabsModule,
     MatTooltipModule,
     ComponentsModule,
-    SharedModule 
+    SharedModule,
+    DatatableModule
    
   ],
   providers:[ LocationService],
-  entryComponents:[LocationdialogComponent,LocationdeleteComponent]
+  entryComponents:[LocationdeleteComponent,LocationdialogComponent]
 })
 export class LocationModule { }

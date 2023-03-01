@@ -1,29 +1,39 @@
 import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { statemodal } from '../country/location.modal';
+import { statemodal } from '../location.modal';
 import { LactiontableComponent } from '../lactiontable/lactiontable.component';
 import { LocationService } from '../location.service';
+import { DatatableComponent } from '../../common/datatable/datatable.component';
+import { LocationdialogComponent } from '../dialogs/locationdialog/locationdialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { LocationdeleteComponent } from '../dialogs/locationdelete/locationdelete.component';
 
 @Component({
   selector: 'app-city',
   templateUrl: './city.component.html',
-  styleUrls: ['./city.component.sass']
+  styleUrls: ['./city.component.sass'],
+ // providers:[DatatableComponent]
 })
 export class CityComponent implements OnInit, OnChanges {
   public Titlename:string="City"
   public selectoption:string="State"
-  @ViewChild(LactiontableComponent) child
+  //@ViewChild(LactiontableComponent) child;
+ // @ViewChild(DatatableComponent) child:any
    public coutrydataobject:any = new statemodal()
+   public pagename='cityDailog'
    public inload=false
    public countryheader
    public dataForTable
    public dropdowndata
    public selectboxdata
-   public pagename='cityDailog'
-    constructor(public cityservice:LocationService,private snackBar: MatSnackBar){ }
+   public AddAction={actionName:'Add',popupForm:this.pagename}
+  
+   
+    constructor(public cityservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
   ngOnInit(): void {
    
     this.OnCitylist()
+    this.Onstatelist()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -39,20 +49,77 @@ export class CityComponent implements OnInit, OnChanges {
     });
   }
   addItem(event){
-  console.log(event.itemsumbited
-    )
-  if(event.action=='Edit'){
-    console.log(event)
-    this.updateRowData(event.itemsumbited)
+  console.log(event)
+  if(event.popupForm=='Edit'||event.popupForm=='Add')
+  {
+    console.log(event) 
+    this.OpenDialog(event)
   }
-  if(event.action=='Add'){
-  this.addRowData(event.itemsumbited)
+  else{
+    this.Ondelete(event)
   }
-  if(event.action=='Delete'){
-    console.log(event)
-    this.deleteRowData(event.itemsumbited)
+ }
+ 
+
+  OpenDialog(event){
+    var dialogdata:any
+    if(event.popupForm=='Edit'){
+      dialogdata={
+        actionName:event.popupForm,
+        tabledatadeatils:event.actionName,
+        list:this.selectboxdata,
+        dropdownname:this.selectoption
+        
+      }
     }
+    else if(event.popupForm=='Add'){
+      dialogdata= {
+        actionName:event.popupForm,
+        tabledatadeatils:'',
+        list:this.selectboxdata,
+        popupForm:this.pagename,
+        dropdownname:this.selectoption
+        
+      }
+    }
+
+    const dialogRef=this.dialog.open(LocationdialogComponent, {
+      data:dialogdata,
+       minWidth:'400px'
+     });
+     dialogRef.afterClosed().subscribe(result => {
+       console.log('The dialog was closed',result);
+       if(result.action=='Edit'){
+         console.log(result)
+         this.updateRowData(result.itemsumbited)
+        // this.dataChange.emit(result);
+       }
+       else if(result.action=='Add'){
+        this.addRowData(result.itemsumbited)
+       }
+      
+     });
+  }
+  Ondelete(event){
   
+    const dialogRef=this.dialog.open(LocationdeleteComponent, {
+     
+          data: { actionName:event.popupForm,
+            tabledatadeatils:event.actionName,
+            
+          },
+          minWidth:'400px'
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed',result);
+          if(result.action=='Delete'){
+            console.log(result)
+            this.deleteRowData(result.itemsumbited);
+           }
+         
+        });
+   
+
   }
   
   updateRowData(row_obj){
@@ -108,12 +175,10 @@ export class CityComponent implements OnInit, OnChanges {
    // this.table.renderRows();
     
   }
+ 
   deleteRowData(row_obj){
     console.log(row_obj)
-  //   this.tabledata = this.tabledata.filter((value,key)=>{
-  //     return value.id != row_obj.id;
-  //   });
- 
+
     this.cityservice.citydelete(row_obj.Id).subscribe(res=>{
     this.showNotification(
       "snackbar-danger",
@@ -163,7 +228,7 @@ export class CityComponent implements OnInit, OnChanges {
                 console.log(this.coutrydataobject.data, this.countryheader)
                 
         }
-        this.Onstatelist()
+        this.inload=true
        
         }
   
@@ -186,7 +251,7 @@ Onstatelist(){
     //  this.dropdowndata=res
       
     }
-    this.inload=true
+    
    })
 }
 insertSpaces(string) {
