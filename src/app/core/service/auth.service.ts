@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { User } from '../models/user';
 import { environment } from 'src/environments/environment';
+import { userdeatils } from 'src/app/authentication/signin/signin.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  public configUrl = environment.apiUrl+environment.companies;
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -23,7 +25,7 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  login(username: string, password: string) {
+  login(company_id:number,username: string, password: string) {
     return this.http
       .post<any>(`${environment.apiUrl}/authenticate`, {
         username,
@@ -39,6 +41,13 @@ export class AuthService {
         })
       );
   }
+  getUserList(){
+    return this.http.get(this.configUrl).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return observableThrowError(error.error);
+      })
+    );
+  }
 
   logout() {
     // remove user from local storage to log user out
@@ -47,3 +56,7 @@ export class AuthService {
     return of({ success: false });
   }
 }
+function observableThrowError(error: any): any {
+  throw new Error('Function not implemented.');
+}
+

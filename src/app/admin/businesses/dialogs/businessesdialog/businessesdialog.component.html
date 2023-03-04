@@ -14,10 +14,11 @@
       </div>
       <div mat-dialog-content>
         <form class="register-form m-4" [formGroup]="formdata">
+       
           <div class="row">
             <div class="col-md-12 col-sm-12 mb-2">
               <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Name</mat-label>
+                <mat-label>name</mat-label>
                 <input matInput formControlName="CommonName">
                 <!-- <mat-icon matSuffix>face</mat-icon> -->
                 <mat-error *ngIf="formdata.get('CommonName').hasError('required')">
@@ -26,28 +27,6 @@
               </mat-form-field>
             </div>
         </div>
-        <div>
-          <div class="row" *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog'">
-            <div class="col-md-12 col-sm-12 mb-2">
-             
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Select {{data.dropdownname}}</mat-label>
-                <mat-select formControlName="countryselect" (change)="change($event)">
-                  <mat-option *ngFor="let item of data.tabledatadeatils.countrylist" [value]="item.Id">
-                    {{ item.Name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <!-- <mat-form-field   class="example-full-width" appearance="fill">
-                <mat-label>Select</mat-label>
-                <mat-select formControlName="commonselect" (change)="change($event)">
-                  <mat-option  *ngFor="let options of data.countrylist" [value]="options">{{options.country_name}}</mat-option>
-                </mat-select>
-              </mat-form-field> -->
-            </div>
-        </div>
-      </div>
-         
         <div class="row">
             <div class="col-md-12 col-sm-12 mb-2">
               <mat-form-field class="example-full-width" appearance="outline">
@@ -66,7 +45,7 @@
              
               <div class="example-button-row">
                 <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid"
-                  [mat-dialog-close]="1" (click)="onSubmit(data.actionName,this.data.tabledatadeatils.id)">Save</button>
+                  [mat-dialog-close]="1" (click)="onSubmit(data.actionName,data.tabledatadeatils.id)">Save</button>
                 <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
               </div>
             </div>

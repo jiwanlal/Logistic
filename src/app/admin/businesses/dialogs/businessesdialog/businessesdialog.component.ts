@@ -4,15 +4,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { custompattern } from 'src/app/admin/pattern.modal';
 
 @Component({
-  selector: 'app-usersdialog',
-  templateUrl: './usersdialog.component.html',
-  styleUrls: ['./usersdialog.component.sass']
+  selector: 'app-businessesdialog',
+  templateUrl: './businessesdialog.component.html',
+  styleUrls: ['./businessesdialog.component.sass']
 })
-export class UsersdialogComponent implements OnInit {
+export class BusinessesdialogComponent implements OnInit {
   public formdata:any=FormGroup
   public Onlyalphabets=new custompattern()
   public dialogtitle:string
-constructor(public dialogRef: MatDialogRef<UsersdialogComponent>,@Inject(MAT_DIALOG_DATA) public data,private formBuilder: FormBuilder){
+constructor(public dialogRef: MatDialogRef<BusinessesdialogComponent>,@Inject(MAT_DIALOG_DATA) public data,private formBuilder: FormBuilder){
 console.log(data)
 this.dialogtitle=data.actionName
 }
@@ -21,24 +21,13 @@ ngOnInit(): void {
 
   this.formdata = this.formBuilder.group({
     CommonName:['',[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
-    lastName:[''],
-    countryselect:[''],
-    stateselect:[''],
-    cityselect:[''],
-    postcodeselect:[''],
-    address:[''],
-    roleselect:[''],
     description:['']
   
     })
-    if(this.data.tabledatadeatils.dailogPage=='userDailog'){
-     this.formdata.get('countryselect').setValidators([Validators.required])
-      this.formdata.get('countryselect').updateValueAndValidity(); 
-    }
+  
 
-    if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.dailogPage=='roleDailog' ){
-      this.formdata.get('countryselect').setValidators([Validators.required])
-      this.formdata.get('countryselect').updateValueAndValidity();
+    if(this.dialogtitle=='Edit'){
+     
       this.formdata = this.formBuilder.group({
         CommonName:[this.data.tabledatadeatils.name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
         description:[this.data.tabledatadeatils.description]

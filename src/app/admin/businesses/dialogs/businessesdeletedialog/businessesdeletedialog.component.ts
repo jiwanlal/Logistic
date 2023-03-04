@@ -4,15 +4,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { custompattern } from 'src/app/admin/pattern.modal';
 
 @Component({
-  selector: 'app-deletedialog',
-  templateUrl: './deletedialog.component.html',
-  styleUrls: ['./deletedialog.component.sass']
+  selector: 'app-businessesdeletedialog',
+  templateUrl: './businessesdeletedialog.component.html',
+  styleUrls: ['./businessesdeletedialog.component.sass']
 })
-export class DeletedialogComponent {
+export class BusinessesdeletedialogComponent {
   public formdata:any=FormGroup
   public Onlyalphabets=new custompattern()
   public dialogtitle:string
-constructor(public dialogRef: MatDialogRef<DeletedialogComponent>,@Inject(MAT_DIALOG_DATA) public data,private formBuilder: FormBuilder){
+constructor(public dialogRef: MatDialogRef<BusinessesdeletedialogComponent>,@Inject(MAT_DIALOG_DATA) public data,private formBuilder: FormBuilder){
 console.log(data)
 
 this.dialogtitle=data.actionName
@@ -26,11 +26,8 @@ onSubmit(item){
  
     let sumiteddata={
       action:this.dialogtitle,
-      itemsumbited:{
       id:item.tabledatadeatils.id,
-      name:item.tabledatadeatils.name
-  
-        }
+      itemsumbited:{name:item.tabledatadeatils.name}
     }
   
    this.dialogRef.close(sumiteddata)

@@ -4,6 +4,10 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms
 import { AuthService } from "src/app/core/service/auth.service";
 import { Role } from "src/app/core/models/role";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+export class userdeatils {
+  success: boolean;
+  data: string;
+}
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -14,6 +18,7 @@ export class SigninComponent
   implements OnInit
 {
   authForm: UntypedFormGroup;
+  public clientDetails:userdeatils
   submitted = false;
   loading = false;
   error = "";
@@ -28,27 +33,25 @@ export class SigninComponent
   }
 
   ngOnInit() {
+    this.authService.getUserList().subscribe(res=>{
+      if(res['success']==true){
+        this.clientDetails=res["data"]
+      }
+      
+    })
+  
     this.authForm = this.formBuilder.group({
-      username: ["admin@hospital.org", Validators.required],
-      password: ["admin@123", Validators.required],
+      companyid:[null, Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
   get f() {
     return this.authForm.controls;
   }
-  adminSet() {
-    this.authForm.get("username").setValue("admin@hospital.org");
-    this.authForm.get("password").setValue("admin@123");
-  }
-  doctorSet() {
-    this.authForm.get("username").setValue("doctor@hospital.org");
-    this.authForm.get("password").setValue("doctor@123");
-  }
-  patientSet() {
-    this.authForm.get("username").setValue("patient@hospital.org");
-    this.authForm.get("password").setValue("patient@123");
-  }
+
   onSubmit() {
+    
     this.submitted = true;
     this.loading = true;
     this.error = "";
@@ -57,7 +60,7 @@ export class SigninComponent
       return;
     } else {
       this.subs.sink = this.authService
-        .login(this.f.username.value, this.f.password.value)
+        .login(this.f.companyid.value,this.f.username.value, this.f.password.value)
         .subscribe(
           (res) => {
             if (res) {

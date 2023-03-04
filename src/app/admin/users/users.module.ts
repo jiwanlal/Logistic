@@ -61,6 +61,10 @@ import { DatatableModule } from '../common/datatable.module';
     ComponentsModule,
     SharedModule, 
     DatatableModule
+  ],
+  entryComponents:[
+    UsersdialogComponent, DeletedialogComponent
   ]
+  
 })
 export class UsersModule { }

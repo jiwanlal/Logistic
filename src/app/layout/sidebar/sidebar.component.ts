@@ -9,7 +9,6 @@ import {
   HostListener,
   OnDestroy,
 } from "@angular/core";
-import { ROUTES } from "./sidebar-items";
 import { AuthService } from "src/app/core/service/auth.service";
 import { Role } from "src/app/core/models/role";
 import { LeftmenulistService } from "src/app/core/service/leftmenulist.service";
@@ -79,8 +78,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.authService.currentUserValue.lastName;
       this.userImg = this.authService.currentUserValue.img;
       this.leftmenuservice.getMenulist().subscribe(res=>{
-        this.sidebarItems=res.data;
         console.log(res.data)
+        this.sidebarItems=res.data;
+       
         // this.sidebarItems = 
         // ROUTES.filter(
         //   (x) => x.role.indexOf(userRole) !== -1 || x.role.indexOf("All") !== -1
@@ -95,18 +95,18 @@ export class SidebarComponent implements OnInit, OnDestroy {
         //   this.userType = Role.Admin;
         // }
       })
-      ROUTES.filter(
-          (x) => x.role.indexOf(userRole) !== -1 || x.role.indexOf("All") !== -1
-        );
-        if (userRole === Role.Admin) {
-          this.userType = Role.Admin;
-        } else if (userRole === Role.Patient) {
-          this.userType = Role.Patient;
-        } else if (userRole === Role.Doctor) {
-          this.userType = Role.Doctor;
-        } else {
-          this.userType = Role.Admin;
-        }
+      // ROUTES.filter(
+      //     (x) => x.role.indexOf(userRole) !== -1 || x.role.indexOf("All") !== -1
+      //   );
+      //   if (userRole === Role.Admin) {
+      //     this.userType = Role.Admin;
+      //   } else if (userRole === Role.Patient) {
+      //     this.userType = Role.Patient;
+      //   } else if (userRole === Role.Doctor) {
+      //     this.userType = Role.Doctor;
+      //   } else {
+      //     this.userType = Role.Admin;
+      //   }
       
      
     }

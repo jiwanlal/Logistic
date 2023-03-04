@@ -11,3 +11,11 @@ export interface RouteInfo {
   role: string[];
   submenu: RouteInfo[];
 }
+// link: string;
+// name: string;
+// icon_type: string;
+// icon_name: string;
+// class: string;
+// group_title: boolean;
+// badge_name: string;
+// badge_class: string;
