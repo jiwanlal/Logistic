@@ -13,22 +13,152 @@
         </button>
       </div>
       <div mat-dialog-content>
-        <form class="register-form m-4" [formGroup]="formdata">
+        <div *ngIf="this.data.tabledatadeatils.dailogPage=='officeDailog' || this.data.tabledatadeatils.popupForm=='officeDailog'
+        ; else othercontent">
+          <form class="register-form m-4" [formGroup]="officeform">
        
+            <div class="row">
+              <div class="col-md-6 col-sm-6 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Office Name</mat-label>
+                  <input matInput formControlName="officename">
+                  <!-- <mat-icon matSuffix>face</mat-icon> -->
+                  <mat-error *ngIf="officeform.get('officename').hasError('required')">
+                    Name is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-6 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Parent Office</mat-label>
+                  <mat-select  formControlName="parentoffice">
+                        <mat-option *ngFor="let item of parentdata" [value]="item.id">{{item.name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="officeform.get('parentoffice').hasError('required')">
+                    Parent Office is required
+                  </mat-error>
+              </mat-form-field>
+               
+              </div>
+          </div>
           <div class="row">
-            <div class="col-md-12 col-sm-12 mb-2">
+            <div class="col-md-6 col-sm-6 mb-2">
               <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>name</mat-label>
-                <input matInput formControlName="CommonName">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
                 <!-- <mat-icon matSuffix>face</mat-icon> -->
-                <mat-error *ngIf="formdata.get('CommonName').hasError('required')">
-                  Name is required
+                <mat-error *ngIf="officeform.get('officename').hasError('required')">
+                Email is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6 col-sm-6 mb-2">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Mobile</mat-label>
+                <input matInput formControlName="mobile">
+                <!-- <mat-icon matSuffix>face</mat-icon> -->
+                <mat-error *ngIf="officeform.get('mobile').hasError('required')">
+                   Mobile is required
                 </mat-error>
               </mat-form-field>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 col-sm-12 mb-2">
+          <div class="col-md-6 col-sm-6 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Telephone</mat-label>
+              <input matInput formControlName="telephone">
+              <!-- <mat-icon matSuffix>face</mat-icon> -->
+             
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 col-sm-6 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Credit Limit</mat-label>
+              <input matInput type="number" formControlName="creditlimit">
+              <!-- <mat-icon matSuffix>face</mat-icon> -->
+             
+            </mat-form-field>
+          </div>
+         
+      </div>
+          <h5>Places</h5>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 mb-2">
+              <mat-form-field class="example-full-width"  appearance="outline">
+                <mat-label>Post Code</mat-label>
+                <mat-select  formControlName="postcode">
+                  <mat-option *ngFor="let option of postcodedata " formControlName="postcode" [value]="option.id">
+                    {{option.postcode_name}}
+                  </mat-option>
+                </mat-select>
+                <!-- <input type="text" matInput  [formControl]="myControl" formControlName="postcode" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"> 
+                  <mat-option *ngFor="let option of postcodedata " formControlName="postcode" value="option.id">
+                    {{option.postcode_name}}
+                  </mat-option>
+              </mat-autocomplete>  -->
+                <mat-error *ngIf="officeform.get('postcode').hasError('required')">
+                  Postcode is required
+               </mat-error>
+              </mat-form-field>
+             
+             
+            </div>
+           
+            <div class="col-md-6 col-sm-6 mb-2">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Locality</mat-label>
+                <mat-select  formControlName="locality">
+                      <mat-option *ngFor="let item of locality" [value]="[item.id]">{{item.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="officeform.get('locality').hasError('required')">
+                  Locality is required
+               </mat-error>
+            </mat-form-field>
+             
+            </div>
+           
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 mb-2">
+            <ul>
+              <li>Country: dfas</li>
+              <li>Zone: dfdsfas</li>
+              <li>Region: dfdsfas</li>
+              <li>State:dfads</li>
+              <li>City: dffasdas</li>
+            </ul>
+            </div>
+            </div>
+            <h5>Commercial Information</h5>
+            <div class="row">
+              <div class="col-md-6 col-sm-6 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>GST Name</mat-label>
+                  <input matInput formControlName="gstname">
+                  <!-- <mat-icon matSuffix>face</mat-icon> -->
+                  <mat-error *ngIf="officeform.get('gstname').hasError('required')">
+                    GST Name is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-6 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>GST ID</mat-label>
+                  <input matInput formControlName="gstid">
+                  <!-- <mat-icon matSuffix>face</mat-icon> -->
+                  <mat-error *ngIf="officeform.get('gstid').hasError('required')">
+                    GST ID is required
+                  </mat-error>
+                </mat-form-field>
+             
+               
+              </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 mb-2 mt-2d">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Description</mat-label>
                 <textarea matInput formControlName="description"></textarea>
@@ -38,18 +168,63 @@
               </mat-form-field>
             </div>
         </div>
-       
-      
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-             
-              <div class="example-button-row">
-                <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid"
-                  [mat-dialog-close]="1" (click)="onSubmit(data.actionName,data.tabledatadeatils.id)">Save</button>
-                <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+         
+        
+          <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+               
+                <div class="example-button-row">
+                  <button mat-raised-button color="primary" type="submit" [disabled]="!officeform.valid"
+                    [mat-dialog-close]="1" (click)="onofficeSubmit(data.actionName,data.tabledatadeatils.id)">Save</button>
+                  <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+                </div>
               </div>
             </div>
+          </form>
+          
+        </div>
+        
+        <ng-template #othercontent>
+          <form class="register-form m-4" [formGroup]="formdata">
+       
+            <div class="row">
+              <div class="col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>name</mat-label>
+                  <input matInput formControlName="CommonName">
+                  <!-- <mat-icon matSuffix>face</mat-icon> -->
+                  <mat-error *ngIf="formdata.get('CommonName').hasError('required')">
+                    Name is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
           </div>
-        </form>
+          <div class="row">
+              <div class="col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput formControlName="description"></textarea>
+                 
+                  <!-- <mat-icon matSuffix>face</mat-icon> -->
+                  
+                </mat-form-field>
+              </div>
+          </div>
+         
+        
+          <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+               
+                <div class="example-button-row">
+                  <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid"
+                    [mat-dialog-close]="1" (click)="onSubmit(data.actionName,data.tabledatadeatils.id)">Save</button>
+                  <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </ng-template>
+        
+      
         </div>
     </div>

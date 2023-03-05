@@ -103,6 +103,51 @@ export class BusinessesService {
       );
 
   }
+  // branch api end
+  getofficelist() {
+    const url = this.API_URL + environment.office
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+
+  public officepost(Body): Observable<any> {
+    const url = this.API_URL + environment.office
+    return this.http.post<any>(url, Body)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public officeput(id: number, data: any): Observable<any> {
+    const url = this.API_URL + environment.office + `/${id}`;
+    console.log(url)
+    return this.http.put<any>(url, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  
+  public officedelete(id: number): Observable<any> {
+    const url = this.API_URL + environment.office + `/${id}`;
+    console.log(url)
+    return this.http.delete<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
 }
 function observableThrowError(error: any): any {
     throw new Error('Function not implemented.');

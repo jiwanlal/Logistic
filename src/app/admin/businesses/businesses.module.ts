@@ -26,7 +26,7 @@ import { BranchComponent} from './branch/branch.component';
 import { BusinessesTypeComponent } from './businesses/businesses-type.component';
 import { BusinessesService } from './businesses.service';
 import { CreateofficeComponent } from './createoffice/createoffice.component';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -57,7 +57,8 @@ import { CreateofficeComponent } from './createoffice/createoffice.component';
     MatTooltipModule,
     ComponentsModule,
     SharedModule,
-    DatatableModule
+    DatatableModule,
+    MatAutocompleteModule
   ],
   providers:[BusinessesService],
   entryComponents:[BusinessesdeletedialogComponent, BusinessesdialogComponent]

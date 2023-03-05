@@ -12,6 +12,7 @@ export const environment = {
   city:'places/city',
   postcode:'places/postcode',
   locality:'places/locality',
+  office:'businesses/office',
   business:'businesses/business',
   branch:'businesses/branch',
   role:'users/role',

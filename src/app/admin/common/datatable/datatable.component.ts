@@ -22,11 +22,12 @@ export class DatatableComponent implements OnInit, AfterViewInit,OnDestroy
  @ViewChild("filter", { static: true }) filter: ElementRef;
  objectKeys = Object.keys;
  
- public datasource
+ //public datasource=new MatTableDataSource(this.tabledata);
 
   public subscribe:Subscription
+  datasource: any;
  constructor(public dialog: MatDialog,public service:CommonService){ 
-
+  this.datasource=new MatTableDataSource(this.tabledata);
   this.subscribe=this.service.filterservice.subscribe(res=>{
    
     this.applyFilter(res)
@@ -34,11 +35,7 @@ export class DatatableComponent implements OnInit, AfterViewInit,OnDestroy
  }
 
  ngOnInit(): void {
-
   this.datasource = new MatTableDataSource(this.tabledata);
-   this.datasource.paginator = this.paginator;
-  
-    
     // setTimeout(() => {
     //   this.applyFilter(this.filterData)
     // })
@@ -58,6 +55,7 @@ export class DatatableComponent implements OnInit, AfterViewInit,OnDestroy
  console.log(this.tabledata,this.tableheader)
  }
  ngAfterViewInit() {
+  // if (this.tabledata) { setTimeout(() => { this.paginator.length = this.tabledata.length; }) }
    this.datasource = new MatTableDataSource(this.tabledata);
    this.datasource.paginator = this.paginator;
  }
