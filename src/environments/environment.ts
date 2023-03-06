@@ -11,7 +11,15 @@ export const environment = {
   state:'places/state',
   city:'places/city',
   postcode:'places/postcode',
-  locality:'places/locality'
+  locality:'places/locality',
+  awbtype :'awb/awbtype',
+  awbsalesfill :'awb/awbsalesfillvalues',
+  awbsales :'awb/awbsales',
+  awbpurchasefill :'awb/awbpurchasefillvalues',
+  awbpurchase :'awb/awbpurchase',
+  awbissuefill :'awb/awbissuefillvalues',
+  awbissue :'awb/awbissue',
+
   
    //apiUrl:'http://location:4200'
 };

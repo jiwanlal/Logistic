@@ -1,0 +1,55 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <!-- <img [src]='appointment.img' alt="avatar"> -->
+                <div class="modal-about">
+                    {{dialogtitle}}
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button (click)="close()" class="modal-close-button" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content>
+        <form class="register-form m-4" [formGroup]="formdata">
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="awb_type">
+                        <mat-error *ngIf="formdata.get('awb_type').hasError('required')">
+                            Name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Prefix</mat-label>
+                        <input matInput formControlName="awb_prefix" type="number">
+                        <mat-error *ngIf="formdata.get('awb_prefix').hasError('required')">
+                            Prefix is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+
+                    <div class="example-button-row">
+                        <button mat-raised-button color="primary" type="button" [disabled]="!formdata.valid"
+                            (click)="onSubmit()">Save</button>
+                        <button mat-raised-button color="warn" (click)="close()" tabindex="-1">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

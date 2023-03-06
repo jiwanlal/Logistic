@@ -49,11 +49,20 @@ const routes: Routes = [
       },
       {
         path: 'multilevel',
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard],  
         loadChildren: () =>
           import('./multilevel/multilevel.module').then(
             (m) => m.MultilevelModule
           ),
+      },
+      {
+        path: 'awb',
+        canActivate: [AuthGuard],
+        data: {
+          role: Role.Admin,
+        },
+        loadChildren: () =>
+          import('./awb-stock/awb-stock.module').then((m) => m.AwbStockModule),
       },
     ],
   },

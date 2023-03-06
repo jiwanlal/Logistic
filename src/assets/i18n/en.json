@@ -1,191 +1,303 @@
-{ "success":true,
-  "data":[{"path": "/admin/dashboard",
-"title": "Dashboard",
-"iconType": "material-icons-two-tone",
-"icon": "space_dashboard",
-"class": "",
-"groupTitle": false,
-"badge": "",
-"badgeClass": "",
-"role": ["Admin"],
-"submenu":[]
-},
-{"path": "/admin/dashboard",
-"title": "Location",
-"iconType": "material-icons-two-tone",
-"icon": "location_on",
-"class": "menu-toggle",
-"groupTitle": false,
-"badge": "",
-"badgeClass": "",
-"role": ["Admin"],
-"submenu": [{
-    "path": "/admin/location",
-    "title": "Country",
-    "iconType": "",
-    "icon": "",
-    "class": "ml-menu",
-    "groupTitle": false,
-   "badge": "",
-    "badgeClass": "",
-    "role": [""],
-    "submenu": []
-  },
-  {
-    "path": "/admin/location/zone",
-    "title": "Zone",
-    "iconType": "",
-    "icon": "",
-    "class": "ml-menu",
-    "groupTitle": false,
-   "badge": "",
-    "badgeClass": "",
-    "role": [""],
-    "submenu": []
-  },
-  {
-    "path": "/admin/location/region",
-    "title": "Region",
-    "iconType": "",
-    "icon": "",
-    "class": "ml-menu",
-    "groupTitle": false,
-   "badge": "",
-    "badgeClass": "",
-    "role": [""],
-    "submenu": []
-  },
-  {
-    "path": "/admin/location/state",
-    "title": "State",
-    "iconType": "",
-    "icon": "",
-    "class": "ml-menu",
-    "groupTitle": false,
-   "badge": "",
-    "badgeClass": "",
-    "role": [""],
-    "submenu": []
-  },
-  {
-    "path": "/admin/location/city",
-    "title": "City",
-    "iconType": "",
-    "icon": "",
-    "class": "ml-menu",
-    "groupTitle": false,
-   "badge": "",
-    "badgeClass": "",
-    "role": [""],
-    "submenu": []
-  },
-  {
-    "path": "/admin/location/postalcode",
-    "title": "Postal Code",
-    "iconType": "",
-    "icon": "",
-    "class": "ml-menu",
-    "groupTitle": false,
-   "badge": "",
-    "badgeClass": "",
-    "role": [""],
-    "submenu": []
-  },
-  {
-    "path": "/admin/location/locality",
-    "title": "Locality",
-    "iconType": "",
-    "icon": "",
-    "class": "ml-menu",
-    "groupTitle": false,
-   "badge": "",
-    "badgeClass": "",
-    "role": [""],
-    "submenu": []
-  }]
-},
-{"path": "/admin/users",
-"title": "Users",
-"iconType": "material-icons-two-tone",
-"icon": "space_dashboard",
-"class": "",
-"groupTitle": false,
-"badge": "",
-"badgeClass": "",
-"role": ["Admin"],
-"submenu":[ {
-  "path": "/admin/users/role",
-  "title": "Locality",
-  "iconType": "",
-  "icon": "",
-  "class": "ml-menu",
-  "groupTitle": false,
- "badge": "",
-  "badgeClass": "",
-  "role": [""],
-  "submenu": []
-},
 {
-  "path": "/admin/users/user",
-  "title": "User",
-  "iconType": "",
-  "icon": "",
-  "class": "ml-menu",
-  "groupTitle": false,
- "badge": "",
-  "badgeClass": "",
-  "role": [""],
-  "submenu": []
+  "success": true,
+  "data": [
+    {
+      "path": "/admin/dashboard",
+      "title": "Dashboard",
+      "iconType": "material-icons-two-tone",
+      "icon": "space_dashboard",
+      "class": "",
+      "groupTitle": false,
+      "badge": "",
+      "badgeClass": "",
+      "role": [
+        "Admin"
+      ],
+      "submenu": []
+    },
+    {
+      "path": "/admin/dashboard",
+      "title": "Location",
+      "iconType": "material-icons-two-tone",
+      "icon": "location_on",
+      "class": "menu-toggle",
+      "groupTitle": false,
+      "badge": "",
+      "badgeClass": "",
+      "role": [
+        "Admin"
+      ],
+      "submenu": [
+        {
+          "path": "/admin/location",
+          "title": "Country",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/admin/location/zone",
+          "title": "Zone",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/admin/location/region",
+          "title": "Region",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/admin/location/state",
+          "title": "State",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/admin/location/city",
+          "title": "City",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/admin/location/postalcode",
+          "title": "Postal Code",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/admin/location/locality",
+          "title": "Locality",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        }
+      ]
+    },
+    {
+      "path": "/admin/users",
+      "title": "Users",
+      "iconType": "material-icons-two-tone",
+      "icon": "space_dashboard",
+      "class": "",
+      "groupTitle": false,
+      "badge": "",
+      "badgeClass": "",
+      "role": [
+        "Admin"
+      ],
+      "submenu": [
+        {
+          "path": "/admin/users/role",
+          "title": "Locality",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/admin/users/user",
+          "title": "User",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        }
+      ]
+    },
+    {
+      "path": "/admin/businesses",
+      "title": "Businesses",
+      "iconType": "material-icons-two-tone",
+      "icon": "space_dashboard",
+      "class": "",
+      "groupTitle": false,
+      "badge": "",
+      "badgeClass": "",
+      "role": [
+        "Admin"
+      ],
+      "submenu": [
+        {
+          "path": "/admin/businesses/business",
+          "title": "Business",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/admin/businesses/branch",
+          "title": "Branch",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/admin/businesses/office",
+          "title": "Office",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        }
+      ]
+    },
+    {
+      "path": "",
+      "title": "Awb Stock",
+      "iconType": "material-icons-two-tone",
+      "icon": "location_on",
+      "class": "menu-toggle",
+      "groupTitle": false,
+      "badge": "",
+      "badgeClass": "",
+      "role": [
+        "Admin"
+      ],
+      "submenu": [
+        {
+          "path": "/awb/awbtype",
+          "title": "Awb Type",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/awb/awbsales",
+          "title": "Awb Sales",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/awb/awbpurchase",
+          "title": "Awb Purchase",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        },
+        {
+          "path": "/awb/awbissue",
+          "title": "Awb Issue",
+          "iconType": "",
+          "icon": "",
+          "class": "ml-menu",
+          "groupTitle": false,
+          "badge": "",
+          "badgeClass": "",
+          "role": [
+            ""
+          ],
+          "submenu": []
+        }
+      ]
+    }
+  ]
 }
-]
-},
-{"path": "/admin/businesses",
-"title": "Businesses",
-"iconType": "material-icons-two-tone",
-"icon": "space_dashboard",
-"class": "",
-"groupTitle": false,
-"badge": "",
-"badgeClass": "",
-"role": ["Admin"],
-"submenu":[ {
-  "path": "/admin/businesses/business",
-  "title": "Business",
-  "iconType": "",
-  "icon": "",
-  "class": "ml-menu",
-  "groupTitle": false,
- "badge": "",
-  "badgeClass": "",
-  "role": [""],
-  "submenu": []
-},
-{
-  "path": "/admin/businesses/branch",
-  "title": "Branch",
-  "iconType": "",
-  "icon": "",
-  "class": "ml-menu",
-  "groupTitle": false,
- "badge": "",
-  "badgeClass": "",
-  "role": [""],
-  "submenu": []
-},
-{
-  "path": "/admin/businesses/office",
-  "title": "Office",
-  "iconType": "",
-  "icon": "",
-  "class": "ml-menu",
-  "groupTitle": false,
- "badge": "",
-  "badgeClass": "",
-  "role": [""],
-  "submenu": []
-}
-]
-}
-]}
-
-
