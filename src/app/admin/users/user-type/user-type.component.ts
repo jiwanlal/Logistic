@@ -8,6 +8,7 @@ import { UsersService } from '../users.service';
 import { UsersdialogComponent } from '../dialog/usersdialog/usersdialog.component';
 import { DeletedialogComponent } from '../dialog/deletedialog/deletedialog.component';
 import { LocationService } from '../../location/location.service';
+import { BusinessesService } from '../../businesses/businesses.service';
 
 @Component({
   selector: 'app-user-type',
@@ -32,12 +33,13 @@ export class UserTypeComponent implements OnInit, OnChanges{
   public postcodelist=[]
   public rolelist=[]
   public compnaylist=[]
+  public officelist=[]
   public Alldata:boolean=false
   litstitme
    public AddAction={actionName:'Add',popupForm:this.pagename}
   
    
-    constructor(public usersservice:UsersService,public locationservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public usersservice:UsersService,public businessservice:BusinessesService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
   async ngOnInit(): Promise<void> {
    
     this.Onuserlist()
@@ -82,8 +84,8 @@ export class UserTypeComponent implements OnInit, OnChanges{
           lastname:event.actionName.last_name,
           id:event.actionName.user_id,
           address:event.actionName.address,
-          countrylist:this.countrylist,
-          citylist:this.citylist,
+          companylist:this.compnaylist,
+          office:this.officelist,
           description:event.actionName.description,
           dailogPage:event.actionName.dailogPage,
 
@@ -100,8 +102,8 @@ export class UserTypeComponent implements OnInit, OnChanges{
           lastname:'',
           id:'',
           address:'',
-          countrylist:this.compnaylist,
-          citylist:this.citylist,
+          companylist:this.compnaylist,
+          office:this.officelist,
           description:'',
           dailogPage:event.actionName.dailogPage,
 
@@ -265,10 +267,8 @@ export class UserTypeComponent implements OnInit, OnChanges{
  
  Onstatelist(){
 
-this.locationservice.contrylist().subscribe(res=>{
+this.usersservice.companyList().subscribe(res=>{
   
-    this.compnaylist=res.data.values
-    console.log(this.compnaylist)
     setTimeout(() => {
       this.compnaylist=res.data.values
     }, 1000);
@@ -276,24 +276,17 @@ this.locationservice.contrylist().subscribe(res=>{
  
   
 })
-this.locationservice.statelist().subscribe(res=>{
- 
-  setTimeout(() => {
-    this.statelist=res.data.values
-  }, 1000);
-})
-this.locationservice.citylist().subscribe(res=>{
+this.businessservice.getofficelist().subscribe(res=>{
   
   setTimeout(() => {
-    this.citylist=res.data.values
+    this.officelist=res.data.values
   }, 1000);
+ // this.onobectitem(this.compnaylist)
+
+
 })
-this.locationservice.postcodelist().subscribe(res=>{
- 
-  setTimeout(() => {
-    this.postcodelist=res.data.values
-  }, 1000);
-})
+
+
 this.usersservice.roleget().subscribe(res=>{
   setTimeout(() => {
     this.rolelist=res.data

@@ -34,8 +34,9 @@ export class SigninComponent
 
   ngOnInit() {
     this.authService.getUserList().subscribe(res=>{
-      if(res['success']==true){
-        this.clientDetails=res["data"]
+      if(res.success==true){
+        this.clientDetails=res.data.values
+
       }
       
     })

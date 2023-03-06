@@ -1,0 +1,41 @@
+<div>
+    <mat-table  matTableExporter [dataSource]="dataSource" matSort class="mat-cell">
+
+        <ng-container matColumnDef="{{col.field}}" *ngFor="let col of tableHeader">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{col.name |titlecase}} </mat-header-cell>
+
+            <mat-cell *matCellDef="let element">
+
+                <div *ngIf="col.field == 'Actions';else elseBlock">
+
+                    <ng-container *ngIf="element.edit">
+                        <button mat-icon-button (click)="onEdit(element)">
+                            <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                        </button>
+                    </ng-container>
+                        <ng-container *ngIf="element.delete">
+                            <button mat-icon-button (click)="onDelete(element)">
+                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                            </button>
+                        </ng-container>
+                </div>
+
+              
+                <ng-template #elseBlock>
+                    {{element[col.field]}}
+                </ng-template>
+
+            </mat-cell>
+        </ng-container>
+
+
+
+        <mat-header-row *matHeaderRowDef="displayColumns; sticky:true" ></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayColumns;" [style.cursor]="'pointer'" matRipple></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [length]="dataSource?.filteredData?.length" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+
+   
+</div>

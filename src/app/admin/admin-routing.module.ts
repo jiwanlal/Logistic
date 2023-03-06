@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../core/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -21,6 +22,15 @@ const routes: Routes = [
     path: 'users',
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
+  },
+  {
+    path: 'awb',
+    canActivate: [AuthGuard],
+    // data: {
+    //   role: Role.Admin,
+    // },
+    loadChildren: () =>
+      import('./awb-stock/awb-stock.module').then((m) => m.AwbStockModule),
   },
 ];
 

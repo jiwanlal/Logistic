@@ -1,0 +1,177 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <!-- <img [src]='appointment.img' alt="avatar"> -->
+                <div class="modal-about">
+                    {{dialogtitle}}
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button (click)="close()" class="modal-close-button" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content style="overflow: visible;height: 80vh;">
+        <form class="register-form m-4" [formGroup]="formdata">
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Office Name</mat-label>
+                        <input type="text" placeholder="Pick one" [listValidator]="filteredOffices | async" [validatorKey]="'officeId'" aria-label="Number" [readonly]="true" formControlName="office" matInput
+                            [matAutocomplete]="office">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displayOfficeName.bind(this)"
+                            #office="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOffices | async" [value]="option.officeId">
+                                {{option.office}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="formdata.get('office').hasError('required')">
+                            Office Name is required
+                        </mat-error>
+                        <mat-error *ngIf="formdata.get('office').hasError('invalid')">
+                            Please select from list.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Issue Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="issuedate">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="formdata.get('awbtype').hasError('invalid')">
+                        Please select from list.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>AWB Type</mat-label>
+                        <input type="text" placeholder="Pick one" [listValidator]="filteredAwbTypes | async" [validatorKey]="'id'" aria-label="Number" formControlName="awbtype" matInput
+                            [matAutocomplete]="auto">
+                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                            [displayWith]="displayAwbName.bind(this)">
+                            <mat-option *ngFor="let option of filteredAwbTypes | async" [value]="option.id">
+                                {{option.AwbType}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="formdata.get('awbtype').hasError('required')">
+                            AWB Type is required
+                        </mat-error>
+                        <mat-error *ngIf="formdata.get('awbtype').hasError('invalid')">
+                            Please select from list.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Receiver Office</mat-label>
+                        <input type="text" placeholder="Pick one" [listValidator]="filteredReciversOffice | async" [validatorKey]="'officeId'" aria-label="Number" formControlName="receiveroffice" matInput [matAutocomplete]="receiveroffice">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displayOfficeName.bind(this)" #receiveroffice="matAutocomplete" >
+                            <mat-option *ngFor="let option of filteredReciversOffice | async" [value]="option.officeId">
+                                {{option.office}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="formdata.get('receiveroffice').hasError('required')">
+                            Receiver Office is required
+                        </mat-error>
+                        <mat-error *ngIf="formdata.get('receiveroffice').hasError('invalid')">
+                            Please select from list.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Starting No</mat-label>
+                        <input type="text" placeholder="Pick one" aria-label="Number" [listValidator]="filteredstartingNos | async" [validatorKey]="'StartingNo'"  formControlName="startingno"
+                            matInput [matAutocomplete]="startingno">
+                        <mat-autocomplete autoActiveFirstOption #startingno="matAutocomplete">
+                            <!-- <mat-autocomplete autoActiveFirstOption  #startingno="matAutocomplete"  [displayWith]="displayStartingNo.bind(this)" > -->
+                            <mat-option (click)="setMinRate(option)" *ngFor="let option of filteredstartingNos | async" [value]="option.StartingNo">
+                                {{option.StartingNo}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="formdata.get('startingno').hasError('required')">
+                            Starting No is required
+                        </mat-error>
+                        <mat-error *ngIf="formdata.get('startingno').hasError('invalid')">
+                            Please select from list.
+                        </mat-error>
+                    </mat-form-field>
+
+
+                </div>
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Quantity</mat-label>
+                        <input matInput formControlName="quantity" type="number">
+                        <mat-error *ngIf="formdata.get('quantity').hasError('required')">
+                            Quantity is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="row">
+                    
+                    <div class="col-md-4 col-sm-4 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>End No</mat-label>
+                            <input matInput formControlName="endno" type="number" [readonly]="true">
+                            <mat-error *ngIf="formdata.get('endno').hasError('required')">
+                                End No is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 col-sm-4 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Rate</mat-label>
+                            <input matInput formControlName="rate" type="number" [min]="minrate">
+                            <mat-error *ngIf="formdata.get('rate').hasError('required')">
+                                Rate No is required
+                            </mat-error>
+                            <mat-error *ngIf="formdata.get('rate').hasError('min')">
+                                Value must be greated than vendor rate i.e {{minrate}}.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                   
+                </div>
+
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Amount Received </mat-label>
+                        <input matInput formControlName="amountreceived" type="number" [readonly]="true" >
+                        <mat-error *ngIf="formdata.get('amountreceived').hasError('required')">
+                            Amount is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+
+                    <div class="example-button-row">
+                        <button mat-raised-button color="primary" type="button" [disabled]="!formdata.valid"
+                            (click)="onSubmit()">Save</button>
+                        <button mat-raised-button color="warn" (click)="close()" tabindex="-1">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

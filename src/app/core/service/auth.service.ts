@@ -42,7 +42,7 @@ export class AuthService {
       );
   }
   getUserList(){
-    return this.http.get(this.configUrl).pipe(
+    return this.http.get<any>(this.configUrl).pipe(
       catchError((error: HttpErrorResponse) => {
         return observableThrowError(error.error);
       })

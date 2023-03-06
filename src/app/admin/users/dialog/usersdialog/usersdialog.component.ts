@@ -22,12 +22,10 @@ ngOnInit(): void {
   this.formdata = this.formBuilder.group({
     CommonName:['',[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
     lastName:[''],
-    countryselect:[''],
-    stateselect:[''],
+    company:[''],
+    office:[''],
     cityselect:[''],
-    postcodeselect:[''],
     address:[''],
-    roleselect:[''],
     description:['']
   
     })

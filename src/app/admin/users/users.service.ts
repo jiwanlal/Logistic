@@ -76,6 +76,14 @@ userdelete(id:number){
     })
   );
 }
+companyList(){
+  let url =this.API_URL + environment.companies
+  return this.http.get<any>(url).pipe(
+    catchError((error: HttpErrorResponse) => {
+      return observableThrowError(error.error);
+    })
+  );
+}
 
 }
 function observableThrowError(error: any): any {

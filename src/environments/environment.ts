@@ -18,7 +18,14 @@ export const environment = {
   business:'businesses/business',
   branch:'businesses/branch',
   role:'users/role',
-  user:'users/user'
+  user:'users/user',
+  awbtype :'awb/awbtype',
+  awbsalesfill :'awb/awbsalesfillvalues',
+  awbsales :'awb/awbsales',
+  awbpurchasefill :'awb/awbpurchasefillvalues',
+  awbpurchase :'awb/awbpurchase',
+  awbissuefill :'awb/awbissuefillvalues',
+  awbissue :'awb/awbissue',
   
    //apiUrl:'http://location:4200'
 };
