@@ -20,31 +20,32 @@ this.dialogtitle=data.actionName
 ngOnInit(): void {
 
   this.formdata = this.formBuilder.group({
-    CommonName:['',[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
-    lastName:[''],
-    company:[''],
-    office:[''],
-    cityselect:[''],
-    address:[''],
-    description:['']
+    CommonName:[this.data.tabledatadeatils.name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
+    lastName:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.lastname:''],
+    email:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.email:''],
+    mobile:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.mobile:''],
+    company:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.companyname:''],
+    office:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.officename:''],
+    role:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.rolename:''],
+    address:[this.data.tabledatadeatils.address],
+    description:[this.data.tabledatadeatils.description]
   
     })
     if(this.data.tabledatadeatils.dailogPage=='userDailog'){
-     this.formdata.get('countryselect').setValidators([Validators.required])
-      this.formdata.get('countryselect').updateValueAndValidity(); 
-    }
-
-    if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.dailogPage=='roleDailog' ){
-      this.formdata.get('countryselect').setValidators([Validators.required])
-      this.formdata.get('countryselect').updateValueAndValidity();
-      this.formdata = this.formBuilder.group({
-        CommonName:[this.data.tabledatadeatils.name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
-        description:[this.data.tabledatadeatils.description]
-       })
-       
-
+     this.formdata.get('company').setValidators([Validators.required])
+      this.formdata.get('company').updateValueAndValidity(); 
+      this.formdata.get('role').setValidators([Validators.required])
+      this.formdata.get('role').updateValueAndValidity(); 
+      this.formdata.get('company').setValidators([Validators.required])
+      this.formdata.get('company').updateValueAndValidity(); 
+      this.formdata.get('email').setValidators([Validators.required])
+      this.formdata.get('email').updateValueAndValidity(); 
+      this.formdata.get('mobile').setValidators([Validators.required])
+      this.formdata.get('mobile').updateValueAndValidity(); 
 
     }
+
+
     
     
 }

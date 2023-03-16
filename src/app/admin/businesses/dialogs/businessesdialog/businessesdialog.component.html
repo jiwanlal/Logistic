@@ -32,7 +32,8 @@
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Parent Office</mat-label>
                   <mat-select  formControlName="parentoffice">
-                        <mat-option *ngFor="let item of parentdata" [value]="item.id">{{item.name}}</mat-option>
+                        <mat-option *ngFor="let item of data.tabledatadeatils.parentdata" [value]="item.office_id">
+                          {{item.office_name}}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="officeform.get('parentoffice').hasError('required')">
                     Parent Office is required
@@ -82,14 +83,53 @@
           </div>
          
       </div>
+      <h5>Business</h5>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 mb-2">
+          <mat-form-field class="example-full-width"  appearance="outline">
+            <mat-label>Business </mat-label>
+            <mat-select  formControlName="businesstypeid">
+              <mat-option *ngFor="let option of data.tabledatadeatils.businessdata "  [value]="option.business_type_id">
+                {{option.business_type}}
+              </mat-option>
+            </mat-select>
+            <!-- <input type="text" matInput  [formControl]="myControl" formControlName="postcode" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"> 
+              <mat-option *ngFor="let option of postcodedata " formControlName="postcode" value="option.id">
+                {{option.postcode_name}}
+              </mat-option>
+          </mat-autocomplete>  -->
+        
+            <mat-error *ngIf="officeform.get('businesstypeid').hasError('required')">
+              Business is required
+           </mat-error>
+          </mat-form-field>
+         
+         
+        </div>
+       
+        <div class="col-md-6 col-sm-6 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Branch</mat-label>
+            <mat-select  formControlName="branchtypeid">
+                  <mat-option *ngFor="let item of data.tabledatadeatils.branchdata" [value]="item.branch_type_id">{{item.branch_type}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="officeform.get('branchtypeid').hasError('required')">
+              Branch is required
+           </mat-error>
+        </mat-form-field>
+         
+        </div>
+       
+    </div>
           <h5>Places</h5>
           <div class="row">
             <div class="col-md-6 col-sm-6 mb-2">
               <mat-form-field class="example-full-width"  appearance="outline">
                 <mat-label>Post Code</mat-label>
-                <mat-select  formControlName="postcode">
-                  <mat-option *ngFor="let option of postcodedata " formControlName="postcode" [value]="option.id">
-                    {{option.postcode_name}}
+                <mat-select  formControlName="postcode" (selectionChange)="onChangePost(this.officeform.get('postcode').value)">
+                  <mat-option *ngFor="let option of data.tabledatadeatils.postcodedata "  [value]="option.Id">
+                    {{option.Name}}
                   </mat-option>
                 </mat-select>
                 <!-- <input type="text" matInput  [formControl]="myControl" formControlName="postcode" [matAutocomplete]="auto">
@@ -98,6 +138,7 @@
                     {{option.postcode_name}}
                   </mat-option>
               </mat-autocomplete>  -->
+            
                 <mat-error *ngIf="officeform.get('postcode').hasError('required')">
                   Postcode is required
                </mat-error>
@@ -107,29 +148,31 @@
             </div>
            
             <div class="col-md-6 col-sm-6 mb-2">
+       
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Locality</mat-label>
-                <mat-select  formControlName="locality">
-                      <mat-option *ngFor="let item of locality" [value]="[item.id]">{{item.name}}</mat-option>
+                <mat-select   formControlName="locality">
+                      <mat-option *ngFor="let item of localitydata" [value]="item.locality_id">{{item.locality_name}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="officeform.get('locality').hasError('required')">
                   Locality is required
                </mat-error>
             </mat-form-field>
+            
              
             </div>
            
         </div>
-        <div class="row">
-          <div class="col-md-12 col-sm-12 mb-2">
-            <ul>
-              <li>Country: dfas</li>
-              <li>Zone: dfdsfas</li>
-              <li>Region: dfdsfas</li>
-              <li>State:dfads</li>
-              <li>City: dffasdas</li>
-            </ul>
-            </div>
+        <div class="row" *ngIf="officeform.get('postcode').value">
+          <div class="col-md-6 col-sm-6 mb-2" *ngFor="let item of this.placesdata">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>{{item.key}}</mat-label>
+              <input matInput type="text"  [value]="item.name"  readonly>
+              <!-- <mat-icon matSuffix>face</mat-icon> -->
+             
+            </mat-form-field>
+          </div>
+         
             </div>
             <h5>Commercial Information</h5>
             <div class="row">
@@ -175,7 +218,7 @@
                
                 <div class="example-button-row">
                   <button mat-raised-button color="primary" type="submit" [disabled]="!officeform.valid"
-                    [mat-dialog-close]="1" (click)="onofficeSubmit(data.actionName,data.tabledatadeatils.id)">Save</button>
+                    [mat-dialog-close]="1" (click)="onofficeSubmit(data.actionName,data.tabledatadeatils.office_id)">Save</button>
                   <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
                 </div>
               </div>

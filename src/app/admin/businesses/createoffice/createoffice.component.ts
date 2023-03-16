@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LocationService } from '../../location/location.service';
 import { offficemodal } from '../businesses.modal';
 import { BusinessesService } from '../businesses.service';
 import { BusinessesdeletedialogComponent } from '../dialogs/businessesdeletedialog/businessesdeletedialog.component';
@@ -16,14 +17,19 @@ export class CreateofficeComponent implements OnInit, OnChanges{
   public pagename="officeDailog"
   public AddAction={actionName:'Add',popupForm:this.pagename}
   
-  
+  public postcodedata:[]=[]
+ 
+  public localitydata:[]=[]
+  public businessdata:[]=[]
+  public branchdata:[]=[]
    public dataobject:any = new offficemodal()
    public inload=false
    public tableheader
    public dataForTable
-    constructor(public officeservice:BusinessesService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public officeservice:BusinessesService,public placesservice:LocationService ,private snackBar: MatSnackBar,public dialog: MatDialog){ }
   ngOnInit(): void {
     this.Onofficelist()
+    this.onbusinessList()
     
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -56,7 +62,37 @@ export class CreateofficeComponent implements OnInit, OnChanges{
     if(event.popupForm=='Edit'){
       dialogdata={
         actionName:event.popupForm,
-        tabledatadeatils:event.actionName,
+        tabledatadeatils:{
+          
+          "business_type_id":event.actionName.business_type_id,
+          "branch_type_id":event.actionName.branch_type_id,
+          "office_code": event.actionName.office_code,
+          "office_id":event.actionName.office_id,
+          "office_name":event.actionName.office_name,
+          "gst_name":event.actionName.gst_name,
+          "gst_number":event.actionName.gst_number,
+          "parent_office_id":event.actionName.parent_office_id,
+          "hub_id":event.actionName.hub_id,
+          "is_allowed_manifest": event.actionName.is_allowed_manifest,
+          "email":event.actionName.email,
+          "mobile": event.actionName.mobile,
+          "telephone":event.actionName.telephone,
+          "post_code_id":event.actionName.post_code_id,
+          "city_id":event.actionName.city_id,
+          "state_id":event.actionName.state_id,
+          "region_id":event.actionName.region_id,
+          "zone_id":event.actionName.zone_id,
+          "country_id":event.actionName.country_id,
+          "locality_id":event.actionName.locality_id,
+          "address":event.actionName.address,
+          "credit_limit":event.actionName.credit_limit,
+          "postcodedata":this.postcodedata,
+          "parentdata":this.dataForTable,
+          "businessdata":this.businessdata,
+          "branchdata":this.branchdata,
+            dailogPage:this.pagename
+        },
+        
         dailogPage:this.pagename
         
       }
@@ -64,39 +100,71 @@ export class CreateofficeComponent implements OnInit, OnChanges{
     else if(event.popupForm=='Add'){
       dialogdata={
         actionName:event.popupForm,
-        tabledatadeatils:{
+          tabledatadeatils:{
           
-            "business_type_id":2,
-            "branch_type_id":3,
-            "office_code": "BT010",
+            "business_type_id":null,
+            "branch_type_id":null,
+            "office_code": "",
             "office_name":'',
             "gst_name":'',
             "gst_number":'',
-            "parent_office_id":null,
-            "hub_id":5,
+            "parent_office_id":this.dataForTable>0?this.dataForTable:1,
+            "hub_id":'',
             "is_allowed_manifest": true,
             "email":'',
             "mobile": '',
             "telephone":'',
             "post_code_id":null,
-            "city_id":2,
-            "state_id":3,
-            "region_id":4,
-            "zone_id":5,
-            "country_id":6,
+            "city_id":'',
+            "state_id":'',
+            "region_id":'',
+            "zone_id":'',
+            "country_id":'',
             "locality_id":null,
-            "address":'vg',
+            "address":'',
             "credit_limit":'',
-      
-          dailogPage:this.pagename
+            "postcodedata":this.postcodedata,
+            "parentdata":this.dataForTable,
+            "businessdata":this.businessdata,
+            "branchdata":this.branchdata,
+              dailogPage:this.pagename
           }
+        // tabledatadeatils:{
+          
+        //     "business_type_id":null,
+        //     "branch_type_id":null,
+        //     "office_code": "",
+        //     "office_name":'',
+        //     "gst_name":'',
+        //     "gst_number":'',
+        //     "parent_office_id":null,
+        //     "hub_id":null,
+        //     "is_allowed_manifest": true,
+        //     "email":'',
+        //     "mobile": '',
+        //     "telephone":'',
+        //     "post_code_id":null,
+        //     "city_id":null,
+        //     "state_id":null,
+        //     "region_id":null,
+        //     "zone_id":null,
+        //     "country_id":null,
+        //     "locality_id":null,
+        //     "address":'vg',
+        //     "credit_limit":'',
+        //     "postcodedata":this.postcodedata,
+        //     "parentdata":this.dataForTable,
+        //     "businessdata":this.businessdata,
+        //     "branchdata":this.branchdata,
+        //       dailogPage:this.pagename
+        //   }
         
       }
     }
   
     const dialogRef=this.dialog.open(BusinessesdialogComponent, {
       data:dialogdata,
-       minWidth:'767px'
+       width:'767px'
      });
      dialogRef.afterClosed().subscribe(result => {
        console.log('The dialog was closed',result);
@@ -117,7 +185,7 @@ export class CreateofficeComponent implements OnInit, OnChanges{
      
       data: { actionName:event.popupForm,
         tabledatadeatils:{
-          name:event.actionName.office_type,
+          name:event.actionName.office_name,
           id:event.actionName.office_id,
           description:event.actionName.description,
           dailogPage:event.actionName.dailogPage
@@ -153,8 +221,8 @@ export class CreateofficeComponent implements OnInit, OnChanges{
       "mobile": row_obj.itemsumbited.mobile,
       "telephone":row_obj.itemsumbited.telephone,
       "post_code_id":row_obj.itemsumbited.postcode,
-      "city_id":row_obj.itemsumbited.postcode,
-      "state_id":row_obj.itemsumbited.city,
+      "city_id":row_obj.itemsumbited.city,
+      "state_id":row_obj.itemsumbited.state,
       "region_id":row_obj.itemsumbited.region,
       "zone_id":row_obj.itemsumbited.zone,
       "country_id":row_obj.itemsumbited.country,
@@ -193,8 +261,8 @@ export class CreateofficeComponent implements OnInit, OnChanges{
       "mobile": row_obj.itemsumbited.mobile,
       "telephone":row_obj.itemsumbited.telephone,
       "post_code_id":row_obj.itemsumbited.postcode,
-      "city_id":row_obj.itemsumbited.postcode,
-      "state_id":row_obj.itemsumbited.city,
+      "city_id":row_obj.itemsumbited.city,
+      "state_id":row_obj.itemsumbited.state,
       "region_id":row_obj.itemsumbited.region,
       "zone_id":row_obj.itemsumbited.zone,
       "country_id":row_obj.itemsumbited.country,
@@ -248,12 +316,38 @@ export class CreateofficeComponent implements OnInit, OnChanges{
                   tableColNamesWithSpace[tableColNamesFromAPI[i]] = this.insertSpaces(tableColNamesFromAPI[i])
                 }
                 this.tableheader=tableColNamesWithSpace
-              this.tableheader.office_type='office Type'
+                this.tableheader.office_name='Office Name'
+                this.tableheader.office_code='Office code'
               this.tableheader.office_id='office Id'
                 delete this.tableheader.actionIcons
                 delete this.tableheader.popupForm
                 delete this.tableheader.is_visible
                 delete this.tableheader.Id
+                delete this.tableheader.business_type_id
+                delete this.tableheader.branch_type_id
+                delete this.tableheader.gst_name
+                delete this.tableheader.gst_number
+                delete this.tableheader.parent_office_id
+                delete this.tableheader.hub_id
+                delete this.tableheader.is_allowed_manifest
+                delete this.tableheader.email
+                delete this.tableheader.mobile
+                delete this.tableheader.telephone
+                delete this.tableheader.post_code_id
+                delete this.tableheader.city_id
+                delete this.tableheader.state_id
+                delete this.tableheader.region_id
+                delete this.tableheader.zone_id
+                delete this.tableheader.country_id
+                delete this.tableheader.locality_id
+                delete this.tableheader.address
+                delete this.tableheader.credit_limit
+                delete this.tableheader.status
+                delete this.tableheader.is_visible
+                delete this.tableheader.created_at
+                delete this.tableheader.created_by
+                delete this.tableheader.updated_at
+                delete this.tableheader.updated_by
                 this.dataForTable= this.dataobject.data.values
                 console.log(this.dataobject.data.values, this.tableheader)
                 
@@ -263,10 +357,30 @@ export class CreateofficeComponent implements OnInit, OnChanges{
   
     })
   
-  
+
   
     
   }
+  onbusinessList(){
+    this.officeservice.getbusinesslist().subscribe(res=>{
+      setTimeout(() => {
+        this.businessdata=res.data.values
+      }, 1000);
+      console.log(res)
+    })
+    this.officeservice.getbranchlist().subscribe(res=>{
+      setTimeout(() => {
+        this.branchdata=res.data.values
+      }, 1000);
+      console.log(res)
+    })
+    this.placesservice.postcodelist().subscribe(res=>{
+      setTimeout(() => {
+        this.postcodedata=res.data.values
+      }, 1000);
+      console.log(res)
+    })
+   } 
      
     insertSpaces(string) {
       string = string.replace(/([a-z])([A-Z])/g, '$1 $2');

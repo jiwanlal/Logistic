@@ -24,5 +24,6 @@ export const environment = {
   awbpurchase :'awb/awbpurchase',
   awbissuefill :'awb/awbissuefillvalues',
   awbissue :'awb/awbissue',
+  postcodeall:'places/postcode/all'
   
 };

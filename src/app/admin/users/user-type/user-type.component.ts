@@ -73,19 +73,25 @@ export class UserTypeComponent implements OnInit, OnChanges{
  
 
   OpenDialog(event){
-    console.log(this.Onstatelist)
+    console.log(event)
     var dialogdata:any
     if(event.popupForm=='Edit'){
       
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
-          name:event.actionName.frist_name,
+          name:event.actionName.first_name,
           lastname:event.actionName.last_name,
-          id:event.actionName.user_id,
+          email:event.actionName.email,
+          mobile:event.actionName.mobile,
+          id:event.actionName.id,
           address:event.actionName.address,
           companylist:this.compnaylist,
-          office:this.officelist,
+          officelist:this.officelist,
+          rolelist:this.rolelist,
+          companyname:event.actionName.company_id,
+          officename:event.actionName.office_id,
+          rolename:event.actionName.role_id,
           description:event.actionName.description,
           dailogPage:event.actionName.dailogPage,
 
@@ -102,8 +108,14 @@ export class UserTypeComponent implements OnInit, OnChanges{
           lastname:'',
           id:'',
           address:'',
+          email:'',
+          mobile:'',
           companylist:this.compnaylist,
-          office:this.officelist,
+          officelist:this.officelist,
+          rolelist:this.rolelist,
+          companyname:'',
+          officename:'',
+          rolename:'',
           description:'',
           dailogPage:event.actionName.dailogPage,
 
@@ -114,7 +126,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
 
     const dialogRef=this.dialog.open(UsersdialogComponent, {
       data:dialogdata,
-       minWidth:'768px'
+       minWidth:'767px'
      });
      dialogRef.afterClosed().subscribe(result => {
        console.log('The dialog was closed',result);
@@ -136,8 +148,8 @@ export class UserTypeComponent implements OnInit, OnChanges{
      
           data: { actionName:event.popupForm,
             tabledatadeatils:{
-              name:event.actionName.user_name,
-              id:event.actionName.user_id,
+              name:event.actionName.first_name+''+ (event.actionName.last_name==null?"":event.actionName.last_name),
+              id:event.actionName.id,
               description:event.actionName.description,
               dailogPage:event.actionName.dailogPage
               }
@@ -161,8 +173,14 @@ export class UserTypeComponent implements OnInit, OnChanges{
  console.log(row_obj)
      
     let itemvalue={
-                  user_name:row_obj.itemsumbited.CommonName,
-                  description:row_obj.itemsumbited.description
+                  first_name:row_obj.itemsumbited.CommonName,
+                  last_name:row_obj.itemsumbited.lastName,
+                  company_id:row_obj.itemsumbited.company,
+                  office_id:row_obj.itemsumbited.office,
+                  role_id:row_obj.itemsumbited.role,
+                  email:row_obj.itemsumbited.email,
+                  mobile:row_obj.itemsumbited.mobile,
+                 // description:row_obj.itemsumbited.description
                 //  state_id:row_obj.state_id
 
                   }
@@ -184,7 +202,13 @@ export class UserTypeComponent implements OnInit, OnChanges{
 
     let itemvalue={
       first_name:row_obj.itemsumbited.CommonName,
-      country_id:row_obj.itemsumbited.countryselect
+      last_name:row_obj.itemsumbited.lastName,
+      company_id:row_obj.itemsumbited.company,
+      office_id:row_obj.itemsumbited.office,
+      role_id:row_obj.itemsumbited.role,
+      email:row_obj.itemsumbited.email,
+      mobile:row_obj.itemsumbited.mobile,
+      
 
      // state_id:row_obj.state_id
     }
@@ -235,7 +259,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
               this.dataobject.data.values.forEach(element => {
                
                element.dailogPage=this.pagename
-             //  element.actions = actions
+                element.first_name = element.first_name+ ' ' +(element.last_name==null?' ':element.last_name)
              //  element.actionIcon = actionIcon
              
                
@@ -247,13 +271,31 @@ export class UserTypeComponent implements OnInit, OnChanges{
                 }
                 this.countryheader=tableColNamesWithSpace
                
-               // this.countryheader.first_name=this.Titlename 
-               // this.countryheader.user_id='user Id'
+               this.countryheader.first_name='Name' 
+               this.countryheader.last_name='Last Name' 
+                 delete this.countryheader.last_name
+                delete this.countryheader.password
                 delete this.countryheader.dailogPage
                 delete this.countryheader.is_visible
-               
+                delete this.countryheader.id
+                delete this.countryheader.role_id
+                delete this.countryheader.company_id
+                delete this.countryheader.system_ip
+                delete this.countryheader.system_name
                 
+                delete this.countryheader.profile_picture
+                
+                delete this.countryheader.address
+                delete this.countryheader.city_id
+                delete this.countryheader.state_id
+                delete this.countryheader.country_id
+                delete this.countryheader.post_code_id
+                delete this.countryheader.updated_at
+                delete this.countryheader.updated_by
+                delete this.countryheader.created_by
+                delete this.countryheader.created_at
                 delete this.countryheader.actionIcons
+                
                  this.dataForTable= this.dataobject.data.values
                 console.log(this.dataobject.data, this.countryheader)
                 

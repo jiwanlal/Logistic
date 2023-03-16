@@ -227,6 +227,11 @@ export class RolesComponent implements OnInit, OnChanges {
                 this.countryheader.role_id='Role Id'
                 delete this.countryheader.dailogPage
                 delete this.countryheader.is_visible
+                delete this.countryheader.updated_at
+                delete this.countryheader.updated_by
+                delete this.countryheader.created_by
+                delete this.countryheader.created_at
+                
                
                 
                 delete this.countryheader.actionIcon

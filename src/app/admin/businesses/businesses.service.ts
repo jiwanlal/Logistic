@@ -148,6 +148,17 @@ export class BusinessesService {
       );
 
   }
+  public getpostcode(id: number): Observable<any> {
+    const url = this.API_URL + environment.postcodeall + `/${id}`;
+    console.log(url)
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
 }
 function observableThrowError(error: any): any {
     throw new Error('Function not implemented.');

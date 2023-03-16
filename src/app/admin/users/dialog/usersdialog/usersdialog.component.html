@@ -15,9 +15,9 @@
       <div mat-dialog-content>
         <form class="register-form m-4" [formGroup]="formdata">
           <div class="row">
-            <div class="col-md-12 col-sm-12 mb-2">
+            <div class="col-md-6  mb-2" [ngClass]="{'col-md-12':data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog'}">
               <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Name</mat-label>
+                <mat-label>{{data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog'?'First Name':'Name'}}</mat-label>
                 <input matInput formControlName="CommonName">
                 <!-- <mat-icon matSuffix>face</mat-icon> -->
                 <mat-error *ngIf="formdata.get('CommonName').hasError('required')">
@@ -25,27 +25,77 @@
                 </mat-error>
               </mat-form-field>
             </div>
+            <div class="col-md-6 mb-2" *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog'">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName">
+                <!-- <mat-icon matSuffix>face</mat-icon> -->
+               
+              </mat-form-field>
+            </div>
         </div>
-        <div>
-          <div class="row" *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog'">
-            <div class="col-md-12 col-sm-12 mb-2">
+        <div *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog'">
+         
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email">
+              <!-- <mat-icon matSuffix>face</mat-icon> -->
+             
+            </mat-form-field>
+          </div>
+     
+        <div class="col-md-6 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Mobile</mat-label>
+            <input matInput formControlName="mobile">
+            <!-- <mat-icon matSuffix>face</mat-icon> -->
+           
+          </mat-form-field>
+        </div>
+    </div>
+          <div class="row">
+            <div class="col-md-6 mb-2">
              
               <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Select {{data.dropdownname}}</mat-label>
-                <mat-select formControlName="countryselect" (change)="change($event)">
-                  <mat-option *ngFor="let item of data.tabledatadeatils.countrylist" [value]="item.Id">
-                    {{ item.Name }}
+                <mat-label>Select company</mat-label>
+                <mat-select formControlName="company" (change)="change($event)">
+                  <mat-option *ngFor="let item of data.tabledatadeatils.companylist" [value]="item.company_id">
+                    {{ item.name }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <!-- <mat-form-field   class="example-full-width" appearance="fill">
-                <mat-label>Select</mat-label>
-                <mat-select formControlName="commonselect" (change)="change($event)">
-                  <mat-option  *ngFor="let options of data.countrylist" [value]="options">{{options.country_name}}</mat-option>
-                </mat-select>
-              </mat-form-field> -->
+            
             </div>
+      
+          <div class="col-md-6 mb-2">
+           
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Select office</mat-label>
+              <mat-select formControlName="office" (change)="change($event)">
+                <mat-option *ngFor="let item of data.tabledatadeatils.officelist" [value]="item.office_id">
+                  {{ item.office_name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+         
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Select Role</mat-label>
+            <mat-select formControlName="role" (change)="change($event)">
+              <mat-option *ngFor="let item of data.tabledatadeatils.rolelist" [value]="item.role_id">
+                {{ item.role_name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
         </div>
+    </div>
       </div>
          
         <div class="row">

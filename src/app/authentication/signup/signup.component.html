@@ -1,7 +1,7 @@
 <div class="auth-container">
   <div class="row auth-main">
     <div class="col-sm-6 px-0 d-none d-sm-block">
-      <div class="left-img" style="background-image: url(assets/images/pages/bg-02.png);">
+      <div class="left-img" style="background-image: url(assets/images/pages/bg-01.png);">
       </div>
     </div>
     <div class="col-sm-6 auth-form-section">
@@ -11,62 +11,95 @@
           <p class="auth-signup-text text-muted">Enter details to create your account</p>
           <form class="validate-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
             <div class="row">
-              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <div class="col-xl-6 col-lg-6  mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
-                  <mat-label>Username</mat-label>
-                  <input matInput formControlName="username" required>
-                  <mat-icon matSuffix>face</mat-icon>
-                  <mat-error *ngIf="authForm.get('username').hasError('required')">
-                    Username is required
+                  <mat-label>First Name</mat-label>
+                  <input matInput formControlName="FirstName" required>
+                  
+                  <mat-error *ngIf="authForm.get('FirstName').hasError('required')">
+                    First Name is required
                   </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xl-6 col-lg-6  mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Last Name</mat-label>
+                  <input matInput formControlName="LastName" required>
+                  
+                 
                 </mat-form-field>
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+              <div class="col-xl-6 col-lg-6  mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Email</mat-label>
-                  <input matInput formControlName="email" required>
-                  <mat-icon matSuffix>mail</mat-icon>
-                  <mat-error *ngIf="authForm.get('email').hasError('required') || authForm.get('email').touched">
-                    Please enter a valid email address
+                  <input matInput formControlName="Email" required>
+                  
+                  <mat-error *ngIf="authForm.get('Email').hasError('required') || authForm.get('Email').touched">
+                  Enter a valid email address
                   </mat-error>
                 </mat-form-field>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+              <div class="col-xl-6 col-lg-6  mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
-                  <mat-label>Password</mat-label>
-                  <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
-                  <mat-icon matSuffix (click)="hide = !hide">
-                    {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                  <mat-error *ngIf="authForm.get('password').hasError('required')">
-                    Password is required
+                  <mat-label>Mobile</mat-label>
+                  <input matInput formControlName="Mobile" type="number" required maxlength="10" minlength="10">
+                 
+                  <mat-error *ngIf="authForm.get('Mobile').hasError('required')">
+                    Mobile number is required
                   </mat-error>
                 </mat-form-field>
               </div>
             </div>
+           
             <div class="row">
-              <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+              <div class="col-xl-6 col-lg-6  mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
-                  <mat-label>Confirm Password</mat-label>
-                  <input matInput formControlName="cpassword" [type]="chide ? 'password' : 'text'" required>
-                  <mat-icon matSuffix (click)="chide = !chide">
-                    {{chide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                  <mat-error *ngIf="authForm.get('cpassword').hasError('required')">
-                    Confirm Password is required
+                  <mat-label>Company</mat-label>
+                  <mat-select formControlName="Company">
+                    <mat-option *ngFor="let company of this.compnaylist" [value]="company.company_id">
+                      {{company.name}}
+                      </mat-option>
+                  </mat-select>
+                  
+                  <mat-error *ngIf="authForm.get('Company').hasError('required') ">
+                    Company  is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+          
+              <div class="col-xl-6 col-lg-6  mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Office</mat-label>
+                  <mat-select formControlName="Office">
+                    <mat-option *ngFor="let office of this.officelist" [value]="office.office_id">
+                      {{office.office_name}}
+                      </mat-option>
+                  </mat-select>
+                  
+                  <mat-error *ngIf="authForm.get('Office').hasError('required') ">
+                    Office is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xl-6 col-lg-6  mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Role</mat-label>
+                  <mat-select formControlName="Role">
+                    <mat-option *ngFor="let role of this.rolelist" [value]="role.role_id">
+                      {{role.role_name}}
+                      </mat-option>
+                  </mat-select>
+                  
+                  <mat-error *ngIf="authForm.get('Role').hasError('required') ">
+                    Office is required
                   </mat-error>
                 </mat-form-field>
               </div>
             </div>
-            <div class="flex-sb-m w-full  p-b-20">
-              <div>
-                <span>Already Registered? <a routerLink="/authentication/signin">
-                    Login
-                  </a></span>
-              </div>
-            </div>
+           
+          
             <div class="container-auth-form-btn">
               <button mat-flat-button color="primary" class="auth-form-btn" [disabled]="!authForm.valid " type="submit">
                 Register

@@ -223,7 +223,7 @@ export class RegionComponent implements OnInit, OnChanges {
                 
         }
       
-        
+        this.inload=true
         }
   
     })

@@ -58,7 +58,7 @@ export class BusinessesTypeComponent implements OnInit, OnChanges{
         actionName:event.popupForm,
         tabledatadeatils:{
           name:event.actionName.business_type,
-          id:event.actionName.business_id,
+          id:event.actionName.business_type_id,
           description:event.actionName.description,
           dailogPage:event.actionName.dailogPage
           }
@@ -102,7 +102,7 @@ export class BusinessesTypeComponent implements OnInit, OnChanges{
       data: { actionName:event.popupForm,
         tabledatadeatils:{
           name:event.actionName.business_type,
-          id:event.actionName.business_id,
+          id:event.actionName.business_type_id,
           description:event.actionName.description,
           dailogPage:event.actionName.dailogPage
           }
@@ -187,12 +187,18 @@ export class BusinessesTypeComponent implements OnInit, OnChanges{
                   tableColNamesWithSpace[tableColNamesFromAPI[i]] = this.insertSpaces(tableColNamesFromAPI[i])
                 }
                 this.tableheader=tableColNamesWithSpace
-              this.tableheader.business_type='Business Type'
-              this.tableheader.business_id='Business Id'
+              this.tableheader.business_type='Business Name'
+               this.tableheader.business_type_id='Business Id'
                 delete this.tableheader.actionIcons
                 delete this.tableheader.popupForm
                 delete this.tableheader.is_visible
                 delete this.tableheader.Id
+                delete this.tableheader.dailogPage
+                delete this.tableheader.isVisible
+                delete this.tableheader.updated_at
+                delete this.tableheader.updated_by
+                delete this.tableheader.created_by
+                delete this.tableheader.created_at
                 this.dataForTable= this.dataobject.data.values
                 console.log(this.dataobject.data.values, this.tableheader)
                 
