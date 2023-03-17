@@ -107,7 +107,10 @@ export class DatatableComponent implements OnInit, AfterViewInit,OnDestroy
    }
   
  }
-
+ activeinactive(event,row,status){
+let item={event,row,status}
+  this.dataChange.emit(item);
+}
 ngOnDestroy(): void {
   this.subscribe.unsubscribe()
 }

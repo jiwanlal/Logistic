@@ -66,6 +66,10 @@ export class UserTypeComponent implements OnInit, OnChanges{
     console.log(event) 
     this.OpenDialog(event)
   }
+  else if(event.status=='status'){
+    console.log(event)
+    this.updateRowData(event)
+  }
   else{
     this.Ondelete(event)
   }
@@ -117,7 +121,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
           officename:'',
           rolename:'',
           description:'',
-          dailogPage:event.actionName.dailogPage,
+          dailogPage:this.pagename,
 
           }
         
@@ -170,21 +174,27 @@ export class UserTypeComponent implements OnInit, OnChanges{
   }
   
   updateRowData(row_obj){
- console.log(row_obj)
-     
-    let itemvalue={
-                  first_name:row_obj.itemsumbited.CommonName,
-                  last_name:row_obj.itemsumbited.lastName,
-                  company_id:row_obj.itemsumbited.company,
-                  office_id:row_obj.itemsumbited.office,
-                  role_id:row_obj.itemsumbited.role,
-                  email:row_obj.itemsumbited.email,
-                  mobile:row_obj.itemsumbited.mobile,
-                 // description:row_obj.itemsumbited.description
-                //  state_id:row_obj.state_id
 
-                  }
-      this.usersservice.userput(row_obj.id,itemvalue).subscribe(res=>{
+  var itemvalue 
+ if(row_obj.status=='status'){
+       itemvalue={status:row_obj.event.checked}
+      }
+ else{
+  itemvalue={
+    first_name:row_obj.itemsumbited.CommonName,
+    last_name:row_obj.itemsumbited.lastName,
+    company_id:row_obj.itemsumbited.company,
+    office_id:row_obj.itemsumbited.office,
+    role_id:row_obj.itemsumbited.role,
+    email:row_obj.itemsumbited.email,
+    mobile:row_obj.itemsumbited.mobile,
+    address:row_obj.itemsumbited.description
+  }
+ }
+     
+   
+      let id=row_obj.status=='status'?row_obj.row.id:row_obj.id
+      this.usersservice.userput(id,itemvalue).subscribe(res=>{
         console.log(res)
         this.showNotification(
           "black",
@@ -259,7 +269,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
               this.dataobject.data.values.forEach(element => {
                
                element.dailogPage=this.pagename
-                element.first_name = element.first_name+ ' ' +(element.last_name==null?' ':element.last_name)
+              
              //  element.actionIcon = actionIcon
              
                
@@ -284,7 +294,8 @@ export class UserTypeComponent implements OnInit, OnChanges{
                 delete this.countryheader.system_name
                 
                 delete this.countryheader.profile_picture
-                
+                delete this.countryheader.gender
+                delete this.countryheader.dob
                 delete this.countryheader.address
                 delete this.countryheader.city_id
                 delete this.countryheader.state_id

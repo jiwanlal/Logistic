@@ -21,7 +21,13 @@
                     </div>
                   
                     <ng-template #elseBlock>
-                      {{row[column]}}
+                      <div *ngIf="tableheader[column]=='status'; else restofData">
+                          Inactive <mat-slide-toggle [(ngModel)]="row[column]" (change)="activeinactive($event,row,'status')" color="primary">Active</mat-slide-toggle>
+                      </div>
+                      <ng-template #restofData>
+                          {{row[column]}}
+                      </ng-template>
+                     
                     </ng-template>
                     
 
@@ -49,7 +55,7 @@
                 <mat-header-row *matHeaderRowDef="objectKeys(tableheader);sticky:true"></mat-header-row>
                 <!-- <mat-row *matRowDef="let row; columns: tableheader;"></mat-row> -->
                 <tr class="mat-row" *matNoDataRow>
-                  <td class="mat-cell" colspan="this.tabledata.length">No data matching the filter</td>
+                  <td class="mat-cell text-center p-3" colspan="this.tabledata.length">No data matching the filter</td>
                 </tr>
               </mat-table>
               <!-- Loading spinner -->

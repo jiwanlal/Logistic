@@ -13,7 +13,7 @@ export class UsersdialogComponent implements OnInit {
   public Onlyalphabets=new custompattern()
   public dialogtitle:string
 constructor(public dialogRef: MatDialogRef<UsersdialogComponent>,@Inject(MAT_DIALOG_DATA) public data,private formBuilder: FormBuilder){
-console.log(data)
+console.log(this.data.tabledatadeatils.officename)
 this.dialogtitle=data.actionName
 }
 
@@ -27,7 +27,7 @@ ngOnInit(): void {
     company:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.companyname:''],
     office:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.officename:''],
     role:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.rolename:''],
-    address:[this.data.tabledatadeatils.address],
+    
     description:[this.data.tabledatadeatils.description]
   
     })

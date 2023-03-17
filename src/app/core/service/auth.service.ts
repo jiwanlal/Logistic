@@ -41,6 +41,26 @@ export class AuthService {
         })
       );
   }
+  // login(client_id:number,email: string, password: string) {
+  //   let url =environment.apiUrl+environment.authenticate
+  //   return this.http
+  //     .post<any>(url, {
+  //       client_id,
+  //       email,
+  //       password,
+  //     })
+  //     .pipe(
+  //       catchError((error: HttpErrorResponse) => {
+  //         return observableThrowError(error);
+  //       }),
+  //       map((user) => {
+         
+  //         localStorage.setItem('currentUser', JSON.stringify(user));
+  //         this.currentUserSubject.next(user);
+  //         return user;
+  //       })
+  //     );
+  // }
   getUserList(){
     return this.http.get<any>(this.configUrl).pipe(
       catchError((error: HttpErrorResponse) => {
