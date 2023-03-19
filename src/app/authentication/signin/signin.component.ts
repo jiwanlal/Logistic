@@ -33,21 +33,22 @@ export class SigninComponent
   }
 
   ngOnInit() {
+    localStorage.removeItem('currentUser');
     this.authService.getUserList().subscribe(res=>{
       if(res.success==true){
         this.clientDetails=res.data.values
-
+        
       }
       
     })
   
     this.authForm = this.formBuilder.group({
-      companyid:[null, Validators.required],
-      username: ['', Validators.required],
+      clientid:[null, Validators.required],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
-  get f() {
+  get loginform() {
     return this.authForm.controls;
   }
 
@@ -61,21 +62,35 @@ export class SigninComponent
       return;
     } else {
       this.subs.sink = this.authService
-        .login(this.f.companyid.value,this.f.username.value, this.f.password.value)
+        .login(this.loginform.clientid.value,this.loginform.username.value, this.loginform.password.value)
         .subscribe(
           (res) => {
-            if (res) {
+            console.log(res)
+           // localStorage.setItem("currentUser", "All");
+            if (res.accessToken!=null||res.accessToken!=undefined) {
+              console.log(res.accessToken)
+              this.router.navigate(["/admin/dashboard/main"]);
+              
+
               setTimeout(() => {
-                const role = this.authService.currentUserValue.role;
-                if (role === Role.All || role === Role.Admin) {
-                  this.router.navigate(["/admin/dashboard/main"]);
-                } else if (role === Role.Doctor) {
-                  this.router.navigate(["/doctor/dashboard"]);
-                } else if (role === Role.Patient) {
-                  this.router.navigate(["/patient/dashboard"]);
-                } else {
-                  this.router.navigate(["/authentication/signin"]);
-                }
+              const role = this.authService.currentUserValue.role;
+              console.log(role)
+              const accessToken = this.authService.currentUserValue.accessToken;
+             // localStorage.setItem('accessToken',res.accessToken);
+             if(role=='Admin' ){
+              this.router.navigate(["/admin/dashboard/main"]);
+             }
+             
+              
+                // if (role === Role.All || role === Role.Admin) {
+                //   this.router.navigate(["/admin/dashboard/main"]);
+                // } else if (role === Role.Doctor) {
+                //   this.router.navigate(["/doctor/dashboard"]);
+                // } else if (role === Role.Patient) {
+                //   this.router.navigate(["/patient/dashboard"]);
+                // } else {
+                //   this.router.navigate(["/authentication/signin"]);
+                // }
                 this.loading = false;
               }, 1000);
             } else {

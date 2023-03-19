@@ -61,15 +61,12 @@ export class UserTypeComponent implements OnInit, OnChanges{
   }
   addItem(event){
   console.log(event)
-  if(event.popupForm=='Edit'||event.popupForm=='Add')
+  if(event.popupForm=='Edit'||event.popupForm=='Add' || event.status=='status')
   {
     console.log(event) 
     this.OpenDialog(event)
   }
-  else if(event.status=='status'){
-    console.log(event)
-    this.updateRowData(event)
-  }
+
   else{
     this.Ondelete(event)
   }
@@ -77,8 +74,23 @@ export class UserTypeComponent implements OnInit, OnChanges{
  
 
   OpenDialog(event){
-    console.log(event)
+    console.log(event.status)
     var dialogdata:any
+          if(event.status=='status'){
+              
+            dialogdata={
+              actionName:'Active User',
+              tabledatadeatils:{
+            
+                id:event.row.user_id,
+              
+                password:event.row.password,
+                dailogPage:'statusDailog',
+
+                }
+          }
+        }
+  
     if(event.popupForm=='Edit'){
       
       dialogdata={
@@ -97,6 +109,8 @@ export class UserTypeComponent implements OnInit, OnChanges{
           officename:event.actionName.office_id,
           rolename:event.actionName.role_id,
           description:event.actionName.description,
+          uploadFile:event.actionName.profile_picture,
+          password:event.actionName.password,
           dailogPage:event.actionName.dailogPage,
 
           }
@@ -121,12 +135,14 @@ export class UserTypeComponent implements OnInit, OnChanges{
           officename:'',
           rolename:'',
           description:'',
+          uploadFile:'',
           dailogPage:this.pagename,
 
           }
         
       }
     }
+    
 
     const dialogRef=this.dialog.open(UsersdialogComponent, {
       data:dialogdata,
@@ -174,6 +190,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
   }
   
   updateRowData(row_obj){
+    console.log(row_obj)
 
   var itemvalue 
  if(row_obj.status=='status'){
@@ -188,6 +205,10 @@ export class UserTypeComponent implements OnInit, OnChanges{
     role_id:row_obj.itemsumbited.role,
     email:row_obj.itemsumbited.email,
     mobile:row_obj.itemsumbited.mobile,
+    profile_picture:{name:row_obj.itemsumbited.uploadFile.name,size:row_obj.itemsumbited.uploadFile.size,
+      type:row_obj.itemsumbited.uploadFile.type,path:'webkitRelativePath'
+    },
+    
     address:row_obj.itemsumbited.description
   }
  }
@@ -218,6 +239,11 @@ export class UserTypeComponent implements OnInit, OnChanges{
       role_id:row_obj.itemsumbited.role,
       email:row_obj.itemsumbited.email,
       mobile:row_obj.itemsumbited.mobile,
+      profile_picture:{name:row_obj.itemsumbited.uploadFile.name,size:row_obj.itemsumbited.uploadFile.size,
+        type:row_obj.itemsumbited.uploadFile.type,path:'webkitRelativePath'
+      },
+      
+
       
 
      // state_id:row_obj.state_id

@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: '', redirectTo: '/authentication/signin', pathMatch: 'full' },
       {
         path: 'admin',
-        canActivate: [AuthGuard],
+       canActivate: [AuthGuard],
         data: {
           role: Role.Admin,
         },

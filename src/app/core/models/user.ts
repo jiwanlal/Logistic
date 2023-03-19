@@ -9,5 +9,5 @@ export class User {
   firstName: string;
   lastName: string;
   role: Role;
-  token: string;
+  accessToken: string;
 }

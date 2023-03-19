@@ -22,7 +22,7 @@
                   
                     <ng-template #elseBlock>
                       <div *ngIf="tableheader[column]=='status'; else restofData">
-                          Inactive <mat-slide-toggle [(ngModel)]="row[column]" (change)="activeinactive($event,row,'status')" color="primary">Active</mat-slide-toggle>
+                          Inactive <mat-slide-toggle  [checked]="row[column]" (change)="activeinactive($event,row,'status')" color="primary">Active</mat-slide-toggle>
                       </div>
                       <ng-template #restofData>
                           {{row[column]}}

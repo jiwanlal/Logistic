@@ -14,7 +14,7 @@
       </div>
       <div mat-dialog-content>
         <form class="register-form m-4" [formGroup]="formdata">
-          <div class="row">
+          <div class="row" *ngIf="data.tabledatadeatils.dailogPage!='statusDailog'">
             <div class="col-md-6  mb-2" [ngClass]="{'col-md-12':data.tabledatadeatils.dailogPage!='userDailog'}">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>{{data.tabledatadeatils.dailogPage!='userDailog'?'First Name':'Name'}}</mat-label>
@@ -25,7 +25,8 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="col-md-6 mb-2" *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog'">
+            <div class="col-md-6 mb-2" *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog'
+            ">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Last Name</mat-label>
                 <input matInput formControlName="lastName">
@@ -34,13 +35,13 @@
               </mat-form-field>
             </div>
         </div>
-        <div *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog'">
+      <div *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog' && data.tabledatadeatils.dailogPage!='statusDailog'">
          
         <div class="row">
           <div class="col-md-6 mb-2">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Email</mat-label>
-              <input matInput formControlName="email">
+              <input matInput formControlName="email" type="email">
               <!-- <mat-icon matSuffix>face</mat-icon> -->
              
             </mat-form-field>
@@ -54,7 +55,7 @@
            
           </mat-form-field>
         </div>
-    </div>
+        </div>
           <div class="row">
             <div class="col-md-6 mb-2">
              
@@ -96,9 +97,27 @@
           
         </div>
     </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5">
+        <label>Upload Profile Picture <small>(Max file size 50kb)</small></label>
+        <app-file-upload (ngModelChange)="change($event)" [acceptonly]="acceptonly" formControlName="uploadFile"></app-file-upload>
       </div>
+    </div>
+      </div>
+      <div class="row" *ngIf="this.data.tabledatadeatils.dailogPage=='userDailog'||this.data.tabledatadeatils.dailogPage=='statusDailog'">
+        <div class="col-md-6 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>{{this.data.tabledatadeatils.dailogPage=='userDailog'?'Update Password':'Create Password'}}</mat-label>
+            <input matInput formControlName="password">
+             <mat-icon matSuffix>vpn_key</mat-icon>
+           
+          </mat-form-field>
+          
+        </div>
+    </div>
+
          
-        <div class="row">
+        <div class="row"  *ngIf="data.tabledatadeatils.dailogPage!='statusDailog'">
             <div class="col-md-12 col-sm-12 mb-2">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>{{this.data.tabledatadeatils.dailogPage=='userDailog'?'Address':'Description'}}</mat-label>
@@ -109,6 +128,7 @@
               </mat-form-field>
             </div>
         </div>
+      
        
       
         <div class="row">

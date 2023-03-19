@@ -14,13 +14,22 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 })
 export class FileUploadComponent implements ControlValueAccessor {
   @Input() progress;
+  @Input() acceptonly;
   onChange: Function;
   public file: File | null = null;
 
   @HostListener("change", ["$event.target.files"]) emitFiles(event: FileList) {
+    console.log(event)
     const file = event && event.item(0);
+    console.log(file.size)
+  
     this.onChange(file);
     this.file = file;
+    if(file.size>50000){
+    
+      this.host.nativeElement.value = "";
+      this.file = null;
+    }
   }
 
   constructor(private host: ElementRef<HTMLInputElement>) {}
@@ -36,4 +45,5 @@ export class FileUploadComponent implements ControlValueAccessor {
   }
 
   registerOnTouched(fn: Function) {}
+  
 }

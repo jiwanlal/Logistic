@@ -34,7 +34,7 @@
               <div class="col-xl-6 col-lg-6  mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Email</mat-label>
-                  <input matInput formControlName="Email" required>
+                  <input matInput type="email" formControlName="Email" required>
                   
                   <mat-error *ngIf="authForm.get('Email').hasError('required') || authForm.get('Email').touched">
                   Enter a valid email address
