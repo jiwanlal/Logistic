@@ -33,6 +33,7 @@ export class HeaderComponent
   langStoreValue: string;
   defaultFlag: string;
   isOpenSidebar: boolean;
+  public userFullName
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -102,6 +103,10 @@ export class HeaderComponent
     },
   ];
   ngOnInit() {
+    this.authService.currentUserDetails.subscribe(res=>{
+      console.log(res.data)
+      this.userFullName=res.data[0].first_name +' '+ res.data[0].last_name
+    })
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
     const userid =this.authService.currentUserValue.id;
@@ -121,6 +126,7 @@ export class HeaderComponent
     } else {
       this.flagvalue = val.map((element) => element.flag);
     }
+  
   }
 
   ngAfterViewInit() {

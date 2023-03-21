@@ -3,6 +3,7 @@
 export const environment = {
   production: true,
   apiUrl: 'http://34.70.100.59:8080/api/',
+  authenticate:'auth/login',
   menutree:'menus/menu',
   companies:'companies/company',
   countery:'places/country',

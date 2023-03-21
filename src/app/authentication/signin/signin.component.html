@@ -33,12 +33,15 @@
             <div class="row">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                 <mat-form-field appearance="outline" class="example-full-width">
-                  <mat-label>Select</mat-label>
+                  <mat-label>Company</mat-label>
                   <mat-select formControlName="clientid">
                     <mat-option *ngFor="let client of clientDetails" [value]="client.company_id">
                       {{client.name}}
                     </mat-option>
                   </mat-select>
+                  <mat-error *ngIf="authForm.get('clientid').hasError('required')">
+                  Company is required.
+                    </mat-error>
                 </mat-form-field>
               </div>
             </div>
@@ -48,9 +51,9 @@
                   <mat-label>Username</mat-label>
                   <input matInput type="email" formControlName="username" />
                   <mat-icon matSuffix class="face-icon">face</mat-icon>
-                  <mat-error *ngIf="authForm.get('username').hasError('required')">
-                    Username is required
-                  </mat-error>
+                  <mat-error *ngIf="authForm.get('username').hasError('required') || authForm.get('username').touched">
+                    Enter a valid email address
+                    </mat-error>
                 </mat-form-field>
               </div>
             </div>

@@ -25,6 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DatatableModule } from '../common/datatable.module';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
@@ -35,6 +36,7 @@ import { DatatableModule } from '../common/datatable.module';
     RolesComponent,
     UsersdialogComponent,
     DeletedialogComponent,
+    UserProfileComponent
 
   ],
   imports: [

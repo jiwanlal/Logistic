@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { AuthService } from "src/app/core/service/auth.service";
 import { DirectionService } from "src/app/core/service/direction.service";
 
 @Component({
@@ -9,7 +10,7 @@ import { DirectionService } from "src/app/core/service/direction.service";
 export class MainLayoutComponent implements OnInit {
   direction: string;
   public config: any = {};
-  constructor(private directoryService: DirectionService) {
+  constructor(private directoryService: DirectionService,  private authService: AuthService,) {
     this.directoryService.currentData.subscribe((currentData) => {
       if (currentData) {
         this.direction = currentData;
@@ -30,5 +31,16 @@ export class MainLayoutComponent implements OnInit {
       }
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('hello')
+    const userdetails=JSON.parse(localStorage.getItem('currentUser'))
+  console.log(userdetails)
+  if(userdetails){
+    this.authService.getselectUser(userdetails.id).subscribe(res=>{
+      console.log(res)
+      this.authService.currentUserDetails.next(res)
+    })
+  }
+  }
+   
 }

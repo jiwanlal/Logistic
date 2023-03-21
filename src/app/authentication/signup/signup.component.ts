@@ -36,8 +36,8 @@ export class SignupComponent implements OnInit {
     this.authForm = this.formBuilder.group({
       FirstName: ['', Validators.required],
       LastName: [''],
-      Email: ['',[Validators.required, Validators.email, Validators.minLength(5)]],
-      Mobile:['' ,[Validators.required, Validators.maxLength(10)]],
+      Email: ['',[Validators.required, Validators.email]],
+      Mobile:['' ,[Validators.required,Validators.pattern("^((\\?)|)?[0-9]{10}$")]],
       Company:['' ,[Validators.required]],
       Office:['' ,[Validators.required]],
       Role:['' ,[Validators.required]]
