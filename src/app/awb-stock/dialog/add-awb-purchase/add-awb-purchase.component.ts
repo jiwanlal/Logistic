@@ -49,8 +49,9 @@ export class AddAwbPurchaseComponent {
     this.getFillValues(()=>{
       this.formdata.controls.office.disable()
       this.formdata.controls.endno.disable()
-      this.formdata.controls.office.setValue(this.defaultValues?.office);
       this.setFilters();
+      this.formdata.controls.office.setValue(this.defaultValues?.office);
+      
       
       if(this.data)
       this.setData(this.data);

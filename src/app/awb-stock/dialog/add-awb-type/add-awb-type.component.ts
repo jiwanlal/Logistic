@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { map, Observable, startWith } from 'rxjs';
 import { AwbService } from '../../awb.service';
 
 @Component({
@@ -11,25 +12,68 @@ import { AwbService } from '../../awb.service';
 export class AddAwbTypeComponent {
 
   dialogtitle = "Add Awb Type"
+  filteredPaymentModes: Observable<string[]>;
+  paymentModes:any[]=[]
   constructor(public dialogRef: MatDialogRef<AddAwbTypeComponent>,@Inject(MAT_DIALOG_DATA) public data,private awbService :AwbService){
     
-    console.log(data)
-    if(data){
-      this.dialogtitle = "Edit Awb Type";
-      this.setData(data);
+   
+  }
+
+  ngOnInit(){
+    this.fillValues(()=>{
+
+      this.filteredPaymentModes = this.formdata.controls.payment_mode_id.valueChanges.pipe(
+        startWith(''),
+        map(value => {
+          value = typeof (value) == 'string' ? value?.toLowerCase() : ''
+          return this.paymentModes.filter(option => option?.PaymentMode?.toLowerCase().includes(value?.toLowerCase()));
+        }),
+      );
+
+      console.log(this.data)
+      if(this.data){
+        this.dialogtitle = "Edit Awb Type";
+        this.setData(this.data);
+      }
+
+    });
+  }
+
+  displayFunc(list, key, displaykey, value): string {
+    console.log(value, list)
+    if (typeof (value) == 'number') {
+      value = list.find(x => x?.[key]?.toString()?.indexOf(value) != -1)
     }
+    return value?.[displaykey];
+  }
+
+  private fillValues(cb){
+
+    this.awbService.getAwbFillValues()
+    .subscribe(res=>{
+       this.paymentModes = res?.data?.paymentModes || [];
+
+       setTimeout(() => {
+        
+        cb()
+
+       }, 20);
+    })
+
   }
 
   private setData(data){
 
     this.formdata.controls.awb_type.setValue(data.AwbType);
     this.formdata.controls.awb_prefix.setValue(data.AwbPrefix);
+    this.formdata.controls.payment_mode_id.setValue(data.PaymentModeId);
   }
 
   formdata =new FormGroup(
     {
       awb_type: new FormControl(null,[Validators.required]),
       awb_prefix: new FormControl(null,[Validators.required]),
+      payment_mode_id: new FormControl(null,[Validators.required]),
     }
   )
 

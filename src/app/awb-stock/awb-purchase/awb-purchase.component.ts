@@ -60,7 +60,7 @@ export class AwbPurchaseComponent {
 
     const ref = this.dialog.open(AddAwbPurchaseComponent, {
       data: rowData,
-      height:'75vh'
+      height:'95vh'
     });
     ref.afterClosed().subscribe(isAdded=> {
       if(isAdded){
@@ -74,7 +74,7 @@ export class AwbPurchaseComponent {
   addRow() {
 
     const ref = this.dialog.open(AddAwbPurchaseComponent,{
-      height:'75vh'
+      height:'95vh'
     });
     ref.afterClosed().subscribe(isAdded=> {
       if(isAdded){

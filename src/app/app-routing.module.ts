@@ -64,6 +64,15 @@ const routes: Routes = [
         loadChildren: () =>
           import('./awb-stock/awb-stock.module').then((m) => m.AwbStockModule),
       },
+      {
+        path: 'book',
+        canActivate: [AuthGuard],
+        data: {
+          role: Role.Admin,
+        },
+        loadChildren: () =>
+          import('./booking/booking.module').then((m) => m.BookingModule),
+      },
     ],
   },
   {

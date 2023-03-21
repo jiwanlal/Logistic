@@ -19,7 +19,6 @@ import { AddAwbSaleComponent } from './dialog/add-awb-sale/add-awb-sale.componen
 import { AddAwbPurchaseComponent } from './dialog/add-awb-purchase/add-awb-purchase.component';
 import { AddAwbIssueComponent } from './dialog/add-awb-issue/add-awb-issue.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ListValidatorDirective } from './directives/list-validator.directive';
 
 
 
@@ -32,8 +31,7 @@ import { ListValidatorDirective } from './directives/list-validator.directive';
     AwbIssueComponent,
     AddAwbSaleComponent,
     AddAwbPurchaseComponent,
-    AddAwbIssueComponent,
-    ListValidatorDirective
+    AddAwbIssueComponent
   ],
   imports: [
     CommonModule,

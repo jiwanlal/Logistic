@@ -12,7 +12,7 @@
             <mat-icon>close</mat-icon>
         </button>
     </div>
-    <div mat-dialog-content style="overflow: visible;height: 80vh;">
+    <div mat-dialog-content style="overflow: auto;min-height: 75vh;">
         <form class="register-form m-4" [formGroup]="formdata">
 
             <div class="row">
@@ -37,6 +37,7 @@
                 </div>
 
             </div>
+          <div class="row">
             <div class="col-md-6 col-sm-6 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Issue Date</mat-label>
@@ -48,26 +49,28 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+            <div class="col-md-6 col-sm-6 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>AWB Type</mat-label>
+                    <input type="text" placeholder="Pick one" [listValidator]="filteredAwbTypes | async" [validatorKey]="'id'" aria-label="Number" formControlName="awbtype" matInput
+                        [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                        [displayWith]="displayAwbName.bind(this)">
+                        <mat-option *ngFor="let option of filteredAwbTypes | async" [value]="option.id">
+                            {{option.AwbType}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formdata.get('awbtype').hasError('required')">
+                        AWB Type is required
+                    </mat-error>
+                    <mat-error *ngIf="formdata.get('awbtype').hasError('invalid')">
+                        Please select from list.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+          </div>
             <div class="row">
-                <div class="col-md-6 col-sm-6 mb-2">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>AWB Type</mat-label>
-                        <input type="text" placeholder="Pick one" [listValidator]="filteredAwbTypes | async" [validatorKey]="'id'" aria-label="Number" formControlName="awbtype" matInput
-                            [matAutocomplete]="auto">
-                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
-                            [displayWith]="displayAwbName.bind(this)">
-                            <mat-option *ngFor="let option of filteredAwbTypes | async" [value]="option.id">
-                                {{option.AwbType}}
-                            </mat-option>
-                        </mat-autocomplete>
-                        <mat-error *ngIf="formdata.get('awbtype').hasError('required')">
-                            AWB Type is required
-                        </mat-error>
-                        <mat-error *ngIf="formdata.get('awbtype').hasError('invalid')">
-                            Please select from list.
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+             
 
 
                 <div class="col-md-6 col-sm-6 mb-2">
@@ -87,11 +90,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-
-            </div>
-            <div class="row">
-
-                <div class="col-md-4 col-sm-4 mb-2">
+                <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Starting No</mat-label>
                         <input type="text" placeholder="Pick one" aria-label="Number" [listValidator]="filteredstartingNos | async" [validatorKey]="'StartingNo'"  formControlName="startingno"
@@ -112,6 +111,13 @@
 
 
                 </div>
+               
+
+
+            </div>
+            <div class="row">
+
+                
                 <div class="col-md-4 col-sm-4 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Quantity</mat-label>
@@ -121,8 +127,6 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-
-                <div class="row">
                     
                     <div class="col-md-4 col-sm-4 mb-2">
                         <mat-form-field class="example-full-width" appearance="outline">
@@ -147,7 +151,6 @@
                     </div>
 
                    
-                </div>
 
                 <div class="col-md-4 col-sm-4 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">

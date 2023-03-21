@@ -60,7 +60,7 @@ export class AwbIssueComponent {
 
     const ref = this.dialog.open(AddAwbIssueComponent, {
       data: rowData,
-      height:'75vh',
+      height:'85vh',
       width:'40%'
     });
     ref.afterClosed().subscribe(isAdded=> {
@@ -76,7 +76,7 @@ export class AwbIssueComponent {
   addRow() {
 
     const ref = this.dialog.open(AddAwbIssueComponent,{
-      height:'75vh',
+      height:'85vh',
       width:'40%'
     });
     ref.afterClosed().subscribe(isAdded=> {

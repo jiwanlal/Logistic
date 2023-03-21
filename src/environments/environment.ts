@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'http://34.70.100.59:8080/api/',
+  apiUrl: 'http://localhost:3000/api/',
   countery:'places/country',
   zone:'places/zone',
   region:'places/region',
@@ -13,12 +13,22 @@ export const environment = {
   postcode:'places/postcode',
   locality:'places/locality',
   awbtype :'awb/awbtype',
+  awbtypefill :'awb/awbfill',
   awbsalesfill :'awb/awbsalesfillvalues',
   awbsales :'awb/awbsales',
   awbpurchasefill :'awb/awbpurchasefillvalues',
   awbpurchase :'awb/awbpurchase',
   awbissuefill :'awb/awbissuefillvalues',
   awbissue :'awb/awbissue',
+  bookingAwbNumber:'book/awbnumber',
+  bookingOffice:'book/office',
+  bookingPincode:'book/pincode',
+  bookingFillvalues:'book/fillvalues',
+  searchPostcode:'book/postcode',
+  searchCities:'book/city',
+  searchstates:'book/state',
+  localitiesOnPostCodes:'book/localitiesonpostcode',
+  booking:'book/booking',
 
   
    //apiUrl:'http://location:4200'
