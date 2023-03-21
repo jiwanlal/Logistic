@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
-import { countrydatamodal } from './country/location.modal';
+import { countrydatamodal } from './location.modal';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

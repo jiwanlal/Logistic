@@ -2,7 +2,10 @@ import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LactiontableComponent } from '../lactiontable/lactiontable.component';
 import { LocationService } from '../location.service';
-import { countrydatamodal} from './location.modal';
+import { countrydatamodal} from '../location.modal';
+import { MatDialog } from '@angular/material/dialog';
+import { LocationdialogComponent } from '../dialogs/locationdialog/locationdialog.component';
+import { LocationdeleteComponent } from '../dialogs/locationdelete/locationdelete.component';
 
 @Component({
   selector: 'app-country',
@@ -12,13 +15,14 @@ import { countrydatamodal} from './location.modal';
 export class CountryComponent implements OnInit, OnChanges{
 public Titlename="Country"
 public pagename="countryDailog"
-public selectoption=''
+public AddAction={actionName:'Add',popupForm:this.pagename}
 @ViewChild(LactiontableComponent) child
+
  public coutrydataobject:any = new countrydatamodal()
  public inload=false
  public countryheader
  public dataForTable
-  constructor(public contrylistservice:LocationService,private snackBar: MatSnackBar){ }
+  constructor(public contrylistservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
 ngOnInit(): void {
   this.Oncountrylist()
   
@@ -35,21 +39,77 @@ showNotification(colorName, text, placementFrom, placementAlign) {
   });
 }
 addItem(event){
-console.log(event.itemsumbited
-  )
-if(event.action=='Edit'){
-  this.updateRowData(event.itemsumbited)
-}
-if(event.action=='Add'){
-this.addRowData(event.itemsumbited)
-}
-if(event.action=='Delete'){
   console.log(event)
-  this.deleteRowData(event.itemsumbited)
+  if(event.popupForm=='Edit'||event.popupForm=='Add')
+  {
+    console.log(event) 
+    this.OpenDialog(event)
+  }
+  else{
+    this.Ondelete(event)
+  }
+ }
+
+ OpenDialog(event){
+  var dialogdata:any
+  if(event.popupForm=='Edit'){
+    dialogdata={
+      actionName:event.popupForm,
+      tabledatadeatils:event.actionName,
+      list:[],
+      
+      
+    }
+  }
+  else if(event.popupForm=='Add'){
+    dialogdata= {
+      actionName:event.popupForm,
+      tabledatadeatils:'',
+      list:[],
+      popupForm:this.pagename,
+      
+      
+    }
   }
 
+  const dialogRef=this.dialog.open(LocationdialogComponent, {
+    data:dialogdata,
+     minWidth:'400px'
+   });
+   dialogRef.afterClosed().subscribe(result => {
+     console.log('The dialog was closed',result);
+     if(result.action=='Edit'){
+       console.log(result)
+       this.updateRowData(result.itemsumbited)
+      // this.dataChange.emit(result);
+     }
+     else if(result.action=='Add'){
+      this.addRowData(result.itemsumbited)
+     }
+    
+   });
 }
+Ondelete(event){
 
+  const dialogRef=this.dialog.open(LocationdeleteComponent, {
+   
+        data: { actionName:event.popupForm,
+          tabledatadeatils:event.actionName,
+          
+        },
+        minWidth:'400px'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed',result);
+        if(result.action=='Delete'){
+          console.log(result)
+          this.deleteRowData(result.itemsumbited);
+         }
+       
+      });
+ 
+
+}
 updateRowData(row_obj){
  let itemvalue={country_name:row_obj.title }
     this.contrylistservice.countryput(row_obj.Id,itemvalue).subscribe(res=>{

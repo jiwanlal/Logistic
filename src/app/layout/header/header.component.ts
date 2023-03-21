@@ -104,17 +104,12 @@ export class HeaderComponent
   ngOnInit() {
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
+    const userid =this.authService.currentUserValue.id;
     this.userImg = this.authService.currentUserValue.img;
-
+      console.log(userid)
     if (userRole === "Admin") {
       this.homePage = "admin/dashboard/main";
-    } else if (userRole === "Patient") {
-      this.homePage = "patient/dashboard";
-    } else if (userRole === "Doctor") {
-      this.homePage = "doctor/dashboard";
-    } else {
-      this.homePage = "admin/dashboard/main";
-    }
+    } 
 
     this.langStoreValue = localStorage.getItem("lang");
     const val = this.listLang.filter((x) => x.lang === this.langStoreValue);

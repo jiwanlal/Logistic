@@ -1,0 +1,49 @@
+<section class="content ">
+    <div class="content-block">
+      <div class="block-header mt-3">
+        <!-- breadcrumb -->
+        <!-- <app-breadcrumb [title]="'Ambulance List'" [items]="['Ambulance']" [active_item]="'List'">
+        </app-breadcrumb> -->
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+              <div class="responsive_table">
+                <div class="materialTableHeader">
+                  <div class="row">
+                    <div class="col-8">
+                      <ul class="header-buttons-left ms-0">
+                        <li class="tbl-title">
+                          <h2>{{Titlename}}</h2>
+                        </li>
+                        <li class="tbl-search-box">
+                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                          <input placeholder="Search" type="text" [(ngModel)]="keyword" (keyup)="filter($event.target.value)" class="browser-default search-field"
+                            aria-label="Search box">
+                          <!-- <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                            aria-label="Search box"> -->
+                        </li>
+                        <li class="tbl-header-btn">
+                          <div class="m-l-10" matTooltip="ADD">
+                            <button (click)="addRow()" mat-mini-fab color="primary" >
+                              <mat-icon class="col-white">add</mat-icon>
+                            </button>
+                          </div>
+                        </li>
+                      
+                       
+                      </ul>
+                    </div>
+                 
+                  </div>
+                </div>
+                <data-grid [DataSource]="tableData" [TableHeader]="tableHeader" (onRowDelete)="deleteRow($event)" (onRowEdit)="editRow($event)"></data-grid>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  

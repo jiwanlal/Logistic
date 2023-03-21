@@ -2,11 +2,11 @@
     <mat-table  matTableExporter [dataSource]="dataSource" matSort class="mat-cell">
 
         <ng-container matColumnDef="{{col.field}}" *ngFor="let col of tableHeader">
-            <mat-header-cell *matHeaderCellDef mat-sort-header > {{col.name |titlecase}} </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{col.name |titlecase}} </mat-header-cell>
 
-            <mat-cell *matCellDef="let element" >
+            <mat-cell *matCellDef="let element">
 
-                <div *ngIf="col.field == 'Actions';else elseBlock" style="white-space: nowrap;">
+                <div *ngIf="col.field == 'Actions';else elseBlock">
 
                     <ng-container *ngIf="element.edit">
                         <button mat-icon-button (click)="onEdit(element)">

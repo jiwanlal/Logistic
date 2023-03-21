@@ -1,14 +1,15 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs';
-import {RouteInfo} from '../../layout/sidebar/sidebar.metadata'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class LeftmenulistService {
-  public configUrl = 'assets/i18n/en.json';
+  //public configUrl = 'assets/i18n/en.json';
+  public configUrl = environment.apiUrl+environment.menutree;
   constructor(public http:HttpClient) { }
 
   getMenulist(){

@@ -9,7 +9,8 @@ import { AdminRoutingModule } from "./admin-routing.module";
 import { ComponentsModule } from "../shared/components/components.module";
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,

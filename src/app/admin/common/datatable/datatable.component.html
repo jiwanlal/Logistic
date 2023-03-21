@@ -1,0 +1,76 @@
+
+              <div *ngIf="this.tabledata!=undefined">
+              <mat-table  matTableExporter [dataSource]="datasource" matSort class="mat-cell">
+             
+                <ng-container  [matColumnDef]="column" *ngFor="let column of  objectKeys(tableheader)" >
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>{{tableheader[column]|titlecase}}</mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <div *ngIf="isArray(row[column]); else elseBlock " class="d-flex">
+                      <div *ngFor="let action of row[column];let i = index" >
+                        <button *ngIf="row.actions[i]=='Edit'" mat-icon-button (click)="Opendailogbox(row,action)">
+                          <!-- <mat-icon>{{row.actionIcon[i]}}</mat-icon> -->
+                          <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                        </button>
+                        <button *ngIf="row.actions[i]=='Delete'" mat-icon-button (click)="Ondelete(row,action)">
+                          <!-- <mat-icon>{{row.actionIcon[i]}}</mat-icon> -->
+                          <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                         
+                        </button>
+                        
+                        </div>
+                    </div>
+                  
+                    <ng-template #elseBlock>
+                      <div *ngIf="tableheader[column]=='status'; else restofData">
+                          Inactive <mat-slide-toggle  [checked]="row[column]" (change)="activeinactive($event,row,'status')" color="primary">Active</mat-slide-toggle>
+                      </div>
+                      <ng-template #restofData>
+                          {{row[column]}}
+                      </ng-template>
+                     
+                    </ng-template>
+                    
+
+
+                  </mat-cell>
+                </ng-container>
+               
+                <!-- actions -->
+                <!-- <ng-container matColumnDef="actions">
+                  <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                    <button mat-icon-button (click)="$event.stopPropagation()" (click)="editCall(row)"
+                      class="tbl-action-btn">
+                      <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    </button>
+                    <button mat-icon-button (click)="$event.stopPropagation()" (click)="deleteItem(row)"
+                      class="tbl-action-btn">
+                      <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                    </button>
+                  </mat-cell>
+                </ng-container> -->
+                <mat-row *matRowDef="let row; columns:objectKeys(tableheader)" 
+                [style.cursor]="'pointer'" matRipple>
+              </mat-row>
+                <mat-header-row *matHeaderRowDef="objectKeys(tableheader);sticky:true"></mat-header-row>
+                <!-- <mat-row *matRowDef="let row; columns: tableheader;"></mat-row> -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell text-center p-3" colspan="this.tabledata.length">No data matching the filter</td>
+                </tr>
+              </mat-table>
+              <!-- Loading spinner -->
+              <!-- <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                </mat-progress-spinner>
+              </div> -->
+              <!-- <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+                [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                No results
+              </div> -->
+            
+             
+            </div>
+            <mat-paginator #paginator [length]="this.tabledata.length" [pageIndex]="0" [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]">
+          </mat-paginator>
+          

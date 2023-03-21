@@ -10,7 +10,7 @@ import { ZoneComponent } from './zone/zone.component';
 
 const routes: Routes = [
   {
-    path: '', component:CountryComponent, redirectTo:'country'
+    path: 'location', component:CountryComponent, redirectTo:'country'
   },
   {
     path: 'country', component:CountryComponent

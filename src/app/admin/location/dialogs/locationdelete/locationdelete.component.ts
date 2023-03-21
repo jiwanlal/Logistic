@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { custompattern } from '../../lactiontable/pattern.modal';
+import { custompattern } from '../../../pattern.modal';
 
 @Component({
   selector: 'app-locationdelete',

@@ -1,5 +1,5 @@
 import { RouteInfo } from "./sidebar.metadata";
-export const ROUTES: RouteInfo[] = [
+export const ROUTES:any = [
   {
     path: "",
     title: "MENUITEMS.MAIN.TEXT",
