@@ -51,6 +51,7 @@ export class UserProfileComponent implements OnInit {
 
    var dialogdata={
       actionName:'Edit',
+      pagetype:'profile',
       tabledatadeatils:{
         name:eventedit.first_name,
         lastname:eventedit.last_name,
@@ -67,6 +68,8 @@ export class UserProfileComponent implements OnInit {
         description:eventedit.address,
         uploadFile:eventedit.profile_picture,
         password:eventedit.password,
+        gender:eventedit.gender,
+        dob:eventedit.dob,
         dailogPage:'userDailog',
 
         }
@@ -125,7 +128,9 @@ export class UserProfileComponent implements OnInit {
           role_id:row_obj.itemsumbited.role,
           email:row_obj.itemsumbited.email,
           mobile:row_obj.itemsumbited.mobile,
-          profile_picture:row_obj.itemsumbited.uploadFile==''?'':{name:row_obj.itemsumbited.uploadFile.name,size:row_obj.itemsumbited.uploadFile.size,
+          gender:row_obj.itemsumbited.gender,
+          password:row_obj.itemsumbited.password,
+          profile_picture:row_obj.itemsumbited.uploadFile==null?'':{name:row_obj.itemsumbited.uploadFile.name,size:row_obj.itemsumbited.uploadFile.size,
             type:row_obj.itemsumbited.uploadFile.type,path:'webkitRelativePath'
           },
           
