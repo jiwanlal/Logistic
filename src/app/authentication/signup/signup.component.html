@@ -24,7 +24,7 @@
               <div class="col-xl-6 col-lg-6  mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Last Name</mat-label>
-                  <input matInput formControlName="LastName" required>
+                  <input matInput formControlName="LastName">
                   
                  
                 </mat-form-field>
@@ -44,11 +44,16 @@
               <div class="col-xl-6 col-lg-6  mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Mobile</mat-label>
-                  <input matInput formControlName="Mobile" type="number" required maxlength="10" minlength="10">
+                  <input matInput formControlName="Mobile"  type="text" required >
                  
                   <mat-error *ngIf="authForm.get('Mobile').hasError('required')">
                     Mobile number is required
                   </mat-error>
+
+                  <div   *ngIf="!authForm.controls.Mobile.valid">
+
+                  </div>
+                  <mat-error *ngIf="authForm.controls.Mobile.errors?.pattern">Enter 10 digit mobile number.</mat-error>
                 </mat-form-field>
               </div>
             </div>
@@ -83,23 +88,16 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-xl-6 col-lg-6  mb-2">
-                <mat-form-field class="example-full-width" appearance="outline">
-                  <mat-label>Role</mat-label>
-                  <mat-select formControlName="Role">
-                    <mat-option *ngFor="let role of this.rolelist" [value]="role.role_id">
-                      {{role.role_name}}
-                      </mat-option>
-                  </mat-select>
-                  
-                  <mat-error *ngIf="authForm.get('Role').hasError('required') ">
-                    Office is required
-                  </mat-error>
-                </mat-form-field>
-              </div>
+           
             </div>
            
-          
+            <div class="flex-sb-m w-full  p-b-20">
+              <div>
+                <span>Already Registered? <a routerLink="/authentication/signin">
+                    Login
+                  </a></span>
+              </div>
+            </div>
             <div class="container-auth-form-btn">
               <button mat-flat-button color="primary" class="auth-form-btn" [disabled]="!authForm.valid " type="submit">
                 Register

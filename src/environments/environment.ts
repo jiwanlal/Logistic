@@ -29,6 +29,7 @@ export const environment = {
   awbpurchase :'awb/awbpurchase',
   awbissuefill :'awb/awbissuefillvalues',
   awbissue :'awb/awbissue',
+  postcodeall:'places/postcode/all',
   bookingAwbNumber:'book/awbnumber',
   bookingOffice:'book/office',
   bookingPincode:'book/pincode',
@@ -38,7 +39,6 @@ export const environment = {
   searchstates:'book/state',
   localitiesOnPostCodes:'book/localitiesonpostcode',
   booking:'book/booking',
-  postcodeall:'places/postcode/all'
   
   
    //apiUrl:'http://location:4200'

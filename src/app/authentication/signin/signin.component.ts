@@ -77,9 +77,9 @@ export class SigninComponent
               console.log(role)
               const accessToken = this.authService.currentUserValue.accessToken;
              // localStorage.setItem('accessToken',res.accessToken);
-             if(role=='Admin' ){
+           //  if(role=='Admin' ){
               this.router.navigate(["/admin/dashboard/main"]);
-             }
+            // }
              
               
                 // if (role === Role.All || role === Role.Admin) {

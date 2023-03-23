@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {  BehaviorSubject, of,catchError, Observable,throwError as observableThrowError, map  } from 'rxjs';
 
-import { User } from '../models/user';
+import { User,userdeatiloption} from '../models/user';
 import { environment } from 'src/environments/environment';
 import { userdeatils } from 'src/app/authentication/signin/signin.component';
 
@@ -11,8 +11,12 @@ import { userdeatils } from 'src/app/authentication/signin/signin.component';
 })
 export class AuthService {
   public configUrl = environment.apiUrl+environment.companies;
+  public img='assets/images/user.png'
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<User>;
+  public currentUserDetails=new BehaviorSubject({
+    data:[] 
+  })
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(
@@ -56,9 +60,11 @@ export class AuthService {
       
        map((user) => {
          console.log(user)
-         let item={role:"Admin",accessToken:user.accessToken,id:6}
-         localStorage.setItem('currentUser',JSON.stringify(item));
-          this.currentUserSubject.next(item);
+         let item={role:"Admin",accessToken:user.accessToken,id:user.id,img:this.img}
+         localStorage.setItem('currentUser',JSON.stringify(user));
+          this.currentUserSubject.next(user);
+
+          
          return user;
        })
       );
@@ -68,6 +74,16 @@ export class AuthService {
       catchError((error: HttpErrorResponse) => {
         return observableThrowError(error);
       })
+    );
+  }
+
+  getselectUser(id){
+    const url = environment.apiUrl + environment.user+ `/${id}`;
+    return this.http.get<any>(url).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return observableThrowError(error);
+      })
+    
     );
   }
 

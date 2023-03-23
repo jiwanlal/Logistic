@@ -36,9 +36,27 @@
             </div>
         </div>
       <div *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog' && data.tabledatadeatils.dailogPage!='statusDailog'">
-         
         <div class="row">
-          <div class="col-md-6 mb-2">
+          <div class="col-md-6 mb-4">
+        <mat-form-field  appearance="outline">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput formControlName="dob" [matDatepicker]="picker">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        </div>
+       
+        <div class="col-md-6 mb-2">
+          <mat-label>Gander</mat-label>
+          <mat-radio-group color="primar"  formControlName="gender">
+            <mat-radio-button value="male">Male</mat-radio-button>
+            <mat-radio-button value="female">Female</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-md-6 mb-2" *ngIf="data.pagetype!='profile'">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Email</mat-label>
               <input matInput formControlName="email" type="email">
@@ -56,7 +74,7 @@
           </mat-form-field>
         </div>
         </div>
-          <div class="row">
+          <div class="row" *ngIf="data.pagetype!='profile'">
             <div class="col-md-6 mb-2">
              
               <mat-form-field class="example-full-width" appearance="outline">
@@ -83,7 +101,7 @@
             
           </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="data.pagetype!='profile'">
         <div class="col-md-6 mb-2">
          
           <mat-form-field class="example-full-width" appearance="outline">

@@ -105,6 +105,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
           companylist:this.compnaylist,
           officelist:this.officelist,
           rolelist:this.rolelist,
+          gender:event.actionName.gender,
           companyname:event.actionName.company_id,
           officename:event.actionName.office_id,
           rolename:event.actionName.role_id,
@@ -118,7 +119,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
       }
     }
     else if(event.popupForm=='Add'){
-      this.Onstatelist()
+   
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
@@ -136,6 +137,8 @@ export class UserTypeComponent implements OnInit, OnChanges{
           rolename:'',
           description:'',
           uploadFile:'',
+          gender:'male',
+          dob:'',
           dailogPage:this.pagename,
 
           }
@@ -170,7 +173,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
             tabledatadeatils:{
               name:event.actionName.first_name+''+ (event.actionName.last_name==null?"":event.actionName.last_name),
               id:event.actionName.id,
-              description:event.actionName.description,
+              description:event.actionName.address,
               dailogPage:event.actionName.dailogPage
               }
             
@@ -197,6 +200,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
        itemvalue={status:row_obj.event.checked}
       }
  else{
+  //alert('hello')
   itemvalue={
     first_name:row_obj.itemsumbited.CommonName,
     last_name:row_obj.itemsumbited.lastName,
@@ -205,7 +209,10 @@ export class UserTypeComponent implements OnInit, OnChanges{
     role_id:row_obj.itemsumbited.role,
     email:row_obj.itemsumbited.email,
     mobile:row_obj.itemsumbited.mobile,
-    profile_picture:{name:row_obj.itemsumbited.uploadFile.name,size:row_obj.itemsumbited.uploadFile.size,
+    gender:row_obj.itemsumbited.gender,
+    password:row_obj.itemsumbited.password,
+    dob:row_obj.itemsumbited.dob,
+    profile_picture:row_obj.itemsumbited.uploadFile==null?'':{name:row_obj.itemsumbited.uploadFile.name,size:row_obj.itemsumbited.uploadFile.size,
       type:row_obj.itemsumbited.uploadFile.type,path:'webkitRelativePath'
     },
     
@@ -239,6 +246,8 @@ export class UserTypeComponent implements OnInit, OnChanges{
       role_id:row_obj.itemsumbited.role,
       email:row_obj.itemsumbited.email,
       mobile:row_obj.itemsumbited.mobile,
+      gender:row_obj.itemsumbited.gender,
+      dob:row_obj.itemsumbited.dob,
       profile_picture:{name:row_obj.itemsumbited.uploadFile.name,size:row_obj.itemsumbited.uploadFile.size,
         type:row_obj.itemsumbited.uploadFile.type,path:'webkitRelativePath'
       },
@@ -281,7 +290,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
   Onuserlist(){
     this.inload=false
     this.usersservice.userget().subscribe(res=>{
-      this.Onstatelist()
+    
       this.dataobject=res
       console.log(res)
       if(this.dataobject.success==true){

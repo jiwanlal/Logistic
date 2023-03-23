@@ -36,11 +36,11 @@ export class SignupComponent implements OnInit {
     this.authForm = this.formBuilder.group({
       FirstName: ['', Validators.required],
       LastName: [''],
-      Email: ['',[Validators.required, Validators.email, Validators.minLength(5)]],
-      Mobile:['' ,[Validators.required, Validators.maxLength(10)]],
+      Email: ['',[Validators.required, Validators.email]],
+      Mobile:['' ,[Validators.required,Validators.pattern("^((\\?)|)?[0-9]{10}$")]],
       Company:['' ,[Validators.required]],
       Office:['' ,[Validators.required]],
-      Role:['' ,[Validators.required]]
+      
 
     });
     // get return url from route parameters or default to '/'
@@ -61,7 +61,6 @@ export class SignupComponent implements OnInit {
         last_name:this.authForm.get('LastName').value,
         company_id:this.authForm.get('Company').value,
         office_id:this.authForm.get('Office').value,
-        role_id:this.authForm.get('Role').value,
         email:this.authForm.get('Email').value,
         mobile:this.authForm.get('Mobile').value,
         

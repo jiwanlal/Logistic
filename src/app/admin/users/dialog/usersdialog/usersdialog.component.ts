@@ -38,13 +38,18 @@ ngOnInit(): void {
     role:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.rolename:''],
     uploadFile:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.profile_picture:''],
     password:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.password:''],
+    gender:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.gender:''],
+    dob:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.dob:''],
     
-    description:[this.data.tabledatadeatils.description]
+    
+    description:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.address:'']
   
     })
     if(this.data.tabledatadeatils.dailogPage=='userDailog'){
      this.formdata.get('company').clearValidators([Validators.required])
       this.formdata.get('company').updateValueAndValidity(); 
+      this.formdata.get('gender').clearValidators([Validators.required])
+      this.formdata.get('gender').updateValueAndValidity(); 
       this.formdata.get('role').setValidators([Validators.required])
       this.formdata.get('role').updateValueAndValidity(); 
       this.formdata.get('company').setValidators([Validators.required])
