@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { combineLatest, debounce, debounceTime, delay, distinctUntilChanged, exhaustMap, from, map, merge, of, startWith, switchMap, tap } from 'rxjs';
@@ -62,11 +62,12 @@ export class AddBookingComponent {
   gstRates: any[] = [];
   filteredGSTRates: Observable<any[]>;
 
-  EnableConsignorTab = false;
+  EnableConsignorTab = true;
   activeTab = 0;
+  isPayemntModeDirect= false;
 
 
-  constructor(public dialogRef: MatDialogRef<AddBookingComponent>, @Inject(MAT_DIALOG_DATA) public data, private bookService: BookingService) {
+  constructor(private cdr: ChangeDetectorRef, public dialogRef: MatDialogRef<AddBookingComponent>, @Inject(MAT_DIALOG_DATA) public data, private bookService: BookingService) {
 
 
 
@@ -97,20 +98,20 @@ export class AddBookingComponent {
   )
 
   consignorForm = new FormGroup({
-    consignor_mobile: new FormControl(null, [Validators.required]),
-    consignor_name: new FormControl(null, [Validators.required]),
-    consignor_address: new FormControl(null, [Validators.required]),
-    consignor_city_id: new FormControl(null, [Validators.required]),
-    consignor_state_id: new FormControl(null, [Validators.required]),
-    consignee_mobile: new FormControl(null, [Validators.required]),
-    consignee_name: new FormControl(null, [Validators.required]),
-    consignee_address: new FormControl(null, [Validators.required]),
-    consignee_city_id: new FormControl(null, [Validators.required]),
-    consignee_state_id: new FormControl(null, [Validators.required]),
-    gst_rate_id: new FormControl(null, [Validators.required]),
-    gst_rate: new FormControl(null, [Validators.required]),
-    amount: new FormControl(null, [Validators.required]),
-    total_amount: new FormControl(null, [Validators.required]),
+    consignor_mobile: new FormControl(null, []),
+    consignor_name: new FormControl(null, []),
+    consignor_address: new FormControl(null, []),
+    consignor_city_id: new FormControl(null, []),
+    consignor_state_id: new FormControl(null, []),
+    consignee_mobile: new FormControl(null, []),
+    consignee_name: new FormControl(null, []),
+    consignee_address: new FormControl(null, []),
+    consignee_city_id: new FormControl(null, []),
+    consignee_state_id: new FormControl(null, []),
+    gst_rate_id: new FormControl(null, []),
+    gst_rate: new FormControl(null, []),
+    amount: new FormControl(null, []),
+    total_amount: new FormControl(null, []),
   })
 
   consingmentForm = new FormGroup({
@@ -127,10 +128,13 @@ export class AddBookingComponent {
 
       this.setSearchFilters();
       this.setDefaultValues();
+    this.onConsignorFormEnable();
+
       this.loadData(fillDepenendnt);
     });
 
     this.onAWBNumberSelect();
+    this.onOriginPincodeChange();
     this.OnPaymentModeChange();
     this.onDestinationPincodeSelect();
     this.diableControls();
@@ -152,7 +156,7 @@ export class AddBookingComponent {
       this.formdata.controls.awb_number.setValue(this.data.awb_prefix, { emitEvent: false })
       this.formdata.controls.booking_office_id.setValue(this.data.booking_office_id)
       this.formdata.controls.booking_date.setValue(this.data.booking_date)
-      this.formdata.controls.origin_pincode_id.setValue(this.data.origin_pincode_id)
+      this.formdata.controls.origin_pincode_id.setValue(this.data.origin_pincode_id, { emitEvent: false })
       this.formdata.controls.destination_pincode_id.setValue(this.data.destination_pincode_id, { emitEvent: false })
       this.formdata.controls.destination_locality_id.setValue(this.data.destination_locality_id)
       this.formdata.controls.destionation_city_id.setValue(this.data.destionation_city_id)
@@ -272,8 +276,9 @@ export class AddBookingComponent {
   }
   private diableControls() {
 
-    // this.formdata.controls.booking_office_id.disable();
-    // this.formdata.controls.origin_pincode_id.disable();
+    this.formdata.controls.booking_office_id.disable();
+    this.formdata.controls.origin_pincode_id.disable();
+    this.formdata.controls.payment_mode_id.disable();
   }
 
   private onAWBNumberSelect() {
@@ -319,12 +324,54 @@ export class AddBookingComponent {
 
   }
 
+  private onOriginPincodeChange() {
+
+    this.formdata.controls.origin_pincode_id.valueChanges
+      .pipe(
+        switchMap(x => {
+          return this.bookService.getPincodeById(x);
+        })
+      )
+      .subscribe(value => {
+
+        // set consignor state and city
+
+        let cityId = value?.data[0]?.CityId;
+        let stateId = value?.data[0]?.StateId
+        combineLatest([
+          this.bookService.getCityById(cityId),
+          this.bookService.getStateById(stateId)
+        ])
+          .subscribe(res => {
+
+
+            this.consignorCities = res[0]?.data?.map(x => {
+              x.Id = x.city_id
+              x.Name = x.city_name;
+
+              return x;
+            });
+            this.consignorStates = res[1]?.data;
+
+            this.consignorForm.controls.consignor_city_id.setValue(cityId);
+            this.consignorForm.controls.consignor_state_id.setValue(stateId);
+            this.cdr.detectChanges();
+
+          })
+
+
+
+      })
+  }
+ 
+
   private OnPaymentModeChange() {
     this.formdata.controls.payment_mode_id.valueChanges.subscribe(value => {
-      if (value == 1 || value == 2) {
-        return this.onConsignorFormEnable();
+      if (value == 1 ) {
+        //return this.onConsignorFormEnable();
+        this.isPayemntModeDirect = true;
       }
-      this.onConsignorFormDisable();
+      //this.onConsignorFormDisable();
     })
   }
 
@@ -343,15 +390,26 @@ export class AddBookingComponent {
                 return this.destinationLocalities.filter(option => option?.LocalityName?.toLowerCase().includes(value?.toLowerCase()));
               }),
             );
+            this.formdata.controls.destination_locality_id.setValue(this.destinationLocalities[0].Id);
+            this.cdr.detectChanges();
 
-            setTimeout(() => {
-              this.formdata.controls.destination_locality_id.setValue(this.destinationLocalities[0].Id)
-            }, 20);
           })
 
-          this.bookService.getCityById(pincode?.CityId)
-            .subscribe(city => {
-              this.destinationCities = city?.data || [];
+          combineLatest([
+            this.bookService.getCityById(pincode?.CityId),
+            this.bookService.getStateById(pincode?.StateId)
+          ])
+            .subscribe(res => {
+
+
+              this.consigneeCities = res[0]?.data?.map(x => {
+                x.Id = x.city_id
+                x.Name = x.city_name;
+
+                return x;
+              });
+              this.consigneeStates = res[1]?.data || [];
+              this.destinationCities = res[0]?.data || [];
               this.filteredDestinationCities = this.formdata.controls.destionation_city_id.valueChanges.pipe(
                 startWith(''),
                 map(value => {
@@ -362,7 +420,12 @@ export class AddBookingComponent {
 
               setTimeout(() => {
                 this.formdata.controls.destionation_city_id.setValue(this.destinationCities[0].city_id)
-              }, 20);
+                this.consignorForm.controls.consignee_city_id.setValue(pincode?.CityId);
+                this.consignorForm.controls.consignee_state_id.setValue(pincode?.StateId);
+              }, 200);
+             
+              //this.cdr.detectChanges();
+
             })
         }
 
@@ -440,13 +503,13 @@ export class AddBookingComponent {
       .subscribe(val => {
         let form = this.consignorForm.controls;
         if (form?.amount?.value) {
-          form.total_amount.setValue(form.amount.value);
+          form.total_amount.setValue(parseFloat(form.amount.value));
           if (form?.gst_rate_id?.value) {
             let gst = this.gstRates.find(x => x.Id == form.gst_rate_id.value);
             if (gst) {
-              form.gst_rate.setValue(gst.Rate);
-              let tax = form.amount.value * gst.Rate * 0.01;
-              form.total_amount.setValue(form.amount.value + tax);
+              form.gst_rate.setValue(parseFloat(gst.Rate));
+              let tax = parseFloat(form.amount.value) * parseFloat(gst.Rate) * 0.01;
+              form.total_amount.setValue(parseFloat(form.amount.value) + tax);
             }
           }
         }
@@ -540,7 +603,7 @@ export class AddBookingComponent {
       return this.activeTab = 2;
     }
 
-    let val = { ...this.formdata.value, ... this.consignorForm.value, ... this.consingmentForm.value };
+    let val = { ...this.formdata.getRawValue(), ... this.consignorForm.getRawValue(), ... this.consingmentForm.getRawValue() };
 
 
     this.bookService.CreateBooking(val, this.data?.booking_id).subscribe(res => {

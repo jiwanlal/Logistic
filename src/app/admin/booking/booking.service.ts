@@ -16,6 +16,9 @@ export class BookingService {
    return this.http.get<any>(url)
   }
   searchPincode(str){
+    if(typeof(str) == "number"){
+      str = str.toString();
+    }
     const url = this.API_URL + environment.searchPostcode + (str ? "/"+str:'')
    return this.http.get<any>(url)
   }
@@ -47,6 +50,10 @@ export class BookingService {
     const url = this.API_URL + environment.city + (id ? "/"+id:'')
    return this.http.get<any>(url)
   }
+  getStateById(id){
+    const url = this.API_URL + environment.bookingState + (id ? "/"+id:'')
+   return this.http.get<any>(url)
+  }
 
   getFillValues(id){
     const url = this.API_URL + environment.bookingFillvalues + (id ? "/"+id:'')
@@ -69,6 +76,35 @@ export class BookingService {
   DeleteBooking(id){
     const url = this.API_URL + environment.booking  + (id ? "/"+id:'')
     return this.http.delete<any>(url)
+  }
+
+
+
+  //================= Manifest ========================
+
+  GetFillValuesManifest(){
+    const url = this.API_URL + environment.manifestFill
+    return this.http.get<any>(url)
+  }
+
+  CreateManifest(data){
+    const url = this.API_URL + environment.manifest
+    return this.http.post<any>(url,data)
+  }
+
+  CreateManifestDetail(data,id){
+    const url = this.API_URL + environment.manifestdetail + (id ? "/"+id:'')
+    return this.http.post<any>(url,data)
+  }
+
+  DeleteManifest(id){
+    const url = this.API_URL + environment.manifest  + (id ? "/"+id:'')
+    return this.http.delete<any>(url)
+  }
+
+  GetManifests(){
+    const url = this.API_URL + environment.manifest  
+    return this.http.get<any>(url)
   }
 
 }

@@ -12,14 +12,14 @@
             <mat-icon>close</mat-icon>
         </button>
     </div>
-    <div mat-dialog-content style="overflow: visible;height: 80vh;">
+    <div mat-dialog-content style="overflow: auto;min-height: 75vh;">
         <form class="register-form m-4" [formGroup]="formdata">
 
             <div class="row">
                 <div class="col-md-12 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Office Name</mat-label>
-                        <input type="text" placeholder="Pick one" [listValidator]="filteredOffices | async" [validatorKey]="'officeId'" aria-label="Number" [readonly]="true" formControlName="office" matInput
+                        <input type="text" placeholder="Pick one" [listValidator]="filteredOffices | async" [validatorKey]="'officeId'" aria-label="Number"  formControlName="office" matInput
                             [matAutocomplete]="office">
                         <mat-autocomplete autoActiveFirstOption [displayWith]="displayOfficeName.bind(this)"
                             #office="matAutocomplete">
@@ -37,18 +37,19 @@
                 </div>
 
             </div>
-            <div class="col-md-6 col-sm-6 mb-2">
-                <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Issue Date</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="issuedate">
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="formdata.get('awbtype').hasError('invalid')">
-                        Please select from list.
-                    </mat-error>
-                </mat-form-field>
-            </div>
+           
             <div class="row">
+                <div class="col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Issue Date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="issuedate">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="formdata.get('awbtype').hasError('invalid')">
+                            Please select from list.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
                 <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>AWB Type</mat-label>
@@ -87,11 +88,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-
-            </div>
-            <div class="row">
-
-                <div class="col-md-4 col-sm-4 mb-2">
+                <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Starting No</mat-label>
                         <input type="text" placeholder="Pick one" aria-label="Number" [listValidator]="filteredstartingNos | async" [validatorKey]="'StartingNo'"  formControlName="startingno"
@@ -112,18 +109,24 @@
 
 
                 </div>
-                <div class="col-md-4 col-sm-4 mb-2">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Quantity</mat-label>
-                        <input matInput formControlName="quantity" type="number">
-                        <mat-error *ngIf="formdata.get('quantity').hasError('required')">
-                            Quantity is required
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+               
+
+            </div>
+            <div class="row">
+
+              
 
                 <div class="row">
                     
+                    <div class="col-md-4 col-sm-4 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Quantity</mat-label>
+                            <input matInput formControlName="quantity" type="number">
+                            <mat-error *ngIf="formdata.get('quantity').hasError('required')">
+                                Quantity is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                     <div class="col-md-4 col-sm-4 mb-2">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>End No</mat-label>

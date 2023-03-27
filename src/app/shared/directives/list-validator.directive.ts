@@ -15,8 +15,7 @@ export class ListValidatorDirective implements Validator {
     @Input() validatorKey:any;
 
     validate(control: AbstractControl): { [key: string]: any } | null {
-
-        console.log(this.listValidator,this.validatorKey);
+       
         return this.listValidator?this.listValidator?.find(x=>x[this.validatorKey] === control.value)?null:{ 'invalid': true } :null
     }
 }

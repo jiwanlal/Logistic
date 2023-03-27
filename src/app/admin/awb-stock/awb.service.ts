@@ -33,6 +33,10 @@ addAwbType(awbType,id){
       );
 }
 
+getAwbFillValues(){
+    const url = this.API_URL + environment.awbtypefill ;
+    return this.http.get<any>(url);
+}
 getAwbType(id){
     const url = this.API_URL + environment.awbtype + ( id || "");
     return this.http.get<any>(url);

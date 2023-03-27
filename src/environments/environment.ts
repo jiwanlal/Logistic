@@ -33,12 +33,16 @@ export const environment = {
   bookingAwbNumber:'book/awbnumber',
   bookingOffice:'book/office',
   bookingPincode:'book/pincode',
+  bookingState:'book/bstate',
   bookingFillvalues:'book/fillvalues',
   searchPostcode:'book/postcode',
   searchCities:'book/city',
   searchstates:'book/state',
   localitiesOnPostCodes:'book/localitiesonpostcode',
   booking:'book/booking',
+  manifestFill:'manifest/fillvalues',
+  manifest:'manifest/manifest',
+  manifestdetail:'manifest/manifestdetail',
   
   
    //apiUrl:'http://location:4200'

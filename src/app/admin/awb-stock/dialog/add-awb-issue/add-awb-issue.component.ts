@@ -58,7 +58,10 @@ export class AddAwbIssueComponent {
 
     this.getFillValues(()=>{
       this.formdata.controls.office.setValue(this.defaultValues?.office);
-      this.formdata.controls.office.disable();
+      if(!this.defaultValues?.isHeadOffice){
+        this.formdata.controls.office.disable();
+      }
+      
       this.setFilters();
       if(this.data)
       this.setData(this.data);
@@ -147,11 +150,12 @@ export class AddAwbIssueComponent {
 
   private setData(data){
 
+    let issueDate = data.IssueDate?.split('/')
     this.formdata.controls.awbtype.setValue(data.AwbId);
     this.formdata.controls.office.setValue(data.OfficeId);
     this.formdata.controls.rate.setValue(data.Rate);
     this.formdata.controls.receiveroffice.setValue(data.ReceiverOfficeId);
-    this.formdata.controls.issuedate.setValue(data.IssueDate);
+    this.formdata.controls.issuedate.setValue(new Date(`${issueDate[1]}/${issueDate[0]}/${issueDate[2]}`));
     this.formdata.controls.startingno.setValue(data.StartingNo);
     this.formdata.controls.endno.setValue(data.EndNo);
     this.formdata.controls.quantity.setValue(data.Quantity);
@@ -186,10 +190,11 @@ export class AddAwbIssueComponent {
 
     this.awbService.getAwbissueFillValues()
     .subscribe(res=>{
-      this.offices = res.data.offices;
-      this.awbTypes = res.data.awbtypes;
-      this.startingNos = res.data.startingNos;
-      this.defaultValues = res.data.defaultvalues
+      this.offices = res?.data?.offices;
+      this.awbTypes = res?.data?.awbtypes;
+      this.startingNos = res?.data?.startingNos;
+      this.defaultValues = res?.data?.defaultvalues
+     
       onDone();
     })
 

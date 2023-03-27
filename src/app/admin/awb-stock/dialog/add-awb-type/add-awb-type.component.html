@@ -38,7 +38,23 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-
+            </div>
+            <div class="col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Payment Mode</mat-label>
+                    <input type="text" [listValidator]="filteredPaymentModes | async" [validatorKey]="'Id'" placeholder="Pick one" aria-label="Number" formControlName="payment_mode_id" matInput [matAutocomplete]="paymentmodeAuto">
+                    <mat-autocomplete autoActiveFirstOption [displayWith]="displayFunc.bind(this,paymentModes,'Id','PaymentMode')" #paymentmodeAuto="matAutocomplete" >
+                        <mat-option *ngFor="let option of filteredPaymentModes | async" [value]="option.Id">
+                            {{option.PaymentMode}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formdata.get('payment_mode_id').hasError('required')">
+                        Payment Mode is required
+                    </mat-error>
+                    <mat-error *ngIf="formdata.get('payment_mode_id').hasError('invalid')">
+                        Please select from list.
+                    </mat-error>
+                </mat-form-field>
             </div>
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
