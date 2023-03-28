@@ -1,0 +1,19 @@
+<form [formGroup]="dateFormGroup">
+	<mat-form-field appearance="outline">
+		<input #ref
+      (focus)="dateOfBirthPicker.open()"
+      formControlName="dateOfBirth"
+      matInput
+      [matDatepicker]="dateOfBirthPicker"
+      [max]="maxDate" (dateChange)="onSubmit(ref.value)"
+      placeholder="Enter Date of Birth"
+      readonly
+    />
+		<mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
+		<mat-datepicker #dateOfBirthPicker></mat-datepicker>
+
+		<mat-error
+			*ngIf="dateFormGroup.controls['dateOfBirth'].hasError('required') && dateFormGroup.controls['dateOfBirth'].touched">
+			Please enter Date of birth
+		</mat-error>
+	</mat-form-field>

@@ -14,7 +14,25 @@
       </div>
       <div mat-dialog-content>
         <form class="register-form m-4" [formGroup]="formdata">
-          <div class="row" *ngIf="data.tabledatadeatils.dailogPage!='statusDailog'">
+          <div class="row" *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog'&&data.pagetype!='profile'">
+            <div class="col-md-6 mb-0" >
+           
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Select Role</mat-label>
+                <mat-select formControlName="role" (change)="change($event)">
+                  <mat-option *ngFor="let item of data.tabledatadeatils.rolelist" [value]="item.role_id">
+                    {{ item.role_name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="formdata.controls['role'].hasError('required') && formdata.controls['role'].touched">
+                  Office is required.
+                </mat-error>
+              </mat-form-field>
+              
+            </div>
+          </div>
+          <div class="row" *ngIf="data.tabledatadeatils.statusoption!='statusDailog'">
             <div class="col-md-6  mb-2" [ngClass]="{'col-md-12':data.tabledatadeatils.dailogPage!='userDailog'}">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>{{data.tabledatadeatils.dailogPage!='userDailog'?'First Name':'Name'}}</mat-label>
@@ -35,18 +53,27 @@
               </mat-form-field>
             </div>
         </div>
-      <div *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog' && data.tabledatadeatils.dailogPage!='statusDailog'">
+      <div *ngIf="data.popupForm!='roleDailog' && data.tabledatadeatils.dailogPage!='roleDailog' && data.tabledatadeatils.statusoption!='statusDailog'">
+        
         <div class="row">
-          <div class="col-md-6 mb-4">
-        <mat-form-field  appearance="outline">
+          
+       
+          <div class="col-md-6 mb-0">
+            <!-- <app-datepicker class="" [Dateitem]="formdata.controls['dob'].value" (dateChange)="onDate($event)"></app-datepicker> -->
+        <mat-form-field  appearance="outline" class="example-full-width">
           <mat-label>Date of Birth</mat-label>
-          <input matInput formControlName="dob" [matDatepicker]="picker">
-          <mat-hint>DD/MM/YYYY</mat-hint>
+          <input matInput placeholder="DD/MM/YYYY" readonly formControlName="dob" [matDatepicker]="picker">
+       
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          <mat-error
+          *ngIf="formdata.controls['dob'].hasError('required') && formdata.controls['dob'].touched">
+          Please enter Date of birth
+        </mat-error>
         </mat-form-field>
         </div>
-       
+        </div>
+       <div class="row">
         <div class="col-md-6 mb-2">
           <mat-label>Gander</mat-label>
           <mat-radio-group color="primar"  formControlName="gender">
@@ -59,9 +86,12 @@
           <div class="col-md-6 mb-2" *ngIf="data.pagetype!='profile'">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Email</mat-label>
-              <input matInput formControlName="email" type="email">
+              <input matInput  type="email" formControlName="email" type="email">
               <!-- <mat-icon matSuffix>face</mat-icon> -->
-             
+              <mat-error
+              *ngIf="formdata.controls['email'].hasError('required') && formdata.controls['email'].touched">
+              Email is required.
+            </mat-error>
             </mat-form-field>
           </div>
      
@@ -70,7 +100,10 @@
             <mat-label>Mobile</mat-label>
             <input matInput formControlName="mobile">
             <!-- <mat-icon matSuffix>face</mat-icon> -->
-           
+            <mat-error
+              *ngIf="formdata.controls['mobile'].hasError('required') && formdata.controls['mobile'].touched">
+              Mobile is required.
+            </mat-error>
           </mat-form-field>
         </div>
         </div>
@@ -84,6 +117,10 @@
                     {{ item.name }}
                   </mat-option>
                 </mat-select>
+                <mat-error
+                *ngIf="formdata.controls['company'].hasError('required') && formdata.controls['company'].touched">
+                Company is required.
+              </mat-error>
               </mat-form-field>
             
             </div>
@@ -97,45 +134,40 @@
                   {{ item.office_name }}{{item.office_id}}
                 </mat-option>
               </mat-select>
+              <mat-error
+              *ngIf="formdata.controls['office'].hasError('required') && formdata.controls['office'].touched">
+              Office is required.
+            </mat-error>
             </mat-form-field>
             
           </div>
       </div>
-      <div class="row" *ngIf="data.pagetype!='profile'">
-        <div class="col-md-6 mb-2">
-         
-          <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Select Role</mat-label>
-            <mat-select formControlName="role" (change)="change($event)">
-              <mat-option *ngFor="let item of data.tabledatadeatils.rolelist" [value]="item.role_id">
-                {{ item.role_name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          
-        </div>
-    </div>
+    
     <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5">
         <label>Upload Profile Picture <small>(Max file size 50kb)</small></label>
         <app-file-upload (ngModelChange)="change($event)" [acceptonly]="acceptonly" formControlName="uploadFile"></app-file-upload>
       </div>
+      
     </div>
       </div>
-      <div class="row" *ngIf="this.data.tabledatadeatils.dailogPage=='userDailog'||this.data.tabledatadeatils.dailogPage=='statusDailog'">
+      <div class="row" *ngIf="this.data.tabledatadeatils.dailogPage=='userDailog'||this.data.tabledatadeatils.statusoption=='statusDailog'">
         <div class="col-md-6 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>{{this.data.tabledatadeatils.dailogPage=='userDailog'?'Update Password':'Create Password'}}</mat-label>
             <input matInput formControlName="password">
              <mat-icon matSuffix>vpn_key</mat-icon>
-           
+             <mat-error
+             *ngIf="formdata.controls['password'].hasError('required') && formdata.controls['password'].touched">
+             Password is required.
+           </mat-error>
           </mat-form-field>
           
         </div>
     </div>
 
          
-        <div class="row"  *ngIf="data.tabledatadeatils.dailogPage!='statusDailog'">
+        <div class="row"  *ngIf="data.tabledatadeatils.statusoption!='statusDailog'">
             <div class="col-md-12 col-sm-12 mb-2">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>{{this.data.tabledatadeatils.dailogPage=='userDailog'?'Address':'Description'}}</mat-label>

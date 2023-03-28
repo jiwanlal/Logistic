@@ -29,7 +29,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   headerHeight = 60;
   currentRoute: string;
   routerObj = null;
-
+  public brandname
+   public img='assets/images/user.png'
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -70,17 +71,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit() {
-    this.authService.currentUserDetails.subscribe(res=>{
-      console.log(res.data)
-      this.userFullName=res.data[0].first_name +' '+ res.data[0].last_name
-    })
+    // this.authService.currentUserDetails.subscribe(res=>{
+    //   console.log(res.data)
+    //   this.userFullName=res.data[0].first_name +' '+ res.data[0].last_name
+    // })
     if (this.authService.currentUserValue) {
-      const userRole = this.authService.currentUserValue.role;
+      this.brandname=this.authService.currentUserValue.brandname
+      this.userType = this.authService.currentUserValue.role;
+
       this.userFullName =
-        this.authService.currentUserValue.firstName +
+        this.authService.currentUserValue.firstname +
         " " +
-        this.authService.currentUserValue.lastName;
-      this.userImg = this.authService.currentUserValue.img;
+        this.authService.currentUserValue.lastname;
+      this.userImg = this.authService.currentUserValue.img=='[object Object]'||this.authService.currentUserValue.img==''||this.authService.currentUserValue.img==null?this.img:this.authService.currentUserValue.img;
       this.leftmenuservice.getMenulist().subscribe(res=>{
         console.log(res.data)
         this.sidebarItems=res.data;

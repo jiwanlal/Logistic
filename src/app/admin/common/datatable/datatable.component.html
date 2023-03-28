@@ -50,7 +50,7 @@
                   </mat-cell>
                 </ng-container> -->
                 <mat-row *matRowDef="let row; columns:objectKeys(tableheader)" 
-                [style.cursor]="'pointer'" matRipple>
+              matRipple>
               </mat-row>
                 <mat-header-row *matHeaderRowDef="objectKeys(tableheader);sticky:true"></mat-header-row>
                 <!-- <mat-row *matRowDef="let row; columns: tableheader;"></mat-row> -->

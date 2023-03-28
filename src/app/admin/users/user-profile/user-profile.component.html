@@ -31,60 +31,55 @@
             </div>
           </div>
         </div>
-        <div class="card d-none">
-          <mat-tab-group mat-align-tabs="start">
-            <mat-tab label="About">
-              <div class="p-4">
-                <p class="text-default">Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has
-                  been the industry's standard dummy text ever since the 1500s, when an unknown
-                  printer
-                  took a galley of type and scrambled it to make a type specimen book. It has
-                  survived
-                  not only five centuries, but also the leap into electronic typesetting, remaining
-                  essentially
-                  unchanged.</p>
-                <small class="text-muted">Email address: </small>
-                <p>john@gmail.com</p>
-                <hr>
-                <small class="text-muted">Phone: </small>
-                <p>+91 1234567890</p>
-                <hr>
+        <div class="card ">
+          <form class="register-form m-4" [formGroup]="formdata">
+            <div class="row">
+              <div class="col-md-12 col-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Old Password</mat-label>
+                  <input matInput formControlName="oldpassword">
+                   <mat-icon matSuffix>vpn_key</mat-icon>
+                  
+                    <mat-error  *ngIf="formdata.get('oldpassword').hasError && (formdata.get('oldpassword').dirty || formdata.get('oldpassword').touched)">
+                      Old password required
+                     
+                  </mat-error>
+               
+                </mat-form-field>
+                </div>
+              <div class="col-md-12 col-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password">
+             <mat-icon matSuffix>vpn_key</mat-icon>
+             <ng-container *ngFor="let error of error_messages.password">
+              <mat-error  *ngIf="formdata.get('password').hasError(error.type) && (formdata.get('password').dirty || formdata.get('password').touched)">
+               <div >
+                 {{ error.message }}
+               </div>
+            </mat-error>
+           </ng-container>
+          </mat-form-field>
+          </div>
+          <div class="col-md-12 col-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput formControlName="confirmpassword">
+             <mat-icon matSuffix>vpn_key</mat-icon>
+             <ng-container *ngFor="let error of error_messages.confirmpassword">
+             <mat-error  *ngIf="formdata.get('confirmpassword').hasError(error.type) && (formdata.get('confirmpassword').dirty || formdata.get('confirmpassword').touched)">
+              <div >
+                {{ error.message }}
               </div>
-            </mat-tab>
-            <mat-tab label="Skills">
-              <ul class="list-unstyled p-4">
-                <li>
-                  <div>OPD</div>
-                  <div class="progress skill-progress m-b-20">
-                    <div class="progress-bar l-bg-green width-per-45" role="progressbar" aria-valuenow="45"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </li>
-                <li>
-                  <div>Operations</div>
-                  <div class="progress skill-progress m-b-20">
-                    <div class="progress-bar l-bg-orange width-per-38" role="progressbar" aria-valuenow="38"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </li>
-                <li>
-                  <div>Patient Visit</div>
-                  <div class="progress skill-progress m-b-20">
-                    <div class="progress-bar l-bg-cyan width-per-39" role="progressbar" aria-valuenow="39"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </li>
-                <li>
-                  <div>RND</div>
-                  <div class="progress skill-progress m-b-20">
-                    <div class="progress-bar l-bg-purple width-per-70" role="progressbar" aria-valuenow="70"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </li>
-              </ul>
-            </mat-tab>
-          </mat-tab-group>
+           </mat-error>
+          </ng-container>
+          </mat-form-field>
+          {{this.formdata.value|json}}
+        </div>
+      </div>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid"
+          [mat-dialog-close]="1" (click)="onSubmit()">Save</button>
+         </form>
         </div>
       </div>
       <div class="col-lg-8 col-md-12">

@@ -24,6 +24,7 @@ export class HeaderComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit, AfterViewInit
 {
+  public img='assets/images/user.png'
   public config: any = {};
   userImg: string;
   homePage: string;
@@ -33,6 +34,7 @@ export class HeaderComponent
   langStoreValue: string;
   defaultFlag: string;
   isOpenSidebar: boolean;
+  public brandname
   public userFullName
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -103,14 +105,13 @@ export class HeaderComponent
     },
   ];
   ngOnInit() {
-    this.authService.currentUserDetails.subscribe(res=>{
-      console.log(res.data)
-      this.userFullName=res.data[0].first_name +' '+ res.data[0].last_name
-    })
+   
+      this.userFullName=this.authService.currentUserValue.firstname +' '+ this.authService.currentUserValue.lastname
+      this.brandname=this.authService.currentUserValue.brandname
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
     const userid =this.authService.currentUserValue.id;
-    this.userImg = this.authService.currentUserValue.img;
+    this.userImg = this.authService.currentUserValue.img=='[object Object]'||this.authService.currentUserValue.img==''||this.authService.currentUserValue.img==null?this.img:this.authService.currentUserValue.img;
       console.log(userid)
     if (userRole === "Admin") {
       this.homePage = "admin/dashboard/main";

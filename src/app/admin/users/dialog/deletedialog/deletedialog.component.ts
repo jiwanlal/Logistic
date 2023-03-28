@@ -18,7 +18,7 @@ console.log(data)
 this.dialogtitle=data.actionName
 }
 ngOnInit(): void {
-  console.log(this.data.tabledatadeatils.popupForm)
+  console.log(this.data.tabledatadeatils)
   }
 
 onSubmit(item){
@@ -28,7 +28,9 @@ onSubmit(item){
       action:this.dialogtitle,
       itemsumbited:{
       id:item.tabledatadeatils.id,
-      name:item.tabledatadeatils.name
+      name:item.tabledatadeatils.name,
+      status:item.tabledatadeatils.status,
+      statusoption:item.tabledatadeatils.statusoption
   
         }
     }

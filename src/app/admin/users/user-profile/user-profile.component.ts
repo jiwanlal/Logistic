@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Rss } from "angular-feather/icons";
@@ -26,10 +26,40 @@ export class UserProfileComponent implements OnInit {
   public rolelist=[]
   public compnaylist=[]
   public officelist=[]
+  error_messages = {
+  
+
+    'password': [
+      { type: 'required', message: 'password is required.' },
+      { type: 'minlength', message: 'password length.' },
+      { type: 'maxlength', message: 'password length.' }
+    ],
+    'confirmpassword': [
+      { type: 'required', message: 'password is required.' },
+      { type: 'minlength', message: 'password length.' },
+      { type: 'maxlength', message: 'password length.' }
+    ],
+  }
  
-  constructor(public userservice:UsersService,public businessservice:BusinessesService, public authservice:AuthService,private snackBar: MatSnackBar,public dialog: MatDialog) {}
+  constructor(public userservice:UsersService,public businessservice:BusinessesService, public authservice:AuthService,private snackBar: MatSnackBar,public dialog: MatDialog,public formBuilder: FormBuilder,) {}
   ngOnInit(): void {
     const id= this.authservice.currentUserValue.id
+
+    this.formdata = this.formBuilder.group({
+      oldpassword:['', [ Validators.required]],
+      password: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(12)
+      ])],
+      confirmpassword: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(12)
+      ])],
+    }, { 
+      validators: this.password.bind(this)
+    })
     this.onUserDetails(id)
     this.Onstatelist()
   }
@@ -147,6 +177,19 @@ export class UserProfileComponent implements OnInit {
           this.onUserDetails(row_obj.id)
         })
 
+  }
+  password(formGroup: FormGroup) {
+    const { value: password } = formGroup.get('password');
+    const { value: confirmPassword } = formGroup.get('confirmpassword');
+    return password === confirmPassword ? null : { passwordNotMatch: true };
+  }
+  onSubmit(){
+    if(!this.formdata.value){
+      return
+    }
+    else{
+      
+    }
   }
        
       

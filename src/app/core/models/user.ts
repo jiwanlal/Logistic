@@ -10,9 +10,11 @@ export class User {
   img: string;
   username: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   role: Role;
-  accessToken: string;
+  brandlogo:any
+  brandname:string
+accessToken: string;
 }
 
