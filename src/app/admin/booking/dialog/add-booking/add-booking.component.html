@@ -37,7 +37,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>AWB Number</mat-label>
-                                    <input type="text" placeholder="Pick one" aria-label="Number"
+                                    <input type="text" placeholder="Pick one" type="number" [min]="0" aria-label="Number"
                                         formControlName="awb_number" matInput  >
                                         
                                     <!-- <input type="text" placeholder="Pick one" aria-label="Number"
@@ -116,7 +116,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Destination Pincode</mat-label>
-                                    <input type="text" [listValidator]="filteredDestinationPincodes | async" [validatorKey]="'Id'" placeholder="Pick one" aria-label="Number"
+                                    <input type="text" [min]="1" [listValidator]="destinationPincodes" [validatorKey]="'Id'" placeholder="Pick one" aria-label="Number"
                                         formControlName="destination_pincode_id" matInput [matAutocomplete]="destpostcode">
                                     <mat-autocomplete autoActiveFirstOption #destpostcode="matAutocomplete"
                                         [displayWith]="displayFunc.bind(this,destinationPincodes,'Id','PostCode')">
@@ -143,7 +143,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Destination Locality</mat-label>
-                                    <input type="text" placeholder="Pick one" [listValidator]="filteredDestinationLocalities | async" [validatorKey]="'Id'" aria-label="Number"
+                                    <input type="text" placeholder="Pick one" [listValidator]="filteredDestinationLocalities |async" [validatorKey]="'Id'" aria-label="Number"
                                         formControlName="destination_locality_id" matInput [matAutocomplete]="destlocali">
                                     <mat-autocomplete autoActiveFirstOption #destlocali="matAutocomplete"
                                         [displayWith]="displayFunc.bind(this,destinationLocalities,'Id','LocalityName')">
@@ -194,7 +194,7 @@
                                         </mat-option>
                                     </mat-autocomplete>
                                     <mat-error *ngIf="formdata.get('service_mode_id').hasError('required')">
-                                        AWB Type is required
+                                        Service Mode is required
                                     </mat-error>
                                     <mat-error *ngIf="formdata.get('service_mode_id').hasError('invalid')">
                                         Please select from list.
@@ -204,7 +204,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Delivery Mode</mat-label>
-                                    <input type="text" placeholder="Pick one" [listValidator]="filteredDeliveryModes | async" [validatorKey]="'Id'" aria-label="Number"
+                                    <input type="text" placeholder="Pick one" [listValidator]="deliveryModes" [validatorKey]="'Id'" aria-label="Number"
                                         formControlName="delivery_mode_id" matInput [matAutocomplete]="deliverymode">
                                     <mat-autocomplete autoActiveFirstOption #deliverymode="matAutocomplete"
                                         [displayWith]="displayFunc.bind(this,deliveryModes,'Id','DeliveryMode')">
@@ -214,7 +214,7 @@
                                         </mat-option>
                                     </mat-autocomplete>
                                     <mat-error *ngIf="formdata.get('delivery_mode_id').hasError('required')">
-                                        AWB Type is required
+                                        Delivery Mode is required
                                     </mat-error>
                                     <mat-error *ngIf="formdata.get('delivery_mode_id').hasError('invalid')">
                                         Please select from list.
@@ -225,7 +225,7 @@
 
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>No Of Packets</mat-label>
-                                    <input matInput formControlName="no_of_packets" max="999" type="number">
+                                    <input matInput formControlName="no_of_packets" max="999" min="1" type="number">
                                     <mat-error *ngIf="formdata.get('no_of_packets').hasError('required')">
                                         No Of Packets is required
                                     </mat-error>
@@ -255,7 +255,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Actual Weight</mat-label>
-                                    <input matInput formControlName="actual_weight" max="99999" type="number">
+                                    <input matInput formControlName="actual_weight" max="99999" min="1" type="number">
                                     <mat-error *ngIf="formdata.get('actual_weight').hasError('required')">
                                         Actual Weight is required
                                     </mat-error>
@@ -269,7 +269,7 @@
                             <div class="col-md-4 col-sm-4 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Length</mat-label>
-                                    <input type="number" placeholder="Length" [dimensionValidator] aria-label="Number"
+                                    <input type="number" placeholder="Length" min="1" [dimensionValidator] aria-label="Number"
                                         formControlName="length" matInput>
                                     <mat-error *ngIf="formdata.get('length').hasError('dimension')">
                                         Required
@@ -280,7 +280,7 @@
                             <div class="col-md-4 col-sm-4 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Width</mat-label>
-                                    <input type="number" placeholder="Length" [dimensionValidator] aria-label="Number"
+                                    <input type="number" placeholder="Length" min="1" [dimensionValidator] aria-label="Number"
                                         formControlName="width" matInput>
                                     <mat-error *ngIf="formdata.get('width').hasError('dimension')">
                                        Required
@@ -291,7 +291,7 @@
                             <div class="col-md-4 col-sm-4 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Heigth</mat-label>
-                                    <input type="number" placeholder="Length" [dimensionValidator] aria-label="Number"
+                                    <input type="number" placeholder="Length" min="1" [dimensionValidator] aria-label="Number"
                                         formControlName="height" matInput>
                                     <mat-error *ngIf="formdata.get('height').hasError('dimension')">
                                        Required
@@ -363,7 +363,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Consignor Mobile No.</mat-label>
-                                    <input type="text" placeholder="Pick one" aria-label="Number"
+                                    <input type="number" [min]="1" placeholder="Pick one" aria-label="Number"
                                         formControlName="consignor_mobile" matInput [matAutocomplete]="consigMob">
                                     <mat-autocomplete autoActiveFirstOption #consigMob="matAutocomplete">
                                         <mat-option *ngFor="let option of filteredConsignorMobileNos | async"
@@ -457,7 +457,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Consignee Mobile No.</mat-label>
-                                    <input type="text" placeholder="Pick one" aria-label="Number"
+                                    <input type="number" [min]="1" placeholder="Pick one" aria-label="Number"
                                         formControlName="consignee_mobile" matInput >
                                     <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
                                         [displayWith]="displayFunc.bind(this,consigneeMobileNos,'MobileNo','MobileNo')">
@@ -546,12 +546,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 mb-2">
+                    <div class="col-md-4 col-sm-4 mb-2" *ngIf="!isPayemntModeDirect">
                         <div class="row">
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Amount</mat-label>
-                                    <input type="number" placeholder="Pick one" aria-label="Number"
+                                    <input type="number" min="1" placeholder="Pick one" aria-label="Number"
                                         formControlName="amount" matInput>
 
                                     <mat-error *ngIf="consignorForm.get('amount').hasError('required')">
@@ -628,7 +628,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Consingment Value</mat-label>
-                                    <input type="text" placeholder="Pick one" aria-label="Number"
+                                    <input type="number" [min]="1" placeholder="Pick one" aria-label="Number"
                                         formControlName="consignment_value" matInput >
                                     <mat-error *ngIf="consingmentForm.get('consignment_value').hasError('required')">
                                         Booking Date is required
@@ -654,7 +654,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>EWAY Bill No.</mat-label>
-                                    <input type="text" placeholder="Pick one" aria-label="Number"
+                                    <input type="number" [min]="1" placeholder="Pick one" aria-label="Number"
                                         formControlName="eway_bill_no" matInput >
                                     <mat-error *ngIf="consingmentForm.get('eway_bill_no').hasError('required')">
                                         Booking Date is required
@@ -681,18 +681,20 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        
+                        <div class="example-button-row">
+                            <button mat-raised-button color="primary" type="button" 
+                                (click)="onSubmit()">Save</button>
+                            <button mat-raised-button color="warn" (click)="close()" tabindex="-1">Cancel</button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </ng-template>
 
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-
-                <div class="example-button-row">
-                    <button mat-raised-button color="primary" type="button" 
-                        (click)="onSubmit()">Save</button>
-                    <button mat-raised-button color="warn" (click)="close()" tabindex="-1">Cancel</button>
-                </div>
-            </div>
-        </div>
+       
     </div>
 </div>

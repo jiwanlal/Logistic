@@ -23,6 +23,7 @@ export class JwtInterceptor implements HttpInterceptor {
         setHeaders: {
           Authorization:currentUser.accessToken,
         },
+        withCredentials:true
       });
    }
 

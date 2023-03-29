@@ -14,6 +14,10 @@ import { AddBookingComponent } from './dialog/add-booking/add-booking.component'
 import { MatTabsModule } from '@angular/material/tabs';
 import { DimensionValidator } from './validators/dimension-validator.validator';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { ManifestComponent } from './manifest/manifest.component';
+import { AddManifestComponent } from './dialog/add-manifest/add-manifest.component';
+import { ManifestVendorDetailComponent } from './dialog/manifest-vendor-detail/manifest-vendor-detail.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -21,7 +25,10 @@ import { NotificationService } from 'src/app/core/service/notification.service';
   declarations: [
     BookingComponent,
     AddBookingComponent,
-    DimensionValidator
+    ManifestComponent,
+    DimensionValidator,
+    AddManifestComponent,
+    ManifestVendorDetailComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +41,8 @@ import { NotificationService } from 'src/app/core/service/notification.service';
     MatDialogModule,
     MatAutocompleteModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSelectModule
   ],
   providers:[NotificationService]
   

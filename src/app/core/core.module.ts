@@ -6,10 +6,11 @@ import { AuthService } from "./service/auth.service";
 import { DynamicScriptLoaderService } from "./service/dynamic-script-loader.service";
 import { throwIfAlreadyLoaded } from "./guard/module-import.guard";
 import { DirectionService } from "./service/direction.service";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
+  imports: [CommonModule,MatSnackBarModule],
   providers: [
     RightSidebarService,
     AuthGuard,

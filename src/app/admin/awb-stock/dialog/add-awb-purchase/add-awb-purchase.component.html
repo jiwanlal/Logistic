@@ -12,7 +12,7 @@
             <mat-icon>close</mat-icon>
         </button>
     </div>
-    <div mat-dialog-content style="overflow: visible;">
+    <div mat-dialog-content style="overflow: auto; min-height: 75vh;">
         <form class="register-form m-4" [formGroup]="formdata">
 
             <div class="row">
@@ -36,7 +36,7 @@
 
             </div>
             <div class="row">
-                <div class="col-md-12 col-sm-12 mb-2">
+                <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Vendor</mat-label>
                         <input type="text" placeholder="Pick one" [listValidator]="filteredVendors | async" [validatorKey]="'vendorId'" aria-label="Number" formControlName="vendor" matInput [matAutocomplete]="vendor">
@@ -53,10 +53,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 mb-2">
+                <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>AWB Type</mat-label>
                         <input type="text" placeholder="Pick one" [listValidator]="filteredAwbTypes | async" [validatorKey]="'id'" aria-label="Number" formControlName="awbtype" matInput [matAutocomplete]="auto">
@@ -73,6 +70,10 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
+
+            </div>
+            <div class="row">
+              
 
             </div>
            

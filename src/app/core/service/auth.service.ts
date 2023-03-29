@@ -52,6 +52,8 @@ export class AuthService {
         client_id,
         email,
         password,
+      },{
+        withCredentials:true
       })
       .pipe(
         catchError((error: HttpErrorResponse) => {

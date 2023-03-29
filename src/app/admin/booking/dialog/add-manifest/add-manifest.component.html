@@ -1,0 +1,103 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <!-- <img [src]='appointment.img' alt="avatar"> -->
+                <div class="modal-about">
+                    {{dialogtitle}}
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button (click)="close()" class="modal-close-button" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content>
+        <form class="register-form m-4" [formGroup]="formdata">
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Date Of Manifest</mat-label>
+
+                        <input matInput [matDatepicker]="picker" formControlName="manifest_date">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="formdata.get('manifest_date').hasError('required')">
+                            Date Of Manifest is required
+                        </mat-error>
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Origin</mat-label>
+                        <input type="text"  placeholder="Pick one" aria-label="Number" formControlName="origin_office_id" matInput [matAutocomplete]="originAuto" >
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displayFunc.bind(this,offices,'Id','OfficeName')" #originAuto="matAutocomplete" >
+                            <mat-option *ngFor="let option of offices " [value]="option.Id">
+                                {{option.OfficeName}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="formdata.get('origin_office_id').hasError('required')">
+                            Origin is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Destination</mat-label>
+                        <input type="text" [listValidator]="filteredDestinationOffices | async" [validatorKey]="'Id'"  placeholder="Pick one" aria-label="Number" formControlName="destination_office_id" matInput [matAutocomplete]="destinationAuto" >
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displayFunc.bind(this,offices,'Id','OfficeName')" #destinationAuto="matAutocomplete" >
+                            <mat-option *ngFor="let option of filteredDestinationOffices | async " [value]="option.Id">
+                                {{option.OfficeName}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="formdata.get('destination_office_id').hasError('required')">
+                            Origin is required
+                        </mat-error>
+                        <mat-error *ngIf="formdata.get('destination_office_id').hasError('invalid')">
+                            Please select from list.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>AWB No.</mat-label>
+
+                    <mat-select  formControlName="awb_id" multiple>
+                        <mat-option *ngFor="let awb of awbNos" [value]="awb.awb_id">{{awb.awb_prefix}}</mat-option>
+                      </mat-select>
+                    <!-- <input type="text"  placeholder="Pick one" [listValidator]="filteredAwbNos | async" [validatorKey]="'awb_id'"  aria-label="Number" formControlName="awb_id" matInput [matAutocomplete]="awbAuto" >
+                    <mat-autocomplete autoActiveFirstOption [displayWith]="displayFunc.bind(this,awbNos,'awb_id','awb_prefix')" #awbAuto="matAutocomplete" >
+                        <mat-option *ngFor="let option of filteredAwbNos | async" [value]="option.awb_id">
+                            {{option.awb_prefix}}
+                        </mat-option>
+                    </mat-autocomplete> -->
+                    <!-- <mat-error *ngIf="formdata.get('awb_id').hasError('required')">
+                        AWB No. is required
+                    </mat-error>
+                    <mat-error *ngIf="formdata.get('awb_id').hasError('invalid')">
+                        Please select from list.
+                    </mat-error> -->
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+
+                    <div class="example-button-row">
+                        <button mat-raised-button color="primary" type="button" [disabled]="!formdata.valid"
+                            (click)="onSubmit()">Save</button>
+                        <button mat-raised-button color="warn" (click)="close()" tabindex="-1">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
