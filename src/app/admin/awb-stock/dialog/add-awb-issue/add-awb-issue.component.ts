@@ -61,6 +61,7 @@ export class AddAwbIssueComponent {
       if(!this.defaultValues?.isHeadOffice){
         this.formdata.controls.office.disable();
       }
+      this.formdata.controls.endno.disable();
       
       this.setFilters();
       if(this.data)
