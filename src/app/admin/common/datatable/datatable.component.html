@@ -11,7 +11,7 @@
                           <!-- <mat-icon>{{row.actionIcon[i]}}</mat-icon> -->
                           <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                         </button>
-                        <button *ngIf="row.actions[i]=='Delete'" mat-icon-button (click)="Ondelete(row,action)">
+                        <button  *ngIf="row.actions[i]=='Delete'" mat-icon-button (click)="Ondelete(row,action)">
                           <!-- <mat-icon>{{row.actionIcon[i]}}</mat-icon> -->
                           <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
                          
@@ -22,6 +22,7 @@
                   
                     <ng-template #elseBlock>
                       <div *ngIf="tableheader[column]=='status'; else restofData">
+                        <!-- {{row[column]}} -->
                           Inactive <mat-slide-toggle  [checked]="row[column]" (change)="activeinactive($event,row,'status')" color="primary">Active</mat-slide-toggle>
                       </div>
                       <ng-template #restofData>

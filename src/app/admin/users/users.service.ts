@@ -85,4 +85,30 @@ companyList(){
   );
 }
 
+Onchangpassword(id:number,data){
+  const url = this.API_URL + environment.changepassword+ `/${id}`;
+  return this.http.put<any>(url,data).pipe(
+    catchError((error: HttpErrorResponse) => {
+      return observableThrowError(error);
+    })
+  );
+}
+Onchangprofile(id:number,data){
+  const url = this.API_URL + environment.profile+ `/${id}`;
+  return this.http.put<any>(url,data).pipe(
+    catchError((error: HttpErrorResponse) => {
+      return observableThrowError(error);
+    })
+  );
+}
+OnChangeStatus(id:number,data){
+  const url = this.API_URL + environment.status+ `/${id}`;
+  return this.http.put<any>(url,data).pipe(
+    catchError((error: HttpErrorResponse) => {
+      return observableThrowError(error);
+    })
+  );
+}
+
+
 }

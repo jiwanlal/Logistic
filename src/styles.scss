@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+.profileimg{position:relative;
+ width: 112px; margin: 0 auto;
+ button{ display: none;};
+&:hover{
+    button{  display: block;    position: absolute;
+    top: -70px;
+    left: 0;
+    border-radius: 50%;
+    height: 112px;
+    width: 112px;
+    width: 112;
+    border: none;
+    background: #5083f4ed;
+    .material-icons{ font-size: 50px; color: #fff;}
+}
+}
+}

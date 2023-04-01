@@ -29,7 +29,7 @@ onSubmit(item){
       itemsumbited:{
       id:item.tabledatadeatils.id,
       name:item.tabledatadeatils.name,
-      status:item.tabledatadeatils.status,
+      status:false,
       statusoption:item.tabledatadeatils.statusoption
   
         }

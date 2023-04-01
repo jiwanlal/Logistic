@@ -1,0 +1,42 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+          <div class="modalHeader clearfix">
+         
+          </div>
+        </div>
+        <button mat-icon-button (click)="onNoClick()" class="modal-close-button" aria-label="Close dialog">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div mat-dialog-content>
+        <form class="register-form m-4" [formGroup]="profiledata">
+            
+               
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5">
+          <label>Upload Profile Picture <small>(Max file size 50kb)</small></label>
+          <app-file-upload (ngModelChange)="change($event)" [acceptonly]="acceptonly" formControlName="profile_picture"></app-file-upload>
+        </div>
+        
+      </div>
+   
+
+        
+      
+       
+      
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+             
+              <div class="example-button-row">
+                <button mat-raised-button color="primary" type="submit" (click)="onsubmit()" [disabled]="!profiledata.valid"
+                  [mat-dialog-close]="1" >Upload</button>
+              
+              </div>
+            </div>
+          </div>
+        
+        </form>
+        </div>
+    </div>

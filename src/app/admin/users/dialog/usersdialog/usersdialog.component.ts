@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { custompattern } from 'src/app/admin/pattern.modal';
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+
 
 import {
   DateAdapter,
@@ -12,18 +15,17 @@ import {
 } from "@angular/material/core";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { DatePipe } from "@angular/common";
+import * as moment from 'moment';
 export const MY_FORMATS = {
   parse: {
-    dateInput: "DD-MM-YYYY"
-  },
-  
-  display: {
-    dateInput: "DD-MM-YYYY",
-    monthYearLabel: "DD-MM-YYYY",
-    dateA11yLabel: "DD-MM-YYYY",
-    monthYearA11yLabel: "DD-MM-YYYY"
-   
-  }
+    dateInput: 'LL'
+},
+display: {
+    dateInput: 'MM-DD-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY'
+}
 };
 
 
@@ -48,10 +50,13 @@ export class UsersdialogComponent implements OnInit {
   public Onlyalphabets=new custompattern()
   public dialogtitle:string
   public file:File
+  public datemodel
 
-constructor(public dialogRef: MatDialogRef<UsersdialogComponent>,@Inject(MAT_DIALOG_DATA) public data,private formBuilder: FormBuilder,private snackBar: MatSnackBar, public datepipe:DatePipe){
+constructor(public dialogRef: MatDialogRef<UsersdialogComponent>,@Inject(MAT_DIALOG_DATA) public data,private formBuilder: FormBuilder,private snackBar: MatSnackBar, public datepipe:DatePipe,private dateAdapter: DateAdapter<Date>){
 console.log(this.data)
 this.dialogtitle=data.actionName
+//this.dateAdapter.setLocale('DD/'); //dd/MM/yyyy
+
 }
 showNotification(colorName, text, placementFrom, placementAlign) {
   this.snackBar.open(text, "", {
@@ -62,7 +67,8 @@ showNotification(colorName, text, placementFrom, placementAlign) {
   });
 }
 ngOnInit(): void {
-
+  this.datemodel=this.datepipe.transform(this.data.tabledatadeatils.dob,'full')
+ console.log(this.data.tabledatadeatils.dob,this.datemodel)
   this.formdata = this.formBuilder.group({
     CommonName:[this.data.tabledatadeatils.name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
     lastName:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.lastname:''],
@@ -71,24 +77,23 @@ ngOnInit(): void {
     company:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.companyname:''],
     office:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.officename:''],
     role:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.rolename:''],
-    uploadFile:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.profile_picture:''],
-    password:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.password:''],
     gender:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.gender:''],
-    dob:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.dob:''],
+    dob:[this.data.tabledatadeatils.dailogPage=='userDailog'?moment(this.data.tabledatadeatils.dob):''],
     
     
     description:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.address:'']
   
     })
     if(this.data.tabledatadeatils.dailogPage=='userDailog'){
+      this.datemodel=this.data.tabledatadeatils.dob
      this.formdata.get('company').clearValidators([Validators.required])
       this.formdata.get('company').updateValueAndValidity(); 
       this.formdata.get('gender').clearValidators([Validators.required])
       this.formdata.get('gender').updateValueAndValidity(); 
       this.formdata.get('role').setValidators([Validators.required])
       this.formdata.get('role').updateValueAndValidity(); 
-      this.formdata.get('company').setValidators([Validators.required])
-      this.formdata.get('company').updateValueAndValidity(); 
+      this.formdata.get('dob').clearValidators([Validators.required])
+      this.formdata.get('dob').updateValueAndValidity(); 
       this.formdata.get('email').setValidators([Validators.required,Validators.email])
       this.formdata.get('email').updateValueAndValidity(); 
       this.formdata.get('mobile').setValidators([Validators.required])
@@ -96,16 +101,11 @@ ngOnInit(): void {
       
 
     }
-    if(this.data.popupForm=='Edit'){
-      this.formdata.get('password').setValidators([Validators.required])
-       this.formdata.get('password').updateValueAndValidity(); 
-    }
+   
     if(this.data.tabledatadeatils.dailogPage=='statusDailog'){
       this.formdata.get('CommonName').clearValidators()
        this.formdata.get('CommonName').updateValueAndValidity(); 
-       
-       this.formdata.get('password').setValidators([Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)])
-       this.formdata.get('password').updateValueAndValidity(); 
+      
  
      }
 
@@ -117,32 +117,9 @@ onDate(event){
 // this.formdata.controls['dob'].setValue(event)
  
 }
-change(event){
-  console.log(event)
- this.file=event
-  console.log(this.file)
-  if(event.size>50000){
-  this.formdata.controls['uploadFile'].setValue('');
-  //this.formdata.get('uploadFile').setValidators([Validators.required])
-  //this.formdata.get('uploadFile').updateValueAndValidity(); 
-  
- 
-  this.showNotification(
-    "snackbar-danger","Max File size Limit 50Kb",
-    "top",
-    "right"
-  );
-  
-}
-else{
-  this.formdata.get('uploadFile').clearValidators();
-  this.formdata.get('uploadFile').updateValueAndValidity(); 
-}
 
-}
 onSubmit(item,id:number){
-  console.log(this.formdata.value,id
-    )
+ 
   if(this.formdata.invalid){
     return false
   }
@@ -152,10 +129,10 @@ onSubmit(item,id:number){
   // }
   else{
   //  this.datepipe.transform(this.date, 'yyyy-MM-dd');
-    this.formdata.controls['dob'].setValue(this.datepipe.transform(this.formdata.controls['dob'].value,'dd/MM/yyyy'))
-    console.log(this.formdata.controls['dob'].value)
+   // this.formdata.controls['dob'].setValue(this.datepipe.transform(this.formdata.controls['dob'].value,'dd/MM/yyyy'))
+    //console.log(this.formdata.controls['dob'].value)
     let sumiteddata={
-      file:this.file,
+      
       action:item,
       id:id,
       status:this.data.tabledatadeatils.status,

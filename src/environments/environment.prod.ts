@@ -1,11 +1,16 @@
-
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
 
 export const environment = {
   production: true,
  
   apiUrl: 'http://34.70.100.59:8080/api/',
   authenticate:'auth/login',
+  changepassword:'auth/changepassword',
   menutree:'menus/menu',
+  profile:'image/profile',
+  status:'users/status',
   companies:'companies/company',
   countery:'places/country',
   zone:'places/zone',
@@ -14,12 +19,13 @@ export const environment = {
   city:'places/city',
   postcode:'places/postcode',
   locality:'places/locality',
+  awbtype :'awb/awbtype',
+  awbtypefill :'awb/awbfill',
   office:'businesses/office',
   business:'businesses/business',
   branch:'businesses/branch',
   role:'users/role',
   user:'users/user',
-  awbtype :'awb/awbtype',
   awbsalesfill :'awb/awbsalesfillvalues',
   awbsales :'awb/awbsales',
   awbpurchasefill :'awb/awbpurchasefillvalues',
@@ -30,11 +36,19 @@ export const environment = {
   bookingAwbNumber:'book/awbnumber',
   bookingOffice:'book/office',
   bookingPincode:'book/pincode',
+  bookingState:'book/bstate',
   bookingFillvalues:'book/fillvalues',
   searchPostcode:'book/postcode',
   searchCities:'book/city',
   searchstates:'book/state',
   localitiesOnPostCodes:'book/localitiesonpostcode',
   booking:'book/booking',
+  manifestFill:'manifest/fillvalues',
+  manifest:'manifest/manifest',
+  manifestdetail:'manifest/manifestdetail',
   
+  
+   //apiUrl:'http://location:4200'
 };
+
+

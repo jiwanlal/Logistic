@@ -7,7 +7,10 @@ export const environment = {
  
   apiUrl: 'http://34.70.100.59:8080/api/',
   authenticate:'auth/login',
+  changepassword:'auth/changepassword',
   menutree:'menus/menu',
+  profile:'image/profile',
+  status:'users/status',
   companies:'companies/company',
   countery:'places/country',
   zone:'places/zone',

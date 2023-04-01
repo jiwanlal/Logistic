@@ -26,6 +26,7 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DatatableModule } from '../common/datatable.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ProfileuploadComponent } from './dialog/profileupload/profileupload.component';
 
 
 
@@ -36,7 +37,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     RolesComponent,
     UsersdialogComponent,
     DeletedialogComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ProfileuploadComponent
 
   ],
   imports: [
@@ -65,7 +67,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     DatatableModule
   ],
   entryComponents:[
-    UsersdialogComponent, DeletedialogComponent
+    UsersdialogComponent, DeletedialogComponent,ProfileuploadComponent
   ]
   
 })

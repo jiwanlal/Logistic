@@ -62,10 +62,13 @@ export class UserTypeComponent implements OnInit, OnChanges{
   addItem(event){
     console.log(event.actionName.status)
  
-  if(event.popupForm=='Edit'||event.popupForm=='Add'|| event.actionName.status!=true)
+  if(event.popupForm == 'Delete' && (event.popupForm=='Edit'||event.popupForm=='Add' || event.actionName.status!=true))
   {
-    console.log(event) 
-    this.OpenDialog(event)
+    
+      console.log(event) 
+      this.OpenDialog(event)
+    
+   
   }
 
 
@@ -117,7 +120,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
           description:event.actionName.description,
           uploadFile:event.actionName.profile_picture,
           password:event.actionName.password,
-          
+          dob:event.actionName.dob,
           dailogPage:event.actionName.dailogPage,
           status:event.status=='status'?event.event.checked:event.actionName.status,
           statusoption:event.status=='status'?'statusDailog':''
@@ -161,12 +164,15 @@ export class UserTypeComponent implements OnInit, OnChanges{
      });
      dialogRef.afterClosed().subscribe(result => {
        console.log('The dialog was closed',result);
-       if(result.action=='Edit'||result.statusoption=="statusDailog"){
+       if(result.action=='Edit'){
          console.log(result)
          this.updateRowData(result)
         // this.dataChange.emit(result);
        }
-       else if(result.action=='Add'){
+       else if(result.statusoption=="statusDailog"){
+        this.roleUdate(result)
+       }
+       else{
         this.addRowData(result)
        }
       
@@ -177,7 +183,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
   
     const dialogRef=this.dialog.open(DeletedialogComponent, {
      
-          data: { actionName:event.popupForm=='Delete'?event.popupForm:'ActiveInactive',
+          data: { actionName:event.popupForm=='Delete'? 'Delete':'ActiveInactive',
             tabledatadeatils:{
               name:event.actionName.first_name+''+ (event.actionName.last_name==null?"":event.actionName.last_name),
               id:event.actionName.id,
@@ -204,58 +210,45 @@ export class UserTypeComponent implements OnInit, OnChanges{
    
 
   }
+  roleUdate(row_obj){
+   let  itemvalue={
+      role_id:row_obj.itemsumbited.role,
+      status:row_obj.status,
+     }
+    this.usersservice.OnChangeStatus(row_obj.id,itemvalue).subscribe(res=>{
+      console.log(res)
+      this.showNotification(
+        "snackbar-success",
+        res.message,
+        "top",
+        "right"
+      );
+      this.Onuserlist()
+    })
+   
+  }
+  
   
   updateRowData(row_obj){
     console.log('update',row_obj)
-    //return
+  
 
-//  if(row_obj.status=='status'){
-//        itemvalue={status:row_obj.event.checked}
-//       }
-//  else{
  
-  //alert('hello')
-  // itemvalue={
+  let  itemvalue={
     
-    
-  //   company_id:row_obj.itemsumbited.company,
-  //   office_id:row_obj.itemsumbited.office,
-  //   role_id:row_obj.itemsumbited.role,
-  //   email:row_obj.itemsumbited.email,
-  //   mobile:row_obj.itemsumbited.mobile,
-  //   gender:row_obj.itemsumbited.gender,
-  //   password:row_obj.itemsumbited.password,
-  //   dob:row_obj.itemsumbited.dob,
-  //   profile_picture:row_obj.file,
-  //   address:row_obj.itemsumbited.description
-  // }
+    first_name:row_obj.itemsumbited.CommonName,
+    last_name:row_obj.itemsumbited.lastName,
+    company_id:row_obj.itemsumbited.company,
+    office_id:row_obj.itemsumbited.office,
+    role_id:row_obj.itemsumbited.role,
+    email:row_obj.itemsumbited.email,
+    mobile:row_obj.itemsumbited.mobile,
+    gender:row_obj.itemsumbited.gender,
+    dob:row_obj.itemsumbited.dob,
+    address:row_obj.itemsumbited.description
+  }
 
- //}
-     
-   
-     
-      
-       const formData = new FormData();
-    
-      // formData.append('first_name',JSON.stringify(row_obj.itemsumbited.CommonName)),
-      // formData.append('last_name',JSON.stringify(row_obj.itemsumbited.lastName)),
-      // formData.append('profile_picture', row_obj.file);
-      formData.append("first_name",row_obj.itemsumbited.CommonName),
-      formData.append("last_name",row_obj.itemsumbited.lastName),
-      formData.append("company_id",row_obj.itemsumbited.company),
-      formData.append("office_id",row_obj.itemsumbited.office),
-      formData.append("password",row_obj.itemsumbited.password),
-      formData.append("role_id",row_obj.itemsumbited.role),
-      formData.append("email",row_obj.itemsumbited.email),
-      formData.append("mobile",row_obj.itemsumbited.mobile),
-      formData.append("gender",row_obj.itemsumbited.gender),
-      formData.append("dob",row_obj.itemsumbited.dob),
-      formData.append('profile_picture', row_obj.file);
-      formData.append("status",row_obj.status),
-       formData.append("temp_password",row_obj.itemsumbited.password)
-      
-    
-      this.usersservice.userput(row_obj.id,formData).subscribe(res=>{
+  this.usersservice.userput(row_obj.id,itemvalue).subscribe(res=>{
         console.log(res)
         this.showNotification(
           "black",
@@ -271,30 +264,31 @@ export class UserTypeComponent implements OnInit, OnChanges{
   addRowData(row_obj){
     console.log(row_obj)
     const formData = new FormData()
-  //   let item={
-  //     "first_name":row_obj.itemsumbited.CommonName,
-  //  "last_name":row_obj.itemsumbited.lastName,
-  //  "company_id":row_obj.itemsumbited.company,
-  //  "office_id":row_obj.itemsumbited.office,
-  //  "role_id":row_obj.itemsumbited.role,
-  //  "email":row_obj.itemsumbited.email,
-  //  "mobile":row_obj.itemsumbited.mobile,
-  //  "gender":row_obj.itemsumbited.gender,
-  //  "dob":row_obj.itemsumbited.dob
-  //   }
+    let item={
+      "first_name":row_obj.itemsumbited.CommonName,
+   "last_name":row_obj.itemsumbited.lastName,
+   "company_id":row_obj.itemsumbited.company,
+   "office_id":row_obj.itemsumbited.office,
+   "role_id":row_obj.itemsumbited.role,
+   "email":row_obj.itemsumbited.email,
+   "mobile":row_obj.itemsumbited.mobile,
+   "gender":row_obj.itemsumbited.gender,
+   "dob":row_obj.itemsumbited.dob,
+   "address":row_obj.itemsumbited.description,
+    }
     
-    formData.append("first_name",row_obj.itemsumbited.CommonName),
-    formData.append("last_name",row_obj.itemsumbited.lastName),
-    formData.append("company_id",row_obj.itemsumbited.company),
-    formData.append("password",row_obj.itemsumbited.password),
-    formData.append("office_id",row_obj.itemsumbited.office),
-    formData.append("role_id",row_obj.itemsumbited.role),
-    formData.append("email",row_obj.itemsumbited.email),
-    formData.append("mobile",row_obj.itemsumbited.mobile),
-    formData.append("gender",row_obj.itemsumbited.gender),
-    formData.append("dob",row_obj.itemsumbited.dob),
-   formData.append('profile_picture', row_obj.file);
-    this.usersservice.userpost(formData).subscribe(res=>{
+  //   formData.append("first_name",row_obj.itemsumbited.CommonName),
+  //   formData.append("last_name",row_obj.itemsumbited.lastName),
+  //   formData.append("company_id",row_obj.itemsumbited.company),
+  //   formData.append("password",row_obj.itemsumbited.password),
+  //   formData.append("office_id",row_obj.itemsumbited.office),
+  //   formData.append("role_id",row_obj.itemsumbited.role),
+  //   formData.append("email",row_obj.itemsumbited.email),
+  //   formData.append("mobile",row_obj.itemsumbited.mobile),
+  //   formData.append("gender",row_obj.itemsumbited.gender),
+  //   formData.append("dob",row_obj.itemsumbited.dob),
+  //  formData.append('profile_picture', row_obj.file);
+    this.usersservice.userpost(item).subscribe(res=>{
         console.log(res)
         this.showNotification(
           "snackbar-success",
@@ -323,19 +317,34 @@ export class UserTypeComponent implements OnInit, OnChanges{
  
   deleteRowData(row_obj){
     console.log(row_obj)
-    if(row_obj.ActiveInactive){
+    if(row_obj.action=='ActiveInactive'){
+      let  itemvalue={
+        // role_id:row_obj.itemsumbited.role,
+        status:row_obj.itemsumbited.status,
+       }
+       console.log(itemvalue)
+      this.usersservice.OnChangeStatus(row_obj.itemsumbited.id,itemvalue).subscribe(res=>{
+        console.log(res)
+        this.showNotification(
+          "snackbar-success",
+          res.message,
+          "top",
+          "right"
+        );
+        this.Onuserlist()
+      })
 
     }
     else{
-  //        this.usersservice.userdelete(row_obj.itemsumbited.id).subscribe(res=>{
-  //   this.showNotification(
-  //     "snackbar-danger",
-  //     row_obj.itemsumbited.name+ " Record Delete Successfully...!!!",
-  //     "top",
-  //     "right"
-  //   );
-  //   this.Onuserlist()
-  // })
+         this.usersservice.userdelete(row_obj.itemsumbited.id).subscribe(res=>{
+    this.showNotification(
+      "snackbar-danger",
+      row_obj.itemsumbited.name+ res.message,
+      "top",
+      "right"
+    );
+    this.Onuserlist()
+  })
     }
  
 

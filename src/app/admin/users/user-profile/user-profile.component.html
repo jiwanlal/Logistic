@@ -14,10 +14,17 @@
                 <div class="user-name">{{this.UserDetais[0]?.first_name+" " +this.UserDetais[0]?.last_name }}</div>
                 <div class="name-center">Senior Doctor</div>
               </div>
-              <img src="assets/images/user/usrbig3.jpg" class="user-img" alt="">
+              <div class="profileimg">
+                <img src="assets/images/user/usrbig3.jpg" class="user-img" alt="">
+                <button (click)="onuploadProfileimg()">
+                  <i class="material-icons">image</i>
+                </button>
+               
+               
+             </div>
               <div class="example-button-row mb-2">
-                <button mat-raised-button color="primary" type="button" 
-                   (click)="editprofile(this.UserDetais[0])">Edit Profile</button>
+                <!-- <button mat-raised-button color="primary" type="button" 
+                   (click)="editprofile(this.UserDetais[0])">Edit Profile</button> -->
               </div>
              <hr>
               <div class="mt-2">
@@ -32,54 +39,59 @@
           </div>
         </div>
         <div class="card ">
+          <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="Change Password">
           <form class="register-form m-4" [formGroup]="formdata">
             <div class="row">
               <div class="col-md-12 col-12 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Old Password</mat-label>
-                  <input matInput formControlName="oldpassword">
+                  <input matInput type="password" formControlName="oldpassword">
                    <mat-icon matSuffix>vpn_key</mat-icon>
                   
-                    <mat-error  *ngIf="formdata.get('oldpassword').hasError && (formdata.get('oldpassword').dirty || formdata.get('oldpassword').touched)">
-                      Old password required
-                     
-                  </mat-error>
+                  
                
                 </mat-form-field>
+                <mat-error  *ngIf="formdata.controls['oldpassword'].hasError('required') && formdata.controls['oldpassword'].touched">
+                  Old password required
+                 </mat-error>
                 </div>
               <div class="col-md-12 col-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput formControlName="password">
+            <mat-label>New Password</mat-label>
+            <input matInput type="password" formControlName="password">
              <mat-icon matSuffix>vpn_key</mat-icon>
-             <ng-container *ngFor="let error of error_messages.password">
-              <mat-error  *ngIf="formdata.get('password').hasError(error.type) && (formdata.get('password').dirty || formdata.get('password').touched)">
-               <div >
-                 {{ error.message }}
-               </div>
-            </mat-error>
-           </ng-container>
+           
           </mat-form-field>
+          <ng-container *ngFor="let error of error_messages.password">
+            <mat-error  *ngIf="formdata.get('password').hasError(error.type) && (formdata.get('password').dirty || formdata.get('password').touched)">
+             <div >
+               {{ error.message }}
+             </div>
+          </mat-error>
+         </ng-container>
           </div>
           <div class="col-md-12 col-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Confirm Password</mat-label>
-            <input matInput formControlName="confirmpassword">
+            <mat-label>Confirm New Password</mat-label>
+            <input matInput type="password" formControlName="confirmpassword">
              <mat-icon matSuffix>vpn_key</mat-icon>
-             <ng-container *ngFor="let error of error_messages.confirmpassword">
-             <mat-error  *ngIf="formdata.get('confirmpassword').hasError(error.type) && (formdata.get('confirmpassword').dirty || formdata.get('confirmpassword').touched)">
-              <div >
-                {{ error.message }}
-              </div>
-           </mat-error>
-          </ng-container>
+         
           </mat-form-field>
-          {{this.formdata.value|json}}
+          <ng-container *ngFor="let error of error_messages.confirmpassword">
+            <mat-error  *ngIf="formdata.get('confirmpassword').hasError(error.type) && (formdata.get('confirmpassword').dirty || formdata.get('confirmpassword').touched)">
+             <div >
+               {{ error.message }}
+             </div>
+          </mat-error>
+         </ng-container>
         </div>
       </div>
           <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid"
           [mat-dialog-close]="1" (click)="onSubmit()">Save</button>
          </form>
+         </mat-tab>
+         </mat-tab-group>
         </div>
       </div>
       <div class="col-lg-8 col-md-12">

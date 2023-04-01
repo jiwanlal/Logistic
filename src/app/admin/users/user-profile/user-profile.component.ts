@@ -9,6 +9,7 @@ import { custompattern } from "../../pattern.modal";
 import { UsersService } from "../users.service";
 import { ProfileDeatils } from "./user.modal";
 import { BusinessesService } from "../../businesses/businesses.service";
+import { ProfileuploadComponent } from "../dialog/profileupload/profileupload.component";
 @Component({
   selector: "app-user-profile",
   templateUrl: "./user-profile.component.html",
@@ -30,14 +31,15 @@ export class UserProfileComponent implements OnInit {
   
 
     'password': [
-      { type: 'required', message: 'password is required.' },
-      { type: 'minlength', message: 'password length.' },
-      { type: 'maxlength', message: 'password length.' }
+      { type: 'required', message: 'Password is required.' },
+      { type: 'minlength', message: 'Password length.' },
+      { type: 'maxlength', message: 'Password length.' }
     ],
     'confirmpassword': [
-      { type: 'required', message: 'password is required.' },
-      { type: 'minlength', message: 'password length.' },
-      { type: 'maxlength', message: 'password length.' }
+      { type: 'required', message: 'Password is required.' },
+      { type: 'minlength', message: 'Password length.' },
+      { type: 'maxlength', message: 'Password length.' }
+      
     ],
   }
  
@@ -64,7 +66,12 @@ export class UserProfileComponent implements OnInit {
     this.Onstatelist()
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
-  
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
   onUserDetails(id){
     this.authservice.getselectUser(id).subscribe(res=>{
@@ -184,13 +191,66 @@ export class UserProfileComponent implements OnInit {
     return password === confirmPassword ? null : { passwordNotMatch: true };
   }
   onSubmit(){
+ 
     if(!this.formdata.value){
       return
     }
     else{
+      let body={
+        "old_password":this.formdata.controls['oldpassword'].value,
+        "new_password":this.formdata.controls['confirmpassword'].value
+      }
+
+      this.userservice.Onchangpassword(this.authservice.currentUserValue.id,body).subscribe((res)=>{
+
+        console.log(res)
+        if(res.success){
+          this.showNotification(
+            "snackbar-success",
+            res.message,
+            "top",
+            "right"
+          );
+          this.formdata.reset({
+            oldpassword:[''],
+            password: [''],
+            confirmpassword:['']
+           });
+        }
+      
+      },
+      (error)=>{
+        console.log(error)
+      }
+      )
       
     }
   }
-       
+  onuploadProfileimg(){
+        const dialogRef=this.dialog.open(ProfileuploadComponent, {
+          data:'',
+           minWidth:'475px'
+         });
+         dialogRef.afterClosed().subscribe(result => {
+          if(result!=false){
+          const formData = new FormData();
+          formData.append('profile_picture',result.profile_picture)
+          console.log(result)
+          this.userservice.Onchangprofile(this.authservice.currentUserValue.id,formData).subscribe(res=>{
+            this.showNotification(
+              "snackbar-success",
+              res.message,
+              "top",
+              "right"
+            );
+
+
+          })
+         
+          }
+          
+         });
+      
+       }
       
 }
