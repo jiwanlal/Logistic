@@ -279,6 +279,7 @@ export class AddBookingComponent {
     this.formdata.controls.booking_office_id.disable();
     this.formdata.controls.origin_pincode_id.disable();
     this.formdata.controls.payment_mode_id.disable();
+    this.consignorForm.controls.total_amount.disable();
   }
 
   private onAWBNumberSelect() {
@@ -618,5 +619,15 @@ export class AddBookingComponent {
 
   }
 
+
+  public onKeydown(event): void {
+    if (!event.shiftKey && (event.key === "Enter" || event.key === "Tab")){
+             event.preventDefault();
+                // My Functionality goes here
+                if(this.activeTab <2){
+                  this.activeTab ++
+                }
+     }
+ }
 
 }

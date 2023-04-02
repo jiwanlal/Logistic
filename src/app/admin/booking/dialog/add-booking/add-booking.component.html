@@ -8,7 +8,7 @@
                 </div>
             </div>
         </div>
-        <button mat-icon-button (click)="close()" class="modal-close-button" aria-label="Close dialog">
+        <button mat-icon-button tabindex="-1" (click)="close()" class="modal-close-button" aria-label="Close dialog">
             <mat-icon>close</mat-icon>
         </button>
     </div>
@@ -304,7 +304,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Chargeable Weight</mat-label>
-                                    <input type="text" readonly placeholder="Pick one" aria-label="Number"
+                                    <input type="text" (keydown)="onKeydown($event)" readonly placeholder="Pick one" aria-label="Number"
                                         formControlName="chargeable_weight" matInput >
                                     <mat-error *ngIf="formdata.get('chargeable_weight').hasError('required')">
                                         Chargeable Weight is required
@@ -363,7 +363,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Consignor Mobile No.</mat-label>
-                                    <input type="number" [min]="1" placeholder="Pick one" aria-label="Number"
+                                    <input type="number" [min]="1000000000" placeholder="Pick one" [max]="9999999999" aria-label="Number"
                                         formControlName="consignor_mobile" matInput [matAutocomplete]="consigMob">
                                     <mat-autocomplete autoActiveFirstOption #consigMob="matAutocomplete">
                                         <mat-option *ngFor="let option of filteredConsignorMobileNos | async"
@@ -377,6 +377,10 @@
                                     <mat-error *ngIf="consignorForm.get('consignor_mobile').hasError('invalid')">
                                         Please select from list.
                                     </mat-error>
+                                    <mat-error *ngIf="consignorForm.get('consignor_mobile').hasError('min') || consignorForm.get('consignor_mobile').hasError('max')">
+                                        Mobile No. must have 10 digits
+                                    </mat-error>
+                                  
                                 </mat-form-field>
                             </div>
 
@@ -457,7 +461,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Consignee Mobile No.</mat-label>
-                                    <input type="number" [min]="1" placeholder="Pick one" aria-label="Number"
+                                    <input type="number" [min]="1000000000" placeholder="Pick one" [max]="9999999999" placeholder="Pick one" aria-label="Number"
                                         formControlName="consignee_mobile" matInput >
                                     <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
                                         [displayWith]="displayFunc.bind(this,consigneeMobileNos,'MobileNo','MobileNo')">
@@ -471,6 +475,9 @@
                                     </mat-error>
                                     <mat-error *ngIf="consignorForm.get('consignee_mobile').hasError('invalid')">
                                         Please select from list.
+                                    </mat-error>
+                                    <mat-error *ngIf="consignorForm.get('consignee_mobile').hasError('min') || consignorForm.get('consignee_mobile').hasError('max')">
+                                        Mobile No. must have 10 digits
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -563,7 +570,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>GST</mat-label>
-                                    <input type="text" placeholder="Pick one" aria-label="Number"
+                                    <input type="text" (keydown)="onKeydown($event)" placeholder="Pick one" aria-label="Number"
                                         formControlName="gst_rate_id" matInput [matAutocomplete]="gstrates">
                                     <mat-autocomplete autoActiveFirstOption #gstrates="matAutocomplete"
                                         [displayWith]="displayFunc.bind(this,gstRates,'Id','Name')">
