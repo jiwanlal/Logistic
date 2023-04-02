@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Pipe } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { custompattern } from 'src/app/admin/pattern.modal';
@@ -68,7 +68,7 @@ showNotification(colorName, text, placementFrom, placementAlign) {
 }
 ngOnInit(): void {
   this.datemodel=this.datepipe.transform(this.data.tabledatadeatils.dob,'full')
- console.log(this.data.tabledatadeatils.dob,this.datemodel)
+ console.log(this.data.tabledatadeatils.dob,new Date(this.data.tabledatadeatils.dob))
   this.formdata = this.formBuilder.group({
     CommonName:[this.data.tabledatadeatils.name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
     lastName:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.lastname:''],
@@ -78,14 +78,15 @@ ngOnInit(): void {
     office:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.officename:''],
     role:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.rolename:''],
     gender:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.gender:''],
-    dob:[this.data.tabledatadeatils.dailogPage=='userDailog'?moment(this.data.tabledatadeatils.dob):''],
+    //dob:new FormControl(new Date(this.data.tabledatadeatils.dob)),
+    dob:[this.data.tabledatadeatils.dailogPage=='userDailog'?new Date(this.data.tabledatadeatils.dob):''],
     
     
     description:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.address:'']
   
     })
     if(this.data.tabledatadeatils.dailogPage=='userDailog'){
-      this.datemodel=this.data.tabledatadeatils.dob
+    //  this.datemodel=this.data.tabledatadeatils.dob
      this.formdata.get('company').clearValidators([Validators.required])
       this.formdata.get('company').updateValueAndValidity(); 
       this.formdata.get('gender').clearValidators([Validators.required])
@@ -129,7 +130,7 @@ onSubmit(item,id:number){
   // }
   else{
   //  this.datepipe.transform(this.date, 'yyyy-MM-dd');
-   // this.formdata.controls['dob'].setValue(this.datepipe.transform(this.formdata.controls['dob'].value,'dd/MM/yyyy'))
+   this.formdata.controls['dob'].setValue(this.datepipe.transform(this.formdata.controls['dob'].value,'dd/MM/yyyy'))
     //console.log(this.formdata.controls['dob'].value)
     let sumiteddata={
       

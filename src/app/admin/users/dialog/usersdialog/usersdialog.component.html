@@ -59,10 +59,12 @@
           
        
           <div class="col-md-6 mb-0">
+          
             <!-- <app-datepicker class="" [Dateitem]="formdata.controls['dob'].value" (dateChange)="onDate($event)"></app-datepicker> -->
         <mat-form-field  appearance="outline" class="example-full-width">
-          <mat-label>Date of Birth {{formdata.controls['dob'].value}}</mat-label>
-          <input matInput [(ngModel)]="datemodel" placeholder="DD/MM/YYYY" readonly formControlName="dob" [matDatepicker]="picker">
+
+          <mat-label>Date of Birth</mat-label>
+          <input matInput  placeholder="DD/MM/YYYY" readonly formControlName="dob" [matDatepicker]="picker">
        
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>

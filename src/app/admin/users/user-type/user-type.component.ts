@@ -62,13 +62,16 @@ export class UserTypeComponent implements OnInit, OnChanges{
   addItem(event){
     console.log(event.actionName.status)
  
-  if(event.popupForm == 'Delete' && (event.popupForm=='Edit'||event.popupForm=='Add' || event.actionName.status!=true))
+  if(event.popupForm=='Edit'||event.popupForm=='Add')
   {
     
       console.log(event) 
       this.OpenDialog(event)
     
    
+  }
+  else if( event.popupForm != 'Delete'&& event.actionName.status!=true){
+    this.OpenDialog(event)
   }
 
 
@@ -80,7 +83,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
  
 
   OpenDialog(event){
-  //  console.log(event.event.checked)
+  console.log(event)
     var dialogdata:any
     // if(event.actionName.status==false){
     //       if(){
@@ -163,16 +166,16 @@ export class UserTypeComponent implements OnInit, OnChanges{
        minWidth:'767px'
      });
      dialogRef.afterClosed().subscribe(result => {
-       console.log('The dialog was closed',result);
+     //  console.log('The dialog was closed',result);
        if(result.action=='Edit'){
          console.log(result)
          this.updateRowData(result)
         // this.dataChange.emit(result);
        }
-       else if(result.statusoption=="statusDailog"){
+       if(result.statusoption=="statusDailog"){
         this.roleUdate(result)
        }
-       else{
+       if(result.action=='Add'){
         this.addRowData(result)
        }
       
@@ -262,10 +265,9 @@ export class UserTypeComponent implements OnInit, OnChanges{
     }
   
   addRowData(row_obj){
-    console.log(row_obj)
-    const formData = new FormData()
+   
     let item={
-      "first_name":row_obj.itemsumbited.CommonName,
+    "first_name":row_obj.itemsumbited.CommonName,
    "last_name":row_obj.itemsumbited.lastName,
    "company_id":row_obj.itemsumbited.company,
    "office_id":row_obj.itemsumbited.office,
