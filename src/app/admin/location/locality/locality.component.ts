@@ -6,6 +6,7 @@ import { LocationService } from '../location.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationdialogComponent } from '../dialogs/locationdialog/locationdialog.component';
 import { LocationdeleteComponent } from '../dialogs/locationdelete/locationdelete.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-locality',
@@ -25,7 +26,7 @@ export class LocalityComponent implements OnInit, OnChanges {
    public selectboxdata
    public pagename='localityDailog'
    public AddAction={actionName:'Add',popupForm:this.pagename}
-    constructor(public localityservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public localityservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog, public loaderservice:LoaderService){ }
   ngOnInit(): void {
    
     this.Onlocalitylist()
@@ -166,6 +167,7 @@ export class LocalityComponent implements OnInit, OnChanges {
   
   Onlocalitylist(){
     this.inload=false
+    this.loaderservice.Loaderpage.next(true)
     this.localityservice.localitylist().subscribe(res=>{
       this.coutrydataobject=res
       if(this.coutrydataobject.success==true){
@@ -194,7 +196,7 @@ export class LocalityComponent implements OnInit, OnChanges {
        
       
         }
-  
+        this.loaderservice.Loaderpage.next(true)
     })
 }
 Onpostcodelist(){

@@ -9,6 +9,7 @@ import { UsersdialogComponent } from '../dialog/usersdialog/usersdialog.componen
 import { DeletedialogComponent } from '../dialog/deletedialog/deletedialog.component';
 import { LocationService } from '../../location/location.service';
 import { BusinessesService } from '../../businesses/businesses.service';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-user-type',
@@ -39,7 +40,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
    public AddAction={actionName:'Add',popupForm:this.pagename}
   
    
-    constructor(public usersservice:UsersService,public businessservice:BusinessesService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public usersservice:UsersService,public businessservice:BusinessesService,private snackBar: MatSnackBar,public dialog: MatDialog,public loaderservice:LoaderService){ }
   async ngOnInit(): Promise<void> {
    
     this.Onuserlist()
@@ -355,6 +356,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
   
   Onuserlist(){
     this.inload=false
+    this.loaderservice.Loaderpage.next(true)
     this.usersservice.userget().subscribe(res=>{
     
       this.dataobject=res
@@ -416,7 +418,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
         this.inload=true
        
         }
-  
+        this.loaderservice.Loaderpage.next(false)
     })
 }
  

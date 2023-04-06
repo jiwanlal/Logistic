@@ -5,6 +5,7 @@ import { businessmodal } from '../businesses.modal';
 import { BusinessesService } from '../businesses.service';
 import { BusinessesdeletedialogComponent } from '../dialogs/businessesdeletedialog/businessesdeletedialog.component';
 import { BusinessesdialogComponent } from '../dialogs/businessesdialog/businessesdialog.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-businesses-type',
@@ -21,7 +22,7 @@ export class BusinessesTypeComponent implements OnInit, OnChanges{
    public inload=false
    public tableheader
    public dataForTable
-    constructor(public bussinessservice:BusinessesService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public bussinessservice:BusinessesService,private snackBar: MatSnackBar,public dialog: MatDialog, public LoaderService:LoaderService){ }
   ngOnInit(): void {
     this.Onbusinesslist()
     
@@ -168,6 +169,7 @@ export class BusinessesTypeComponent implements OnInit, OnChanges{
   
   Onbusinesslist(){
     this.inload=false
+    this.LoaderService.Loaderpage.next(true)
     this.bussinessservice.getbusinesslist().subscribe(res=>{
       console.log(res)
       this.dataobject=res
@@ -192,7 +194,7 @@ export class BusinessesTypeComponent implements OnInit, OnChanges{
                 delete this.tableheader.actionIcons
                 delete this.tableheader.popupForm
                 delete this.tableheader.is_visible
-                delete this.tableheader.Id
+                delete this.tableheader.id
                 delete this.tableheader.dailogPage
                 delete this.tableheader.isVisible
                 delete this.tableheader.updated_at
@@ -205,7 +207,7 @@ export class BusinessesTypeComponent implements OnInit, OnChanges{
         }
         this.inload=true
         }
-  
+        this.LoaderService.Loaderpage.next(false)
     })
   
   

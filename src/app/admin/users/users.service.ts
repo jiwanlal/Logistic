@@ -45,6 +45,7 @@ export class UsersService {
   }
 ////// role service end/////
 userget(){
+ 
   const url = this.API_URL+environment.user
   return this.http.get(url).pipe(
     catchError((error: HttpErrorResponse) => {

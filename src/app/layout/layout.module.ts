@@ -8,7 +8,10 @@ import { MatInputModule } from "@angular/material/input";
 import { MatBadgeModule } from "@angular/material/badge";
 import { AuthLayoutComponent } from "./app-layout/auth-layout/auth-layout.component";
 import { MainLayoutComponent } from "./app-layout/main-layout/main-layout.component";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+//import { PageLoaderComponent } from "./page-loader/page-loader.component";
 @NgModule({
+  declarations: [AuthLayoutComponent, MainLayoutComponent],
   imports: [
     CommonModule,
     MatTabsModule,
@@ -17,7 +20,8 @@ import { MainLayoutComponent } from "./app-layout/main-layout/main-layout.compon
     MatButtonModule,
     MatInputModule,
     MatBadgeModule,
-  ],
-  declarations: [AuthLayoutComponent, MainLayoutComponent],
+    MatProgressSpinnerModule,
+  ]
+  
 })
 export class LayoutModule {}

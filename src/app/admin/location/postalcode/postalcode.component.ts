@@ -6,6 +6,7 @@ import { LocationService } from '../location.service';
 import { LocationdeleteComponent } from '../dialogs/locationdelete/locationdelete.component';
 import { LocationdialogComponent } from '../dialogs/locationdialog/locationdialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-postalcode',
@@ -25,7 +26,7 @@ export class PostalcodeComponent implements OnInit, OnChanges {
    public selectboxdata
    public pagename='postcodeDailog'
    public AddAction={actionName:'Add',popupForm:this.pagename}
-    constructor(public stateservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public stateservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog, public loaderservice:LoaderService){ }
   ngOnInit(): void {
    
     this.Onstatelist()
@@ -164,6 +165,7 @@ export class PostalcodeComponent implements OnInit, OnChanges {
   
   Onstatelist(){
     this.inload=false
+    this.loaderservice.Loaderpage.next(true)
     this.stateservice.postcodelist().subscribe(res=>{
       this.coutrydataobject=res
       if(this.coutrydataobject.success==true){
@@ -190,7 +192,7 @@ export class PostalcodeComponent implements OnInit, OnChanges {
         this.Onregionlist()
         this.inload=true
         }
-  
+        this.loaderservice.Loaderpage.next(false)
     })
 }
 Onregionlist(){

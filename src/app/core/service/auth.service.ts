@@ -62,7 +62,7 @@ export class AuthService {
       
        map((user) => {
          console.log(user)
-         let item={role:"Admin",accessToken:user.accessToken,id:user.id,img:this.img}
+        
          localStorage.setItem('currentUser',JSON.stringify(user));
           this.currentUserSubject.next(user);
 

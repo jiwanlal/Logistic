@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LocationdeleteComponent } from '../dialogs/locationdelete/locationdelete.component';
 import { LocationdialogComponent } from '../dialogs/locationdialog/locationdialog.component';
 import { LocationService } from '../location.service';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-lactiontable',

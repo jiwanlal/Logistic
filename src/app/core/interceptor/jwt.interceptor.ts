@@ -22,8 +22,10 @@ export class JwtInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization:currentUser.accessToken,
+          
         },
         withCredentials:true
+       
       });
    }
 

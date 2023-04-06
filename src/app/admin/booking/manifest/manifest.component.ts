@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { BookingService } from '../booking.service';
 import { AddManifestComponent } from '../dialog/add-manifest/add-manifest.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-manifest',
@@ -27,7 +28,7 @@ export class ManifestComponent {
   ]
   tableData: any;
 
-  constructor(private dialogRef:MatDialog,private service:BookingService,private notification:NotificationService){
+  constructor(private dialogRef:MatDialog,private service:BookingService,private notification:NotificationService,public LoaderService:LoaderService){
 
   }
 
@@ -88,7 +89,7 @@ export class ManifestComponent {
   }
 
   private fetchData(){
-
+    this.LoaderService.Loaderpage.next(true)
     this.dataSource =[];
     this.filter('');
     this.service.GetManifests()
@@ -96,6 +97,7 @@ export class ManifestComponent {
 
        this.dataSource = res.data;
        this.filter('');
+       this.LoaderService.Loaderpage.next(false)
     })
   }
 

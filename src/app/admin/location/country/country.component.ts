@@ -6,6 +6,7 @@ import { countrydatamodal} from '../location.modal';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationdialogComponent } from '../dialogs/locationdialog/locationdialog.component';
 import { LocationdeleteComponent } from '../dialogs/locationdelete/locationdelete.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-country',
@@ -22,7 +23,7 @@ public AddAction={actionName:'Add',popupForm:this.pagename}
  public inload=false
  public countryheader
  public dataForTable
-  constructor(public contrylistservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+  constructor(public contrylistservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService){ }
 ngOnInit(): void {
   this.Oncountrylist()
   
@@ -156,6 +157,7 @@ deleteRowData(row_obj){
 
 Oncountrylist(){
   this.inload=false
+  this.LoaderService.Loaderpage.next(true)
   this.contrylistservice.contrylist().subscribe(res=>{
     console.log(res)
     this.coutrydataobject=res
@@ -186,7 +188,7 @@ Oncountrylist(){
       }
       this.inload=true
       }
-
+      this.LoaderService.Loaderpage.next(false)
   })
 
 

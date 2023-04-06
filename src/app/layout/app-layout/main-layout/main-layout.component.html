@@ -2,5 +2,9 @@
 <app-sidebar></app-sidebar>
 <app-right-sidebar></app-right-sidebar>
 <div [dir]="direction">
+  <div class="loader" *ngIf="this.loader" > 
+    <div class="loaderspinner"></div>
+    <!-- <mat-spinner mode="indeterminate" style="margin:0 auto;"></mat-spinner> -->
+  </div>
   <router-outlet></router-outlet>
 </div>

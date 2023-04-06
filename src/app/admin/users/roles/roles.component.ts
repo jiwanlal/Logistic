@@ -7,6 +7,7 @@ import { rolemodal } from '../users.modal';
 import { UsersService } from '../users.service';
 import { UsersdialogComponent } from '../dialog/usersdialog/usersdialog.component';
 import { DeletedialogComponent } from '../dialog/deletedialog/deletedialog.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-roles',
@@ -28,7 +29,7 @@ export class RolesComponent implements OnInit, OnChanges {
    public AddAction={actionName:'Add',popupForm:this.pagename}
   
    
-    constructor(public usersservice:UsersService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public usersservice:UsersService,private snackBar: MatSnackBar,public dialog: MatDialog,public loaderservice:LoaderService){ }
   ngOnInit(): void {
    
     this.Onrolelist()
@@ -196,6 +197,7 @@ export class RolesComponent implements OnInit, OnChanges {
   
   Onrolelist(){
     this.inload=false
+    this.loaderservice.Loaderpage.next(true)
     this.usersservice.roleget().subscribe(res=>{
       
       this.dataobject=res
@@ -243,6 +245,7 @@ export class RolesComponent implements OnInit, OnChanges {
         this.inload=true
        
         }
+        this.loaderservice.Loaderpage.next(false)
   
     })
 }

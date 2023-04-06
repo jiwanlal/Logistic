@@ -1,16 +1,18 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AuthService } from "src/app/core/service/auth.service";
 import { DirectionService } from "src/app/core/service/direction.service";
+import { LoaderService } from "src/app/core/service/loader.service";
 
 @Component({
   selector: "app-main-layout",
   templateUrl: "./main-layout.component.html",
   styleUrls: [],
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayoutComponent implements OnInit, OnDestroy {
   direction: string;
+  public loader:boolean
   public config: any = {};
-  constructor(private directoryService: DirectionService,  private authService: AuthService,) {
+  constructor(private directoryService: DirectionService,  private authService: AuthService, private loaderservice:LoaderService) {
     this.directoryService.currentData.subscribe((currentData) => {
       if (currentData) {
         this.direction = currentData;
@@ -32,7 +34,10 @@ export class MainLayoutComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    console.log('hello')
+   this.loaderservice.Loaderpage.subscribe(res=>{
+    console.log(res)
+    this.loader=res
+   })
     const userdetails=JSON.parse(localStorage.getItem('currentUser'))
   console.log(userdetails)
   if(userdetails){
@@ -41,6 +46,10 @@ export class MainLayoutComponent implements OnInit {
       this.authService.currentUserDetails.next(res)
     })
   }
+  
+  }
+  ngOnDestroy(): void {
+    this.loaderservice.Loaderpage.unsubscribe()
   }
    
 }

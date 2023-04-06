@@ -36,9 +36,9 @@
           <mat-menu #notificationMenu="matMenu" class="nfc-menu" xPosition="before">
             <div class="nfc-header">
               <h5 class="mb-0">Notitications</h5>
-              <a class="nfc-mark-as-read">Mark all as read</a>
+              <!-- <a class="nfc-mark-as-read">Mark all as read</a> -->
             </div>
-            <div class="nfc-dropdown">
+            <div class="nfc-dropdown d-none">
               <ng-scrollbar style="height: 350px" visibility="hover">
                 <div class="noti-list header-menu">
                   <div class="menu">
@@ -64,7 +64,7 @@
                 </div>
               </ng-scrollbar>
             </div>
-            <div class="nfc-footer">
+            <div class="nfc-footer d-none">
               <a class="nfc-read-all">Read
                 All Notifications</a>
             </div>
@@ -86,12 +86,12 @@
                   <button mat-menu-item routerLink="admin/users/profile">
                     <app-feather-icons [icon]="'user'" [class]="'user-menu-icons'"></app-feather-icons>Account
                   </button>
-                  <button mat-menu-item>
+                  <!-- <button mat-menu-item>
                     <app-feather-icons [icon]="'mail'" [class]="'user-menu-icons'"></app-feather-icons>Inbox
-                  </button>
-                  <button mat-menu-item>
+                  </button> -->
+                  <!-- <button mat-menu-item>
                     <app-feather-icons [icon]="'settings'" [class]="'user-menu-icons'"></app-feather-icons>Settings
-                  </button>
+                  </button> -->
                   <button mat-menu-item (click)="logout()">
                     <app-feather-icons [icon]="'log-out'" [class]="'user-menu-icons'"></app-feather-icons>Logout
                   </button>
