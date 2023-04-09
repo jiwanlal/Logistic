@@ -12,7 +12,7 @@ export class User {
   password: string;
   firstname: string;
   lastname: string;
-  role: Role;
+  role:string;
   brandlogo:any
   brandname:string
 accessToken: string;

@@ -42,11 +42,14 @@ export class UserProfileComponent implements OnInit {
       
     ],
   }
- 
+ public userrole
+ public img='assets/images/user.png'
+ public userImg
   constructor(public userservice:UsersService,public businessservice:BusinessesService, public authservice:AuthService,private snackBar: MatSnackBar,public dialog: MatDialog,public formBuilder: FormBuilder,) {}
   ngOnInit(): void {
     const id= this.authservice.currentUserValue.id
-
+    this.userrole = this.authservice.currentUserValue.role;
+    this.userImg = this.authservice.currentUserValue.img=='[object Object]'||this.authservice.currentUserValue.img==''||this.authservice.currentUserValue.img==null?this.img:this.authservice.currentUserValue.img;
     this.formdata = this.formBuilder.group({
       oldpassword:['', [ Validators.required]],
       password: ['', Validators.compose([

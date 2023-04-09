@@ -5,6 +5,7 @@ import { businessmodal } from '../businesses.modal';
 import { BusinessesService } from '../businesses.service';
 import { BusinessesdeletedialogComponent } from '../dialogs/businessesdeletedialog/businessesdeletedialog.component';
 import { BusinessesdialogComponent } from '../dialogs/businessesdialog/businessesdialog.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-branch',
@@ -21,7 +22,7 @@ export class BranchComponent implements OnInit, OnChanges{
    public inload=false
    public tableheader
    public dataForTable
-    constructor(public bussinessservice:BusinessesService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public bussinessservice:BusinessesService,private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService){ }
   ngOnInit(): void {
     this.Onbranchlist()
     
@@ -167,6 +168,7 @@ export class BranchComponent implements OnInit, OnChanges{
   
   Onbranchlist(){
     this.inload=false
+    this.LoaderService.Loaderpage.next(true)
     this.bussinessservice.getbranchlist().subscribe(res=>{
       console.log(res)
       this.dataobject=res
@@ -204,7 +206,7 @@ export class BranchComponent implements OnInit, OnChanges{
         }
         this.inload=true
         }
-  
+        this.LoaderService.Loaderpage.next(false)
     })
   
   

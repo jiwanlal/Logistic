@@ -6,6 +6,7 @@ import { LocationService } from '../location.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationdeleteComponent } from '../dialogs/locationdelete/locationdelete.component';
 import { LocationdialogComponent } from '../dialogs/locationdialog/locationdialog.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-region',
@@ -24,7 +25,7 @@ export class RegionComponent implements OnInit, OnChanges {
    public selectboxdata
    public pagename='regionDailog'
    public AddAction={actionName:'Add',popupForm:this.pagename}
-    constructor(public regionservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public regionservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog,public loaderservice:LoaderService){ }
   ngOnInit(): void {
    
     this.Onregionlist()
@@ -187,6 +188,7 @@ export class RegionComponent implements OnInit, OnChanges {
   
   Onregionlist(){
     this.inload=false
+    this.loaderservice.Loaderpage.next(true)
     this.regionservice.regionlist().subscribe(res=>{
      
       this.coutrydataobject=res
@@ -225,7 +227,7 @@ export class RegionComponent implements OnInit, OnChanges {
       
         this.inload=true
         }
-  
+        this.loaderservice.Loaderpage.next(false)
     })
 }
 Onzonelist(){

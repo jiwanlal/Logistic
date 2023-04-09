@@ -6,6 +6,7 @@ import { LocationService } from '../location.service';
 import { LocationdeleteComponent } from '../dialogs/locationdelete/locationdelete.component';
 import { LocationdialogComponent } from '../dialogs/locationdialog/locationdialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LoaderService } from 'src/app/core/service/loader.service';
 @Component({
   selector: 'app-state',
   templateUrl: './state.component.html',
@@ -23,7 +24,7 @@ export class StateComponent implements OnInit, OnChanges {
    public selectboxdata
    public pagename='stateDailog'
    public AddAction={actionName:'Add',popupForm:this.pagename}
-    constructor(public stateservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public stateservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog,public loaderservice:LoaderService){ }
   ngOnInit(): void {
    
     this.Onstatelist()
@@ -185,6 +186,7 @@ export class StateComponent implements OnInit, OnChanges {
   
   Onstatelist(){
     this.inload=false
+    this.loaderservice.Loaderpage.next(true)
     this.stateservice.statelist().subscribe(res=>{
    
       
@@ -224,7 +226,7 @@ export class StateComponent implements OnInit, OnChanges {
        this.inload=true
         
         }
-  
+        this.loaderservice.Loaderpage.next(false)
     })
 }
 Onregionlist(){

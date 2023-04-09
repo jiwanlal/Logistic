@@ -6,6 +6,7 @@ import { offficemodal } from '../businesses.modal';
 import { BusinessesService } from '../businesses.service';
 import { BusinessesdeletedialogComponent } from '../dialogs/businessesdeletedialog/businessesdeletedialog.component';
 import { BusinessesdialogComponent } from '../dialogs/businessesdialog/businessesdialog.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-createoffice',
@@ -26,7 +27,7 @@ export class CreateofficeComponent implements OnInit, OnChanges{
    public inload=false
    public tableheader
    public dataForTable
-    constructor(public officeservice:BusinessesService,public placesservice:LocationService ,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public officeservice:BusinessesService,public placesservice:LocationService ,private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService){ }
   ngOnInit(): void {
     this.Onofficelist()
     this.onbusinessList()
@@ -297,6 +298,7 @@ export class CreateofficeComponent implements OnInit, OnChanges{
   
   Onofficelist(){
     this.inload=false
+    this.LoaderService.Loaderpage.next(true)
     this.officeservice.getofficelist().subscribe(res=>{
       console.log(res)
       this.dataobject=res
@@ -354,7 +356,7 @@ export class CreateofficeComponent implements OnInit, OnChanges{
         }
         this.inload=true
         }
-  
+        this.LoaderService.Loaderpage.next(false)
     })
   
 

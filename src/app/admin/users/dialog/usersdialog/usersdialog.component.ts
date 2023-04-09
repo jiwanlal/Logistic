@@ -18,13 +18,13 @@ import { DatePipe } from "@angular/common";
 import * as moment from 'moment';
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'LL'
+    dateInput: 'DD-MM-YYYY'
 },
 display: {
-    dateInput: 'MM-DD-YYYY',
-    monthYearLabel: 'YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'YYYY'
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'DD-MM-YYYY',
+    dateA11yLabel: 'DD-MM-YYYY',
+    monthYearA11yLabel: 'DD-MM-YYYY'
 }
 };
 
@@ -67,8 +67,8 @@ showNotification(colorName, text, placementFrom, placementAlign) {
   });
 }
 ngOnInit(): void {
-  this.datemodel=this.datepipe.transform(this.data.tabledatadeatils.dob,'full')
- console.log(this.data.tabledatadeatils.dob,new Date(this.data.tabledatadeatils.dob))
+ // this.datemodel=this.datepipe.transform(this.data.tabledatadeatils.dob,'full')
+ //console.log(this.data.tabledatadeatils.dob,new Date(this.data.tabledatadeatils.dob))
   this.formdata = this.formBuilder.group({
     CommonName:[this.data.tabledatadeatils.name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
     lastName:[this.data.tabledatadeatils.dailogPage=='userDailog'?this.data.tabledatadeatils.lastname:''],

@@ -5,7 +5,8 @@
 export const environment = {
   production: true,
  
-  apiUrl: 'http://localhost:3000/api/',
+  apiUrl: 'http://34.70.100.59:8080/api/',
+  //imgpath:'http://dacoding.com/images/client_1001/user/profile_picture-1680558028594.png',
   authenticate:'auth/login',
   changepassword:'auth/changepassword',
   menutree:'menus/menu',

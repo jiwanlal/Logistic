@@ -7,6 +7,7 @@ import { DatatableComponent } from '../../common/datatable/datatable.component';
 import { LocationdialogComponent } from '../dialogs/locationdialog/locationdialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationdeleteComponent } from '../dialogs/locationdelete/locationdelete.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-city',
@@ -29,7 +30,7 @@ export class CityComponent implements OnInit, OnChanges {
    public AddAction={actionName:'Add',popupForm:this.pagename}
   
    
-    constructor(public cityservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog){ }
+    constructor(public cityservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog, public LoaderService:LoaderService){ }
   ngOnInit(): void {
    
     this.OnCitylist()
@@ -192,6 +193,7 @@ export class CityComponent implements OnInit, OnChanges {
   
   OnCitylist(){
     this.inload=false
+    this.LoaderService.Loaderpage.next(true)
     this.cityservice.citylist().subscribe(res=>{
       
       this.coutrydataobject=res
@@ -231,12 +233,13 @@ export class CityComponent implements OnInit, OnChanges {
         this.inload=true
        
         }
-  
+        this.LoaderService.Loaderpage.next(false)
     })
 }
 Onstatelist(){
   
   this.cityservice.statelist().subscribe(res=>{
+
    this.dropdowndata=res
   console.log(res)
     if(this.dropdowndata.success==true){

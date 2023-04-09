@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { AwbService } from '../awb.service';
 import { AddAwbIssueComponent } from '../dialog/add-awb-issue/add-awb-issue.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-awb-issue',
@@ -32,20 +33,20 @@ export class AwbIssueComponent {
   ]
   tableData:any;
 
-  constructor(private dialog: MatDialog,private awbService:AwbService,public awbNotification:NotificationService) { }
+  constructor(private dialog: MatDialog,private awbService:AwbService,public awbNotification:NotificationService,public loaderservice:LoaderService) { }
 
   ngOnInit(){
     this.fetchSalesData();
   }
 
   private fetchSalesData(){
-
+    this.loaderservice.Loaderpage.next(true)
     this.awbService.getAwbIssue(null)
     .subscribe(res=>{
 
       this.dataSource = res.data;
       this.filter('');
-
+      this.loaderservice.Loaderpage.next(false)
     })
 
   }

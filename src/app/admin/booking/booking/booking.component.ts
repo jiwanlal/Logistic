@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { BookingService } from '../booking.service';
 import { AddBookingComponent } from '../dialog/add-booking/add-booking.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
   selector: 'app-booking',
@@ -30,7 +31,7 @@ export class BookingComponent {
   tableData: any;
 
 
-  constructor(public dialogRef: MatDialog, private notification: NotificationService, private bookingService: BookingService) { }
+  constructor(public dialogRef: MatDialog, private notification: NotificationService, private bookingService: BookingService, public LoaderService:LoaderService ) { }
 
   ngOnInit() {
     this.getBookings();
@@ -88,11 +89,13 @@ export class BookingComponent {
   }
 
   private getBookings() {
+    this.LoaderService.Loaderpage.next(true)
     this.dataSource =[];
     this.filter('');
     this.bookingService.Getbookings().subscribe(res => {
       this.dataSource = res.data;
       this.filter('');
+      this.LoaderService.Loaderpage.next(false)
     })
   }
 
