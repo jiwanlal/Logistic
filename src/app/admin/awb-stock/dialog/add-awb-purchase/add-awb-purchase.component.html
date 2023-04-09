@@ -39,10 +39,10 @@
                 <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Vendor</mat-label>
-                        <input type="text" placeholder="Pick one" [listValidator]="filteredVendors | async" [validatorKey]="'vendorId'" aria-label="Number" formControlName="vendor" matInput [matAutocomplete]="vendor">
+                        <input type="text" placeholder="Pick one" [listValidator]="filteredVendors | async" [validatorKey]="'officeId'" aria-label="Number" formControlName="vendor" matInput [matAutocomplete]="vendor">
                         <mat-autocomplete autoActiveFirstOption [displayWith]="displayVendorName.bind(this)" #vendor="matAutocomplete" >
-                            <mat-option *ngFor="let option of filteredVendors | async" [value]="option.vendorId">
-                                {{option.vendor}}
+                            <mat-option *ngFor="let option of filteredVendors | async" [value]="option.officeId">
+                                {{option.office}}
                             </mat-option>
                         </mat-autocomplete>
                         <mat-error *ngIf="formdata.get('vendor').hasError('required')">
@@ -57,7 +57,7 @@
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>AWB Type</mat-label>
                         <input type="text" placeholder="Pick one" [listValidator]="filteredAwbTypes | async" [validatorKey]="'id'" aria-label="Number" formControlName="awbtype" matInput [matAutocomplete]="auto">
-                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayAwbName.bind(this)" >
+                        <mat-autocomplete autoActiveFirstOption  #auto="matAutocomplete" [displayWith]="displayAwbName.bind(this)" >
                             <mat-option *ngFor="let option of filteredAwbTypes | async" [value]="option.id">
                                 {{option.AwbType}}
                             </mat-option>
@@ -81,7 +81,7 @@
                 <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Vendor Rate</mat-label>
-                        <input min="1" matInput formControlName="vendorrate" type="number">
+                        <input min="0" matInput formControlName="vendorrate" type="number">
                         <mat-error *ngIf="formdata.get('vendorrate').hasError('required')">
                             Vendor Rate is required
                         </mat-error>
@@ -106,7 +106,7 @@
                 <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Quantity</mat-label>
-                        <input min="1" matInput formControlName="quantity" type="number">
+                        <input min="0" matInput formControlName="quantity" type="number">
                         <mat-error *ngIf="formdata.get('quantity').hasError('required')">
                             Quantity is required
                         </mat-error>
@@ -117,7 +117,7 @@
                 <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Starting No</mat-label>
-                        <input min="1" matInput formControlName="startingno" type="number">
+                        <input min="0" max="999999999999999" matInput formControlName="startingno" type="number">
                         <mat-error *ngIf="formdata.get('startingno').hasError('required')">
                             Starting No is required
                         </mat-error>

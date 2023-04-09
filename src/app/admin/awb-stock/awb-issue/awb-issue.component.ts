@@ -17,6 +17,7 @@ export class AwbIssueComponent {
   dataSource = [];
   tableHeader = [
     { field:'seq',name:'Seq' },
+    { field:'id',name:'Issue Id' },
     { field:'AwbType',name:'Awb Type' },
     { field:'Office',name:'Office Name' },
     { field:'ReceiverOffice',name:'Receiver Office' },
