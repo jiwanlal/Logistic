@@ -387,6 +387,10 @@ export class UserTypeComponent implements OnInit, OnChanges{
                this.countryheader.first_name='Name' 
                this.countryheader.last_name='Last Name' 
                this.countryheader.temp_password='Password'
+               this.countryheader.office_id='Office Id'
+               this.countryheader.role_name='Role'
+               this.countryheader.office_name='Office'
+
                  delete this.countryheader.last_name
                delete this.countryheader.password
                 delete this.countryheader.dailogPage

@@ -184,6 +184,7 @@ export class LocalityComponent implements OnInit, OnChanges {
                 }
                 this.countryheader=tableColNamesWithSpace
                 this.countryheader.Name=this.Titlename+' '+this.countryheader.Name
+               
                 delete this.countryheader.popupForm
                 delete this.countryheader.is_visible
                 delete this.countryheader.post_code_id
@@ -196,7 +197,7 @@ export class LocalityComponent implements OnInit, OnChanges {
        
       
         }
-        this.loaderservice.Loaderpage.next(true)
+        this.loaderservice.Loaderpage.next(false)
     })
 }
 Onpostcodelist(){

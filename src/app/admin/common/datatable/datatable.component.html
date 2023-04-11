@@ -5,8 +5,10 @@
                 <ng-container  [matColumnDef]="column" *ngFor="let column of  objectKeys(tableheader)" >
                   <mat-header-cell *matHeaderCellDef mat-sort-header>{{tableheader[column]|titlecase}}</mat-header-cell>
                   <mat-cell *matCellDef="let row">
+                  
                     <div *ngIf="isArray(row[column]); else elseBlock " class="d-flex">
                       <div *ngFor="let action of row[column];let i = index" >
+                        <div *ngIf="row.id!=this.authService.currentUserValue.id">
                         <button *ngIf="row.actions[i]=='Edit'" mat-icon-button (click)="Opendailogbox(row,action)">
                           <!-- <mat-icon>{{row.actionIcon[i]}}</mat-icon> -->
                           <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
@@ -16,6 +18,7 @@
                           <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
                          
                         </button>
+                      </div>
                         
                         </div>
                     </div>
