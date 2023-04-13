@@ -39,7 +39,7 @@ export class AddAwbTypeComponent {
   }
 
   displayFunc(list, key, displaykey, value): string {
-    if (typeof (value) == 'number') {
+    if (typeof (value) != 'object') {
       value = list.find(x => x?.[key]?.toString()?.indexOf(value) != -1)
     }
     return value?.[displaykey];

@@ -91,7 +91,7 @@
                 <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Starting No</mat-label>
-                        <input type="text" placeholder="Pick one" aria-label="Number" [listValidator]="filteredstartingNos | async" [validatorKey]="'StartingNo'"  formControlName="startingno"
+                        <input type="number"  min="0" max="999999999999999" placeholder="Pick one" aria-label="Number" [listValidator]="filteredstartingNos | async" [validatorKey]="'StartingNo'"  formControlName="startingno"
                             matInput [matAutocomplete]="startingno">
                         <mat-autocomplete autoActiveFirstOption #startingno="matAutocomplete">
                             <!-- <mat-autocomplete autoActiveFirstOption  #startingno="matAutocomplete"  [displayWith]="displayStartingNo.bind(this)" > -->
@@ -121,7 +121,7 @@
                     <div class="col-md-4 col-sm-4 mb-2">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Quantity</mat-label>
-                            <input matInput min="1" formControlName="quantity" type="number">
+                            <input matInput min="0" formControlName="quantity" type="number">
                             <mat-error *ngIf="formdata.get('quantity').hasError('required')">
                                 Quantity is required
                             </mat-error>
@@ -139,7 +139,7 @@
                     <div class="col-md-4 col-sm-4 mb-2">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Rate</mat-label>
-                            <input matInput min="1" formControlName="rate" type="number" [min]="minrate">
+                            <input matInput min="0" formControlName="rate" type="number" [min]="minrate">
                             <mat-error *ngIf="formdata.get('rate').hasError('required')">
                                 Rate No is required
                             </mat-error>
@@ -155,7 +155,7 @@
                 <div class="col-md-4 col-sm-4 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Amount Received </mat-label>
-                        <input matInput formControlName="amountreceived" type="number" [readonly]="true" >
+                        <input matInput formControlName="amountreceived" type="number"  >
                         <mat-error *ngIf="formdata.get('amountreceived').hasError('required')">
                             Amount is required
                         </mat-error>

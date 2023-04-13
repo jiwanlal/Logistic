@@ -27,7 +27,7 @@ export class AddAwbPurchaseComponent {
       office: new FormControl(null,[Validators.required]),
       vendor: new FormControl(null,[Validators.required]),
       vendorrate: new FormControl(null,[Validators.required]),
-      purchasedate: new FormControl(null,[Validators.required]),
+      purchasedate: new FormControl(new Date(),[Validators.required]),
       quantity: new FormControl(null,[Validators.required]),
       startingno: new FormControl(null,[Validators.required]),
       endno: new FormControl(null,[Validators.required]),
@@ -84,7 +84,7 @@ export class AddAwbPurchaseComponent {
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.vendors.filter(option => option?.vendor?.toLowerCase().includes(value?.toLowerCase()));
+        return this.vendors.filter(option => option?.office?.toLowerCase().includes(value?.toLowerCase()));
       }),
     );
   }
@@ -107,7 +107,7 @@ export class AddAwbPurchaseComponent {
     this.formdata.controls.office.setValue(data.OfficeId);
     this.formdata.controls.vendorrate.setValue(data.VendorRate);
     this.formdata.controls.vendor.setValue(data.VendorId);
-    this.formdata.controls.purchasedate.setValue(data.PurchaseDate);
+    this.formdata.controls.purchasedate.setValue(data.PurchaseDateTime);
     this.formdata.controls.startingno.setValue(data.StartingNo);
     this.formdata.controls.endno.setValue(data.EndNo);
     this.formdata.controls.quantity.setValue(data.Quantity);
@@ -115,7 +115,7 @@ export class AddAwbPurchaseComponent {
 
   displayAwbName(data): string {
 
-    if(typeof(data) == 'number'){
+    if(typeof(data) != 'object'){
       data = this.awbTypes.find(x=>x.id == data)
     }
    
@@ -123,16 +123,16 @@ export class AddAwbPurchaseComponent {
   }
 
   displayOfficeName(data): string {
-    if(typeof(data) == 'number'){
+    if(typeof(data) != 'object'){
       data = this.offices.find(x=>x.officeId == data)
     }
     return data?.office;
   }
   displayVendorName(data): string {
-    if(typeof(data) == 'number'){
-      data = this.vendors.find(x=>x.vendorId == data)
+    if(typeof(data) != 'object'){
+      data = this.vendors.find(x=>x.officeId == data)
     }
-    return data?.vendor;
+    return data?.office;
   }
 
   private getFillValues(onDone){

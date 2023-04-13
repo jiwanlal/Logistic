@@ -24,6 +24,7 @@ export class AwbTypeComponent {
     { field:'seq',name:'Seq' },
     { field:'AwbType',name:'Awb Type' },
     { field:'AwbPrefix',name:'Awb Prefix' },
+    { field:'PaymentMode',name:'Payment Mode' },
     { field:'CreatedAt',name:'Created Date' },
     { field:'Actions',name:'Actions' },
   ]

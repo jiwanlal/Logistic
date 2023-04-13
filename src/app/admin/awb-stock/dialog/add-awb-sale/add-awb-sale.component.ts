@@ -76,11 +76,11 @@ export class AddAwbSaleComponent {
     this.formdata.controls.awbtype.setValue(data.AwbId);
     this.formdata.controls.office.setValue(data.OfficeId);
     this.formdata.controls.rate.setValue(data.SalesRate);
-    this.formdata.controls.validtill.setValue(data.ValidTill);
+    this.formdata.controls.validtill.setValue(data.ValidTillDate);
   }
   displayAwbName(data): string {
 
-    if(typeof(data) == 'number'){
+    if(typeof(data) != 'object'){
       data = this.awbTypes.find(x=>x.id == data)
     }
    
@@ -88,7 +88,7 @@ export class AddAwbSaleComponent {
   }
 
   displayOfficeName(data): string {
-    if(typeof(data) == 'number'){
+    if(typeof(data) != 'object'){
       data = this.offices.find(x=>x.officeId == data)
     }
     return data?.office;

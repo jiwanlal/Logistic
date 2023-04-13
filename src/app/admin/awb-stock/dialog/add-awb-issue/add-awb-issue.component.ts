@@ -30,7 +30,7 @@ export class AddAwbIssueComponent {
     {
       awbtype: new FormControl(null,[Validators.required]),
       office: new FormControl(null,[Validators.required]),
-      issuedate: new FormControl(null,[Validators.required]),
+      issuedate: new FormControl(new Date(),[Validators.required]),
       receiveroffice: new FormControl(null,[Validators.required]),
       rate: new FormControl(null,[Validators.required]),
       quantity: new FormControl(null,[Validators.required]),
@@ -62,6 +62,7 @@ export class AddAwbIssueComponent {
         this.formdata.controls.office.disable();
       }
       this.formdata.controls.endno.disable();
+      this.formdata.controls.amountreceived.disable();
       
       this.setFilters();
       if(this.data)
@@ -118,8 +119,8 @@ export class AddAwbIssueComponent {
     this.filteredstartingNos = this.formdata.get('startingno').valueChanges.pipe(
       startWith(''),
       map(value => {
-        value = typeof(value) == 'string'? value?.toLowerCase() :'';
-        return this.startingNosForAwbType.filter(option => option?.StartingNo?.toString().toLowerCase().includes(value?.toLowerCase()));
+        value = typeof(value) == 'string'? value?.toLowerCase() :value;
+        return this.startingNosForAwbType.filter(option => option?.StartingNo?.toString().toLowerCase().includes(value?.toString().toLowerCase()));
       }),
     );
   }
@@ -167,7 +168,7 @@ export class AddAwbIssueComponent {
 
   displayAwbName(data): string {
 
-    if(typeof(data) == 'number'){
+    if(typeof(data) != 'object'){
       data = this.awbTypes.find(x=>x.id == data)
     }
    
@@ -175,13 +176,13 @@ export class AddAwbIssueComponent {
   }
 
   displayOfficeName(data): string {
-    if(typeof(data) == 'number'){
+    if(typeof(data) != 'object'){
       data = this.offices.find(x=>x.officeId == data)
     }
     return data?.office;
   }
   displayStartingNo(data): string {
-    if(typeof(data) == 'number'){
+    if(typeof(data) != 'object'){
       data = this.startingNos.find(x=>x.PurchaseId == data.PurchaseId)
     }
     return data?.StartingNo;
