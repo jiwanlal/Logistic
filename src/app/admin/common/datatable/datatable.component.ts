@@ -17,6 +17,7 @@ export class DatatableComponent implements OnInit, AfterViewInit,OnDestroy
  @Input() tabledata:any|undefined
  @Input() tableheader:any
 @Input()filterData:any
+@Input() tablename:string
  @Output() dataChange = new EventEmitter();
  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
  @ViewChild(MatSort, { static: true }) sort: MatSort;

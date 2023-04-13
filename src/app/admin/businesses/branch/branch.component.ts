@@ -193,7 +193,7 @@ export class BranchComponent implements OnInit, OnChanges{
                 delete this.tableheader.actionIcons
                 delete this.tableheader.popupForm
                 delete this.tableheader.isVisible
-                delete this.tableheader.Id
+                delete this.tableheader.id
                 delete this.tableheader.dailogPage
                 delete this.tableheader.updated_at
                 delete this.tableheader.updated_by

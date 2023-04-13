@@ -4,6 +4,8 @@ import { MaxValidator, UntypedFormBuilder, UntypedFormGroup, Validators } from '
 import { UsersService } from 'src/app/admin/users/users.service';
 import { BusinessesService } from 'src/app/admin/businesses/businesses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -15,6 +17,7 @@ export class SignupComponent implements OnInit {
   returnUrl: string;
   hide = true;
   chide = true;
+  filteredOptions: Observable<string[]>;
  public rolelist=[]
   public compnaylist=[]
   public officelist=[]
@@ -46,6 +49,15 @@ export class SignupComponent implements OnInit {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.Onstatelist()
+    this.filteredOptions = this.authForm.controls.Office.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+      //  console.log(value)
+        value = typeof (value) == 'string' ? value?.toLowerCase() : ''
+        return this.officelist.filter(option => option?.office_name?.toLowerCase().includes(value?.toLowerCase()));
+      }),
+     // map(value => this._filter(value || '')),
+    );
   }
   get f() {
     return this.authForm.controls;
@@ -60,7 +72,7 @@ export class SignupComponent implements OnInit {
         first_name:this.authForm.get('FirstName').value,
         last_name:this.authForm.get('LastName').value,
         company_id:this.authForm.get('Company').value,
-        office_id:this.authForm.get('Office').value,
+        office_id:this.authForm.get('Office').value.office_id,
         email:this.authForm.get('Email').value,
         mobile:this.authForm.get('Mobile').value,
         
@@ -113,6 +125,8 @@ export class SignupComponent implements OnInit {
       
       setTimeout(() => {
         this.officelist=res.data.values
+        console.log(this.officelist)
+        
       }, 1000);
      // this.onobectitem(this.compnaylist)
     
@@ -126,5 +140,16 @@ export class SignupComponent implements OnInit {
       }, 1000);
       
     })
+    }
+    displayFn(selectedoption){
+     // console.log(selectedoption)
+  
+      return selectedoption ? selectedoption.office_name : undefined;
+     }
+    private _filter(value: string): string[] {
+      console.log(value)
+      const filterValue = value.toLowerCase();
+  
+      return this.officelist.filter(option => option.toLowerCase().includes(filterValue));
     }
 }

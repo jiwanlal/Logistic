@@ -324,7 +324,7 @@ export class CreateofficeComponent implements OnInit, OnChanges{
                 delete this.tableheader.actionIcons
                 delete this.tableheader.popupForm
                 delete this.tableheader.is_visible
-                delete this.tableheader.Id
+                delete this.tableheader.id
                 delete this.tableheader.business_type_id
                 delete this.tableheader.branch_type_id
                 delete this.tableheader.gst_name

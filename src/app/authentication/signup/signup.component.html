@@ -77,11 +77,22 @@
               <div class="col-xl-6 col-lg-6  mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Office</mat-label>
-                  <mat-select formControlName="Office">
+                  <!-- <mat-select formControlName="Office" >
                     <mat-option *ngFor="let office of this.officelist" [value]="office.office_id">
                       {{office.office_name}}
                       </mat-option>
-                  </mat-select>
+                  </mat-select> -->
+                  <input type="text"
+                  placeholder="Pick one"
+                  aria-label="Number" 
+                  matInput
+                  formControlName="Office" [matAutocomplete]="auto"
+                  >
+           <mat-autocomplete autoActiveFirstOption  #auto="matAutocomplete" [displayWith]="displayFn">
+             <mat-option *ngFor="let option of filteredOptions | async"  [value]="option">
+              {{option.office_name}}
+             </mat-option>
+           </mat-autocomplete>
                   
                   <mat-error *ngIf="authForm.get('Office').hasError('required') ">
                     Office is required
