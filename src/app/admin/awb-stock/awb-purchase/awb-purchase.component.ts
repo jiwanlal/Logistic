@@ -20,6 +20,7 @@ export class AwbPurchaseComponent {
   dataSource = [];
   tableHeader = [
     { field:'seq',name:'Seq' },
+    { field:'id',name:'Purchase Id' },
     { field:'AwbType',name:'Awb Type' },
     { field:'office',name:'Office Name' },
     { field:'vendor',name:'Vendor' },
