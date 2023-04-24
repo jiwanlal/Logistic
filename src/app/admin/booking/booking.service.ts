@@ -78,6 +78,15 @@ export class BookingService {
     return this.http.delete<any>(url)
   }
 
+  GetConsignorDetail(mobileNo){
+    const url = this.API_URL + environment.bookingconsignordetail  + (mobileNo ? "/"+mobileNo:'')
+    return this.http.get<any>(url)
+  }
+
+  GetConsigneeDetail(mobileNo){
+    const url = this.API_URL + environment.bookingconsigneedetail  + (mobileNo ? "/"+mobileNo:'')
+    return this.http.get<any>(url)
+  }
 
 
   //================= Manifest ========================

@@ -19,10 +19,11 @@ export class ManifestComponent {
   tableHeader = [
 
     { field: 'seq', name: 'Seq' },
-    { field: 'manifest_date', name: 'Manifest Date' },
+    { field: 'id', name: 'Manifest No.' },
+    { field: 'awb_no', name: 'AWB No.' },
     { field: 'origin_office', name: 'Origin Office' },
     { field: 'destination_office', name: 'Destination Office' },
-    { field: 'awb_no', name: 'AWB No.' },
+    { field: 'manifest_date', name: 'Manifest Date' },
     { field: 'Actions', name: 'Actions' }
 
   ]
@@ -39,7 +40,7 @@ export class ManifestComponent {
 
   deleteRow(rowData) {
 
-    this.service.DeleteManifest(rowData?.manifest_id)
+    this.service.DeleteManifest(rowData?.id)
     .subscribe(res=>{
       if(res.success){
         this.notification.success('Manifest Deleted Successfully.');

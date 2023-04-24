@@ -130,11 +130,15 @@
                     <div class="col-md-4 col-sm-4 mb-2">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>End No</mat-label>
-                            <input matInput formControlName="endno" type="number" [disabled]="true">
+                            <input matInput formControlName="endno" type="number" readonly [max]="minendNo">
                             <mat-error *ngIf="formdata.get('endno').hasError('required')">
                                 End No is required
                             </mat-error>
+                            <mat-error *ngIf="formdata.get('endno').hasError('max')">
+                                Value should not be greater than {{minendNo}}
+                            </mat-error>
                         </mat-form-field>
+                        
                     </div>
                     <div class="col-md-4 col-sm-4 mb-2">
                         <mat-form-field class="example-full-width" appearance="outline">

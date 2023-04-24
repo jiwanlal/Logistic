@@ -19,8 +19,8 @@ export class BookingComponent {
   tableHeader = [
 
     { field: 'seq', name: 'Seq' },
-    { field: 'invoice_number', name: 'Invoice No.' },
-    { field: 'awb_prefix', name: 'AWB' },
+    { field: 'id', name: 'Booking No.' },
+    { field: 'awb_number', name: 'Awb No.' },
     { field: 'office_name', name: 'Office' },
     { field: 'booking_date', name: 'Booking Date' },
     { field: 'chargeable_weight', name: 'Chargeable Weight' },
@@ -39,7 +39,7 @@ export class BookingComponent {
 
   deleteRow(rowData) {
 
-    this.bookingService.DeleteBooking(rowData?.booking_id)
+    this.bookingService.DeleteBooking(rowData?.id)
     .subscribe(res=>{
       if(res.success){
         this.notification.success('Booking Deleted Successfully.');
