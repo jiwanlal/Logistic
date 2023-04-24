@@ -27,8 +27,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DatatableModule } from '../common/datatable.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ProfileuploadComponent } from './dialog/profileupload/profileupload.component';
-
-
+import { PermissionComponent } from './permission/permission.component';
+import {  MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { UsersService } from './users.service';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list'; 
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { ProfileuploadComponent } from './dialog/profileupload/profileupload.com
     UsersdialogComponent,
     DeletedialogComponent,
     UserProfileComponent,
-    ProfileuploadComponent
+    ProfileuploadComponent,
+    PermissionComponent
 
   ],
   imports: [
@@ -63,12 +67,13 @@ import { ProfileuploadComponent } from './dialog/profileupload/profileupload.com
     MatTabsModule,
     MatTooltipModule,
     ComponentsModule,
-    SharedModule, 
-    DatatableModule
+    SharedModule,  DatatableModule, MatSlideToggleModule, MatExpansionModule, MatListModule
   ],
   entryComponents:[
     UsersdialogComponent, DeletedialogComponent,ProfileuploadComponent
-  ]
+  ],
+  providers:[UsersService]
+
   
 })
 export class UsersModule { }

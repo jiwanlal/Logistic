@@ -32,6 +32,19 @@
         -webkit-animation: spin 2s linear infinite; /* Safari */
         animation: spin 2s linear infinite; margin:0 auto; 
       }
+    .mdc-switch{width: 50px !important;
+    .mdc-switch__track{height: 25px !important; border-radius: 20px !important;
+      .mdc-switch__handle{ top: 49% !important;}
+    }
+  }
+  .mdc-switch--unselected{
+    .mdc-switch__handle-track{ left: 4px;}
+  }
+ .mat-mdc-slide-toggle-checked{
+  .mdc-switch__handle-track{ left:-4px;}
+ }
+ .ml-auto{ margin-left: auto;}
+.mr-3{ margin-right: 1.25rem !important;}
       
       /* Safari */
       @-webkit-keyframes spin {

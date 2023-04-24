@@ -13,6 +13,7 @@ import { AuthService } from "src/app/core/service/auth.service";
 import { RightSidebarService } from "src/app/core/service/rightsidebar.service";
 import { LanguageService } from "src/app/core/service/language.service";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+import { environment } from "src/environments/environment";
 const document: any = window.document;
 
 @Component({
@@ -36,6 +37,7 @@ export class HeaderComponent
   isOpenSidebar: boolean;
   public brandname
   public userFullName
+  imgurl=environment.imgUrl
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -111,7 +113,7 @@ export class HeaderComponent
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
     const userid =this.authService.currentUserValue.id;
-    this.userImg = this.authService.currentUserValue.img=='[object Object]'||this.authService.currentUserValue.img==''||this.authService.currentUserValue.img==null?this.img:this.authService.currentUserValue.img;
+    this.userImg = this.authService.currentUserValue.img=='[object Object]'||this.authService.currentUserValue.img==''||this.authService.currentUserValue.img==null?this.img:this.imgurl+this.authService.currentUserValue.img;
       console.log(userid)
     if (userRole === "Admin") {
       this.homePage = "admin/dashboard/main";

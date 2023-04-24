@@ -10,6 +10,7 @@ import { UsersService } from "../users.service";
 import { ProfileDeatils } from "./user.modal";
 import { BusinessesService } from "../../businesses/businesses.service";
 import { ProfileuploadComponent } from "../dialog/profileupload/profileupload.component";
+import { environment } from "src/environments/environment";
 @Component({
   selector: "app-user-profile",
   templateUrl: "./user-profile.component.html",
@@ -27,6 +28,7 @@ export class UserProfileComponent implements OnInit {
   public rolelist=[]
   public compnaylist=[]
   public officelist=[]
+  imgurl=environment.imgUrl
   error_messages = {
   
 
@@ -49,7 +51,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     const id= this.authservice.currentUserValue.id
     this.userrole = this.authservice.currentUserValue.role;
-    this.userImg = this.authservice.currentUserValue.img=='[object Object]'||this.authservice.currentUserValue.img==''||this.authservice.currentUserValue.img==null?this.img:this.authservice.currentUserValue.img;
+    this.userImg = this.authservice.currentUserValue.img=='[object Object]'||this.authservice.currentUserValue.img==''||this.authservice.currentUserValue.img==null?this.img:this.imgurl+this.authservice.currentUserValue.img;
     this.formdata = this.formBuilder.group({
       oldpassword:['', [ Validators.required]],
       password: ['', Validators.compose([

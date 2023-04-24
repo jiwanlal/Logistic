@@ -12,6 +12,7 @@ import {
 import { AuthService } from "src/app/core/service/auth.service";
 import { Role } from "src/app/core/models/role";
 import { LeftmenulistService } from "src/app/core/service/leftmenulist.service";
+import { environment } from "src/environments/environment";
 @Component({
   selector: "app-sidebar",
   templateUrl: "./sidebar.component.html",
@@ -29,6 +30,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   headerHeight = 60;
   currentRoute: string;
   routerObj = null;
+  imgurl=environment.imgUrl
   public brandname
    public img='assets/images/user.png'
   constructor(
@@ -71,6 +73,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit() {
+    console.log(this.imgurl)
     // this.authService.currentUserDetails.subscribe(res=>{
     //   console.log(res.data)
     //   this.userFullName=res.data[0].first_name +' '+ res.data[0].last_name
@@ -83,7 +86,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.authService.currentUserValue.firstname +
         " " +
         this.authService.currentUserValue.lastname;
-      this.userImg = this.authService.currentUserValue.img=='[object Object]'||this.authService.currentUserValue.img==''||this.authService.currentUserValue.img==null?this.img:this.authService.currentUserValue.img;
+      this.userImg =this.authService.currentUserValue.img=='[object Object]'||this.authService.currentUserValue.img==''||this.authService.currentUserValue.img==null?this.img:this.imgurl+this.authService.currentUserValue.img;
       this.leftmenuservice.getMenulist().subscribe(res=>{
         console.log(res.data)
         this.sidebarItems=res.data;

@@ -1,0 +1,73 @@
+<section class="content ">
+    <div class="content-block ">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <!-- <app-breadcrumb [title]="'Ambulance List'" [items]="['Ambulance']" [active_item]="'List'">
+        </app-breadcrumb> -->
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+              <div class="responsive_table">
+                <div class="materialTableHeader">
+                  <div class="row pr-3">
+                    <div class="col-12">
+                      
+                      <ul class="header-buttons-left pt-4  mr-3 ms-0 d-flex w-100">
+                        <li class="tbl-title">
+                          <h2>Permission</h2>
+                        </li>
+                        <li class="tbl-search-box">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Select Role</mat-label>
+                            <mat-select>
+                              <mat-option *ngFor="let role of this.rolelist" [value]="role.role_id">
+                                {{role.role_name}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <!-- <app-datafilter></app-datafilter> -->
+                        </li>
+                        <li class="ml-auto"><button mat-raised-button color="primary" class="mr-3">Save Permission</button></li>
+                      
+                       
+                      </ul>
+                    </div>
+                 
+                 
+                  </div>
+                </div>
+                </div>
+            
+
+<div class="mt-3"></div>
+                <mat-accordion class="example-headers-align" multi>
+                  <mat-expansion-panel class="mb-2" *ngFor="let menulist of this.sidebarItems">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <i [ngClass]="[menulist.iconType]">{{menulist.icon}}</i>&nbsp;
+                         {{menulist.title}}
+                      </mat-panel-title>
+                      <mat-panel-description class="justify-content-end">
+                       
+                        <mat-slide-toggle  color="primary"></mat-slide-toggle> 
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                 
+                        
+                        <mat-list role="list" class="m-0 p-0" *ngFor="let child of menulist.submenu">
+                          <mat-list-item role="listitem"> <mat-checkbox color="primary" class="example-margin">{{child.title}} </mat-checkbox></mat-list-item>
+                         
+                        </mat-list>
+                       
+                
+                  </mat-expansion-panel>
+                  </mat-accordion>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

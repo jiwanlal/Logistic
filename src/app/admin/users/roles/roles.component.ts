@@ -64,14 +64,16 @@ export class RolesComponent implements OnInit, OnChanges {
   OpenDialog(event){
     console.log()
     var dialogdata:any
-    if(event.popupForm=='Edit'){
+    if(event.popupForm=='Edit' ||event.status=='status'){
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
           name:event.actionName.role_name,
           id:event.actionName.role_id,
           description:event.actionName.description,
-          dailogPage:event.actionName.dailogPage
+          dailogPage:event.actionName.dailogPage,
+          status:event.status=='status'?event.event.checked:event.actionName.status,
+          statusoption:event.status=='status'?'statusDailog':''
           }
         
       }

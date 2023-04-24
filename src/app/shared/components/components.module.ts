@@ -14,15 +14,16 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ViewimgComponent } from './viewimg/viewimg.component';
 
 @NgModule({
-  declarations: [FileUploadComponent, BreadcrumbComponent, DataGridComponent, ConfirmDialogComponent, DatepickerComponent],
+  declarations: [FileUploadComponent, BreadcrumbComponent, DataGridComponent, ConfirmDialogComponent, DatepickerComponent, ViewimgComponent],
   imports: [SharedModule,MatTableModule,MatPaginatorModule,MatDialogModule,MatSortModule,   FormsModule,
     MatInputModule,
     MatDatepickerModule,
     MatMomentDateModule,
     ReactiveFormsModule,
     MatFormFieldModule],
-  exports: [FileUploadComponent, BreadcrumbComponent,DataGridComponent,ConfirmDialogComponent,DatepickerComponent],
+  exports: [FileUploadComponent, BreadcrumbComponent,DataGridComponent,ConfirmDialogComponent,DatepickerComponent,ViewimgComponent],
 })
 export class ComponentsModule {}

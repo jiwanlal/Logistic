@@ -6,6 +6,7 @@ export const environment = {
   production: true,
  
   apiUrl: 'http://34.70.100.59:8080/api/',
+  imgUrl:"http://34.70.100.59:8080/api/images/",
   authenticate:'auth/login',
   changepassword:'auth/changepassword',
   menutree:'menus/menu',
