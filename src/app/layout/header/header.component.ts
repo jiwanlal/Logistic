@@ -38,6 +38,7 @@ export class HeaderComponent
   public brandname
   public userFullName
   imgurl=environment.imgUrl
+  awbsearch
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -238,5 +239,10 @@ export class HeaderComponent
         this.router.navigate(["/authentication/signin"]);
       }
     });
+  }
+  search(){
+    if(this.awbsearch!=''){
+    this.router.navigate([ "admin/search"])
+  }
   }
 }

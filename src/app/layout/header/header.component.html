@@ -10,13 +10,23 @@
       </a>
     </div>
     <div class="collapse navbar-collapse" [ngClass]="isNavbarCollapsed ? '' : 'show'">
-      <ul class="float-start collapse-menu-icon">
+      <ul class="float-start collapse-menu-icon d-flex">
         <li>
           <button mat-button (click)="callSidemenuCollapse()" class="sidemenu-collapse nav-notification-icons"> <i
               class="material-icons-outlined icon-color">
               menu
             </i></button>
         </li>
+        <li>
+          <div class="input-group seardhbox  d-flex alieng align-items-center mb-3">
+            <input  type="search" name="awbsearch" [(ngModel)]="awbsearch" class="form-control" placeholder="Search">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="button" (click)="search()">AWB SEARCH</button>
+            </div>
+          </div>
+       
+         
+      </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <!-- Full Screen Button -->
