@@ -72,7 +72,7 @@
                     <mat-label>AWB No.</mat-label>
 
                     <mat-select  formControlName="awb_id" multiple>
-                        <mat-option *ngFor="let awb of awbNos" [value]="awb.awb_id">{{awb.awb_prefix}}</mat-option>
+                        <mat-option *ngFor="let awb of awbNos" [value]="awb.booking_id">{{awb.awb_prefix}}</mat-option>
                       </mat-select>
                     <!-- <input type="text"  placeholder="Pick one" [listValidator]="filteredAwbNos | async" [validatorKey]="'awb_id'"  aria-label="Number" formControlName="awb_id" matInput [matAutocomplete]="awbAuto" >
                     <mat-autocomplete autoActiveFirstOption [displayWith]="displayFunc.bind(this,awbNos,'awb_id','awb_prefix')" #awbAuto="matAutocomplete" >

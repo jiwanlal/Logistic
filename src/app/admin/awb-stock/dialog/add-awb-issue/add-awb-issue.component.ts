@@ -23,6 +23,7 @@ export class AddAwbIssueComponent {
   startingNosForAwbType:any[]=[];
   minrate =0;
   purchaseId = null;
+  minendNo = 9999999;
 
   defaultValues:any;
 
@@ -61,7 +62,7 @@ export class AddAwbIssueComponent {
       if(!this.defaultValues?.isHeadOffice){
         this.formdata.controls.office.disable();
       }
-      this.formdata.controls.endno.disable();
+      // this.formdata.controls.endno.disable();
       this.formdata.controls.amountreceived.disable();
       
       this.setFilters();
@@ -77,9 +78,10 @@ export class AddAwbIssueComponent {
   }
 
   setMinRate(options){
-    console.log(options);
-    this.minrate = options.VendorRate
+   // console.log(options);
+    this.minrate = options.VendorRate;
     this.purchaseId = options.PurchaseId;
+    this.minendNo = options.EndNo;
   }
 
 
@@ -107,6 +109,11 @@ export class AddAwbIssueComponent {
         return this.offices.filter(option => option?.office?.toLowerCase().includes(value?.toLowerCase()));
       }),
     );
+
+    this.formdata.controls.quantity.valueChanges.subscribe(res=>{
+      this.formdata.controls.endno.updateValueAndValidity();
+      this.formdata.controls.endno.markAsTouched();
+    })
 
     
   }
@@ -163,7 +170,7 @@ export class AddAwbIssueComponent {
     this.formdata.controls.quantity.setValue(data.Quantity);
     this.formdata.controls.amountreceived.setValue(data.AmountReceived);
 
-    this.setMinRate({VendorRate:data.MinRate,PurchaseId:data.PurchaseId})
+    this.setMinRate({VendorRate:data.MinRate,PurchaseId:data.PurchaseId,EndNo:data.EndNo})
   }
 
   displayAwbName(data): string {

@@ -44,6 +44,7 @@ export class AddBookingComponent {
   consignorMobileNos: any[] = [];
   filteredConsignorMobileNos: Observable<any[]>;
 
+
   consignorCities: any[] = [];
   filteredConsignorCities: Observable<any[]>;
 
@@ -65,6 +66,8 @@ export class AddBookingComponent {
   EnableConsignorTab = true;
   activeTab = 0;
   isPayemntModeDirect= false;
+  purchaseId:string = null;
+  issueId:string = null;
 
 
   constructor(private cdr: ChangeDetectorRef, public dialogRef: MatDialogRef<AddBookingComponent>, @Inject(MAT_DIALOG_DATA) public data, private bookService: BookingService) {
@@ -152,10 +155,12 @@ export class AddBookingComponent {
   private loadData(fillDepenendnt) {
     if (this.data) {
 
+      this.purchaseId = this.data.awb_purchase_id;
+      this.issueId = this.data.awb_issue_id;
       this.formdata.controls.awb_id.setValue(this.data.awb_id, { emitEvent: false })
-      this.formdata.controls.awb_number.setValue(this.data.awb_prefix, { emitEvent: false })
+      this.formdata.controls.awb_number.setValue(this.data.awb_number, { emitEvent: false })
       this.formdata.controls.booking_office_id.setValue(this.data.booking_office_id)
-      this.formdata.controls.booking_date.setValue(this.data.booking_date)
+      this.formdata.controls.booking_date.setValue(this.data.BookingDate)
       this.formdata.controls.origin_pincode_id.setValue(this.data.origin_pincode_id, { emitEvent: false })
       this.formdata.controls.destination_pincode_id.setValue(this.data.destination_pincode_id, { emitEvent: false })
       this.formdata.controls.destination_locality_id.setValue(this.data.destination_locality_id)
@@ -202,7 +207,7 @@ export class AddBookingComponent {
     let d: Observable<any>[] = [];
     d.push(this.bookService.getFillValues(null))
     if (this.data) {
-      d.push(this.bookService.getFillValues(this.data.booking_id))
+      d.push(this.bookService.getFillValues(this.data.id))
     }
 
     combineLatest(d)
@@ -298,10 +303,13 @@ export class AddBookingComponent {
         if (selectedAWb) {
           this.formdata.controls.awb_id.setValue(selectedAWb.AwbId);
           this.formdata.controls.payment_mode_id.setValue(selectedAWb?.PaymentModeId);
+          this.purchaseId = selectedAWb.PurchaseId;
+          this.issueId = selectedAWb.IssueId;
           this.bookService.getOfficeById(selectedAWb.OfficeId).subscribe(res => {
             this.offices = res.data;
             setTimeout(() => {
               this.formdata.controls.booking_office_id.setValue(selectedAWb.OfficeId);
+              this.cdr.detectChanges();
             }, 20);
 
 
@@ -368,7 +376,8 @@ export class AddBookingComponent {
 
   private OnPaymentModeChange() {
     this.formdata.controls.payment_mode_id.valueChanges.subscribe(value => {
-      if (value == 1 ) {
+      this.isPayemntModeDirect = false;
+      if (value == 'P02' ) {
         //return this.onConsignorFormEnable();
         this.isPayemntModeDirect = true;
       }
@@ -455,7 +464,14 @@ export class AddBookingComponent {
 
     this.filteredConsignorMobileNos = this.consignorForm.controls.consignor_mobile.valueChanges.pipe(
       exhaustMap(x => {
-        return ((typeof (x) == 'number') ? of(this.awbTypes) : this.bookService.searchAWBNumber(x).pipe(map(y => this.consignorMobileNos = this._translateApiToProperty(y))))
+        return (this.bookService.GetConsignorDetail(x).pipe(map(y => this.consignorMobileNos = this._translateApiToProperty(y))))
+      }
+      )
+    )
+    this.filteredConsigneeMobileNos = this.consignorForm.controls.consignee_mobile.valueChanges.pipe(
+      
+      exhaustMap(x => {
+        return (this.bookService.GetConsigneeDetail(x).pipe(map(y => this.consigneeMobileNos = this._translateApiToProperty(y))))
       }
       )
     )
@@ -536,7 +552,11 @@ export class AddBookingComponent {
 
     this.filteredDestinationPincodes = this.formdata.controls.destination_pincode_id.valueChanges.pipe(
       exhaustMap(x => {
-        return ((typeof (x) == 'number') ? of(this.destinationPincodes) : this.bookService.searchPincode(x).pipe(map(y => this.destinationPincodes = this._translateApiToProperty(y))))
+        if(this.destinationPincodes.find(x=>x.Id == x)){
+          return of(this.destinationPincodes)
+        }
+        return this.bookService.searchPincode(x).pipe(map(y => this.destinationPincodes = this._translateApiToProperty(y)))
+       // return ((typeof (x) == 'number') ? of(this.destinationPincodes) : this.bookService.searchPincode(x).pipe(map(y => this.destinationPincodes = this._translateApiToProperty(y))))
       }
       )
     )
@@ -577,7 +597,7 @@ export class AddBookingComponent {
   }
 
   displayFunc(list, key, displaykey, value): string {
-    if (typeof (value) == 'number') {
+    if (typeof (value) != 'object') {
       value = list.find(x => x?.[key]?.toString()?.indexOf(value) != -1)
     }
     return value?.[displaykey];
@@ -586,6 +606,19 @@ export class AddBookingComponent {
   close() {
 
     this.dialogRef.close();
+  }
+
+  onConsignorMobileSelect(selectedMobile){
+
+    this.consignorForm.controls.consignor_address.setValue(selectedMobile.consignor_address)
+    this.consignorForm.controls.consignor_name.setValue(selectedMobile.consignor_name)
+
+  }
+  onConsigneeMobileSelect(selectedMobile){
+
+    this.consignorForm.controls.consignee_address.setValue(selectedMobile.consignee_address)
+    this.consignorForm.controls.consignee_name.setValue(selectedMobile.consignee_name)
+
   }
 
   onSubmit() {
@@ -604,10 +637,10 @@ export class AddBookingComponent {
       return this.activeTab = 2;
     }
 
-    let val = { ...this.formdata.getRawValue(), ... this.consignorForm.getRawValue(), ... this.consingmentForm.getRawValue() };
+    let val = { ...this.formdata.getRawValue(), ... this.consignorForm.getRawValue(), ... this.consingmentForm.getRawValue(),purchaseId:this.purchaseId,issueId:this.issueId };
 
 
-    this.bookService.CreateBooking(val, this.data?.booking_id).subscribe(res => {
+    this.bookService.CreateBooking(val, this.data?.id).subscribe(res => {
 
       if (res.success) {
         setTimeout(() => {
