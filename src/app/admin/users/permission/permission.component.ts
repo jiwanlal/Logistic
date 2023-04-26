@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users.service';
 import { LeftmenulistService } from 'src/app/core/service/leftmenulist.service';
+import { AuthService } from 'src/app/core/service/auth.service';
 
 @Component({
   selector: 'app-permission',
@@ -10,26 +11,39 @@ import { LeftmenulistService } from 'src/app/core/service/leftmenulist.service';
 export class PermissionComponent implements OnInit {
   public rolelist=[]
   public sidebarItems=[]
- constructor( public userservice:UsersService, public leftmenuservice:LeftmenulistService){}
+  roleid
+ constructor( public userservice:UsersService, public leftmenuservice:LeftmenulistService,private authService: AuthService){
+  this
+ }
  ngOnInit(): void {
   this.userservice.roleget().subscribe(res=>{
     console.log(res.data)
     this.rolelist=res.data
+    this.roleid=this.authService.currentUserValue.roleid
+    this.onChange(this.authService.currentUserValue.roleid)
+    // this.rolelist.filter(item=>item.roleid=='')
   },
   error=>{
 
   })
 
-  this.leftmenuservice.getMenulist().subscribe(res=>{
-    this.sidebarItems=res.data;
-    console.log(this.sidebarItems)
-  },
+  // this.leftmenuservice.getMenulist().subscribe(res=>{
+  //   this.sidebarItems=res.data;
+  //   console.log(this.sidebarItems)
+  // },
 
-    error=>{
+  //   error=>{
 
-    })
+  //   })
    
  }
-
+ onChange(event){
+  console.log(event.value)
+ 
+  this.userservice.permisson(event.value).subscribe(res=>{
+    console.log(res.data)
+    this.sidebarItems=res.data
+  })
+ }
   
 }

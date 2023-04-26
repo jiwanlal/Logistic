@@ -50,6 +50,7 @@ export const environment = {
   manifestFill:'manifest/fillvalues',
   manifest:'manifest/manifest',
   manifestdetail:'manifest/manifestdetail',
+  permission:'permissions/permission'
   
   
    //apiUrl:'http://location:4200'
