@@ -21,7 +21,7 @@
                         <li class="tbl-search-box">
                           <mat-form-field appearance="outline">
                             <mat-label>Select Role</mat-label>
-                            <mat-select>
+                            <mat-select [(ngModel)]="this.roleid" (selectionChange)="onChange($event)">
                               <mat-option *ngFor="let role of this.rolelist" [value]="role.role_id">
                                 {{role.role_name}}
                               </mat-option>
@@ -29,7 +29,9 @@
                           </mat-form-field>
                           <!-- <app-datafilter></app-datafilter> -->
                         </li>
-                        <li class="ml-auto"><button mat-raised-button color="primary" class="mr-3">Save Permission</button></li>
+                        <li class="ml-auto">
+                          <!-- <button mat-raised-button color="primary" class="mr-3">Save Permission</button> -->
+                        </li>
                       
                        
                       </ul>
@@ -60,18 +62,30 @@
                           <mat-list-item role="listitem">
                             <div class="container-fluid">
                               <div class="row">
-                                <div class="col-md-4 pt-4"> <mat-checkbox color="primary" class="example-margin">{{child.title}} </mat-checkbox></div>
+                                <div class="col-md-4 pt-4"> 
+                                  <!-- <mat-checkbox color="primary" class="example-margin"></mat-checkbox>  -->{{child.title}} 
+                                </div>
                                 <div class="col-md-8 pt-2">
+                                 
                                   <div class="row">
-                                    <div class="col pt-2 text-center"><small>Edit</small><br>
-                                      <mat-slide-toggle  color="primary"></mat-slide-toggle> 
+                                    <div class="col pt-2 text-center"><small>Create</small><br>
+                                    
+                                      <mat-slide-toggle [(ngModel)]="child.create"  color="primary"></mat-slide-toggle> 
                                     </div>
                                     <div class="col pt-2 text-center"><small>Update</small><br>
-                                      <mat-slide-toggle  color="primary"></mat-slide-toggle> 
+                                    
+                                      <mat-slide-toggle [(ngModel)]="child.update"  color="primary"></mat-slide-toggle> 
                                     </div>
                                     <div class="col pt-2 text-center"><small>Delete</small><br>
-                                      <mat-slide-toggle  color="primary"></mat-slide-toggle> 
+                                      <mat-slide-toggle   [(ngModel)]="child.delete"   color="primary"></mat-slide-toggle> 
                                     </div>
+                                    <div class="col pt-2 text-center"><small>Export</small><br>
+                                      <mat-slide-toggle  [(ngModel)]="child.export"  color="primary"></mat-slide-toggle> 
+                                    </div>
+                                    <div class="col pt-2 text-center"><small>Read</small><br>
+                                      <mat-slide-toggle  [(ngModel)]="child.read"  color="primary"></mat-slide-toggle> 
+                                    </div>
+                                    
                                   </div>
 
                                 </div>

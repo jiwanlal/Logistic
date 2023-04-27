@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AwbsearchRoutingModule } from './awbsearch-routing.module';
 import { AwbsearchComponent } from './awbsearch.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { AwbsearchComponent } from './awbsearch.component';
   ],
   imports: [
     CommonModule,
-    AwbsearchRoutingModule
+    AwbsearchRoutingModule,
+    MatCheckboxModule
+
   ]
 })
 export class AwbsearchModule { }

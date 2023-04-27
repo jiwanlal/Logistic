@@ -7,6 +7,7 @@ export const environment = {
  
   apiUrl: 'http://34.70.100.59:8080/api/',
   imgUrl:"http://34.70.100.59:8080/api/images/",
+  //imgpath:'http://dacoding.com/images/client_1001/user/profile_picture-1680558028594.png',
   authenticate:'auth/login',
   changepassword:'auth/changepassword',
   menutree:'menus/menu',
@@ -17,11 +18,11 @@ export const environment = {
   zone:'places/zone',
   region:'places/region',
   state:'places/state',
-  city:'places/city',
+  city:'places/city', 
   postcode:'places/postcode',
   locality:'places/locality',
   awbtype :'awb/awbtype',
-  awbtypefill :'awb/awbfill',
+  awbtypefill :'awb/awbfill',   
   office:'businesses/office',
   business:'businesses/business',
   branch:'businesses/branch',
@@ -44,12 +45,22 @@ export const environment = {
   searchstates:'book/state',
   localitiesOnPostCodes:'book/localitiesonpostcode',
   booking:'book/booking',
+  bookingconsignordetail:'book/consignordetail',
+  bookingconsigneedetail:'book/consigneedetail',
   manifestFill:'manifest/fillvalues',
   manifest:'manifest/manifest',
   manifestdetail:'manifest/manifestdetail',
+  permission:'permissions/permission'
   
   
    //apiUrl:'http://location:4200'
 };
 
-
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

@@ -15,6 +15,7 @@ export class User {
   role:string;
   brandlogo:any
   brandname:string
+  roleid:any
 accessToken: string;
 }
 

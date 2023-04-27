@@ -110,6 +110,14 @@ OnChangeStatus(id:number,data){
     })
   );
 }
+permisson(roleid){
+  const url = this.API_URL+environment.permission+ `/${roleid}`;
+  return this.http.get<any>(url).pipe(
+    catchError((error: HttpErrorResponse) => {
+      return observableThrowError(error);
+    })
+  );
+}
 
 
 }
