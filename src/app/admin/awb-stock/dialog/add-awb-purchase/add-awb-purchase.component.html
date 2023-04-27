@@ -106,7 +106,7 @@
                 <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Quantity</mat-label>
-                        <input min="0" matInput formControlName="quantity" type="number">
+                        <input min="1" matInput formControlName="quantity" type="number">
                         <mat-error *ngIf="formdata.get('quantity').hasError('required')">
                             Quantity is required
                         </mat-error>

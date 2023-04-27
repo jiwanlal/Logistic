@@ -95,7 +95,9 @@ export class AddAwbPurchaseComponent {
       [this.formdata.controls.startingno.valueChanges,this.formdata.controls.quantity.valueChanges]
     )
     .subscribe(res=>{
-      this.formdata.controls.endno.setValue(res[0]+res[1])
+      if(res[1]>0){
+        this.formdata.controls.endno.setValue(res[0]+(res[1]-1))
+      }
     })
 
 
