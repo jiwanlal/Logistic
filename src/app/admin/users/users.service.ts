@@ -111,6 +111,7 @@ OnChangeStatus(id:number,data){
   );
 }
 permisson(roleid){
+  console.log(roleid)
   const url = this.API_URL+environment.permission+ `/${roleid}`;
   return this.http.get<any>(url).pipe(
     catchError((error: HttpErrorResponse) => {

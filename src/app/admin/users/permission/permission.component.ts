@@ -17,10 +17,11 @@ export class PermissionComponent implements OnInit {
  }
  ngOnInit(): void {
   this.userservice.roleget().subscribe(res=>{
-    console.log(res.data)
+    console.log(res.data,this.authService.currentUserValue.roleid)
     this.rolelist=res.data
+    
     this.roleid=this.authService.currentUserValue.roleid
-    this.onChange(this.authService.currentUserValue.roleid)
+    this.onChange(this.roleid)
     // this.rolelist.filter(item=>item.roleid=='')
   },
   error=>{
@@ -38,9 +39,9 @@ export class PermissionComponent implements OnInit {
    
  }
  onChange(event){
-  console.log(event.value)
+  console.log(event)
  
-  this.userservice.permisson(event.value).subscribe(res=>{
+  this.userservice.permisson(event).subscribe(res=>{
     console.log(res.data)
     this.sidebarItems=res.data
   })

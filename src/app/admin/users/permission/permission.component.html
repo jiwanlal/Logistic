@@ -21,7 +21,7 @@
                         <li class="tbl-search-box">
                           <mat-form-field appearance="outline">
                             <mat-label>Select Role</mat-label>
-                            <mat-select [(ngModel)]="this.roleid" (selectionChange)="onChange($event)">
+                            <mat-select [(ngModel)]="this.roleid" (selectionChange)="onChange($event.value)">
                               <mat-option *ngFor="let role of this.rolelist" [value]="role.role_id">
                                 {{role.role_name}}
                               </mat-option>
