@@ -255,7 +255,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Actual Weight</mat-label>
-                                    <input matInput formControlName="actual_weight" max="99999" min="1" type="number">
+                                    <input matInput formControlName="actual_weight" max="99999" min="0.0001" type="number">
                                     <mat-error *ngIf="formdata.get('actual_weight').hasError('required')">
                                         Actual Weight is required
                                     </mat-error>

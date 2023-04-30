@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { combineLatest, debounce, debounceTime, delay, distinctUntilChanged, exhaustMap, from, map, merge, of, startWith, switchMap, tap } from 'rxjs';
+import { combineLatest, debounce, debounceTime, delay, distinctUntilChanged, exhaustMap, from, map, merge, mergeAll, of, startWith, switchMap, tap } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { BookingService } from '../../booking.service';
 
@@ -249,24 +249,44 @@ export class AddBookingComponent {
 
   private setChargeableWeight() {
     /// set Chargable weight
-    this.formdata.controls.actual_weight.valueChanges
-      .subscribe(val => {
-        let control = this.formdata.controls;
+    // this.formdata.controls.actual_weight.valueChanges
+    //   .subscribe(val => {
+    //     let control = this.formdata.controls;
 
-        if (!(control.height.value && control.width.value && control.length.value)) {
-          this.formdata.controls.chargeable_weight.setValue(val);
-        }
-      })
+    //     if (!(control.height.value && control.width.value && control.length.value)) {
+    //       this.formdata.controls.chargeable_weight.setValue(val);
+    //     }
+    //   })
 
-    combineLatest([
+    merge(
       this.formdata.controls.height.valueChanges,
       this.formdata.controls.width.valueChanges,
       this.formdata.controls.length.valueChanges,
-    ])
+      this.formdata.controls.actual_weight.valueChanges,
+      this.formdata.controls.no_of_packets.valueChanges
+    )
       .subscribe(res => {
-        let val = parseFloat(((res[0] * res[1] * res[2]) / 5000).toFixed(2))
-        this.formdata.controls.chargeable_weight.setValue(val)
+
+       
+        let noOfPackets = this.formdata.controls.no_of_packets.value || 0;
+        let height = this.formdata.controls.height.value|| 0;
+        let width =this.formdata.controls.width.value || 0;
+        let length =this.formdata.controls.length.value || 0;
+        let actual_weight =this.formdata.controls.actual_weight.value || 0;
+
+        let chargableWeightForDimension = parseFloat((this.calculateChargableWeightOnDimension(height ,width ,length)).toFixed(2));
+        let heavierWeight = chargableWeightForDimension > actual_weight ? chargableWeightForDimension: actual_weight;
+        let finalWeight = heavierWeight * noOfPackets;
+
+
+        this.formdata.controls.chargeable_weight.setValue(finalWeight.toFixed(2))
       })
+  }
+
+  private calculateChargableWeightOnDimension(height:number,width:number,length:number){
+
+    return parseFloat(((height * width * length) / 5000).toFixed(2))
+
   }
 
   private onChargeableWeightChange() {
@@ -539,6 +559,12 @@ export class AddBookingComponent {
     this.EnableConsignorTab = false;
   }
 
+  // private onNoOfPacketChange(){
+  //   this.formdata.controls.no_of_packets.valueChanges.subscribe(value=>{
+  //     this.formdata.controls.
+  //   })
+  // }
+
 
 
   setSearchFilters() {
@@ -551,6 +577,7 @@ export class AddBookingComponent {
     )
 
     this.filteredDestinationPincodes = this.formdata.controls.destination_pincode_id.valueChanges.pipe(
+      debounceTime(600),
       exhaustMap(x => {
         if(this.destinationPincodes.find(x=>x.Id == x)){
           return of(this.destinationPincodes)

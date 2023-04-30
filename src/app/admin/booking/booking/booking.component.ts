@@ -92,11 +92,13 @@ export class BookingComponent {
     this.LoaderService.Loaderpage.next(true)
     this.dataSource =[];
     this.filter('');
-    this.bookingService.Getbookings().subscribe(res => {
-      this.dataSource = res.data;
-      this.filter('');
-      this.LoaderService.Loaderpage.next(false)
-    })
+    setTimeout(() => {
+      this.bookingService.Getbookings().subscribe(res => {
+        this.dataSource = res.data;
+        this.filter('');
+        this.LoaderService.Loaderpage.next(false)
+      })
+    }, 300);
   }
 
 
