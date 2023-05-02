@@ -25,6 +25,7 @@ export class ZoneComponent implements OnInit, OnChanges {
    public selectboxdata
    public pagename='zoneDailog'
    public AddAction={actionName:'Add',popupForm:this.pagename}
+   public errormessage
     constructor(public zonelistservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog,public loaderservice:LoaderService){ }
   ngOnInit(): void {
     this.Onzonelist()
@@ -169,7 +170,7 @@ export class ZoneComponent implements OnInit, OnChanges {
     this.zonelistservice.zonelist().subscribe(res=>{
       console.log(res)
       this.coutrydataobject=res
-     
+      this.errormessage=res['message']
       if(this.coutrydataobject.success==true){
         
    

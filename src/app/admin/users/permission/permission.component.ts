@@ -12,6 +12,7 @@ export class PermissionComponent implements OnInit {
   public rolelist=[]
   public sidebarItems=[]
   roleid
+  public errormessage
  constructor( public userservice:UsersService, public leftmenuservice:LeftmenulistService,private authService: AuthService){
   this
  }
@@ -42,6 +43,7 @@ export class PermissionComponent implements OnInit {
   console.log(event)
  
   this.userservice.permisson(event).subscribe(res=>{
+    this.errormessage=res['message']
     console.log(res.data)
     this.sidebarItems=res.data
   })

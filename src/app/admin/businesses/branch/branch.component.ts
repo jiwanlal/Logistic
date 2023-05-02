@@ -22,6 +22,7 @@ export class BranchComponent implements OnInit, OnChanges{
    public inload=false
    public tableheader
    public dataForTable
+   public errormessage
     constructor(public bussinessservice:BusinessesService,private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService){ }
   ngOnInit(): void {
     this.Onbranchlist()
@@ -172,6 +173,7 @@ export class BranchComponent implements OnInit, OnChanges{
     this.bussinessservice.getbranchlist().subscribe(res=>{
       console.log(res)
       this.dataobject=res
+      this.errormessage=res['message']
       if(this.dataobject.success==true){
         
    

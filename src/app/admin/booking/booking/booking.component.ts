@@ -14,7 +14,7 @@ import { LoaderService } from 'src/app/core/service/loader.service';
 export class BookingComponent {
   Titlename = 'Bookings';
   keyword;
-
+  public errormessage
   dataSource = [];
   tableHeader = [
 
@@ -95,6 +95,7 @@ export class BookingComponent {
     setTimeout(() => {
       this.bookingService.Getbookings().subscribe(res => {
         this.dataSource = res.data;
+        this.errormessage=res['message']
         this.filter('');
         this.LoaderService.Loaderpage.next(false)
       })

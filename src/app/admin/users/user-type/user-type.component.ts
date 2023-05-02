@@ -36,6 +36,7 @@ export class UserTypeComponent implements OnInit, OnChanges{
   public compnaylist=[]
   public officelist=[]
   public Alldata:boolean=false
+  public errormessage 
   litstitme
    public AddAction={actionName:'Add',popupForm:this.pagename}
   
@@ -353,14 +354,14 @@ export class UserTypeComponent implements OnInit, OnChanges{
 
  
   }
-  
+
   Onuserlist(){
     this.inload=false
     this.loaderservice.Loaderpage.next(true)
     this.usersservice.userget().subscribe(res=>{
-    
       this.dataobject=res
-      console.log(res)
+      this.errormessage=res['message']
+      
       if(this.dataobject.success==true){
         
        // let actions = ['Edit','Delete']

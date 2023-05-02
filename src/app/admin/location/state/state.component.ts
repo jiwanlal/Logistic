@@ -24,6 +24,7 @@ export class StateComponent implements OnInit, OnChanges {
    public selectboxdata
    public pagename='stateDailog'
    public AddAction={actionName:'Add',popupForm:this.pagename}
+   public errormessage
     constructor(public stateservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog,public loaderservice:LoaderService){ }
   ngOnInit(): void {
    
@@ -188,7 +189,7 @@ export class StateComponent implements OnInit, OnChanges {
     this.inload=false
     this.loaderservice.Loaderpage.next(true)
     this.stateservice.statelist().subscribe(res=>{
-   
+      this.errormessage=res['message']
       
       this.coutrydataobject=res
       if(this.coutrydataobject.success==true){

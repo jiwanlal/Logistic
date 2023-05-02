@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AuthService } from "src/app/core/service/auth.service";
 import { DirectionService } from "src/app/core/service/direction.service";
 import { LoaderService } from "src/app/core/service/loader.service";
+import { NotificationService } from "src/app/core/service/notification.service";
 
 @Component({
   selector: "app-main-layout",
@@ -33,10 +34,14 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
       }
     });
   }
+  loaderreer
   ngOnInit(): void {
+
+    
    this.loaderservice.Loaderpage.subscribe(res=>{
     console.log(res)
     this.loader=res
+  
    })
     const userdetails=JSON.parse(localStorage.getItem('currentUser'))
   console.log(userdetails)
@@ -49,6 +54,7 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   
   }
   ngOnDestroy(): void {
+    this.loaderreer=''
     this.loaderservice.Loaderpage.unsubscribe()
   }
    

@@ -16,8 +16,8 @@ export class AwbPurchaseComponent {
 
   Titlename = 'AWB Purchase';
   keyword;
-
   dataSource = [];
+  public errormessage
   tableHeader = [
     { field:'seq',name:'Seq' },
     { field:'id',name:'Purchase Id' },
@@ -44,7 +44,7 @@ export class AwbPurchaseComponent {
     this.loaderservice.Loaderpage.next(true)
     this.awbService.getAwbPurchase(null)
     .subscribe(res=>{
-
+      this.errormessage=res['message']
       this.dataSource = res.data;
       this.filter('');
       this.loaderservice.Loaderpage.next(false)

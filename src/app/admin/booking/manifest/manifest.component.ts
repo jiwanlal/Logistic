@@ -14,7 +14,7 @@ import { LoaderService } from 'src/app/core/service/loader.service';
 export class ManifestComponent {
   Titlename = 'Manifest';
   keyword;
-
+  public errormessage
   dataSource = [];
   tableHeader = [
 
@@ -97,6 +97,7 @@ export class ManifestComponent {
     .subscribe(res=>{
 
        this.dataSource = res.data;
+       this.errormessage=res['message']
        this.filter('');
        this.LoaderService.Loaderpage.next(false)
     })

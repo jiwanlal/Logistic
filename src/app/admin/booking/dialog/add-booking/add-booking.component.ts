@@ -273,12 +273,16 @@ export class AddBookingComponent {
         let width =this.formdata.controls.width.value || 0;
         let length =this.formdata.controls.length.value || 0;
         let actual_weight =this.formdata.controls.actual_weight.value || 0;
+        let finalWeight = 0;
 
-        let chargableWeightForDimension = parseFloat((this.calculateChargableWeightOnDimension(height ,width ,length)).toFixed(2));
-        let heavierWeight = chargableWeightForDimension > actual_weight ? chargableWeightForDimension: actual_weight;
-        let finalWeight = heavierWeight * noOfPackets;
-
-
+        if(height && width && length){
+          let chargableWeightForDimension = parseFloat((this.calculateChargableWeightOnDimension(height ,width ,length)).toFixed(2));
+          let heavierWeight = chargableWeightForDimension > actual_weight ? chargableWeightForDimension: actual_weight;
+          finalWeight = heavierWeight * noOfPackets;
+        }else{
+          finalWeight = actual_weight;
+        }
+        
         this.formdata.controls.chargeable_weight.setValue(finalWeight.toFixed(2))
       })
   }

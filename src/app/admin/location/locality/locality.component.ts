@@ -25,6 +25,7 @@ export class LocalityComponent implements OnInit, OnChanges {
    public dropdowndata
    public selectboxdata
    public pagename='localityDailog'
+   public errormessage
    public AddAction={actionName:'Add',popupForm:this.pagename}
     constructor(public localityservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog, public loaderservice:LoaderService){ }
   ngOnInit(): void {
@@ -170,6 +171,7 @@ export class LocalityComponent implements OnInit, OnChanges {
     this.loaderservice.Loaderpage.next(true)
     this.localityservice.localitylist().subscribe(res=>{
       this.coutrydataobject=res
+      this.errormessage=res['message']
       if(this.coutrydataobject.success==true){
          let tableColNamesFromAPI=[]
           let tableColNamesWithSpace={}

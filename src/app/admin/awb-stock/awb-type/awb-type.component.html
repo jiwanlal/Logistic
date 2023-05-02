@@ -9,7 +9,11 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
           <div class="body">
-            <div class="responsive_table">
+            <div *ngIf="this.errormessage=='Unauthorized'" class="text-center">
+              <mat-icon color="warn">report_problem</mat-icon><br>
+              You are not authorized
+            </div>
+            <div class="responsive_table" *ngIf="this.errormessage!='Unauthorized'">
               <div class="materialTableHeader">
                 <div class="row">
                   <div class="col-8">

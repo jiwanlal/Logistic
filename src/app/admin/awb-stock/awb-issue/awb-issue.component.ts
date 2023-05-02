@@ -14,7 +14,7 @@ import { LoaderService } from 'src/app/core/service/loader.service';
 export class AwbIssueComponent {
   Titlename = 'AWB Issue';
   keyword;
-
+  public errormessage
   dataSource = [];
   tableHeader = [
     { field:'seq',name:'Seq' },
@@ -43,7 +43,7 @@ export class AwbIssueComponent {
     this.loaderservice.Loaderpage.next(true)
     this.awbService.getAwbIssue(null)
     .subscribe(res=>{
-
+      this.errormessage=res['message']
       this.dataSource = res.data;
       this.filter('');
       this.loaderservice.Loaderpage.next(false)

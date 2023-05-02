@@ -25,6 +25,7 @@ export class RegionComponent implements OnInit, OnChanges {
    public selectboxdata
    public pagename='regionDailog'
    public AddAction={actionName:'Add',popupForm:this.pagename}
+   public errormessage
     constructor(public regionservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog,public loaderservice:LoaderService){ }
   ngOnInit(): void {
    
@@ -192,6 +193,7 @@ export class RegionComponent implements OnInit, OnChanges {
     this.regionservice.regionlist().subscribe(res=>{
      
       this.coutrydataobject=res
+      this.errormessage=res['message']
       if(this.coutrydataobject.success==true){
         
    

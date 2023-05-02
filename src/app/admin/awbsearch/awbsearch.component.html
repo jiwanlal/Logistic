@@ -1,4 +1,4 @@
-<section class="content ">
+<section class="content " *ngIf="this.id">
     <div class="content-block">
       <div class="block-header mt-3">
         <!-- breadcrumb -->
@@ -9,13 +9,17 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
             <div class="body">
-              <div class="responsive_table">
+              <div *ngIf="this.errormessage=='Unauthorized'" class="text-center">
+                <mat-icon color="warn">report_problem</mat-icon><br>
+                You are not authorized
+              </div>
+              <div class="responsive_table" *ngIf="this.errormessage!='Unauthorized'">
                 <div class="materialTableHeader">
                   <div class="row">
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
                         <li class="tbl-title">
-                          <h2>AWB No:156666</h2>
+                          <h2>AWB No:{{this.id}}</h2>
                         </li>
                         <li class="tbl-search-box">
                           <!-- <label for="search-input"><i class="material-icons search-icon">search</i></label> -->
@@ -27,7 +31,9 @@
                         <li>
                           <mat-checkbox class="example-margin">All Tracking</mat-checkbox>
                         </li>
-                    
+                        <li>
+                          <mat-checkbox class="example-margin">From Archive Data</mat-checkbox>
+                        </li>
                       
                        
                       </ul>
@@ -35,6 +41,47 @@
                  
                   </div>
                 </div>
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-lg-12 mb-0">
+                      <div class="row border-bottom pt-3 pb-3"> 
+                        <div class="col-lg-2  mb-0">Booking Branch</div>
+                        <div class="col-lg-4  mb-0">Ambala</div>
+                        <div class="col-lg-2  mb-0">Issue Date</div>
+                        <div class="col-lg-4  mb-0">25/02/2021</div>
+                      </div>
+                      <div class="row border-bottom pt-3 pb-3"> 
+                        <div class="col-lg-2  mb-0">Booking Branch</div>
+                        <div class="col-lg-4  mb-0">Ambala</div>
+                        <div class="col-lg-2  mb-0">Issue Date</div>
+                        <div class="col-lg-4  mb-0">25/02/2021</div>
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+                 <div>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>SL</th>
+                        <th>Active Date</th>
+                        <th>Description</th>
+                        <th>Entry Date</th>
+                        <th>Entry Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Delivered</td>
+                        <td>From: <a href="#">abcd</a><br>
+                          To: <a href="#">abcd</a></td>
+                      </tr>
+                    </tbody>
+                   
+
+                  </table>
+                 </div>
                
               </div>
             </div>

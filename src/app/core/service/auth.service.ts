@@ -14,6 +14,7 @@ export class AuthService {
   public img='assets/images/user.png'
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<User>;
+  public autherror=new BehaviorSubject('')
   public currentUserDetails=new BehaviorSubject({
     data:[] 
   })
@@ -23,6 +24,7 @@ export class AuthService {
       JSON.parse(localStorage.getItem('currentUser'))
     );
     this.currentUser = this.currentUserSubject.asObservable();
+    
   }
 
   public get currentUserValue(): User {
@@ -95,5 +97,6 @@ export class AuthService {
     this.currentUserSubject.next(null);
     return of({ success: false });
   }
+  
 }
 

@@ -23,6 +23,7 @@ public AddAction={actionName:'Add',popupForm:this.pagename}
  public inload=false
  public countryheader
  public dataForTable
+ public errormessage
   constructor(public contrylistservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService){ }
 ngOnInit(): void {
   this.Oncountrylist()
@@ -160,6 +161,7 @@ Oncountrylist(){
   this.LoaderService.Loaderpage.next(true)
   this.contrylistservice.contrylist().subscribe(res=>{
     console.log(res)
+    this.errormessage=res['message']
     this.coutrydataobject=res
     if(this.coutrydataobject.success==true){
       

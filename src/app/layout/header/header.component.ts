@@ -14,6 +14,7 @@ import { RightSidebarService } from "src/app/core/service/rightsidebar.service";
 import { LanguageService } from "src/app/core/service/language.service";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { environment } from "src/environments/environment";
+import { AwbsearchService } from "src/app/admin/awbsearch/awbsearch.service";
 const document: any = window.document;
 
 @Component({
@@ -47,7 +48,8 @@ export class HeaderComponent
     private configService: ConfigService,
     private authService: AuthService,
     private router: Router,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+    public abwservice:AwbsearchService
   ) {
     super();
   }
@@ -242,7 +244,9 @@ export class HeaderComponent
   }
   search(){
     if(this.awbsearch!=''){
-    this.router.navigate([ "admin/search"])
+      
+    this.router.navigate([ "admin/search/"])
+    this.abwservice.abwsearchdata.next(this.awbsearch)
   }
   }
 }

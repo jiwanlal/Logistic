@@ -27,6 +27,7 @@ export class CreateofficeComponent implements OnInit, OnChanges{
    public inload=false
    public tableheader
    public dataForTable
+   public errormessage
     constructor(public officeservice:BusinessesService,public placesservice:LocationService ,private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService){ }
   ngOnInit(): void {
     this.Onofficelist()
@@ -302,6 +303,7 @@ export class CreateofficeComponent implements OnInit, OnChanges{
     this.officeservice.getofficelist().subscribe(res=>{
       console.log(res)
       this.dataobject=res
+      
       if(this.dataobject.success==true){
         
    

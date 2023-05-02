@@ -18,7 +18,7 @@ export class AwbTypeComponent {
 
   Titlename = 'AWB Type';
   keyword;
-
+  public errormessage
   dataSource:any[] = [];
   tableHeader = [
     { field:'seq',name:'Seq' },
@@ -42,7 +42,9 @@ export class AwbTypeComponent {
     this.awbService.getAwbType(null)
     .subscribe(data=>{
       console.log(data);
+      
       this.dataSource = data.data;
+      this.errormessage=data['message']
       this.filter('')
       this.loaderservice.Loaderpage.next(false)
       

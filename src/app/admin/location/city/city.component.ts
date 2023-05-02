@@ -28,7 +28,7 @@ export class CityComponent implements OnInit, OnChanges {
    public dropdowndata
    public selectboxdata
    public AddAction={actionName:'Add',popupForm:this.pagename}
-  
+   public errormessage
    
     constructor(public cityservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog, public LoaderService:LoaderService){ }
   ngOnInit(): void {
@@ -195,7 +195,7 @@ export class CityComponent implements OnInit, OnChanges {
     this.inload=false
     this.LoaderService.Loaderpage.next(true)
     this.cityservice.citylist().subscribe(res=>{
-      
+      this.errormessage=res['message']
       this.coutrydataobject=res
       console.log(res)
     //  this.countryheader=this.coutrydataobject.data.columns

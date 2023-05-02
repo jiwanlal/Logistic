@@ -22,6 +22,7 @@ export class BusinessesTypeComponent implements OnInit, OnChanges{
    public inload=false
    public tableheader
    public dataForTable
+   public errormessage
     constructor(public bussinessservice:BusinessesService,private snackBar: MatSnackBar,public dialog: MatDialog, public LoaderService:LoaderService){ }
   ngOnInit(): void {
     this.Onbusinesslist()
@@ -172,7 +173,9 @@ export class BusinessesTypeComponent implements OnInit, OnChanges{
     this.LoaderService.Loaderpage.next(true)
     this.bussinessservice.getbusinesslist().subscribe(res=>{
       console.log(res)
-      this.dataobject=res
+        this.dataobject=res
+      this.errormessage=res['message']
+      
       if(this.dataobject.success==true){
         
    

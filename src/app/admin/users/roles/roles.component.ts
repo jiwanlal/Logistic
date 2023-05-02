@@ -27,6 +27,7 @@ export class RolesComponent implements OnInit, OnChanges {
    public dropdowndata
    public selectboxdata
    public AddAction={actionName:'Add',popupForm:this.pagename}
+   public errormessage
   
    
     constructor(public usersservice:UsersService,private snackBar: MatSnackBar,public dialog: MatDialog,public loaderservice:LoaderService){ }
@@ -203,6 +204,7 @@ export class RolesComponent implements OnInit, OnChanges {
     this.usersservice.roleget().subscribe(res=>{
       
       this.dataobject=res
+      this.errormessage=res['message']
       console.log(res)
       if(this.dataobject.success==true){
         

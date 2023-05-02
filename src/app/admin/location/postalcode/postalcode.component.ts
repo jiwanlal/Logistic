@@ -26,6 +26,7 @@ export class PostalcodeComponent implements OnInit, OnChanges {
    public selectboxdata
    public pagename='postcodeDailog'
    public AddAction={actionName:'Add',popupForm:this.pagename}
+  public errormessage
     constructor(public stateservice:LocationService,private snackBar: MatSnackBar,public dialog: MatDialog, public loaderservice:LoaderService){ }
   ngOnInit(): void {
    
@@ -168,6 +169,7 @@ export class PostalcodeComponent implements OnInit, OnChanges {
     this.loaderservice.Loaderpage.next(true)
     this.stateservice.postcodelist().subscribe(res=>{
       this.coutrydataobject=res
+      this.errormessage=res['message']
       if(this.coutrydataobject.success==true){
          let tableColNamesFromAPI=[]
           let tableColNamesWithSpace={}
