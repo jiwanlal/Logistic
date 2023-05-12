@@ -31,6 +31,7 @@ import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { NgScrollbarModule } from "ngx-scrollbar";
 import { HttpErrorInterceptorService } from "./core/interceptor/http-error-interceptor.service";
 import { ComponentsModule } from "./shared/components/components.module";
+import { DirectiveModule } from "./admin/common/directive/directive.module";
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, "assets/i18n/", ".json");
@@ -61,6 +62,7 @@ export function createTranslateLoader(http: HttpClient): any {
         ClickOutsideModule,
         LoadingBarRouterModule,
         NgScrollbarModule,
+        DirectiveModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

@@ -40,6 +40,7 @@ export class HeaderComponent
   public userFullName
   imgurl=environment.imgUrl
   awbsearch
+  integerUnsigned: string = '^[0-9]*$';
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -244,9 +245,10 @@ export class HeaderComponent
   }
   search(){
     if(this.awbsearch!=''){
-      
+    
     this.router.navigate([ "admin/search/"])
     this.abwservice.abwsearchdata.next(this.awbsearch)
   }
   }
+
 }

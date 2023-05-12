@@ -19,7 +19,7 @@
         </li>
         <li>
           <div class="input-group seardhbox  d-flex alieng align-items-center mb-3">
-            <input  type="search" name="awbsearch" [(ngModel)]="awbsearch" class="form-control" placeholder="Search">
+            <input  type="search" name="awbsearch" onlyNumber  [(ngModel)]="awbsearch" class="form-control" placeholder="Search">
             <div class="input-group-append">
               <button class="btn btn-success" type="button" (click)="search()">AWB SEARCH</button>
             </div>

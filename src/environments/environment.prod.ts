@@ -50,7 +50,8 @@ export const environment = {
   manifestFill:'manifest/fillvalues',
   manifest:'manifest/manifest',
   manifestdetail:'manifest/manifestdetail',
-  permission:'permissions/permission'
+  permission:'permissions/permission',
+  awbsearch:'awbsearch/status'
   
   
    //apiUrl:'http://location:4200'

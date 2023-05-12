@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AwbsearchRoutingModule } from './awbsearch-routing.module';
 import { AwbsearchComponent } from './awbsearch.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   imports: [
     CommonModule,
     AwbsearchRoutingModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatIconModule
 
   ]
 })

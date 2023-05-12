@@ -13,13 +13,23 @@
                 <mat-icon color="warn">report_problem</mat-icon><br>
                 You are not authorized
               </div>
+
               <div class="responsive_table" *ngIf="this.errormessage!='Unauthorized'">
+                <!-- <div *ngIf="this.bookingDetails.lenght==0">
+                  <div  class="text-center">
+                  
+                    No record found
+                  </div>
+                </div> -->
+               
+               
+                <div *ngFor="let awssearchitem of this.bookingDetails">
                 <div class="materialTableHeader">
                   <div class="row">
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
                         <li class="tbl-title">
-                          <h2>AWB No:{{this.id}}</h2>
+                          <h2>AWB No:{{awssearchitem.awb_number}}</h2>
                         </li>
                         <li class="tbl-search-box">
                           <!-- <label for="search-input"><i class="material-icons search-icon">search</i></label> -->
@@ -28,12 +38,12 @@
                           <!-- <input placeholder="Search" type="text" #filter class="browser-default search-field"
                             aria-label="Search box"> -->
                         </li>
-                        <li>
+                        <!-- <li>
                           <mat-checkbox class="example-margin">All Tracking</mat-checkbox>
                         </li>
                         <li>
                           <mat-checkbox class="example-margin">From Archive Data</mat-checkbox>
-                        </li>
+                        </li> -->
                       
                        
                       </ul>
@@ -46,36 +56,98 @@
                     <div class="col-lg-12 mb-0">
                       <div class="row border-bottom pt-3 pb-3"> 
                         <div class="col-lg-2  mb-0">Booking Branch</div>
-                        <div class="col-lg-4  mb-0">Ambala</div>
-                        <div class="col-lg-2  mb-0">Issue Date</div>
-                        <div class="col-lg-4  mb-0">25/02/2021</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.booking_office_id}}</div>
+                        <div class="col-lg-2  mb-0">Booking Date</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.booking_date | date: 'dd/MM/yyyy'}}</div>
                       </div>
                       <div class="row border-bottom pt-3 pb-3"> 
-                        <div class="col-lg-2  mb-0">Booking Branch</div>
-                        <div class="col-lg-4  mb-0">Ambala</div>
                         <div class="col-lg-2  mb-0">Issue Date</div>
-                        <div class="col-lg-4  mb-0">25/02/2021</div>
+                        <div class="col-lg-4  mb-0"></div>
+                        <div class="col-lg-2  mb-0">Bill Date</div>
+                        <div class="col-lg-4  mb-0"></div>
+                       
                       </div>
+                      <div class="row border-bottom pt-3 pb-3"> 
+                        <div class="col-lg-2  mb-0">Pincode</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.origin_pincode_id}}</div>
+                        <div class="col-lg-2  mb-0">Consignee Mobile</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.consignee_mobile}}</div>
+                      </div>
+                      <div class="row border-bottom pt-3 pb-3"> 
+                        <div class="col-lg-2  mb-0">Actual Weight</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.actual_weight}}</div>
+                        <div class="col-lg-2  mb-0">Chargeable Weight</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.chargeable_weight}}</div>
+                      </div>
+                      <div class="row border-bottom pt-3 pb-3"> 
+                        <div class="col-lg-2  mb-0">Bill No.</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.eway_bill_no}}</div>
+                        <div class="col-lg-2  mb-0">Destionation</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.destionation_city_id}}</div>
+                      </div>
+                      <div class="row border-bottom pt-3 pb-3"> 
+                      
+                        <div class="col-lg-2  mb-0">PCS</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.no_of_packets}}</div>
+                        <div class="col-lg-2  mb-0">Product</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.service_mode_id}}</div>
+                      </div>
+                      <div class="row border-bottom pt-3 pb-3"> 
+                        
+                        <div class="col-lg-2  mb-0">Last Location</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.no_of_packets}}</div>
+                        <div class="col-lg-2  mb-0">Goods Value</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.consignment_value}}</div>
+                      </div>
+                      <div class="row border-bottom pt-3 pb-3"> 
+                        <div class="col-lg-2  mb-0">Shipper</div>
+                        <div class="col-lg-4  mb-0"></div>
+                        <div class="col-lg-2  mb-0">Mode</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.delivery_mode_id}}</div>
+                      </div>
+                      <div class="row border-bottom pt-3 pb-3"> 
+                        
+                        <div class="col-lg-2  mb-0">Consignee</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.consignee_name}}</div>
+                        <div class="col-lg-2  mb-0">Last Status</div>
+                        <div class="col-lg-4  mb-0"></div>
+                      </div>
+                      <div class="row border-bottom pt-3 pb-3"> 
+                       
+                        <div class="col-lg-2  mb-0">Status Date</div>
+                        <div class="col-lg-4  mb-0"></div>
+                      </div>
+                      
+                      
+                      
                     </div>
                   </div>
                  </div>
+                 </div>
                  <div>
-                  <table class="table table-bordered">
-                    <thead>
+                 <div class="text-center" *ngIf="this.bookingStatus.length==0">
+                  <mat-icon>table_chart</mat-icon> <br> No Record Found.</div>
+                  <table class="table table-bordered mt-3">
+                    <thead [ngClass]="{'d-none':this.bookingStatus.length==0}">
                       <tr>
                         <th>SL</th>
+                        <th>Active</th>
                         <th>Active Date</th>
+                        <th>Office Name</th>
                         <th>Description</th>
                         <th>Entry Date</th>
                         <th>Entry Details</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Delivered</td>
-                        <td>From: <a href="#">abcd</a><br>
-                          To: <a href="#">abcd</a></td>
+                      <tr *ngFor="let item of this.bookingStatus; let i=index">
+                        <td>{{i+1}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                       <td></td>
+                       <td>{{item.created_at | date: 'dd/MM/yyyy,hh:mm'}}</td>
+                       <td>{{item.created_by}}</td>
                       </tr>
                     </tbody>
                    
