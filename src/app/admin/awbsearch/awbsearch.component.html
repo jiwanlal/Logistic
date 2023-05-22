@@ -56,20 +56,20 @@
                     <div class="col-lg-12 mb-0">
                       <div class="row border-bottom pt-3 pb-3"> 
                         <div class="col-lg-2  mb-0">Booking Branch</div>
-                        <div class="col-lg-4  mb-0">{{awssearchitem.booking_office_id}}</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.office_name}}</div>
                         <div class="col-lg-2  mb-0">Booking Date</div>
                         <div class="col-lg-4  mb-0">{{awssearchitem.booking_date | date: 'dd/MM/yyyy'}}</div>
                       </div>
                       <div class="row border-bottom pt-3 pb-3"> 
                         <div class="col-lg-2  mb-0">Issue Date</div>
-                        <div class="col-lg-4  mb-0"></div>
-                        <div class="col-lg-2  mb-0">Bill Date</div>
-                        <div class="col-lg-4  mb-0"></div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.issue_date | date: 'dd/MM/yyyy'}}</div>
+                        <!-- <div class="col-lg-2  mb-0">Bill Date</div>
+                        <div class="col-lg-4  mb-0"></div> -->
                        
                       </div>
                       <div class="row border-bottom pt-3 pb-3"> 
                         <div class="col-lg-2  mb-0">Pincode</div>
-                        <div class="col-lg-4  mb-0">{{awssearchitem.origin_pincode_id}}</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.post_code}}</div>
                         <div class="col-lg-2  mb-0">Consignee Mobile</div>
                         <div class="col-lg-4  mb-0">{{awssearchitem.consignee_mobile}}</div>
                       </div>
@@ -81,33 +81,33 @@
                       </div>
                       <div class="row border-bottom pt-3 pb-3"> 
                         <div class="col-lg-2  mb-0">Bill No.</div>
-                        <div class="col-lg-4  mb-0">{{awssearchitem.eway_bill_no}}</div>
-                        <div class="col-lg-2  mb-0">Destionation</div>
-                        <div class="col-lg-4  mb-0">{{awssearchitem.destionation_city_id}}</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.invoice_number}}</div>
+                        <div class="col-lg-2  mb-0">Destionation City</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.city_name}}</div>
                       </div>
                       <div class="row border-bottom pt-3 pb-3"> 
                       
                         <div class="col-lg-2  mb-0">PCS</div>
                         <div class="col-lg-4  mb-0">{{awssearchitem.no_of_packets}}</div>
-                        <div class="col-lg-2  mb-0">Product</div>
-                        <div class="col-lg-4  mb-0">{{awssearchitem.service_mode_id}}</div>
+                        <div class="col-lg-2  mb-0">Service Mode</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.service_mode_name}}</div>
                       </div>
                       <div class="row border-bottom pt-3 pb-3"> 
                         
                         <div class="col-lg-2  mb-0">Last Location</div>
-                        <div class="col-lg-4  mb-0">{{awssearchitem.no_of_packets}}</div>
+                        <div class="col-lg-4  mb-0"></div>
                         <div class="col-lg-2  mb-0">Goods Value</div>
                         <div class="col-lg-4  mb-0">{{awssearchitem.consignment_value}}</div>
                       </div>
                       <div class="row border-bottom pt-3 pb-3"> 
-                        <div class="col-lg-2  mb-0">Shipper</div>
-                        <div class="col-lg-4  mb-0"></div>
-                        <div class="col-lg-2  mb-0">Mode</div>
-                        <div class="col-lg-4  mb-0">{{awssearchitem.delivery_mode_id}}</div>
+                        <div class="col-lg-2  mb-0">Cnsignor Name</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.consignor_name}}</div>
+                        <div class="col-lg-2  mb-0">Delivery Mode</div>
+                        <div class="col-lg-4  mb-0">{{awssearchitem.delivery_mode_name}}</div>
                       </div>
                       <div class="row border-bottom pt-3 pb-3"> 
                         
-                        <div class="col-lg-2  mb-0">Consignee</div>
+                        <div class="col-lg-2  mb-0">Consignee Name</div>
                         <div class="col-lg-4  mb-0">{{awssearchitem.consignee_name}}</div>
                         <div class="col-lg-2  mb-0">Last Status</div>
                         <div class="col-lg-4  mb-0"></div>
@@ -131,8 +131,8 @@
                     <thead [ngClass]="{'d-none':this.bookingStatus.length==0}">
                       <tr>
                         <th>SL</th>
-                        <th>Active</th>
-                        <th>Active Date</th>
+                        <th>Activity</th>
+                        <th>Activity Date</th>
                         <th>Office Name</th>
                         <th>Description</th>
                         <th>Entry Date</th>
@@ -142,11 +142,11 @@
                     <tbody>
                       <tr *ngFor="let item of this.bookingStatus; let i=index">
                         <td>{{i+1}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{item.activity}}</td>
+                        <td>{{item.booking_date| date: 'dd/MM/yyyy'}}</td>
+                        <td>{{item.office_name}}</td>
                        <td></td>
-                       <td>{{item.created_at | date: 'dd/MM/yyyy,hh:mm'}}</td>
+                       <td>{{item.created_at | date: 'dd/MM/yyyy'}}</td>
                        <td>{{item.created_by}}</td>
                       </tr>
                     </tbody>
