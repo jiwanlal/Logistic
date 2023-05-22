@@ -63,7 +63,7 @@
                             <div class="col-md-12 col-sm-12 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Booking Office/ Client Name</mat-label>
-                                    <input type="text" readonly placeholder="Pick one" aria-label="Number"
+                                    <input type="text"  placeholder="Pick one" aria-label="Number"
                                         formControlName="booking_office_id" matInput [matAutocomplete]="office">
                                     <mat-autocomplete autoActiveFirstOption #office="matAutocomplete"
                                         [displayWith]="displayFunc.bind(this,offices,'Id','OfficeName')">
@@ -83,7 +83,7 @@
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Booking Date</mat-label>
 
-                                    <input matInput [matDatepicker]="picker" formControlName="booking_date">
+                                    <input matInput [matDatepicker]="picker"  (focus)="picker.open()" formControlName="booking_date">
                                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
                                     <mat-error *ngIf="formdata.get('booking_date').hasError('required')">
@@ -691,6 +691,10 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
         
+                        <!-- <div class="example-button-row">
+                            <mat-checkbox (change)="isCreateAnotherBooking= $event.checked">Create another booking.</mat-checkbox>
+                            {{isCreateAnotherBooking}}
+                        </div> -->
                         <div class="example-button-row">
                             <button mat-raised-button color="primary" type="button" 
                                 (click)="onSubmit()">Save</button>

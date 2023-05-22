@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { combineLatest, debounce, debounceTime, delay, distinctUntilChanged, exhaustMap, from, map, merge, mergeAll, of, startWith, switchMap, tap } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { BookingService } from '../../booking.service';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 @Component({
   selector: 'app-add-booking',
@@ -13,6 +14,8 @@ import { BookingService } from '../../booking.service';
 export class AddBookingComponent {
 
   dialogtitle = "Add Booking"
+  isCreateAnotherBooking:boolean = false;
+  isAnyBookingDone = false;
   filteredAwbTypes: Observable<any[]>;
   awbTypes: any[] = new Array();
   offices: any[] = [];
@@ -68,9 +71,10 @@ export class AddBookingComponent {
   isPayemntModeDirect= false;
   purchaseId:string = null;
   issueId:string = null;
+  isHeadOffice: any;
 
 
-  constructor(private cdr: ChangeDetectorRef, public dialogRef: MatDialogRef<AddBookingComponent>, @Inject(MAT_DIALOG_DATA) public data, private bookService: BookingService) {
+  constructor(private cdr: ChangeDetectorRef,private notification: NotificationService,public dialogRef: MatDialogRef<AddBookingComponent>, @Inject(MAT_DIALOG_DATA) public data, private bookService: BookingService) {
 
 
 
@@ -127,11 +131,13 @@ export class AddBookingComponent {
 
   ngOnInit() {
 
+    this.reset();
     this.fillValues((fillDepenendnt) => {
 
       this.setSearchFilters();
       this.setDefaultValues();
-    this.onConsignorFormEnable();
+      this.onConsignorFormEnable();
+      this.diableControls();
 
       this.loadData(fillDepenendnt);
     });
@@ -140,7 +146,7 @@ export class AddBookingComponent {
     this.onOriginPincodeChange();
     this.OnPaymentModeChange();
     this.onDestinationPincodeSelect();
-    this.diableControls();
+    
 
     this.setChargeableWeight();
     this.onChargeableWeightChange();
@@ -150,6 +156,15 @@ export class AddBookingComponent {
 
 
 
+  }
+
+  reset(){
+    this.formdata.reset();
+    this.consignorForm.reset();
+    this.consingmentForm.reset();
+
+    this.formdata.controls.booking_date.setValue(new Date());
+    this.activeTab = 0;
   }
 
   private loadData(fillDepenendnt) {
@@ -221,6 +236,7 @@ export class AddBookingComponent {
         this.paymentModes = fill?.data?.paymentModes || [];
         this.deliveryModes = fill?.data?.deliveryModes || [];
         this.gstRates = fill?.data?.gstRates || [];
+        this.isHeadOffice = fill?.data?.isHeadOffice ;
 
         if (fillDependent) {
           this.originPincodes = fillDependent?.data?.originPinCode || [];
@@ -305,7 +321,10 @@ export class AddBookingComponent {
   }
   private diableControls() {
 
-    this.formdata.controls.booking_office_id.disable();
+   
+    if(!this.isHeadOffice){
+      this.formdata.controls.booking_office_id.disable();
+    }
     this.formdata.controls.origin_pincode_id.disable();
     this.formdata.controls.payment_mode_id.disable();
     this.consignorForm.controls.total_amount.disable();
@@ -386,8 +405,10 @@ export class AddBookingComponent {
             });
             this.consignorStates = res[1]?.data;
 
-            this.consignorForm.controls.consignor_city_id.setValue(cityId);
+            setTimeout(() => {
+              this.consignorForm.controls.consignor_city_id.setValue(cityId);
             this.consignorForm.controls.consignor_state_id.setValue(stateId);
+            }, 100);
             this.cdr.detectChanges();
 
           })
@@ -636,7 +657,7 @@ export class AddBookingComponent {
 
   close() {
 
-    this.dialogRef.close();
+    this.dialogRef.close(this.isAnyBookingDone);
   }
 
   onConsignorMobileSelect(selectedMobile){
@@ -673,7 +694,13 @@ export class AddBookingComponent {
 
     this.bookService.CreateBooking(val, this.data?.id).subscribe(res => {
 
+      
       if (res.success) {
+        this.isAnyBookingDone = true;
+        this.notification.success('Booking Updated Successfully.');
+        // if(this.isCreateAnotherBooking){
+        //   return this.reset();
+        // }
         setTimeout(() => {
           this.dialogRef.close(true)
         }, 400);
