@@ -10,6 +10,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 const materialModules = [
@@ -25,6 +26,7 @@ const materialModules = [
   MatFormFieldModule,
   MatSlideToggleModule,
   MatMenuModule,
+  MatCheckboxModule
 ];
 
 @NgModule({

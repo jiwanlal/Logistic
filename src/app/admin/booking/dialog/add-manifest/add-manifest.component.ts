@@ -24,6 +24,7 @@ export class AddManifestComponent {
   defaultValues: any;
   vendors:any[]=[];
   wheels:any[]=[];
+  isHeadOffice: any;
 
   constructor(private matdialogRef :MatDialogRef<AddManifestComponent>,private service:BookingService,private matDialog:MatDialog,private notification:NotificationService){}
 
@@ -48,7 +49,9 @@ export class AddManifestComponent {
   private setDefaults(){
 
     this.formdata.controls.origin_office_id.setValue(this.defaultValues?.officeId)
-    this.formdata.controls.origin_office_id.disable();
+    if(!this.isHeadOffice){
+      this.formdata.controls.origin_office_id.disable();
+    }
     this.formdata.controls.manifest_date.setValue(new Date());
 
   }
@@ -135,6 +138,7 @@ export class AddManifestComponent {
       this.defaultValues = res.data?.defaultValues;
       this.vendors = res.data?.vendors,
       this.wheels = res.data?.wheelDetails
+      this.isHeadOffice = res.data?.isHeadOffice
 
       setTimeout(() => {
         cb();
