@@ -4,8 +4,8 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'http://10.1.0.5:8080/api/',
-  imgUrl:"http://10.1.0.5:8080/api/images/",
+  apiUrl: 'http://34.123.75.4:8080/api/',
+  imgUrl:"http://34.123.75.4:8080/api/images/",
   //imgpath:'http://dacoding.com/images/client_1001/user/profile_picture-1680558028594.png',
   authenticate:'auth/login',
   changepassword:'auth/changepassword',
