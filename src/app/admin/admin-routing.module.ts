@@ -46,6 +46,7 @@ const routes: Routes = [
       import('./booking/booking.module').then((m) => m.BookingModule),
   },
   { path: 'search', loadChildren: () => import('./awbsearch/awbsearch.module').then(m => m.AwbsearchModule) },
+  { path: 'tarriffs', loadChildren: () => import('./tarriffs/tarriffs.module').then(m => m.TreeTarriffsModule) },
 ];
 
 @NgModule({

@@ -31,13 +31,21 @@
               <div class="col-md-6 col-sm-6 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Parent Office</mat-label>
-                  <mat-select  formControlName="parentoffice">
-                        <mat-option *ngFor="let item of data.tabledatadeatils.parentdata" [value]="item.office_id">
-                          {{item.office_name}}</mat-option>
-                  </mat-select>
+                  <input type="text" placeholder="Pick one" [listValidator]="filteredparentoffice | async" [validatorKey]="'office_id'" aria-label="Number"  formControlName="parentoffice" matInput
+                  [matAutocomplete]="parentoffice">
+                  <mat-autocomplete autoActiveFirstOption [displayWith]="displayparentoffice.bind(this)"
+                  #parentoffice="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredparentoffice | async" [value]="option">
+                      {{option.office_name}}
+                  </mat-option>
+                  </mat-autocomplete>
+                
                   <mat-error *ngIf="officeform.get('parentoffice').hasError('required')">
                     Parent Office is required
                   </mat-error>
+                  <mat-error *ngIf="officeform.get('parentoffice').hasError('invalid')">
+                    Please select from list.
+                </mat-error>
               </mat-form-field>
                
               </div>
@@ -88,38 +96,48 @@
         <div class="col-md-6 col-sm-6 mb-2">
           <mat-form-field class="example-full-width"  appearance="outline">
             <mat-label>Business </mat-label>
-            <mat-select  formControlName="businesstypeid">
-              <mat-option *ngFor="let option of data.tabledatadeatils.businessdata "  [value]="option.business_type_id">
-                {{option.business_type}}
-              </mat-option>
-            </mat-select>
-            <!-- <input type="text" matInput  [formControl]="myControl" formControlName="postcode" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"> 
-              <mat-option *ngFor="let option of postcodedata " formControlName="postcode" value="option.id">
-                {{option.postcode_name}}
-              </mat-option>
-          </mat-autocomplete>  -->
-        
+            <input type="text" placeholder="Pick one" [listValidator]="filteredbusiness_type | async" [validatorKey]="'business_type_id'" aria-label="Number"  formControlName="businesstypeid" matInput
+                  [matAutocomplete]="business_type">
+            <mat-autocomplete autoActiveFirstOption [displayWith]="displaybusinesstypeid.bind(this)"
+                  #business_type="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredbusiness_type | async" [value]="option.business_type_id">
+                      {{option.business_type}}
+                  </mat-option>
+            </mat-autocomplete>
             <mat-error *ngIf="officeform.get('businesstypeid').hasError('required')">
               Business is required
            </mat-error>
+            <mat-error *ngIf="officeform.get('businesstypeid').hasError('invalid')">
+            Please select from list.
+            </mat-error>
           </mat-form-field>
-         
          
         </div>
        
         <div class="col-md-6 col-sm-6 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Branch</mat-label>
-            <mat-select  formControlName="branchtypeid">
+            <input type="text" placeholder="Pick one" [listValidator]="filteredbranch | async" [validatorKey]="'branch_type_id'" aria-label="Number"  formControlName="branchtypeid" matInput
+                  [matAutocomplete]="office_name">
+                  <mat-autocomplete autoActiveFirstOption [displayWith]="displaybranchtypeid.bind(this)"
+                  #office_name="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredbranch | async" [value]="option.branch_type_id">
+                      {{option.branch_type}}
+                  </mat-option>
+                  </mat-autocomplete>
+            <!-- <mat-select  formControlName="branchtypeid">
                   <mat-option *ngFor="let item of data.tabledatadeatils.branchdata" [value]="item.branch_type_id">{{item.branch_type}}</mat-option>
-            </mat-select>
+            </mat-select> -->
             <mat-error *ngIf="officeform.get('branchtypeid').hasError('required')">
               Branch is required
-           </mat-error>
-        </mat-form-field>
-         
-        </div>
+            </mat-error>
+           
+             <mat-error *ngIf="officeform.get('branchtypeid').hasError('invalid')">
+                  Please select from list.
+             </mat-error>
+          </mat-form-field>
+       
+         </div>
        
     </div>
           <h5>Places</h5>
@@ -127,20 +145,26 @@
             <div class="col-md-6 col-sm-6 mb-2">
               <mat-form-field class="example-full-width"  appearance="outline">
                 <mat-label>Post Code</mat-label>
-                <mat-select  formControlName="postcode" (selectionChange)="onChangePost(this.officeform.get('postcode').value)">
+                <input type="text" placeholder="Pick one" (keydown.enter)="onChangePost(this.officeform.get('postcode').value)" [listValidator]="filtredpostcodedata | async" [validatorKey]="'Id'" aria-label="Number"  formControlName="postcode" matInput 
+                [matAutocomplete]="postcode">
+                <mat-autocomplete autoActiveFirstOption [displayWith]="displaypostdata.bind(this)"
+                #postcode="matAutocomplete">
+                <mat-option *ngFor="let option of filtredpostcodedata | async" [value]="option.Id" (click)="onChangePost(this.officeform.get('postcode').value)">
+                    {{option.Name}}
+                </mat-option>
+                </mat-autocomplete>
+                <!-- <mat-select  formControlName="postcode" (selectionChange)="onChangePost(this.officeform.get('postcode').value)">
                   <mat-option *ngFor="let option of data.tabledatadeatils.postcodedata "  [value]="option.Id">
                     {{option.Name}}
                   </mat-option>
-                </mat-select>
-                <!-- <input type="text" matInput  [formControl]="myControl" formControlName="postcode" [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"> 
-                  <mat-option *ngFor="let option of postcodedata " formControlName="postcode" value="option.id">
-                    {{option.postcode_name}}
-                  </mat-option>
-              </mat-autocomplete>  -->
+                </mat-select> -->
+
             
                 <mat-error *ngIf="officeform.get('postcode').hasError('required')">
                   Postcode is required
+               </mat-error>
+               <mat-error *ngIf="officeform.get('postcode').hasError('invalid')">
+                Please select from list.
                </mat-error>
               </mat-form-field>
              
@@ -151,6 +175,14 @@
        
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Locality</mat-label>
+                <!-- <input type="text" placeholder="Pick one" [listValidator]="filteredlocality | async" [validatorKey]="'locality_id'" aria-label="Number"  formControlName="locality" matInput
+                [matAutocomplete]="locality">
+                <mat-autocomplete autoActiveFirstOption [displayWith]="displaylocality"
+                #locality="matAutocomplete">
+                <mat-option *ngFor="let option of filteredlocality | async" [value]="option.locality_id">
+                    {{option.locality_name}}
+                </mat-option>
+                </mat-autocomplete> -->
                 <mat-select   formControlName="locality">
                       <mat-option *ngFor="let item of localitydata" [value]="item.locality_id">{{item.locality_name}}</mat-option>
                 </mat-select>

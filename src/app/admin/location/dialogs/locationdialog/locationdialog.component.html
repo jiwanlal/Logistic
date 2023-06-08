@@ -19,11 +19,22 @@
          
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Select {{data.dropdownname}}</mat-label>
-            <mat-select formControlName="commonselect" (change)="change($event)">
+            <input type="text" placeholder="Pick one" [listValidator]="filteredOptions | async" [validatorKey]="'Id'" aria-label="Number"  formControlName="commonselect" matInput
+            [matAutocomplete]="commonselect" (change)="change($event)">
+            <mat-autocomplete autoActiveFirstOption [displayWith]="displayData.bind(this)"
+            #commonselect="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.Id">
+                {{option.Name}}
+            </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="formdata.get('commonselect').hasError('invalid')">
+              Please select from list.
+          </mat-error>
+            <!-- <mat-select formControlName="commonselect" (change)="change($event)">
               <mat-option *ngFor="let item of data.list" [value]="item.Id">
                 {{ item.Name }}
               </mat-option>
-            </mat-select>
+            </mat-select> -->
           </mat-form-field>
           <!-- <mat-form-field   class="example-full-width" appearance="fill">
             <mat-label>Select</mat-label>

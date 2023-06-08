@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { custompattern } from '../../../pattern.modal';
+import { Observable, map, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-locationdialog',
@@ -12,6 +13,8 @@ export class LocationdialogComponent implements OnInit {
   public formdata:any=FormGroup
   public Onlyalphabets=new custompattern()
   public dialogtitle:string
+  filteredOptions: Observable<any[]>;
+
 constructor(public dialogRef: MatDialogRef<LocationdialogComponent>,@Inject(MAT_DIALOG_DATA) public data,private formBuilder: FormBuilder){
 console.log(data)
 this.dialogtitle=data.actionName
@@ -24,6 +27,7 @@ ngOnInit(): void {
     commonselect:[null,[Validators.required]]
   
     })
+    this.setFilters()
     if(this.data.popupForm=='countryDailog' || this.data.tabledatadeatils.popupForm=='countryDailog'){
       this.formdata.get('commonselect').clearValidators();
       this.formdata.get('commonselect').updateValueAndValidity();
@@ -62,6 +66,7 @@ ngOnInit(): void {
         commonselect:[this.data.tabledatadeatils.RegionId]
       
         })
+        this.setFilters()
 
     }
     if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.popupForm=='cityDailog' ){
@@ -78,6 +83,7 @@ ngOnInit(): void {
         commonselect:[this.data.tabledatadeatils.CityId]
       
         })
+        this.setFilters()
 
     }
     if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.popupForm=='localityDailog' ){
@@ -86,6 +92,7 @@ ngOnInit(): void {
         commonselect:[this.data.tabledatadeatils.PostCodeId]
       
         })
+        this.setFilters()
 
     }
     
@@ -222,5 +229,20 @@ onSubmit(item){
 
 onNoClick(): void {
   this.dialogRef.close(false);
+}
+displayData(data): string {
+  if(typeof(data) != 'object'){
+    data = this.data.list.find(x=>x.Id == data)
+  }
+  return data?.Name;
+}
+private setFilters(){
+  this.filteredOptions = this.formdata.controls.commonselect.valueChanges.pipe(
+    startWith(''),
+    map(value => {
+      value = typeof(value) == 'string'? value?.toLowerCase() :''
+      return this.data.list.filter(option => option?.Name?.toLowerCase().includes(value));
+    }),
+  );
 }
 }

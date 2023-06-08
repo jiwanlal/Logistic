@@ -31,6 +31,7 @@ import { LocationService } from './location.service';
 import { LocationdeleteComponent } from './dialogs/locationdelete/locationdelete.component';
 import { LocationdialogComponent} from './dialogs/locationdialog/locationdialog.component';
 import { DatatableModule } from '../common/datatable.module';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 
@@ -71,7 +72,8 @@ import { DatatableModule } from '../common/datatable.module';
     MatTooltipModule,
     ComponentsModule,
     SharedModule,
-    DatatableModule
+    DatatableModule,
+    MatAutocompleteModule
    
   ],
   providers:[ LocationService],

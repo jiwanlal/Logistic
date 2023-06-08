@@ -22,15 +22,46 @@ export class BusinessesdialogComponent implements OnInit {
   public localitydata:any=[]
   public placesdata=[]
   filteredOptions: Observable<any[]>;
+  filteredparentoffice: Observable<any[]>;
+  filteredbusiness_type: Observable<any[]>;
+  filteredbranch:Observable<any[]>;
+  filtredpostcodedata:Observable<any[]>;
+  filteredlocality:Observable<any[]>
+
 constructor(public dialogRef: MatDialogRef<BusinessesdialogComponent>,@Inject(MAT_DIALOG_DATA) public data,private formBuilder: FormBuilder,public postcodeservice:BusinessesService){
 console.log(data.tabledatadeatils.placesdata)
 this.dialogtitle=data.actionName
+this.officeform=this.formBuilder.group({
+  officename:[this.data.tabledatadeatils.office_name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
+  parentoffice:[this.data.tabledatadeatils.parent_office_id],
+  description:[this.data.tabledatadeatils.description],
+  hubid:[this.data.tabledatadeatils.hub_id],
+  postcode:[this.data.tabledatadeatils.post_code_id],
+  country:[this.data.tabledatadeatils.country_id],
+  city:[this.data.tabledatadeatils.city_id],
+  region:[this.data.tabledatadeatils.region_id],
+  locality:[this.data.tabledatadeatils.locality_id],
+  state:[this.data.tabledatadeatils.state_id],
+  telephone:[this.data.tabledatadeatils.telephone],
+  email:[this.data.tabledatadeatils.email],
+  mobile:[this.data.tabledatadeatils.mobile],
+  address:[this.data.tabledatadeatils.address],
+  gstname:[this.data.tabledatadeatils.gst_name,[Validators.required]],
+  gstid:[this.data.tabledatadeatils.gst_number,[Validators.required]],
+  zone:[this.data.tabledatadeatils.zone_id],
+  creditlimit:[this.data.tabledatadeatils.credit_limit],
+  businesstypeid:[this.data.tabledatadeatils.business_type_id],
+  branchtypeid:[this.data.tabledatadeatils.branch_type_id],
+  
+
+  })
 }
 
 ngOnInit(): void {
  if(this.dialogtitle=='Edit'){
 this.onChangePost(this.data.tabledatadeatils.post_code_id)
 }
+this.setFilters()
 
   this.filteredOptions = this.myControl.valueChanges.pipe(
     startWith(''),
@@ -45,30 +76,8 @@ this.onChangePost(this.data.tabledatadeatils.post_code_id)
     CommonName:['',[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
     description:['']
     })
-    this.officeform=this.formBuilder.group({
-    officename:[this.data.tabledatadeatils.office_name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
-    parentoffice:[this.data.tabledatadeatils.parent_office_id],
-    description:[this.data.tabledatadeatils.description],
-    hubid:[this.data.tabledatadeatils.hub_id],
-    postcode:[this.data.tabledatadeatils.post_code_id],
-    country:[this.data.tabledatadeatils.country_id],
-    city:[this.data.tabledatadeatils.city_id],
-    region:[this.data.tabledatadeatils.region_id],
-    locality:[this.data.tabledatadeatils.locality_id],
-    state:[this.data.tabledatadeatils.state_id],
-    telephone:[this.data.tabledatadeatils.telephone],
-    email:[this.data.tabledatadeatils.email],
-    mobile:[this.data.tabledatadeatils.mobile],
-    address:[this.data.tabledatadeatils.address],
-    gstname:[this.data.tabledatadeatils.gst_name,[Validators.required]],
-    gstid:[this.data.tabledatadeatils.gst_number,[Validators.required]],
-    zone:[this.data.tabledatadeatils.zone_id],
-    creditlimit:[this.data.tabledatadeatils.credit_limit],
-    businesstypeid:[this.data.tabledatadeatils.business_type_id],
-    branchtypeid:[this.data.tabledatadeatils.branch_type_id],
-    
+  
 
-    })
     this.onChangePost(this.data.tabledatadeatils.post_code_id)
 
     // if(this.dialogtitle=='Edit' && this.data.tabledatadeatils.dailogPage!='officeDailog'){
@@ -83,7 +92,15 @@ this.onChangePost(this.data.tabledatadeatils.post_code_id)
 
     
     
-    
+  
+       
+}
+displayparentoffice(data): string {
+  console.log(data,this.data.tabledatadeatils.parentdata)
+  if(typeof(data) != 'object'){
+    data = this.data.tabledatadeatils.parentdata.find(x=>x.office_id == data)
+  }
+  return data?.office_name;
 }
 change(event){
  
@@ -140,10 +157,7 @@ onNoClick(): void {
   this.dialogRef.close(false);
 }
 
-displayFn(user:any): string {
-  console.log(user)
-  return user && user.name ? user.name : '';
-}
+
 
 private _filter(name: string): any[] {
   const filterValue = name.toLowerCase();
@@ -190,6 +204,70 @@ attributeDisplay(attribute1,attribute2){
   } else {
     return "";
   }
+  }
+  displaybusinesstypeid(data): string {
+    if(typeof(data) != 'object'){
+      data = this.data.tabledatadeatils.businessdata.find(x=>x.business_type_id == data)
+    }
+    return data?.business_type;
+  }
+  displaybranchtypeid(data): string {
+    if(typeof(data) != 'object'){
+      data = this.data.tabledatadeatils.branchdata.find(x=>x.branch_type_id == data)
+    }
+    return data?.branch_type;
+  }
+  displaypostdata(data): string {
+    if(typeof(data) != 'object'){
+      data = this.data.tabledatadeatils.postcodedata.find(x=>x.Id == data)
+    }
+    return data?.Name;
+  }
+  displaylocality(data): string {
+    console.log(data)
+    if(typeof(data) != 'object'){
+      data = this.localitydata.find(x=>x.locality_id == data)
+    }
+    return data?.locality_name;
+  }
+  private setFilters(){
+    this.filteredparentoffice = this.officeform.controls.parentoffice.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        value = typeof(value) == 'string'? value?.toLowerCase() :''
+        return this.data.tabledatadeatils.parentdata.filter(option => option?.office_name?.toLowerCase().includes(value));
+      }),
+    );
+
+    this.filteredbusiness_type = this.officeform.controls.businesstypeid.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        value = typeof(value) == 'string'? value?.toLowerCase() :''
+        return this.data.tabledatadeatils.businessdata.filter(option => option?.business_type?.toLowerCase().includes(value));
+      }),
+    );
+    this.filteredbranch = this.officeform.controls.branchtypeid.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        value = typeof(value) == 'string'? value?.toLowerCase() :''
+        return this.data.tabledatadeatils.branchdata.filter(option => option?.branch_type?.toLowerCase().includes(value));
+      }),
+    );
+    this.filtredpostcodedata = this.officeform.controls.postcode.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        value = typeof(value) == 'string'? value?.toLowerCase() :''
+        return this.data.tabledatadeatils.postcodedata.filter(option => option?.Name?.toLowerCase().includes(value));
+      }),
+    );
+    this.filteredlocality = this.officeform.controls.locality.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        value = typeof(value) == 'string'? value?.toLowerCase() :''
+        return this.localitydata.filter(option => option?.locality_name?.toLowerCase().includes(value));
+      }),
+    );
+
   }
 
 }
