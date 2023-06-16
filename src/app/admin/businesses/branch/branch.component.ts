@@ -53,7 +53,7 @@ export class BranchComponent implements OnInit, OnChanges{
   
    OpenDialog(event){
     var dialogdata:any
-    console.log()
+    console.log(event)
     var dialogdata:any
     if(event.popupForm=='Edit'){
       dialogdata={

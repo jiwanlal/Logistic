@@ -29,7 +29,7 @@ export class BusinessesdialogComponent implements OnInit {
   filteredlocality:Observable<any[]>
 
 constructor(public dialogRef: MatDialogRef<BusinessesdialogComponent>,@Inject(MAT_DIALOG_DATA) public data,private formBuilder: FormBuilder,public postcodeservice:BusinessesService){
-console.log(data.tabledatadeatils.placesdata)
+console.log(data.tabledatadeatils.placesdata,data)
 this.dialogtitle=data.actionName
 this.officeform=this.formBuilder.group({
   officename:[this.data.tabledatadeatils.office_name,[Validators.required,Validators.pattern(this.Onlyalphabets.onlyalph)]],
@@ -144,6 +144,7 @@ onofficeSubmit(item,id:number){
       id:this.data.tabledatadeatils.office_id,
       itemsumbited:this.officeform.value
     }
+    console.log(sumiteddata)
     this.dialogRef.close(sumiteddata)
   
    

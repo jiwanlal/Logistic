@@ -3,6 +3,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { TarrifaddComponent } from '../dialogs/tarrifadd/tarrifadd.component';
 import { LocationService } from '../../location/location.service';
+import { TreeTarriffsService } from '../tarriffs.service';
+import { locationtarrifmodal } from './location-tarrif.model';
+import { TarrifdeleteComponent } from '../dialogs/tarrifdelete/tarrifdelete.component';
 
 @Component({
   selector: 'app-location-tarrif',
@@ -13,7 +16,19 @@ export class LocationTarrifComponent implements OnInit{
   public Titlename="Location Tarrif"
   public pagename="locationTarrifDailog"
   public errormessage
+  public tableheader
+  public dataForTable
+  public inload=false
 
+  public dataobject:any=new locationtarrifmodal()
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
   public AddAction={actionName:'Add',popupForm:this.pagename}
   dropdownzonedata: any;
   dropdownregion: any;
@@ -23,9 +38,10 @@ export class LocationTarrifComponent implements OnInit{
   dropdownstate: any;
   dropdownlicality: any;
   dropdownpostcodedata: any;
-  constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public locationservice:LocationService,public cityservice:LocationService){}
+  constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public locationservice:LocationService,public cityservice:LocationService,public tarrifService:TreeTarriffsService){}
   ngOnInit(): void {
     this.locationsdata()
+    this.getloctarflist()
 
   }
   addItem(event){
@@ -44,38 +60,67 @@ export class LocationTarrifComponent implements OnInit{
     console.log()
     var dialogdata:any
     if(event.popupForm=='Edit'){
-      // dialogdata={
-      //   actionName:event.popupForm,
-      //   tabledatadeatils:{
-      //     name:event.actionName.business_type,
-      //     id:event.actionName.business_type_id,
-      //     description:event.actionName.description,
-      //     dailogPage:event.actionName.dailogPage
-      //     }
-        
-      // }
-    }
-    else if(event.popupForm=='Add'){
-      console.log(event.popupForm=='Add')
+      console.log(event,event.action)
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
-          name:'',
+          "Name":event.actionName.Name,
+          "Id":event.actionName.Id,
+          "from_city":event.actionName.from_city,
+          "from_country":event.actionName.from_country,
+          "from_post_code":event.actionName.from_post_code,
+          "from_zone":event.actionName.from_zone,
+          "from_region":event.actionName.from_region,
+          "from_locality":event.actionName.from_locality,
+          "from_state":event.actionName.from_state,
+          "to_city":event.actionName.to_city,
+          "to_country":event.actionName.to_country,
+          "to_post_code":event.actionName.to_post_code,
+          "to_zone":event.actionName.to_zone,
+          "to_region":event.actionName.to_region,
+          "to_locality":event.actionName.to_locality,
+          "to_state":event.actionName.to_state,
+          "zoneData":this.dropdownzonedata,
+          "regionData":this.dropdownregion,
+          "cityData":this.dropdowncitydata,
+          "stateData": this.dropdownstate,
+          "localityData":this.dropdownlicality,
+          "countryData":this.dropdowncoutrydata,
+          "postcodeData":this.dropdownpostcodedata,
+          dailogPage:event.actionName.popupForm
+          }
+        
+      }
+    }
+    else if(event.popupForm=='Add'){
+      console.log(event.popupForm)
+      dialogdata={
+        actionName:event.popupForm,
+        tabledatadeatils:{
+          "Name":'',
+          "Id":null,
           dailogPage:this.pagename,
-          from_city:'',
-          from_county:'',
-          from_pincode:'',
-          from_zone:'',
-          from_region:'',
-          from_locality:'',
-          from_state:'',
-          zoneData:this.dropdownzonedata,
-          regionData:this.dropdownregion,
-          cityData:this.dropdowncitydata,
-          stateData: this.dropdownstate,
-          localityData:this.dropdownlicality,
-          countryData:this.dropdowncoutrydata,
-          postcodeData:this.dropdownpostcodedata
+          "from_city":'',
+          "from_country":'',
+          "from_post_code":'',
+          "from_zone":'',
+          "from_region":'',
+          "from_locality":'',
+          "from_state":'',
+          "to_city":'',
+          "to_country":'',
+          "to_post_code":'',
+          "to_zone":'',
+          "to_region":'',
+          "to_locality":'',
+          "to_state":'',
+          "zoneData":this.dropdownzonedata,
+          "regionData":this.dropdownregion,
+          "cityData":this.dropdowncitydata,
+          "stateData": this.dropdownstate,
+          "localityData":this.dropdownlicality,
+          "countryData":this.dropdowncoutrydata,
+          "postcodeData":this.dropdownpostcodedata
 
 
           }
@@ -93,31 +138,159 @@ export class LocationTarrifComponent implements OnInit{
        console.log('The dialog was closed',result);
        if(result.action=='Edit'){
          console.log(result)
-        //  this.updateRowData(result)
+         this.updateRowData(result)
         
        }
        else if(result.action=='Add'){
-        // this.addRowData(result)
+        this.addRowData(result)
        }
       
      });
   }
   Ondelete(event){
-
+    const dialogRef=this.dialog.open(TarrifdeleteComponent, {
+     
+      data: { actionName:event.popupForm,
+        tabledatadeatils:{
+          "Name":event.actionName.Name,
+          "Id":event.actionName.Id,
+          "from_city":event.actionName.from_city,
+          "from_country":event.actionName.from_country,
+          "from_post_code":event.actionName.from_post_code,
+          "from_zone":event.actionName.from_zone,
+          "from_region":event.actionName.from_region,
+          "from_locality":event.actionName.from_locality,
+          "from_state":event.actionName.from_state,
+          "to_city":event.actionName.to_city,
+          "to_country":event.actionName.to_country,
+          "to_post_code":event.actionName.to_post_code,
+          "to_zone":event.actionName.to_zone,
+          "to_region":event.actionName.to_region,
+          "to_locality":event.actionName.to_locality,
+          "to_state":event.actionName.to_state,
+          dailogPage:event.actionName.popupForm
+          }
+        
+      },
+          minWidth:'400px'
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed',result);
+          if(result.action=='Delete'){
+            console.log(result)
+            this.deleteRowData(result);
+           }
+         
+        });
   }
-
+  addRowData(row_obj){
+    console.log(row_obj)
+    let itemvalue={Name:row_obj.itemsumbited.Name,from_zone:row_obj.itemsumbited.from_zone,from_state:row_obj.itemsumbited.from_state,
+      from_region:row_obj.itemsumbited.from_region,from_locality:row_obj.itemsumbited.from_locality,from_country:row_obj.itemsumbited.from_country,
+      from_city:row_obj.itemsumbited.from_city,from_post_code:row_obj.itemsumbited.from_post_code,to_zone:row_obj.itemsumbited.to_zone,to_state:row_obj.itemsumbited.to_state,
+      to_region:row_obj.itemsumbited.from_region,to_locality:row_obj.itemsumbited.to_locality,to_country:row_obj.itemsumbited.to_country,
+      to_city:row_obj.itemsumbited.to_city,to_post_code:row_obj.itemsumbited.to_post_code}
+    this.tarrifService.loctarfpost(itemvalue).subscribe(res=>{
+      console.log(res)
+      this.showNotification(
+        "snackbar-success",
+        "Add Record Successfully...!!!",
+        "top",
+        "right"
+      );
+       this.getloctarflist()
+    })
+  }
+  deleteRowData(row_obj){
+    this.tarrifService.loctardelete(row_obj.Id).subscribe(res=>{
+    this.showNotification(
+      "snackbar-danger",
+      row_obj.itemsumbited.name + " Record Delete Successfully...!!!",
+      "top",
+      "right"
+    );
+    this.getloctarflist()
+  })
+  }
+  getloctarflist(){
+     this.inload=false
+    // this.LoaderService.Loaderpage.next(true)
+    this.tarrifService.getloctarflist().subscribe(res=>{
+      console.log(res)
+      this.dataobject=res
+      this.errormessage=res['message']
+      if(this.dataobject.success==true){
+        
+   
+        let tableColNamesFromAPI=[]
+          let tableColNamesWithSpace={}
+        if(this.dataobject.data.values){
+           
+              this.dataobject.data.values.forEach(element => {
+                  element.popupForm=this.pagename
+                 })
+      
+                tableColNamesFromAPI=Object.keys(this.dataobject.data.values[0])
+                for(let i=0;i<tableColNamesFromAPI.length;i++){
+                  tableColNamesWithSpace[tableColNamesFromAPI[i]] = this.insertSpaces(tableColNamesFromAPI[i])
+                }
+                this.tableheader=tableColNamesWithSpace
+                // this.tableheader.branch_type='Branch Type'
+                // this.tableheader.branch_type_id='Branch Id'
+                delete this.tableheader.actionIcons
+                delete this.tableheader.popupForm
+                delete this.tableheader.isVisible
+                delete this.tableheader.id
+                delete this.tableheader.dailogPage
+                delete this.tableheader.updated_at
+                delete this.tableheader.updated_by
+                delete this.tableheader.created_by
+                delete this.tableheader.created_at
+                
+                this.dataForTable= this.dataobject.data.values
+                console.log(this.dataobject.data.values, this.tableheader)
+                
+        }
+        this.inload=true
+        }
+        // this.LoaderService.Loaderpage.next(false)
+     })
+  
+  
+    
+    
+  }
+  updateRowData(row_obj){
+    console.log(row_obj)
+    let itemvalue={Name:row_obj.itemsumbited.Name,from_zone:row_obj.itemsumbited.from_zone,from_state:row_obj.itemsumbited.from_state,
+      from_region:row_obj.itemsumbited.from_region,from_locality:row_obj.itemsumbited.from_locality,from_country:row_obj.itemsumbited.from_country,
+      from_city:row_obj.itemsumbited.from_city,from_post_code:row_obj.itemsumbited.from_post_code,to_zone:row_obj.itemsumbited.to_zone,to_state:row_obj.itemsumbited.to_state,
+      to_region:row_obj.itemsumbited.from_region,to_locality:row_obj.itemsumbited.to_locality,to_country:row_obj.itemsumbited.to_country,
+      to_city:row_obj.itemsumbited.to_city,to_post_code:row_obj.itemsumbited.to_post_code}     
+       this.tarrifService.loctarput(row_obj.Id,itemvalue).subscribe(res=>{
+        console.log(res)
+        this.showNotification(
+          "black",
+          "Edit Record Successfully...!!!",
+          "top",
+          "right"
+        );
+        this.getloctarflist()
+      })
+     
+    }
   locationsdata(){
     this.locationservice.postcodelist().subscribe(res=>{
-      setTimeout(() => {
+      
         this.dropdownpostcodedata=res.data.values
-      }, 1000);
+      
       console.log(res)
     })
     this.locationservice.zonelist().subscribe(res=>{
-      setTimeout(() => {
+    
       this.dropdownzonedata=res.data.values
        
-       },1000);
+       
     })
     this.locationservice.contrylist().subscribe(res=>{
       this.dropdowncoutrydata=res.data.values
@@ -137,5 +310,10 @@ export class LocationTarrifComponent implements OnInit{
       this.dropdowncitydata=res.data.values
       console.log(res)
     })
+  }
+  insertSpaces(string) {
+    string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
+    string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
+    return string;
   }
 }

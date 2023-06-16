@@ -47,8 +47,12 @@ export class RateTarrifComponent {
         actionName:event.popupForm,
         tabledatadeatils:{
           name:'',
-          description:'',
-          id:null,
+          location_tarrif:'',
+          rate_options:'',
+          rs_value:'',
+          weight_to:'',
+          weight_from:'',
+          // id:null,
           dailogPage:this.pagename
           }
         

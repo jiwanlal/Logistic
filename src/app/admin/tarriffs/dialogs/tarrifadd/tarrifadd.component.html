@@ -20,8 +20,8 @@
                 <div class="col-md-12 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Name</mat-label>
-                        <input matInput formControlName="loctarf_name">
-                        <mat-error *ngIf="locationTarrifForm.get('loctarf_name').hasError('required')">
+                        <input matInput formControlName="Name">
+                        <mat-error *ngIf="locationTarrifForm.get('Name').hasError('required')">
                             Name is required
                         </mat-error>
                     </mat-form-field>
@@ -34,19 +34,22 @@
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Country</mat-label>
                             <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_country').value)"
-                                [validatorKey]="'option'" aria-label="Number" formControlName="from_country" matInput
+                                 aria-label="Number" formControlName="from_country" matInput
                                 [matAutocomplete]="from_country">
                                 <button mat-button *ngIf="this.locationTarrifForm.controls.from_country.value!==null" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
                                     <mat-icon>close</mat-icon>
-                                  </button>
+                                </button>
                             <mat-autocomplete autoActiveFirstOption [displayWith]="displaycountry.bind(this)" 
-                                #from_country="matAutocomplete">
+                                #from_country="matAutocomplete" disabled="true">
                                 <mat-option *ngFor="let option of filteredcountry | async" (click)="onChange(this.locationTarrifForm.get('from_country').value)"
                                     [value]="option.Id">
                                     {{option.Name}}
                                 </mat-option>
                             </mat-autocomplete>
-                       
+
+                               <!-- <mat-error *ngIf="locationTarrifForm.get('from_country').hasError('invalid')">
+                               Please select from list.
+                                </mat-error> -->
                         </mat-form-field>
 
                     </div>
@@ -54,15 +57,19 @@
                       <mat-form-field class="example-full-width" appearance="outline">
                           <mat-label>Zone</mat-label>
                           <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_zone').value)"
-                              [validatorKey]="'option'" aria-label="Number" formControlName="from_zone" matInput
-                              [matAutocomplete]="from_zone">
+                              aria-label="Number" formControlName="from_zone" matInput
+                              [matAutocomplete]="from_zone" >
+                            
                           <mat-autocomplete autoActiveFirstOption [displayWith]="displayzone.bind(this)" 
                               #from_zone="matAutocomplete">
-                              <mat-option *ngFor="let option of filteredzone | async" (click)="onChange(this.locationTarrifForm.get('from_zone').value)" [disabled]="isDisabled"
+                              <mat-option *ngFor="let option of filteredzone | async" (click)="onChange(this.locationTarrifForm.get('from_zone').value)" 
                                   [value]="option.Id">
                                   {{option.Name}}
                               </mat-option>
                           </mat-autocomplete>
+                          <!-- <button mat-button *ngIf="this.locationTarrifForm.get('from_zone').value!==''" matSuffix mat-icon-button (click)="clear()">
+                            <mat-icon>close</mat-icon>
+                        </button> -->
                      
                       </mat-form-field>
 
@@ -70,12 +77,12 @@
                   <div class="col-md-4 col-sm-4 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Region</mat-label>
-                        <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_region').value)"
-                            [validatorKey]="'option'" aria-label="Number" formControlName="from_region" matInput
+                        <input type="text" placeholder="Pick one"
+                            aria-label="Number" formControlName="from_region" matInput
                             [matAutocomplete]="from_region">
                         <mat-autocomplete autoActiveFirstOption [displayWith]="displayregion.bind(this)" 
                             #from_region="matAutocomplete">
-                            <mat-option *ngFor="let option of filteredregion | async" (click)="onChange(this.locationTarrifForm.get('from_region').value)" [disabled]="isDisabled"
+                            <mat-option *ngFor="let option of filteredregion | async" (click)="onChange(this.locationTarrifForm.get('from_region').value)" 
                                 [value]="option.Id">
                                 {{option.Name}}
                             </mat-option>
@@ -94,7 +101,7 @@
                               [matAutocomplete]="from_state">
                           <mat-autocomplete autoActiveFirstOption [displayWith]="displaystate.bind(this)" 
                               #from_state="matAutocomplete">
-                              <mat-option *ngFor="let option of filteredstate | async" (click)="onChange(this.locationTarrifForm.get('from_state').value)" [disabled]="isDisabled"
+                              <mat-option *ngFor="let option of filteredstate | async" (click)="onChange(this.locationTarrifForm.get('from_state').value)"
                                   [value]="option.Id">
                                   {{option.Name}}
                               </mat-option>
@@ -111,7 +118,7 @@
                             [matAutocomplete]="from_city">
                         <mat-autocomplete autoActiveFirstOption [displayWith]="displaycity.bind(this)" 
                             #from_city="matAutocomplete">
-                            <mat-option *ngFor="let option of filteredcity | async" (click)="onChange(this.locationTarrifForm.get('from_city').value)" [disabled]="isDisabled"
+                            <mat-option *ngFor="let option of filteredcity | async" (click)="onChange(this.locationTarrifForm.get('from_city').value)" 
                                 [value]="option.Id">
                                 {{option.Name}}
                             </mat-option>
@@ -123,12 +130,12 @@
                 <div class="col-md-4 col-sm-4 mb-2">
                   <mat-form-field class="example-full-width" appearance="outline">
                       <mat-label>Pin Code</mat-label>
-                      <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_pincode').value)"
-                          [validatorKey]="'option'" aria-label="Number" formControlName="from_pincode" matInput
-                          [matAutocomplete]="from_pincode">
+                      <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_post_code').value)"
+                          [validatorKey]="'option'" aria-label="Number" formControlName="from_post_code" matInput
+                          [matAutocomplete]="from_post_code">
                       <mat-autocomplete autoActiveFirstOption [displayWith]="displaypincode.bind(this)" 
-                          #from_pincode="matAutocomplete">
-                          <mat-option *ngFor="let option of filteredpincode | async" (click)="onChange(this.locationTarrifForm.get('from_pincode').value)" [disabled]="isDisabled"
+                          #from_post_code="matAutocomplete">
+                          <mat-option *ngFor="let option of filteredpincode | async" (click)="onChange(this.locationTarrifForm.get('from_post_code').value)"
                               [value]="option.Id">
                               {{option.Name}}
                           </mat-option>
@@ -171,12 +178,12 @@
                       <div class="col-md-4 col-sm-4 mb-2">
                           <mat-form-field class="example-full-width" appearance="outline">
                               <mat-label>Country</mat-label>
-                              <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_country').value)"
+                              <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_country').value)"
                                   [validatorKey]="'option'" aria-label="Number" formControlName="to_country" matInput
                                   [matAutocomplete]="to_country">
                               <mat-autocomplete autoActiveFirstOption [displayWith]="displaycountry.bind(this)" 
                                   #to_country="matAutocomplete">
-                                  <mat-option *ngFor="let option of filteredcountry | async" (click)="onChange(this.locationTarrifForm.get('from_country').value)" [disabled]="isDisabled"
+                                  <mat-option *ngFor="let option of filteredcountryTo | async" (click)="onChange(this.locationTarrifForm.get('to_country').value)" 
                                       [value]="option.Id">
                                       {{option.Name}}
                                   </mat-option>
@@ -188,12 +195,12 @@
                       <div class="col-md-4 col-sm-4 mb-2">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Zone</mat-label>
-                            <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_zone').value)"
+                            <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_zone').value)"
                                 [validatorKey]="'option'" aria-label="Number" formControlName="to_zone" matInput
                                 [matAutocomplete]="to_zone">
                             <mat-autocomplete autoActiveFirstOption [displayWith]="displayzone.bind(this)" 
                                 #to_zone="matAutocomplete">
-                                <mat-option *ngFor="let option of filteredzone | async" (click)="onChange(this.locationTarrifForm.get('from_zone').value)" [disabled]="isDisabled"
+                                <mat-option *ngFor="let option of filteredzoneTo | async" (click)="onChange(this.locationTarrifForm.get('to_zone').value)"
                                     [value]="option.Id">
                                     {{option.Name}}
                                 </mat-option>
@@ -205,12 +212,12 @@
                     <div class="col-md-4 col-sm-4 mb-2">
                       <mat-form-field class="example-full-width" appearance="outline">
                           <mat-label>Region</mat-label>
-                          <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_region').value)"
-                              [validatorKey]="'option'" aria-label="Number" formControlName="to_region" matInput
+                          <input type="text" placeholder="Pick one"
+                               aria-label="Number" formControlName="to_region" matInput
                               [matAutocomplete]="to_region">
                           <mat-autocomplete autoActiveFirstOption [displayWith]="displayregion.bind(this)" 
                               #to_region="matAutocomplete">
-                              <mat-option *ngFor="let option of filteredregion | async" (click)="onChange(this.locationTarrifForm.get('to_region').value)"
+                              <mat-option *ngFor="let option of filteredregionTo | async" (click)="onChange(this.locationTarrifForm.get('to_region').value)"
                                   [value]="option.Id">
                                   {{option.Name}}
                               </mat-option>
@@ -224,12 +231,12 @@
                     <div class="col-md-4 col-sm-4 mb-2">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>State</mat-label>
-                            <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_state').value)"
+                            <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_state').value)"
                                 [validatorKey]="'option'" aria-label="Number" formControlName="to_state" matInput
                                 [matAutocomplete]="to_state">
                             <mat-autocomplete autoActiveFirstOption [displayWith]="displaystate.bind(this)" 
                                 #to_state="matAutocomplete">
-                                <mat-option *ngFor="let option of filteredstate | async" (click)="onChange(this.locationTarrifForm.get('from_state').value)" [disabled]="isDisabled"
+                                <mat-option *ngFor="let option of filteredstateTo | async" (click)="onChange(this.locationTarrifForm.get('to_state').value)"
                                     [value]="option.Id">
                                     {{option.Name}}
                                 </mat-option>
@@ -241,12 +248,12 @@
                     <div class="col-md-4 col-sm-4 mb-2">
                       <mat-form-field class="example-full-width" appearance="outline">
                           <mat-label>City</mat-label>
-                          <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_city').value)"
+                          <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_city').value)"
                               [validatorKey]="'option'" aria-label="Number" formControlName="to_city" matInput
                               [matAutocomplete]="to_city">
                           <mat-autocomplete autoActiveFirstOption [displayWith]="displaycity.bind(this)" 
                               #to_city="matAutocomplete">
-                              <mat-option *ngFor="let option of filteredcity | async" (click)="onChange(this.locationTarrifForm.get('from_city').value)" [disabled]="isDisabled"
+                              <mat-option *ngFor="let option of filteredcityTo | async" (click)="onChange(this.locationTarrifForm.get('to_city').value)" 
                                   [value]="option.Id">
                                   {{option.Name}}
                               </mat-option>
@@ -258,12 +265,12 @@
                   <div class="col-md-4 col-sm-4 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Pin Code</mat-label>
-                        <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_pincode').value)"
-                            [validatorKey]="'option'" aria-label="Number" formControlName="to_pincode" matInput
-                            [matAutocomplete]="to_pincode">
+                        <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_post_code').value)"
+                            [validatorKey]="'option'" aria-label="Number" formControlName="to_post_code" matInput
+                            [matAutocomplete]="to_post_code">
                         <mat-autocomplete autoActiveFirstOption [displayWith]="displaypincode.bind(this)" 
-                            #to_pincode="matAutocomplete">
-                            <mat-option *ngFor="let option of filteredpincode | async" (click)="onChange(this.locationTarrifForm.get('from_pincode').value)" [disabled]="isDisabled"
+                            #to_post_code="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredpincodeTo | async" (click)="onChange(this.locationTarrifForm.get('to_post_code').value)" 
                                 [value]="option.Id">
                                 {{option.Name}}
                             </mat-option>
@@ -283,7 +290,7 @@
                                 [matAutocomplete]="to_locality">
                             <mat-autocomplete autoActiveFirstOption [displayWith]="displaylocality.bind(this)"
                                 #to_locality="matAutocomplete">
-                                <mat-option *ngFor="let option of filteredlocality | async"
+                                <mat-option *ngFor="let option of filteredlocalityTo | async"
                                     [value]="option.Id">
                                     {{option.Name}}
                                 </mat-option>
@@ -301,8 +308,8 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
 
                     <div class="example-button-row">
-                        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="1" 
-                            (click)="onlocationTarrifSubmit(data.actionName)">Save</button>
+                        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="1" [disabled]="!locationTarrifForm.valid"
+                            (click)="onlocationTarrifSubmit(data.actionName,data.tabledatadeatils.Id)">Save</button>
                         <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
                     </div>
                 </div>
@@ -494,7 +501,7 @@
                             <div class="col-md-2 col-sm-2 mb-2">
                               <mat-form-field class="example-full-width" appearance="outline">
                                 <mat-label>Weight From</mat-label>
-                                <input matInput formControlName="weight_from">
+                                <input matInput type="number" formControlName="weight_from">
                                 
                                
                               </mat-form-field>
@@ -510,7 +517,7 @@
                             <div class="col-md-2 col-sm-2 mb-2">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                   <mat-label>Rs Value</mat-label>
-                                  <input matInput formControlName="rs_value">
+                                  <input matInput type="number" formControlName="rs_value">
                                   
                                  
                                 </mat-form-field>
@@ -549,7 +556,7 @@
 
                     <div class="example-button-row">
                         <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="1" [disabled]="!rateTarrifForm.valid"
-                            (click)="onrateTarrifFormSubmit(data.actionName,data.tabledatadeatils.office_id)">Save</button>
+                            (click)="onrateTarrifFormSubmit(data.actionName)">Save</button>
                         <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
                     </div>
                 </div>

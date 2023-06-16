@@ -35,7 +35,7 @@
                   [matAutocomplete]="parentoffice">
                   <mat-autocomplete autoActiveFirstOption [displayWith]="displayparentoffice.bind(this)"
                   #parentoffice="matAutocomplete">
-                  <mat-option *ngFor="let option of filteredparentoffice | async" [value]="option">
+                  <mat-option *ngFor="let option of filteredparentoffice | async" [value]="option.office_id">
                       {{option.office_name}}
                   </mat-option>
                   </mat-autocomplete>

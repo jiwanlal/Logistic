@@ -51,7 +51,9 @@ export const environment = {
   manifest:'manifest/manifest',
   manifestdetail:'manifest/manifestdetail',
   permission:'permissions/permission',
-  awbsearch:'awbsearch/status'
+  awbsearch:'awbsearch/status',
+  loctarf:'tariffs/custfran/loctarf'
+
   
   
    //apiUrl:'http://location:4200'
