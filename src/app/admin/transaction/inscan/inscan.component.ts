@@ -3,6 +3,7 @@ import { AddeditComponent } from '../dialogs/addedit/addedit.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { LoaderService } from 'src/app/core/service/loader.service';
+import { DeleteComponent } from '../dialogs/delete/delete.component';
 
 @Component({
   selector: 'app-inscan',
@@ -79,7 +80,9 @@ export class InscanComponent {
   
     const dialogRef=this.dialog.open(AddeditComponent, {
       data:dialogdata,
-       minWidth:'400px'
+      width: '50%',
+      height:'100%',
+     position: { right: '0',top:'0', bottom:'0'}
      });
      dialogRef.afterClosed().subscribe(result => {
        console.log('The dialog was closed',result);
@@ -96,7 +99,7 @@ export class InscanComponent {
   }
   Ondelete(event){
   
-    const dialogRef=this.dialog.open(AddeditComponent, {
+    const dialogRef=this.dialog.open(DeleteComponent, {
      
       data: { actionName:event.popupForm,
         tabledatadeatils:{
