@@ -25,6 +25,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DatatableModule } from '../common/datatable.module';
 import { AddeditComponent } from './dialogs/addedit/addedit.component';
 import { DeleteComponent } from './dialogs/delete/delete.component';
+import { DrsofdComponent } from './drsofd/drsofd.component';
 
 
 
@@ -32,7 +33,8 @@ import { DeleteComponent } from './dialogs/delete/delete.component';
   declarations: [
     InscanComponent,
     AddeditComponent,
-    DeleteComponent
+    DeleteComponent,
+    DrsofdComponent
 
   ],
   imports: [

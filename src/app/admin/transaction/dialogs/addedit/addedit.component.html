@@ -1,4 +1,4 @@
-<form class=" m-4">
+<form class=" m-4" *ngIf="this.data.tabledatadeatils.dailogPage=='inscanDailog'">
     <div class="row">
         <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
@@ -28,13 +28,51 @@
             </mat-form-field>
         </div>
     </div>
+</form>
+<form class=" m-4" *ngIf="this.data.tabledatadeatils.dailogPage=='drsofdDailog'">
+    <div class="row">
+        <div class="col-lg-12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Office Name</mat-label>
+                <input matInput required>
 
+            </mat-form-field>
+        </div>
+        <div class="col-lg-12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Delivery Date</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Awb Number</mat-label>
+                <input matInput required>
+
+            </mat-form-field>
+        </div>
+        <div class="col-lg-12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Delivery Boy </mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>AWB No </mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+    </div>
+</form>
  
     <div class="mt-4 table-responsive">
         <div class="table table-bordered">
             <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th><mat-checkbox></mat-checkbox></th>
                     <th>Origin Office</th>
                     <th>Destination</th>
                     <th>Tatal Awb</th>
@@ -46,6 +84,7 @@
             </thead>
             <tbody>
                 <tr>
+                    <td><mat-checkbox></mat-checkbox></td>
                     <td>f</td>
                     <td>f</td>
                     <td>f</td>
@@ -57,12 +96,14 @@
             </tbody>
         </table>
         </div>
+       
+    </div>
+    <div class="m-4">
+        <div class="row ">
+            <div class="col-xl-12">
+                <button class="btn-space" mat-raised-button color="primary" [mat-dialog-close]="1" >Save</button>
+                <button type="button" mat-raised-button color="warn" [mat-dialog-close]="1" >Reset</button>
+            </div>
+        </div>
+    </div>
 
-    </div>
-<div class="row ">
-    <div class="col-xl-12">
-        <button class="btn-space" mat-raised-button color="primary">Save</button>
-        <button type="button" mat-raised-button color="warn">Reset</button>
-    </div>
-</div>
-</form>
