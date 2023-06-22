@@ -1,18 +1,18 @@
 import { Component, SimpleChanges } from '@angular/core';
-import { AddeditComponent } from '../dialogs/addedit/addedit.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { LoaderService } from 'src/app/core/service/loader.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddeditComponent } from '../dialogs/addedit/addedit.component';
 import { DeleteComponent } from '../dialogs/delete/delete.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
 
 @Component({
-  selector: 'app-inscan',
-  templateUrl: './inscan.component.html',
-  styleUrls: ['./inscan.component.sass']
+  selector: 'app-drsofd',
+  templateUrl: './drsofd.component.html',
+  styleUrls: ['./drsofd.component.sass']
 })
-export class InscanComponent {
+export class DrsofdComponent {
   public Titlename=""
-  public pagename="inscanDailog"
+  public pagename="drsofdDailog"
   public AddAction={actionName:'Add',popupForm:this.pagename}
   
   
