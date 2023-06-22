@@ -20,8 +20,8 @@
                 <div class="col-md-12 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Name</mat-label>
-                        <input matInput formControlName="Name">
-                        <mat-error *ngIf="locationTarrifForm.get('Name').hasError('required')">
+                        <input matInput formControlName="lt_name">
+                        <mat-error *ngIf="locationTarrifForm.get('lt_name').hasError('required')">
                             Name is required
                         </mat-error>
                     </mat-form-field>
@@ -33,17 +33,15 @@
                     <div class="col-md-4 col-sm-4 mb-2">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Country</mat-label>
-                            <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_country').value)"
+                            <input type="text" (focusout)="onChange(this.locationTarrifForm.get('from_country').value)" placeholder="Pick one" 
                                  aria-label="Number" formControlName="from_country" matInput
                                 [matAutocomplete]="from_country">
-                                <button mat-button *ngIf="this.locationTarrifForm.controls.from_country.value!==null" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
-                                    <mat-icon>close</mat-icon>
-                                </button>
+                                
                             <mat-autocomplete autoActiveFirstOption [displayWith]="displaycountry.bind(this)" 
                                 #from_country="matAutocomplete" disabled="true">
                                 <mat-option *ngFor="let option of filteredcountry | async" (click)="onChange(this.locationTarrifForm.get('from_country').value)"
-                                    [value]="option.Id">
-                                    {{option.Name}}
+                                    [value]="option.country_id">
+                                    {{option.country_name}}
                                 </mat-option>
                             </mat-autocomplete>
 
@@ -63,8 +61,8 @@
                           <mat-autocomplete autoActiveFirstOption [displayWith]="displayzone.bind(this)" 
                               #from_zone="matAutocomplete">
                               <mat-option *ngFor="let option of filteredzone | async" (click)="onChange(this.locationTarrifForm.get('from_zone').value)" 
-                                  [value]="option.Id">
-                                  {{option.Name}}
+                                  [value]="option.zone_id">
+                                  {{option.zone_name}}
                               </mat-option>
                           </mat-autocomplete>
                           <!-- <button mat-button *ngIf="this.locationTarrifForm.get('from_zone').value!==''" matSuffix mat-icon-button (click)="clear()">
@@ -83,8 +81,8 @@
                         <mat-autocomplete autoActiveFirstOption [displayWith]="displayregion.bind(this)" 
                             #from_region="matAutocomplete">
                             <mat-option *ngFor="let option of filteredregion | async" (click)="onChange(this.locationTarrifForm.get('from_region').value)" 
-                                [value]="option.Id">
-                                {{option.Name}}
+                                [value]="option.region_id">
+                                {{option.region_name}}
                             </mat-option>
                         </mat-autocomplete>
                    
@@ -102,8 +100,8 @@
                           <mat-autocomplete autoActiveFirstOption [displayWith]="displaystate.bind(this)" 
                               #from_state="matAutocomplete">
                               <mat-option *ngFor="let option of filteredstate | async" (click)="onChange(this.locationTarrifForm.get('from_state').value)"
-                                  [value]="option.Id">
-                                  {{option.Name}}
+                                  [value]="option.state_id">
+                                  {{option.state_name}}
                               </mat-option>
                           </mat-autocomplete>
                      
@@ -119,8 +117,8 @@
                         <mat-autocomplete autoActiveFirstOption [displayWith]="displaycity.bind(this)" 
                             #from_city="matAutocomplete">
                             <mat-option *ngFor="let option of filteredcity | async" (click)="onChange(this.locationTarrifForm.get('from_city').value)" 
-                                [value]="option.Id">
-                                {{option.Name}}
+                                [value]="option.city_id">
+                                {{option.city_name}}
                             </mat-option>
                         </mat-autocomplete>
                    
@@ -136,8 +134,8 @@
                       <mat-autocomplete autoActiveFirstOption [displayWith]="displaypincode.bind(this)" 
                           #from_post_code="matAutocomplete">
                           <mat-option *ngFor="let option of filteredpincode | async" (click)="onChange(this.locationTarrifForm.get('from_post_code').value)"
-                              [value]="option.Id">
-                              {{option.Name}}
+                              [value]="option.post_code_id">
+                              {{option.post_code}}
                           </mat-option>
                       </mat-autocomplete>
                  
@@ -156,8 +154,8 @@
                           <mat-autocomplete autoActiveFirstOption [displayWith]="displaylocality.bind(this)"
                               #from_locality="matAutocomplete">
                               <mat-option *ngFor="let option of filteredlocality | async"
-                                  [value]="option.Id">
-                                  {{option.Name}}
+                                  [value]="option.locality_id">
+                                  {{option.locality_name}}
                               </mat-option>
                           </mat-autocomplete>
 
@@ -184,8 +182,8 @@
                               <mat-autocomplete autoActiveFirstOption [displayWith]="displaycountry.bind(this)" 
                                   #to_country="matAutocomplete">
                                   <mat-option *ngFor="let option of filteredcountryTo | async" (click)="onChange(this.locationTarrifForm.get('to_country').value)" 
-                                      [value]="option.Id">
-                                      {{option.Name}}
+                                      [value]="option.country_id">
+                                      {{option.country_name}}
                                   </mat-option>
                               </mat-autocomplete>
                          
@@ -201,8 +199,8 @@
                             <mat-autocomplete autoActiveFirstOption [displayWith]="displayzone.bind(this)" 
                                 #to_zone="matAutocomplete">
                                 <mat-option *ngFor="let option of filteredzoneTo | async" (click)="onChange(this.locationTarrifForm.get('to_zone').value)"
-                                    [value]="option.Id">
-                                    {{option.Name}}
+                                    [value]="option.zone_id">
+                                    {{option.zone_name}}
                                 </mat-option>
                             </mat-autocomplete>
                        
@@ -218,8 +216,8 @@
                           <mat-autocomplete autoActiveFirstOption [displayWith]="displayregion.bind(this)" 
                               #to_region="matAutocomplete">
                               <mat-option *ngFor="let option of filteredregionTo | async" (click)="onChange(this.locationTarrifForm.get('to_region').value)"
-                                  [value]="option.Id">
-                                  {{option.Name}}
+                                  [value]="option.region_id">
+                                  {{option.region_name}}
                               </mat-option>
                           </mat-autocomplete>
                      
@@ -237,8 +235,8 @@
                             <mat-autocomplete autoActiveFirstOption [displayWith]="displaystate.bind(this)" 
                                 #to_state="matAutocomplete">
                                 <mat-option *ngFor="let option of filteredstateTo | async" (click)="onChange(this.locationTarrifForm.get('to_state').value)"
-                                    [value]="option.Id">
-                                    {{option.Name}}
+                                    [value]="option.state_id">
+                                    {{option.state_name}}
                                 </mat-option>
                             </mat-autocomplete>
                        
@@ -254,8 +252,8 @@
                           <mat-autocomplete autoActiveFirstOption [displayWith]="displaycity.bind(this)" 
                               #to_city="matAutocomplete">
                               <mat-option *ngFor="let option of filteredcityTo | async" (click)="onChange(this.locationTarrifForm.get('to_city').value)" 
-                                  [value]="option.Id">
-                                  {{option.Name}}
+                                  [value]="option.city_id">
+                                  {{option.city_name}}
                               </mat-option>
                           </mat-autocomplete>
                      
@@ -271,8 +269,8 @@
                         <mat-autocomplete autoActiveFirstOption [displayWith]="displaypincode.bind(this)" 
                             #to_post_code="matAutocomplete">
                             <mat-option *ngFor="let option of filteredpincodeTo | async" (click)="onChange(this.locationTarrifForm.get('to_post_code').value)" 
-                                [value]="option.Id">
-                                {{option.Name}}
+                                [value]="option.post_code_id">
+                                {{option.post_code}}
                             </mat-option>
                         </mat-autocomplete>
                    
@@ -291,8 +289,8 @@
                             <mat-autocomplete autoActiveFirstOption [displayWith]="displaylocality.bind(this)"
                                 #to_locality="matAutocomplete">
                                 <mat-option *ngFor="let option of filteredlocalityTo | async"
-                                    [value]="option.Id">
-                                    {{option.Name}}
+                                    [value]="option.locality_id">
+                                    {{option.locality_name}}
                                 </mat-option>
                             </mat-autocomplete>
   

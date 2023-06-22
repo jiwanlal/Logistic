@@ -27,7 +27,7 @@ export class TarrifaddComponent implements OnInit {
   isDisabled:boolean
   
   locationTarrifForm = new FormGroup({
-    Name: new FormControl(this.data.tabledatadeatils.Name, []),
+    lt_name: new FormControl(this.data.tabledatadeatils.lt_name, []),
     from_locality: new FormControl(this.data.tabledatadeatils.from_locality, []),
     from_post_code: new FormControl(this.data.tabledatadeatils.from_post_code,[]),
     from_city:new FormControl(this.data.tabledatadeatils.from_city,[]),
@@ -143,98 +143,98 @@ export class TarrifaddComponent implements OnInit {
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.zoneData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.zoneData.filter(option => option?.zone_name.toLowerCase().includes(value));
       }),
     );
     this.filteredregion = this.locationTarrifForm.controls.from_region.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.regionData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.regionData.filter(option => option?.region_name.toLowerCase().includes(value));
       }),
     );
     this.filteredstate = this.locationTarrifForm.controls.from_state.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.stateData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.stateData.filter(option => option?.state_name.toLowerCase().includes(value));
       }),
     );
     this.filteredcity = this.locationTarrifForm.controls.from_city.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.cityData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.cityData.filter(option => option?.city_name.toLowerCase().includes(value));
       }),
     );
     this.filteredlocality = this.locationTarrifForm.controls.from_locality.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.localityData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.localityData.filter(option => option?.locality_name.toLowerCase().includes(value));
       }),
     );
     this.filteredcountry = this.locationTarrifForm.controls.from_country.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.countryData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.countryData.filter(option => option?.country_name.toLowerCase().includes(value));
       }),
     );
     this.filteredpincode = this.locationTarrifForm.controls.from_post_code.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.postcodeData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.postcodeData.filter(option => option?.post_code.toLowerCase().includes(value));
       }),
     );
     this.filteredzoneTo = this.locationTarrifForm.controls.to_zone.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.zoneData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.zoneData.filter(option => option?.zone_name.toLowerCase().includes(value));
       }),
     );
     this.filteredregionTo = this.locationTarrifForm.controls.to_region.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.regionData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.regionData.filter(option => option?.region_name.toLowerCase().includes(value));
       }),
     );
     this.filteredstateTo = this.locationTarrifForm.controls.to_state.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.stateData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.stateData.filter(option => option?.state_name.toLowerCase().includes(value));
       }),
     );
     this.filteredcityTo = this.locationTarrifForm.controls.to_city.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.cityData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.cityData.filter(option => option?.city_name.toLowerCase().includes(value));
       }),
     );
     this.filteredlocalityTo = this.locationTarrifForm.controls.to_locality.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.localityData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.localityData.filter(option => option?.locality_name.toLowerCase().includes(value));
       }),
     );
     this.filteredcountryTo = this.locationTarrifForm.controls.to_country.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.countryData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.countryData.filter(option => option?.country_name.toLowerCase().includes(value));
       }),
     );
     this.filteredpincodeTo = this.locationTarrifForm.controls.to_post_code.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.postcodeData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.postcodeData.filter(option => option?.post_code.toLowerCase().includes(value));
       }),
     );
     
@@ -249,48 +249,48 @@ export class TarrifaddComponent implements OnInit {
   // }
   displayzone(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.zoneData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.zoneData.find(x=>x.zone_id==data)
     }
-    return data?.Name
+    return data?.zone_name
   }
   displayregion(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.regionData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.regionData.find(x=>x.region_id==data)
     }
-    return data?.Name
+    return data?.region_name
   }
   displaycountry(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.countryData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.countryData.find(x=>x.country_id==data)
     }
-    return data?.Name
+    return data?.country_name
   }
   displaycity(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.cityData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.cityData.find(x=>x.city_id==data)
     }
-    return data?.Name
+    return data?.city_name
   }
   displaystate(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.stateData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.stateData.find(x=>x.state_id==data)
     }
-    return data?.Name
+    return data?.state_name
   }
   displaylocality(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.localityData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.localityData.find(x=>x.locality_id==data)
     }
-    return data?.Name
+    return data?.locality_name
   }
   displaypincode(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.postcodeData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.postcodeData.find(x=>x.post_code_id==data)
     }
-    return data?.Name
+    return data?.post_code
   }
-  onChange(value){
-  console.log(value,this.showCrossbutton,this.locationTarrifForm.get('from_zone').value)
+  onChange(value,event){
+  console.log(value)
   // if(value) {
   //   console.log(this.showCrossbutton,this.locationTarrifForm.get('from_zone').value)
   //   this.showCrossbutton=true

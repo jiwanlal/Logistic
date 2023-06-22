@@ -55,6 +55,17 @@ export class TreeTarriffsService {
       );
 
   }
+  public loctarFillvalues(): Observable<any> {
+    const url = this.API_URL + environment.loctarFillvalues;
+    console.log(url)
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
 }
 function observableThrowError(error: any): any {
   throw new Error('Function not implemented.');
