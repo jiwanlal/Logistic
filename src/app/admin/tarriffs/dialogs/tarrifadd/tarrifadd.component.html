@@ -319,7 +319,7 @@
                 <div class="col-md-6 col-sm-6 mb-2">
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Name</mat-label>
-                    <input matInput formControlName="name">
+                    <input matInput formControlName="name" [attr.disabled]="data.actionName=='Edit'">
                     <!-- <mat-icon matSuffix>face</mat-icon> -->
                     <mat-error *ngIf="contractTarrifForm.get('name').hasError('required')">
                       Name is required
@@ -329,14 +329,14 @@
                 <div class="col-md-6 col-sm-6 mb-2">
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Rate Tarrif</mat-label>
-                    <input type="text" placeholder="Pick one" [listValidator]="filteredparentoffice | async" [validatorKey]="'office_id'" aria-label="Number"  formControlName="rate_tarrif" matInput
-                    [matAutocomplete]="rate_tarrif">
-                    <!-- <mat-autocomplete autoActiveFirstOption [displayWith]="displayparentoffice.bind(this)"
+                    <input type="text" placeholder="Pick one" [listValidator]="filteredrateT | async" [validatorKey]="'rt_id'" aria-label="Number"  formControlName="rate_tarrif" matInput
+                    [matAutocomplete]="rate_tarrif" (input)='onChangeSearch(contractTarrifForm.value.rate_tarrif)'                    >
+                    <mat-autocomplete autoActiveFirstOption [displayWith]="displayrateT.bind(this)"
                     #rate_tarrif="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredparentoffice | async" [value]="option.office_id">
-                        {{option.office_name}}
+                    <mat-option *ngFor="let option of filteredrateT | async" [value]="option.rt_id">
+                        {{option.rt_name}}
                     </mat-option>
-                    </mat-autocomplete> -->
+                    </mat-autocomplete>
                   
                     <mat-error *ngIf="contractTarrifForm.get('rate_tarrif').hasError('required')">
                         Rate Tarrif is required
@@ -352,14 +352,14 @@
                 <div class="col-md-6 col-sm-6 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                       <mat-label>Customer</mat-label>
-                      <input type="text" placeholder="Pick one" [listValidator]="filteredparentoffice | async" [validatorKey]="'office_id'" aria-label="Number"  formControlName="customer" matInput
+                      <input type="text" placeholder="Pick one" [listValidator]="filteredcustomerslist | async" [validatorKey]="'customer_id'" aria-label="Number"  formControlName="customer" matInput
                       [matAutocomplete]="customer">
-                      <!-- <mat-autocomplete autoActiveFirstOption [displayWith]="displayparentoffice.bind(this)"
+                      <mat-autocomplete autoActiveFirstOption [displayWith]="displaycustomerslist.bind(this)"
                       #customer="matAutocomplete">
-                      <mat-option *ngFor="let option of filteredparentoffice | async" [value]="option.office_id">
-                          {{option.office_name}}
+                      <mat-option *ngFor="let option of filteredcustomerslist | async" [value]="option.customer_id">
+                          {{option.customer_name}}
                       </mat-option>
-                      </mat-autocomplete> -->
+                      </mat-autocomplete>
                     
                       <mat-error *ngIf="contractTarrifForm.get('customer').hasError('required')">
                         Customer is required
@@ -373,7 +373,7 @@
               <div class="col-md-6 col-sm-6 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>GST%</mat-label>
-                  <input matInput type="number" formControlName="gst">
+                  <input matInput type="number" min="1" formControlName="gst">
                   <!-- <mat-icon matSuffix>face</mat-icon> -->
                   <mat-error *ngIf="contractTarrifForm.get('gst').hasError('required')">
                     GST is required
@@ -385,7 +385,7 @@
             <div class="col-md-6 col-sm-6 mb-2">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>FSC%</mat-label>
-                <input matInput type="number" formControlName="fsc">
+                <input matInput type="number" min="1" formControlName="fsc">
                 <!-- <mat-icon matSuffix>face</mat-icon> -->
                 <mat-error *ngIf="contractTarrifForm.get('fsc').hasError('required')">
                   FSC is required
@@ -395,7 +395,7 @@
             <div class="col-md-6 col-sm-6 mb-2">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Discount%</mat-label>
-                <input matInput type="number" formControlName="discount">
+                <input matInput type="number" min="1" formControlName="discount">
                 <!-- <mat-icon matSuffix>face</mat-icon> -->
                 <mat-error *ngIf="contractTarrifForm.get('discount').hasError('required')">
                   Discount is required
@@ -408,7 +408,7 @@
             <div class="col-md-6 col-sm-6 mb-2">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>DSC</mat-label>
-                <input matInput formControlName="dsc">
+                <input matInput type="number" min="1" formControlName="dsc">
                 <mat-error *ngIf="contractTarrifForm.get('dsc').hasError('required')">
                   DSC is required
                 </mat-error>
@@ -418,7 +418,7 @@
             <div class="col-md-6 col-sm-6 mb-2">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Insurance%</mat-label>
-                <input matInput type="number" formControlName="insurance">
+                <input matInput type="number" min="1" formControlName="insurance">
                 
                 <mat-error *ngIf="contractTarrifForm.get('insurance').hasError('required')">
                   Insurance is required
@@ -432,7 +432,9 @@
             <div class="col-md-12 col-sm-12 mb-2 mt-2d">
               <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Others</mat-label>
-                <textarea matInput formControlName="others"></textarea>
+                <input matInput type="number" min="1" formControlName="others">
+
+                <!-- <textarea matInput formControlName="others"></textarea> -->
                
                 
                 
@@ -444,7 +446,7 @@
 
                 <div class="example-button-row">
                     <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="1" [disabled]="!contractTarrifForm.valid"
-                        (click)="oncontractTarrifSubmit(data.actionName,data.tabledatadeatils.office_id)">Save</button>
+                        (click)="oncontractTarrifSubmit(data.actionName,data.tabledatadeatils.Id)">Save</button>
                     <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
                 </div>
             </div>

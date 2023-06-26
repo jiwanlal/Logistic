@@ -24,8 +24,10 @@ export class TarrifaddComponent implements OnInit {
   filteredlocalityTo:Observable<any>;
   filteredcityTo:Observable<any>;
   filteredstateTo:Observable<any>;
+  filteredrateT:Observable<any>;
+  filteredcustomerslist:Observable<any>
   isDisabled:boolean
-  
+
   locationTarrifForm = new FormGroup({
     lt_name: new FormControl(this.data.tabledatadeatils.lt_name, []),
     from_locality: new FormControl(this.data.tabledatadeatils.from_locality, []),
@@ -46,15 +48,15 @@ export class TarrifaddComponent implements OnInit {
   })
   
   contractTarrifForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    rate_tarrif: new FormControl(null, [Validators.required]),
-    customer: new FormControl(null, [Validators.required]),
-    gst: new FormControl('',[Validators.required]),
-    dsc: new FormControl(null, [Validators.required]),
-    insurance: new FormControl(null, [Validators.required]),
-    others: new FormControl('',[]),
-    discount: new FormControl(null, [Validators.required]),
-    fsc: new FormControl(null, [Validators.required]),
+    name: new FormControl(this.data.tabledatadeatils.name, [Validators.required]),
+    rate_tarrif: new FormControl(this.data.tabledatadeatils.rate_tarrif, [Validators.required]),
+    customer: new FormControl(this.data.tabledatadeatils.customer, [Validators.required]),
+    gst: new FormControl(this.data.tabledatadeatils.gst,[Validators.required]),
+    dsc: new FormControl(this.data.tabledatadeatils.dsc, [Validators.required]),
+    insurance: new FormControl(this.data.tabledatadeatils.insurance, [Validators.required]),
+    others: new FormControl(this.data.tabledatadeatils.others,[]),
+    discount: new FormControl(this.data.tabledatadeatils.discount, [Validators.required]),
+    fsc: new FormControl(this.data.tabledatadeatils.fsc, [Validators.required]),
    
   })
   rateTarrifForm: FormGroup = this._formBuilder.group({
@@ -102,16 +104,19 @@ export class TarrifaddComponent implements OnInit {
    
   }
 }
-  oncontractTarrifSubmit(value,item){
+onChangeSearch(data){
+  console.log(data)
+}
+  oncontractTarrifSubmit(item,id){
 
-   console.log(this.contractTarrifForm.value)
+   console.log(this.contractTarrifForm.value,id)
    if(this.contractTarrifForm.invalid){
     return false
    }
   else{
     let sumiteddata={
       action:item,
-      // id:this.data.tabledatadeatils.office_id,
+      Id:id,
       itemsumbited:this.contractTarrifForm.value
     }
     this.dialogRef.close(sumiteddata)
@@ -237,7 +242,20 @@ export class TarrifaddComponent implements OnInit {
         return this.data.tabledatadeatils.postcodeData.filter(option => option?.post_code.toLowerCase().includes(value));
       }),
     );
-    
+    this.filteredrateT = this.contractTarrifForm.controls.rate_tarrif.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        value = typeof(value) == 'string'? value?.toLowerCase() :''
+        return this.data.tabledatadeatils.ratetarftlist.filter(option => option?.rt_name.toLowerCase().includes(value));
+      }),
+    );
+    this.filteredcustomerslist = this.contractTarrifForm.controls.customer.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        value = typeof(value) == 'string'? value?.toLowerCase() :''
+        return this.data.tabledatadeatils.customerslist.filter(option => option?.customer_name.toLowerCase().includes(value));
+      }),
+    );
 
   }
   // displayloctarf_from(data):string{
@@ -288,6 +306,18 @@ export class TarrifaddComponent implements OnInit {
       data = this.data.tabledatadeatils.postcodeData.find(x=>x.post_code_id==data)
     }
     return data?.post_code
+  }
+  displayrateT(data):string{
+    if(typeof(data)!='object'){
+      data = this.data.tabledatadeatils.ratetarftlist.find(x=>x.rt_id==data)
+    }
+    return data?.rt_name
+  }
+  displaycustomerslist(data):string{
+    if(typeof(data)!='object'){
+      data = this.data.tabledatadeatils.customerslist.find(x=>x.customer_id==data)
+    }
+    return data?.customer_name
   }
   onChange(value,event){
   console.log(value)

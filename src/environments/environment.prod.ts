@@ -53,7 +53,12 @@ export const environment = {
   permission:'permissions/permission',
   awbsearch:'awbsearch/status',
   loctarf:'tariffs/custfran/loctarf',
-  loctarFillvalues :'tariffs/custfran/loctarf/fillvalues'
+  loctarFillvalues :'tariffs/custfran/loctarf/fillvalues',
+  customersdata:'tariffs/custfran/custarf',
+  customers:'tariffs/custarf/customers',
+  ratetarf:'tariffs/custarf/ratetarf'
+
+
 
 
   

@@ -40,7 +40,7 @@ export class LocationTarrifComponent implements OnInit{
   dropdownstate: any;
   dropdownlicality: any;
   dropdownpostcodedata: any;
-  constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public locationservice:LocationService,public cityservice:LocationService,public tarrifService:TreeTarriffsService,public LoaderService:LoaderService){}
+  constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public tarrifService:TreeTarriffsService,public LoaderService:LoaderService){}
   ngOnInit(): void {
     // this.locationsdata()
     this.getloctarflist()
@@ -63,26 +63,26 @@ export class LocationTarrifComponent implements OnInit{
     console.log()
     var dialogdata:any
     if(event.popupForm=='Edit'){
-      console.log(event,event.action)
+      console.log(event,JSON.parse(event.actionName.Route).from_country)
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
           "lt_name":event.actionName.Name,
           "Id":event.actionName.Id,
-          "from_city":event.actionName.from_city,
-          "from_country":event.actionName.from_country,
-          "from_post_code":event.actionName.from_post_code,
-          "from_zone":event.actionName.from_zone,
-          "from_region":event.actionName.from_region,
-          "from_locality":event.actionName.from_locality,
-          "from_state":event.actionName.from_state,
-          "to_city":event.actionName.to_city,
-          "to_country":event.actionName.to_country,
-          "to_post_code":event.actionName.to_post_code,
-          "to_zone":event.actionName.to_zone,
-          "to_region":event.actionName.to_region,
-          "to_locality":event.actionName.to_locality,
-          "to_state":event.actionName.to_state,
+          "from_city":JSON.parse(event.actionName.Route).from_city,
+          "from_country":JSON.parse(event.actionName.Route).from_country,
+          "from_post_code":JSON.parse(event.actionName.Route).from_post_code,
+          "from_zone":JSON.parse(event.actionName.Route).from_zone,
+          "from_region":JSON.parse(event.actionName.Route).from_region,
+          "from_locality":JSON.parse(event.actionName.Route).from_locality,
+          "from_state":JSON.parse(event.actionName.Route).from_state,
+          "to_city":JSON.parse(event.actionName.Route).to_city,
+          "to_country":JSON.parse(event.actionName.Route).to_country,
+          "to_post_code":JSON.parse(event.actionName.Route).to_post_code,
+          "to_zone":JSON.parse(event.actionName.Route).to_zone,
+          "to_region":JSON.parse(event.actionName.Route).to_region,
+          "to_locality":JSON.parse(event.actionName.Route).to_locality,
+          "to_state":JSON.parse(event.actionName.Route).to_state,
           "zoneData":this.dropdownzonedata,
           "regionData":this.dropdownregion,
           "cityData":this.dropdowncitydata,
