@@ -33,7 +33,7 @@
                  
                   </div>
                 </div>
-                <!-- <app-datatable (dataChange)="addItem($event)"  [tabledata]="dataForTable"  [tableheader]="tableheader"></app-datatable> -->
+                <app-datatable *ngIf="inload" (dataChange)="addItem($event)"  [tabledata]="dataForTable"  [tableheader]="tableheader"></app-datatable>
             </div>
             </div>
           </div>

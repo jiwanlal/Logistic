@@ -52,7 +52,14 @@ export const environment = {
   manifestdetail:'manifest/manifestdetail',
   permission:'permissions/permission',
   awbsearch:'awbsearch/status',
-  loctarf:'tariffs/custfran/loctarf'
+  loctarf:'tariffs/custfran/loctarf',
+  loctarFillvalues :'tariffs/custfran/loctarf/fillvalues',
+  customersdata:'tariffs/custfran/custarf',
+  customers:'tariffs/custarf/customers',
+  ratetarf:'tariffs/custarf/ratetarf'
+
+
+
 
   
   

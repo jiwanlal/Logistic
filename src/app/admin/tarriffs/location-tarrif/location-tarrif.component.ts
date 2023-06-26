@@ -6,6 +6,8 @@ import { LocationService } from '../../location/location.service';
 import { TreeTarriffsService } from '../tarriffs.service';
 import { locationtarrifmodal } from './location-tarrif.model';
 import { TarrifdeleteComponent } from '../dialogs/tarrifdelete/tarrifdelete.component';
+import { LoaderService } from 'src/app/core/service/loader.service';
+
 
 @Component({
   selector: 'app-location-tarrif',
@@ -38,10 +40,11 @@ export class LocationTarrifComponent implements OnInit{
   dropdownstate: any;
   dropdownlicality: any;
   dropdownpostcodedata: any;
-  constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public locationservice:LocationService,public cityservice:LocationService,public tarrifService:TreeTarriffsService){}
+  constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public tarrifService:TreeTarriffsService,public LoaderService:LoaderService){}
   ngOnInit(): void {
-    this.locationsdata()
+    // this.locationsdata()
     this.getloctarflist()
+    this.loctarFillvalues()
 
   }
   addItem(event){
@@ -60,26 +63,26 @@ export class LocationTarrifComponent implements OnInit{
     console.log()
     var dialogdata:any
     if(event.popupForm=='Edit'){
-      console.log(event,event.action)
+      console.log(event,JSON.parse(event.actionName.Route).from_country)
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
-          "Name":event.actionName.Name,
+          "lt_name":event.actionName.Name,
           "Id":event.actionName.Id,
-          "from_city":event.actionName.from_city,
-          "from_country":event.actionName.from_country,
-          "from_post_code":event.actionName.from_post_code,
-          "from_zone":event.actionName.from_zone,
-          "from_region":event.actionName.from_region,
-          "from_locality":event.actionName.from_locality,
-          "from_state":event.actionName.from_state,
-          "to_city":event.actionName.to_city,
-          "to_country":event.actionName.to_country,
-          "to_post_code":event.actionName.to_post_code,
-          "to_zone":event.actionName.to_zone,
-          "to_region":event.actionName.to_region,
-          "to_locality":event.actionName.to_locality,
-          "to_state":event.actionName.to_state,
+          "from_city":JSON.parse(event.actionName.Route).from_city,
+          "from_country":JSON.parse(event.actionName.Route).from_country,
+          "from_post_code":JSON.parse(event.actionName.Route).from_post_code,
+          "from_zone":JSON.parse(event.actionName.Route).from_zone,
+          "from_region":JSON.parse(event.actionName.Route).from_region,
+          "from_locality":JSON.parse(event.actionName.Route).from_locality,
+          "from_state":JSON.parse(event.actionName.Route).from_state,
+          "to_city":JSON.parse(event.actionName.Route).to_city,
+          "to_country":JSON.parse(event.actionName.Route).to_country,
+          "to_post_code":JSON.parse(event.actionName.Route).to_post_code,
+          "to_zone":JSON.parse(event.actionName.Route).to_zone,
+          "to_region":JSON.parse(event.actionName.Route).to_region,
+          "to_locality":JSON.parse(event.actionName.Route).to_locality,
+          "to_state":JSON.parse(event.actionName.Route).to_state,
           "zoneData":this.dropdownzonedata,
           "regionData":this.dropdownregion,
           "cityData":this.dropdowncitydata,
@@ -97,7 +100,7 @@ export class LocationTarrifComponent implements OnInit{
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
-          "Name":'',
+          "lt_name":'',
           "Id":null,
           dailogPage:this.pagename,
           "from_city":'',
@@ -152,7 +155,7 @@ export class LocationTarrifComponent implements OnInit{
      
       data: { actionName:event.popupForm,
         tabledatadeatils:{
-          "Name":event.actionName.Name,
+          "lt_name":event.actionName.Name,
           "Id":event.actionName.Id,
           "from_city":event.actionName.from_city,
           "from_country":event.actionName.from_country,
@@ -185,7 +188,7 @@ export class LocationTarrifComponent implements OnInit{
   }
   addRowData(row_obj){
     console.log(row_obj)
-    let itemvalue={Name:row_obj.itemsumbited.Name,from_zone:row_obj.itemsumbited.from_zone,from_state:row_obj.itemsumbited.from_state,
+    let itemvalue={lt_name:row_obj.itemsumbited.lt_name,from_zone:row_obj.itemsumbited.from_zone,from_state:row_obj.itemsumbited.from_state,
       from_region:row_obj.itemsumbited.from_region,from_locality:row_obj.itemsumbited.from_locality,from_country:row_obj.itemsumbited.from_country,
       from_city:row_obj.itemsumbited.from_city,from_post_code:row_obj.itemsumbited.from_post_code,to_zone:row_obj.itemsumbited.to_zone,to_state:row_obj.itemsumbited.to_state,
       to_region:row_obj.itemsumbited.from_region,to_locality:row_obj.itemsumbited.to_locality,to_country:row_obj.itemsumbited.to_country,
@@ -202,6 +205,7 @@ export class LocationTarrifComponent implements OnInit{
     })
   }
   deleteRowData(row_obj){
+    console.log(row_obj)
     this.tarrifService.loctardelete(row_obj.Id).subscribe(res=>{
     this.showNotification(
       "snackbar-danger",
@@ -214,7 +218,7 @@ export class LocationTarrifComponent implements OnInit{
   }
   getloctarflist(){
      this.inload=false
-    // this.LoaderService.Loaderpage.next(true)
+    this.LoaderService.Loaderpage.next(true)
     this.tarrifService.getloctarflist().subscribe(res=>{
       console.log(res)
       this.dataobject=res
@@ -253,16 +257,34 @@ export class LocationTarrifComponent implements OnInit{
         }
         this.inload=true
         }
-        // this.LoaderService.Loaderpage.next(false)
+         this.LoaderService.Loaderpage.next(false)
      })
   
   
     
     
   }
+  
+  loctarFillvalues(){
+    this.inload=false
+    // this.LoaderService.Loaderpage.next(true)
+   this.tarrifService.loctarFillvalues().subscribe(res=>{
+    this.dropdownpostcodedata=res.data[5]
+    this.dropdowncoutrydata=res.data[0]
+    this.dropdownzonedata=res.data[1]
+    this.dropdownregion=res.data[2]
+    this.dropdownstate=res.data[3]
+    this.dropdowncitydata=res.data[4]
+    this.dropdownlicality=res.data[6]
+
+
+
+     console.log(res.data)
+    })
+   }
   updateRowData(row_obj){
     console.log(row_obj)
-    let itemvalue={Name:row_obj.itemsumbited.Name,from_zone:row_obj.itemsumbited.from_zone,from_state:row_obj.itemsumbited.from_state,
+    let itemvalue={lt_name:row_obj.itemsumbited.lt_name,from_zone:row_obj.itemsumbited.from_zone,from_state:row_obj.itemsumbited.from_state,
       from_region:row_obj.itemsumbited.from_region,from_locality:row_obj.itemsumbited.from_locality,from_country:row_obj.itemsumbited.from_country,
       from_city:row_obj.itemsumbited.from_city,from_post_code:row_obj.itemsumbited.from_post_code,to_zone:row_obj.itemsumbited.to_zone,to_state:row_obj.itemsumbited.to_state,
       to_region:row_obj.itemsumbited.from_region,to_locality:row_obj.itemsumbited.to_locality,to_country:row_obj.itemsumbited.to_country,
@@ -279,38 +301,7 @@ export class LocationTarrifComponent implements OnInit{
       })
      
     }
-  locationsdata(){
-    this.locationservice.postcodelist().subscribe(res=>{
-      
-        this.dropdownpostcodedata=res.data.values
-      
-      console.log(res)
-    })
-    this.locationservice.zonelist().subscribe(res=>{
-    
-      this.dropdownzonedata=res.data.values
-       
-       
-    })
-    this.locationservice.contrylist().subscribe(res=>{
-      this.dropdowncoutrydata=res.data.values
-      console.log(res)
-    })
-    this.locationservice.localitylist().subscribe(res=>{
-      this.dropdownlicality=res.data.values
-    })
-    this.locationservice.statelist().subscribe(res=>{
-      this.dropdownstate=res.data.values
-    })
-    this.locationservice.regionlist().subscribe(res=>{
-      this.dropdownregion=res.data.values
-      console.log(res)
-    })
-    this.cityservice.citylist().subscribe(res=>{
-      this.dropdowncitydata=res.data.values
-      console.log(res)
-    })
-  }
+  
   insertSpaces(string) {
     string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
     string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')

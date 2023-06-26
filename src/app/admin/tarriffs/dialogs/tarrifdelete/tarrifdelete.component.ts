@@ -20,7 +20,8 @@ export class TarrifdeleteComponent {
       let sumiteddata={
         action:this.dialogtitle,
         Id:item.tabledatadeatils.Id,
-        itemsumbited:{name:item.tabledatadeatils.name}
+        itemsumbited:{name:item.tabledatadeatils.lt_name,
+        customername:item.tabledatadeatils.name}
       }
     
      this.dialogRef.close(sumiteddata)

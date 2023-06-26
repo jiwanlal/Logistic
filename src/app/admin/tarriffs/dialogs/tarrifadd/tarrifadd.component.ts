@@ -24,10 +24,12 @@ export class TarrifaddComponent implements OnInit {
   filteredlocalityTo:Observable<any>;
   filteredcityTo:Observable<any>;
   filteredstateTo:Observable<any>;
+  filteredrateT:Observable<any>;
+  filteredcustomerslist:Observable<any>
   isDisabled:boolean
-  
+
   locationTarrifForm = new FormGroup({
-    Name: new FormControl(this.data.tabledatadeatils.Name, []),
+    lt_name: new FormControl(this.data.tabledatadeatils.lt_name, []),
     from_locality: new FormControl(this.data.tabledatadeatils.from_locality, []),
     from_post_code: new FormControl(this.data.tabledatadeatils.from_post_code,[]),
     from_city:new FormControl(this.data.tabledatadeatils.from_city,[]),
@@ -46,15 +48,15 @@ export class TarrifaddComponent implements OnInit {
   })
   
   contractTarrifForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    rate_tarrif: new FormControl(null, [Validators.required]),
-    customer: new FormControl(null, [Validators.required]),
-    gst: new FormControl('',[Validators.required]),
-    dsc: new FormControl(null, [Validators.required]),
-    insurance: new FormControl(null, [Validators.required]),
-    others: new FormControl('',[]),
-    discount: new FormControl(null, [Validators.required]),
-    fsc: new FormControl(null, [Validators.required]),
+    name: new FormControl(this.data.tabledatadeatils.name, [Validators.required]),
+    rate_tarrif: new FormControl(this.data.tabledatadeatils.rate_tarrif, [Validators.required]),
+    customer: new FormControl(this.data.tabledatadeatils.customer, [Validators.required]),
+    gst: new FormControl(this.data.tabledatadeatils.gst,[Validators.required]),
+    dsc: new FormControl(this.data.tabledatadeatils.dsc, [Validators.required]),
+    insurance: new FormControl(this.data.tabledatadeatils.insurance, [Validators.required]),
+    others: new FormControl(this.data.tabledatadeatils.others,[]),
+    discount: new FormControl(this.data.tabledatadeatils.discount, [Validators.required]),
+    fsc: new FormControl(this.data.tabledatadeatils.fsc, [Validators.required]),
    
   })
   rateTarrifForm: FormGroup = this._formBuilder.group({
@@ -102,16 +104,19 @@ export class TarrifaddComponent implements OnInit {
    
   }
 }
-  oncontractTarrifSubmit(value,item){
+onChangeSearch(data){
+  console.log(data)
+}
+  oncontractTarrifSubmit(item,id){
 
-   console.log(this.contractTarrifForm.value)
+   console.log(this.contractTarrifForm.value,id)
    if(this.contractTarrifForm.invalid){
     return false
    }
   else{
     let sumiteddata={
       action:item,
-      // id:this.data.tabledatadeatils.office_id,
+      Id:id,
       itemsumbited:this.contractTarrifForm.value
     }
     this.dialogRef.close(sumiteddata)
@@ -143,101 +148,114 @@ export class TarrifaddComponent implements OnInit {
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.zoneData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.zoneData.filter(option => option?.zone_name.toLowerCase().includes(value));
       }),
     );
     this.filteredregion = this.locationTarrifForm.controls.from_region.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.regionData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.regionData.filter(option => option?.region_name.toLowerCase().includes(value));
       }),
     );
     this.filteredstate = this.locationTarrifForm.controls.from_state.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.stateData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.stateData.filter(option => option?.state_name.toLowerCase().includes(value));
       }),
     );
     this.filteredcity = this.locationTarrifForm.controls.from_city.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.cityData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.cityData.filter(option => option?.city_name.toLowerCase().includes(value));
       }),
     );
     this.filteredlocality = this.locationTarrifForm.controls.from_locality.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.localityData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.localityData.filter(option => option?.locality_name.toLowerCase().includes(value));
       }),
     );
     this.filteredcountry = this.locationTarrifForm.controls.from_country.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.countryData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.countryData.filter(option => option?.country_name.toLowerCase().includes(value));
       }),
     );
     this.filteredpincode = this.locationTarrifForm.controls.from_post_code.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.postcodeData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.postcodeData.filter(option => option?.post_code.toLowerCase().includes(value));
       }),
     );
     this.filteredzoneTo = this.locationTarrifForm.controls.to_zone.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.zoneData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.zoneData.filter(option => option?.zone_name.toLowerCase().includes(value));
       }),
     );
     this.filteredregionTo = this.locationTarrifForm.controls.to_region.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.regionData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.regionData.filter(option => option?.region_name.toLowerCase().includes(value));
       }),
     );
     this.filteredstateTo = this.locationTarrifForm.controls.to_state.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.stateData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.stateData.filter(option => option?.state_name.toLowerCase().includes(value));
       }),
     );
     this.filteredcityTo = this.locationTarrifForm.controls.to_city.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.cityData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.cityData.filter(option => option?.city_name.toLowerCase().includes(value));
       }),
     );
     this.filteredlocalityTo = this.locationTarrifForm.controls.to_locality.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.localityData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.localityData.filter(option => option?.locality_name.toLowerCase().includes(value));
       }),
     );
     this.filteredcountryTo = this.locationTarrifForm.controls.to_country.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.countryData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.countryData.filter(option => option?.country_name.toLowerCase().includes(value));
       }),
     );
     this.filteredpincodeTo = this.locationTarrifForm.controls.to_post_code.valueChanges.pipe(
       startWith(''),
       map(value => {
         value = typeof(value) == 'string'? value?.toLowerCase() :''
-        return this.data.tabledatadeatils.postcodeData.filter(option => option?.Name.toLowerCase().includes(value));
+        return this.data.tabledatadeatils.postcodeData.filter(option => option?.post_code.toLowerCase().includes(value));
       }),
     );
-    
+    this.filteredrateT = this.contractTarrifForm.controls.rate_tarrif.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        value = typeof(value) == 'string'? value?.toLowerCase() :''
+        return this.data.tabledatadeatils.ratetarftlist.filter(option => option?.rt_name.toLowerCase().includes(value));
+      }),
+    );
+    this.filteredcustomerslist = this.contractTarrifForm.controls.customer.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        value = typeof(value) == 'string'? value?.toLowerCase() :''
+        return this.data.tabledatadeatils.customerslist.filter(option => option?.customer_name.toLowerCase().includes(value));
+      }),
+    );
 
   }
   // displayloctarf_from(data):string{
@@ -249,48 +267,60 @@ export class TarrifaddComponent implements OnInit {
   // }
   displayzone(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.zoneData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.zoneData.find(x=>x.zone_id==data)
     }
-    return data?.Name
+    return data?.zone_name
   }
   displayregion(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.regionData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.regionData.find(x=>x.region_id==data)
     }
-    return data?.Name
+    return data?.region_name
   }
   displaycountry(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.countryData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.countryData.find(x=>x.country_id==data)
     }
-    return data?.Name
+    return data?.country_name
   }
   displaycity(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.cityData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.cityData.find(x=>x.city_id==data)
     }
-    return data?.Name
+    return data?.city_name
   }
   displaystate(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.stateData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.stateData.find(x=>x.state_id==data)
     }
-    return data?.Name
+    return data?.state_name
   }
   displaylocality(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.localityData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.localityData.find(x=>x.locality_id==data)
     }
-    return data?.Name
+    return data?.locality_name
   }
   displaypincode(data):string{
     if(typeof(data)!='object'){
-      data = this.data.tabledatadeatils.postcodeData.find(x=>x.Id==data)
+      data = this.data.tabledatadeatils.postcodeData.find(x=>x.post_code_id==data)
     }
-    return data?.Name
+    return data?.post_code
   }
-  onChange(value){
-  console.log(value,this.showCrossbutton,this.locationTarrifForm.get('from_zone').value)
+  displayrateT(data):string{
+    if(typeof(data)!='object'){
+      data = this.data.tabledatadeatils.ratetarftlist.find(x=>x.rt_id==data)
+    }
+    return data?.rt_name
+  }
+  displaycustomerslist(data):string{
+    if(typeof(data)!='object'){
+      data = this.data.tabledatadeatils.customerslist.find(x=>x.customer_id==data)
+    }
+    return data?.customer_name
+  }
+  onChange(value,event){
+  console.log(value)
   // if(value) {
   //   console.log(this.showCrossbutton,this.locationTarrifForm.get('from_zone').value)
   //   this.showCrossbutton=true

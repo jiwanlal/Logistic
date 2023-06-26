@@ -55,6 +55,79 @@ export class TreeTarriffsService {
       );
 
   }
+  public loctarFillvalues(): Observable<any> {
+    const url = this.API_URL + environment.loctarFillvalues;
+    console.log(url)
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  getcustomersdata() {
+    const url = this.API_URL + environment.customersdata
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  getcustomerslist() {
+    const url = this.API_URL + environment.customers
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  getratetarflist() {
+    const url = this.API_URL + environment.ratetarf
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public customerpost(Body): Observable<any> {
+    const url = this.API_URL + environment.customersdata
+    return this.http.post<any>(url, Body)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public customerput(id: number,data: any): Observable<any> {
+    const url = this.API_URL + environment.customersdata+ `/${id}`
+    return this.http.put<any>(url,data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public customerdelete(id: number): Observable<any> {
+    const url = this.API_URL + environment.customersdata + `/${id}`;
+    console.log(url)
+    return this.http.delete<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+
 }
 function observableThrowError(error: any): any {
   throw new Error('Function not implemented.');
