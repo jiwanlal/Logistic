@@ -127,7 +127,54 @@ export class TreeTarriffsService {
       );
 
   }
+  searchCustomer(str){
+    const url = this.API_URL + environment.customers +`?query=`+str
+   return this.http.get<any>(url)
+  }
+  searchRateTariff(str){
+    const url = this.API_URL + environment.ratetarf +`?query=`+str
+   return this.http.get<any>(url)
+  }
+  getratetarfAlldata() {
+    const url = this.API_URL + environment.ratetarfdata
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
 
+  }
+  getratetarwithId(id: string) {
+    const url = this.API_URL + environment.ratetarfdata + `/${id}`
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  public ratetarfpost(Body): Observable<any> {
+    const url = this.API_URL + environment.ratetarfdata
+    return this.http.post<any>(url, Body)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
+  getloctarfrate() {
+    const url = this.API_URL + environment.loctarfrate
+    return this.http.get<any>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return observableThrowError(error.error);
+        })
+      );
+
+  }
 }
 function observableThrowError(error: any): any {
   throw new Error('Function not implemented.');

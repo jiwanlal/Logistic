@@ -15,11 +15,11 @@ export class TarrifdeleteComponent {
     this.dialogtitle=data.actionName
     }
   onSubmit(item){
-    console.log(item.actionName)
+    console.log(item.actionName,item,item.tabledatadeatils.id)
    
       let sumiteddata={
         action:this.dialogtitle,
-        Id:item.tabledatadeatils.Id,
+        Id:item.tabledatadeatils.id,
         itemsumbited:{name:item.tabledatadeatils.lt_name,
         customername:item.tabledatadeatils.name}
       }

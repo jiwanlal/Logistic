@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, map, startWith } from 'rxjs';
+import { TreeTarriffsService } from '../../tarriffs.service';
 
 @Component({
   selector: 'app-tarrifadd',
@@ -26,6 +27,7 @@ export class TarrifaddComponent implements OnInit {
   filteredstateTo:Observable<any>;
   filteredrateT:Observable<any>;
   filteredcustomerslist:Observable<any>
+  filteredlocationtar:Observable<any>
   isDisabled:boolean
 
   locationTarrifForm = new FormGroup({
@@ -60,8 +62,8 @@ export class TarrifaddComponent implements OnInit {
    
   })
   rateTarrifForm: FormGroup = this._formBuilder.group({
-    name: [],
-    location_tarrif: [],
+    name: [this.data.tabledatadeatils.name],
+    location_tarrif: [this.data.tabledatadeatils.location_tarrif],
     AddedControls: this._formBuilder.array([])
   })
   // rateTarrifForm = new FormGroup({
@@ -70,11 +72,12 @@ export class TarrifaddComponent implements OnInit {
   // })
   dialogtitle: any;
   showCrossbutton: boolean=false;
-  constructor(public dialogRef: MatDialogRef<TarrifaddComponent>,@Inject(MAT_DIALOG_DATA) public data,private _formBuilder: FormBuilder,){
+  loctarfratedropdown: any;
+  constructor(public dialogRef: MatDialogRef<TarrifaddComponent>,@Inject(MAT_DIALOG_DATA) public data,private _formBuilder: FormBuilder,public tarrifService:TreeTarriffsService){
     this.dialogtitle=data.actionName
   }
   ngOnInit(): void {
-    console.log('DialogComponent',this.data)
+    console.log('DialogComponent',this.data,this.data.tabledatadeatils.loctarfratedropdown)
     this.setFilters()
   }
   // private requireMatch(control: FormControl): ValidationErrors | null {
@@ -106,6 +109,15 @@ export class TarrifaddComponent implements OnInit {
 }
 onChangeSearch(data){
   console.log(data)
+  // this.tarrifService.searchCustomer(data).subscribe(res=>{
+    
+  //   console.log(res)
+  // })
+  //   this.tarrifService.searchRateTariff(data).subscribe(res=>{
+    
+  //   console.log(res)
+  // })
+ 
 }
   oncontractTarrifSubmit(item,id){
 
@@ -131,8 +143,8 @@ onChangeSearch(data){
       new FormGroup({
         weight_from: new FormControl(""),
         weight_to: new FormControl(""),
-        rs_value: new FormControl(""),
-        rate_options: new FormControl(""),
+        unit: new FormControl(""),
+        price: new FormControl(""),
         
       })
     );
@@ -256,7 +268,13 @@ onChangeSearch(data){
         return this.data.tabledatadeatils.customerslist.filter(option => option?.customer_name.toLowerCase().includes(value));
       }),
     );
-
+    this.filteredlocationtar = this.rateTarrifForm.controls.location_tarrif.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        value = typeof(value) == 'string'? value?.toLowerCase() :''
+        return this.data.tabledatadeatils.loctarfratedropdown.filter(option => option?.lt_name.toLowerCase().includes(value));
+      }),
+    );
   }
   // displayloctarf_from(data):string{
   //   console.log(data,this.filterdata)
@@ -319,6 +337,12 @@ onChangeSearch(data){
     }
     return data?.customer_name
   }
+  displayloctar(data):string{
+    if(typeof(data)!='object'){
+      data = this.data.tabledatadeatils.loctarfratedropdown.find(x=>x.lt_id==data)
+    }
+    return data?.lt_name
+  }
   onChange(value,event){
   console.log(value)
   // if(value) {
@@ -343,15 +367,15 @@ onChangeSearch(data){
   clear(){
     this.locationTarrifForm.get('from_zone').setValue('')
   }
-  onrateTarrifFormSubmit(item){
-    console.log(this.rateTarrifForm.value)
+  onrateTarrifFormSubmit(item,id){
+    console.log(this.rateTarrifForm.value,id)
     if(this.rateTarrifForm.invalid){
      return false
     }
    else{
      let sumiteddata={
        action:item,
-       // id:this.data.tabledatadeatils.office_id,
+       id:id,
        itemsumbited:this.rateTarrifForm.value
      }
      this.dialogRef.close(sumiteddata)
@@ -359,4 +383,5 @@ onChangeSearch(data){
    }
     
   }
+ 
 }

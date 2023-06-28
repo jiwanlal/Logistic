@@ -104,7 +104,7 @@ export class ContractComponent implements OnInit{
      });
      dialogRef.afterClosed().subscribe(result => {
        console.log('The dialog was closed',result);
-       this.dataForTable=result.itemsumbited
+      //  this.dataForTable=result.itemsumbited
        if(result.action=='Edit'){
          console.log(result)
          this.updateRowData(result)
