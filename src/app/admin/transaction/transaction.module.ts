@@ -26,6 +26,7 @@ import { DatatableModule } from '../common/datatable.module';
 import { AddeditComponent } from './dialogs/addedit/addedit.component';
 import { DeleteComponent } from './dialogs/delete/delete.component';
 import { DrsofdComponent } from './drsofd/drsofd.component';
+import { DeliveryComponent } from './delivery/delivery.component';
 
 
 
@@ -34,7 +35,8 @@ import { DrsofdComponent } from './drsofd/drsofd.component';
     InscanComponent,
     AddeditComponent,
     DeleteComponent,
-    DrsofdComponent
+    DrsofdComponent,
+    DeliveryComponent
 
   ],
   imports: [
