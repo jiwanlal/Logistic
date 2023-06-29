@@ -82,8 +82,8 @@ export class ContractComponent implements OnInit{
         tabledatadeatils:{
           name:'',
           Id:null,
-          rate_tarrif:'',
-          customer:'',
+          rate_tarrif:null,
+          customer:null,
           gst:'',
           fsc:'',
           discount:'',
@@ -166,7 +166,7 @@ export class ContractComponent implements OnInit{
           insurance:event.actionName.Insurance,
           others:event.actionName.Others,
           ratetarftlist:this.ratetarflist.data,
-          customerslist:this.customerslist.data,
+          // customerslist:this.customerslist.data,
           }
         
       },
@@ -249,16 +249,17 @@ export class ContractComponent implements OnInit{
     this.customerslist=res
   })
  }
- getratetarflist(){
-  this.tarrifService.getratetarflist().subscribe(res=>{
-  this.ratetarflist=res
-  })
- }
+ 
 
  insertSpaces(string) {
   string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
   string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
   return string;
 }
+getratetarflist(){
+  this.tarrifService.getratetarflist().subscribe(res=>{
+  this.ratetarflist=res
+  })
+ }
  
 }

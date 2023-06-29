@@ -14,7 +14,8 @@
     </div>
     <div mat-dialog-content>
 
-        <form class="register-form m-4" [formGroup]="locationTarrifForm" *ngIf="this.data.tabledatadeatils.dailogPage=='locationTarrifDailog'">
+        <form class="register-form m-4" [formGroup]="locationTarrifForm"
+            *ngIf="this.data.tabledatadeatils.dailogPage=='locationTarrifDailog'">
 
             <div class="row">
                 <div class="col-md-12 col-sm-12 mb-2">
@@ -30,327 +31,341 @@
             <h5>From</h5>
 
             <div class="row">
-                    <div class="col-md-4 col-sm-4 mb-2">
-                        <mat-form-field class="example-full-width" appearance="outline">
-                            <mat-label>Country</mat-label>
-                            <input type="text" (focusout)="onChange(this.locationTarrifForm.get('from_country').value)" placeholder="Pick one" 
-                                 aria-label="Number" formControlName="from_country" matInput
-                                [matAutocomplete]="from_country">
-                                
-                            <mat-autocomplete autoActiveFirstOption [displayWith]="displaycountry.bind(this)" 
-                                #from_country="matAutocomplete" disabled="true">
-                                <mat-option *ngFor="let option of filteredcountry | async" (click)="onChange(this.locationTarrifForm.get('from_country').value)"
-                                    [value]="option.country_id">
-                                    {{option.country_name}}
-                                </mat-option>
-                            </mat-autocomplete>
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Country</mat-label>
+                        <input type="text" (focusout)="onChange(this.locationTarrifForm.get('from_country').value)"
+                            placeholder="Pick one" aria-label="Number" formControlName="from_country" matInput
+                            [matAutocomplete]="from_country">
 
-                               <!-- <mat-error *ngIf="locationTarrifForm.get('from_country').hasError('invalid')">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaycountry.bind(this)"
+                            #from_country="matAutocomplete" disabled="true">
+                            <mat-option *ngFor="let option of filteredcountry | async"
+                                (click)="onChange(this.locationTarrifForm.get('from_country').value)"
+                                [value]="option.country_id">
+                                {{option.country_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                        <!-- <mat-error *ngIf="locationTarrifForm.get('from_country').hasError('invalid')">
                                Please select from list.
                                 </mat-error> -->
-                        </mat-form-field>
-
-                    </div>
-                    <div class="col-md-4 col-sm-4 mb-2">
-                      <mat-form-field class="example-full-width" appearance="outline">
-                          <mat-label>Zone</mat-label>
-                          <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_zone').value)"
-                              aria-label="Number" formControlName="from_zone" matInput
-                              [matAutocomplete]="from_zone" >
-                            
-                          <mat-autocomplete autoActiveFirstOption [displayWith]="displayzone.bind(this)" 
-                              #from_zone="matAutocomplete">
-                              <mat-option *ngFor="let option of filteredzone | async" (click)="onChange(this.locationTarrifForm.get('from_zone').value)" 
-                                  [value]="option.zone_id">
-                                  {{option.zone_name}}
-                              </mat-option>
-                          </mat-autocomplete>
-                          <!-- <button mat-button *ngIf="this.locationTarrifForm.get('from_zone').value!==''" matSuffix mat-icon-button (click)="clear()">
-                            <mat-icon>close</mat-icon>
-                        </button> -->
-                     
-                      </mat-form-field>
-
-                  </div>
-                  <div class="col-md-4 col-sm-4 mb-2">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Region</mat-label>
-                        <input type="text" placeholder="Pick one"
-                            aria-label="Number" formControlName="from_region" matInput
-                            [matAutocomplete]="from_region">
-                        <mat-autocomplete autoActiveFirstOption [displayWith]="displayregion.bind(this)" 
-                            #from_region="matAutocomplete">
-                            <mat-option *ngFor="let option of filteredregion | async" (click)="onChange(this.locationTarrifForm.get('from_region').value)" 
-                                [value]="option.region_id">
-                                {{option.region_name}}
-                            </mat-option>
-                        </mat-autocomplete>
-                   
-                    </mat-form-field>
-
-                </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4 col-sm-4 mb-2">
-                      <mat-form-field class="example-full-width" appearance="outline">
-                          <mat-label>State</mat-label>
-                          <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_state').value)"
-                              [validatorKey]="'option'" aria-label="Number" formControlName="from_state" matInput
-                              [matAutocomplete]="from_state">
-                          <mat-autocomplete autoActiveFirstOption [displayWith]="displaystate.bind(this)" 
-                              #from_state="matAutocomplete">
-                              <mat-option *ngFor="let option of filteredstate | async" (click)="onChange(this.locationTarrifForm.get('from_state').value)"
-                                  [value]="option.state_id">
-                                  {{option.state_name}}
-                              </mat-option>
-                          </mat-autocomplete>
-                     
-                      </mat-form-field>
-
-                  </div>
-                  <div class="col-md-4 col-sm-4 mb-2">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>City</mat-label>
-                        <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_city').value)"
-                            [validatorKey]="'option'" aria-label="Number" formControlName="from_city" matInput
-                            [matAutocomplete]="from_city">
-                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaycity.bind(this)" 
-                            #from_city="matAutocomplete">
-                            <mat-option *ngFor="let option of filteredcity | async" (click)="onChange(this.locationTarrifForm.get('from_city').value)" 
-                                [value]="option.city_id">
-                                {{option.city_name}}
-                            </mat-option>
-                        </mat-autocomplete>
-                   
                     </mat-form-field>
 
                 </div>
                 <div class="col-md-4 col-sm-4 mb-2">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                      <mat-label>Pin Code</mat-label>
-                      <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('from_post_code').value)"
-                          [validatorKey]="'option'" aria-label="Number" formControlName="from_post_code" matInput
-                          [matAutocomplete]="from_post_code">
-                      <mat-autocomplete autoActiveFirstOption [displayWith]="displaypincode.bind(this)" 
-                          #from_post_code="matAutocomplete">
-                          <mat-option *ngFor="let option of filteredpincode | async" (click)="onChange(this.locationTarrifForm.get('from_post_code').value)"
-                              [value]="option.post_code_id">
-                              {{option.post_code}}
-                          </mat-option>
-                      </mat-autocomplete>
-                 
-                  </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Zone</mat-label>
+                        <input type="text" placeholder="Pick one"
+                            (keydown.enter)="onChange(this.locationTarrifForm.get('from_zone').value)"
+                            aria-label="Number" formControlName="from_zone" matInput [matAutocomplete]="from_zone">
 
-              </div>
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displayzone.bind(this)"
+                            #from_zone="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredzone | async"
+                                (click)="onChange(this.locationTarrifForm.get('from_zone').value)"
+                                [value]="option.zone_id">
+                                {{option.zone_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <!-- <button mat-button *ngIf="this.locationTarrifForm.get('from_zone').value!==''" matSuffix mat-icon-button (click)="clear()">
+                            <mat-icon>close</mat-icon>
+                        </button> -->
 
-                </div> 
-                <div class="row">
-                  <div class="col-md-12 col-sm-12 mb-2">
-                      <mat-form-field class="example-full-width" appearance="outline">
-                          <mat-label>Locality</mat-label>
-                          <input type="text" placeholder="Pick one"
-                               aria-label="Number" formControlName="from_locality" matInput
-                              [matAutocomplete]="from_locality">
-                          <mat-autocomplete autoActiveFirstOption [displayWith]="displaylocality.bind(this)"
-                              #from_locality="matAutocomplete">
-                              <mat-option *ngFor="let option of filteredlocality | async"
-                                  [value]="option.locality_id">
-                                  {{option.locality_name}}
-                              </mat-option>
-                          </mat-autocomplete>
+                    </mat-form-field>
 
-                          <mat-error *ngIf="locationTarrifForm.get('from_locality').hasError('required')">
-                              Parent Office is required
-                          </mat-error>
-                          <mat-error *ngIf="locationTarrifForm.get('from_locality').hasError('invalid')">
-                              Please select from list.
-                          </mat-error>
-                      </mat-form-field>
+                </div>
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Region</mat-label>
+                        <input type="text" placeholder="Pick one" aria-label="Number" formControlName="from_region"
+                            matInput [matAutocomplete]="from_region">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displayregion.bind(this)"
+                            #from_region="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredregion | async"
+                                (click)="onChange(this.locationTarrifForm.get('from_region').value)"
+                                [value]="option.region_id">
+                                {{option.region_name}}
+                            </mat-option>
+                        </mat-autocomplete>
 
-                  </div>
-                 
-              </div>
-              <h5>To</h5>
+                    </mat-form-field>
 
-              <div class="row">
-                      <div class="col-md-4 col-sm-4 mb-2">
-                          <mat-form-field class="example-full-width" appearance="outline">
-                              <mat-label>Country</mat-label>
-                              <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_country').value)"
-                                  [validatorKey]="'option'" aria-label="Number" formControlName="to_country" matInput
-                                  [matAutocomplete]="to_country">
-                              <mat-autocomplete autoActiveFirstOption [displayWith]="displaycountry.bind(this)" 
-                                  #to_country="matAutocomplete">
-                                  <mat-option *ngFor="let option of filteredcountryTo | async" (click)="onChange(this.locationTarrifForm.get('to_country').value)" 
-                                      [value]="option.country_id">
-                                      {{option.country_name}}
-                                  </mat-option>
-                              </mat-autocomplete>
-                         
-                          </mat-form-field>
-  
-                      </div>
-                      <div class="col-md-4 col-sm-4 mb-2">
-                        <mat-form-field class="example-full-width" appearance="outline">
-                            <mat-label>Zone</mat-label>
-                            <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_zone').value)"
-                                [validatorKey]="'option'" aria-label="Number" formControlName="to_zone" matInput
-                                [matAutocomplete]="to_zone">
-                            <mat-autocomplete autoActiveFirstOption [displayWith]="displayzone.bind(this)" 
-                                #to_zone="matAutocomplete">
-                                <mat-option *ngFor="let option of filteredzoneTo | async" (click)="onChange(this.locationTarrifForm.get('to_zone').value)"
-                                    [value]="option.zone_id">
-                                    {{option.zone_name}}
-                                </mat-option>
-                            </mat-autocomplete>
-                       
-                        </mat-form-field>
-  
-                    </div>
-                    <div class="col-md-4 col-sm-4 mb-2">
-                      <mat-form-field class="example-full-width" appearance="outline">
-                          <mat-label>Region</mat-label>
-                          <input type="text" placeholder="Pick one"
-                               aria-label="Number" formControlName="to_region" matInput
-                              [matAutocomplete]="to_region">
-                          <mat-autocomplete autoActiveFirstOption [displayWith]="displayregion.bind(this)" 
-                              #to_region="matAutocomplete">
-                              <mat-option *ngFor="let option of filteredregionTo | async" (click)="onChange(this.locationTarrifForm.get('to_region').value)"
-                                  [value]="option.region_id">
-                                  {{option.region_name}}
-                              </mat-option>
-                          </mat-autocomplete>
-                     
-                      </mat-form-field>
-  
-                  </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-4 col-sm-4 mb-2">
-                        <mat-form-field class="example-full-width" appearance="outline">
-                            <mat-label>State</mat-label>
-                            <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_state').value)"
-                                [validatorKey]="'option'" aria-label="Number" formControlName="to_state" matInput
-                                [matAutocomplete]="to_state">
-                            <mat-autocomplete autoActiveFirstOption [displayWith]="displaystate.bind(this)" 
-                                #to_state="matAutocomplete">
-                                <mat-option *ngFor="let option of filteredstateTo | async" (click)="onChange(this.locationTarrifForm.get('to_state').value)"
-                                    [value]="option.state_id">
-                                    {{option.state_name}}
-                                </mat-option>
-                            </mat-autocomplete>
-                       
-                        </mat-form-field>
-  
-                    </div>
-                    <div class="col-md-4 col-sm-4 mb-2">
-                      <mat-form-field class="example-full-width" appearance="outline">
-                          <mat-label>City</mat-label>
-                          <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_city').value)"
-                              [validatorKey]="'option'" aria-label="Number" formControlName="to_city" matInput
-                              [matAutocomplete]="to_city">
-                          <mat-autocomplete autoActiveFirstOption [displayWith]="displaycity.bind(this)" 
-                              #to_city="matAutocomplete">
-                              <mat-option *ngFor="let option of filteredcityTo | async" (click)="onChange(this.locationTarrifForm.get('to_city').value)" 
-                                  [value]="option.city_id">
-                                  {{option.city_name}}
-                              </mat-option>
-                          </mat-autocomplete>
-                     
-                      </mat-form-field>
-  
-                  </div>
-                  <div class="col-md-4 col-sm-4 mb-2">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>State</mat-label>
+                        <input type="text" placeholder="Pick one"
+                            (keydown.enter)="onChange(this.locationTarrifForm.get('from_state').value)"
+                            [validatorKey]="'option'" aria-label="Number" formControlName="from_state" matInput
+                            [matAutocomplete]="from_state">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaystate.bind(this)"
+                            #from_state="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredstate | async"
+                                (click)="onChange(this.locationTarrifForm.get('from_state').value)"
+                                [value]="option.state_id">
+                                {{option.state_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>City</mat-label>
+                        <input type="text" placeholder="Pick one"
+                            (keydown.enter)="onChange(this.locationTarrifForm.get('from_city').value)"
+                            [validatorKey]="'option'" aria-label="Number" formControlName="from_city" matInput
+                            [matAutocomplete]="from_city">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaycity.bind(this)"
+                            #from_city="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredcity | async"
+                                (click)="onChange(this.locationTarrifForm.get('from_city').value)"
+                                [value]="option.city_id">
+                                {{option.city_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4 col-sm-4 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Pin Code</mat-label>
-                        <input type="text" placeholder="Pick one"  (keydown.enter)="onChange(this.locationTarrifForm.get('to_post_code').value)"
-                            [validatorKey]="'option'" aria-label="Number" formControlName="to_post_code" matInput
-                            [matAutocomplete]="to_post_code">
-                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaypincode.bind(this)" 
-                            #to_post_code="matAutocomplete">
-                            <mat-option *ngFor="let option of filteredpincodeTo | async" (click)="onChange(this.locationTarrifForm.get('to_post_code').value)" 
+                        <input type="text" placeholder="Pick one"
+                            (keydown.enter)="onChange(this.locationTarrifForm.get('from_post_code').value)"
+                            [validatorKey]="'option'" aria-label="Number" formControlName="from_post_code" matInput
+                            [matAutocomplete]="from_post_code">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaypincode.bind(this)"
+                            #from_post_code="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredpincode | async"
+                                (click)="onChange(this.locationTarrifForm.get('from_post_code').value)"
                                 [value]="option.post_code_id">
                                 {{option.post_code}}
                             </mat-option>
                         </mat-autocomplete>
-                   
+
                     </mat-form-field>
-  
+
                 </div>
-  
-                  </div> 
-                  <div class="row">
-                    <div class="col-md-12 col-sm-12 mb-2">
-                        <mat-form-field class="example-full-width" appearance="outline">
-                            <mat-label>Locality</mat-label>
-                            <input type="text" placeholder="Pick one"
-                                 aria-label="Number" formControlName="to_locality" matInput
-                                [matAutocomplete]="to_locality">
-                            <mat-autocomplete autoActiveFirstOption [displayWith]="displaylocality.bind(this)"
-                                #to_locality="matAutocomplete">
-                                <mat-option *ngFor="let option of filteredlocalityTo | async"
-                                    [value]="option.locality_id">
-                                    {{option.locality_name}}
-                                </mat-option>
-                            </mat-autocomplete>
-  
-                        
-                        </mat-form-field>
-  
-                    </div>
-                   
+
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Locality</mat-label>
+                        <input type="text" placeholder="Pick one" aria-label="Number" formControlName="from_locality"
+                            matInput [matAutocomplete]="from_locality">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaylocality.bind(this)"
+                            #from_locality="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredlocality | async" [value]="option.locality_id">
+                                {{option.locality_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                        <mat-error *ngIf="locationTarrifForm.get('from_locality').hasError('required')">
+                            Parent Office is required
+                        </mat-error>
+                        <mat-error *ngIf="locationTarrifForm.get('from_locality').hasError('invalid')">
+                            Please select from list.
+                        </mat-error>
+                    </mat-form-field>
+
                 </div>
+
+            </div>
+            <h5>To</h5>
+
+            <div class="row">
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Country</mat-label>
+                        <input type="text" placeholder="Pick one"
+                            (keydown.enter)="onChange(this.locationTarrifForm.get('to_country').value)"
+                            [validatorKey]="'option'" aria-label="Number" formControlName="to_country" matInput
+                            [matAutocomplete]="to_country">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaycountry.bind(this)"
+                            #to_country="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredcountryTo | async"
+                                (click)="onChange(this.locationTarrifForm.get('to_country').value)"
+                                [value]="option.country_id">
+                                {{option.country_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Zone</mat-label>
+                        <input type="text" placeholder="Pick one"
+                            (keydown.enter)="onChange(this.locationTarrifForm.get('to_zone').value)"
+                            [validatorKey]="'option'" aria-label="Number" formControlName="to_zone" matInput
+                            [matAutocomplete]="to_zone">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displayzone.bind(this)"
+                            #to_zone="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredzoneTo | async"
+                                (click)="onChange(this.locationTarrifForm.get('to_zone').value)"
+                                [value]="option.zone_id">
+                                {{option.zone_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Region</mat-label>
+                        <input type="text" placeholder="Pick one" aria-label="Number" formControlName="to_region"
+                            matInput [matAutocomplete]="to_region">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displayregion.bind(this)"
+                            #to_region="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredregionTo | async"
+                                (click)="onChange(this.locationTarrifForm.get('to_region').value)"
+                                [value]="option.region_id">
+                                {{option.region_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>State</mat-label>
+                        <input type="text" placeholder="Pick one"
+                            (keydown.enter)="onChange(this.locationTarrifForm.get('to_state').value)"
+                            [validatorKey]="'option'" aria-label="Number" formControlName="to_state" matInput
+                            [matAutocomplete]="to_state">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaystate.bind(this)"
+                            #to_state="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredstateTo | async"
+                                (click)="onChange(this.locationTarrifForm.get('to_state').value)"
+                                [value]="option.state_id">
+                                {{option.state_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>City</mat-label>
+                        <input type="text" placeholder="Pick one"
+                            (keydown.enter)="onChange(this.locationTarrifForm.get('to_city').value)"
+                            [validatorKey]="'option'" aria-label="Number" formControlName="to_city" matInput
+                            [matAutocomplete]="to_city">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaycity.bind(this)"
+                            #to_city="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredcityTo | async"
+                                (click)="onChange(this.locationTarrifForm.get('to_city').value)"
+                                [value]="option.city_id">
+                                {{option.city_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4 col-sm-4 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Pin Code</mat-label>
+                        <input type="text" placeholder="Pick one"
+                            (keydown.enter)="onChange(this.locationTarrifForm.get('to_post_code').value)"
+                            [validatorKey]="'option'" aria-label="Number" formControlName="to_post_code" matInput
+                            [matAutocomplete]="to_post_code">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaypincode.bind(this)"
+                            #to_post_code="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredpincodeTo | async"
+                                (click)="onChange(this.locationTarrifForm.get('to_post_code').value)"
+                                [value]="option.post_code_id">
+                                {{option.post_code}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Locality</mat-label>
+                        <input type="text" placeholder="Pick one" aria-label="Number" formControlName="to_locality"
+                            matInput [matAutocomplete]="to_locality">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displaylocality.bind(this)"
+                            #to_locality="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredlocalityTo | async" [value]="option.locality_id">
+                                {{option.locality_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+
+                    </mat-form-field>
+
+                </div>
+
+            </div>
 
 
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
 
                     <div class="example-button-row">
-                        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="1" [disabled]="!locationTarrifForm.valid"
+                        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="1"
+                            [disabled]="!locationTarrifForm.valid"
                             (click)="onlocationTarrifSubmit(data.actionName,data.tabledatadeatils.Id)">Save</button>
                         <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
                     </div>
                 </div>
             </div>
-          
+
         </form>
-        <form class="register-form m-4" [formGroup]="contractTarrifForm" *ngIf="this.data.tabledatadeatils.dailogPage=='contractTarrifDailog'">
+        <form class="register-form m-4" [formGroup]="contractTarrifForm"
+            *ngIf="this.data.tabledatadeatils.dailogPage=='contractTarrifDailog'">
             <div class="row">
                 <div class="col-md-6 col-sm-6 mb-2">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Name</mat-label>
-                    <input matInput formControlName="name" [attr.disabled]="data.actionName=='Edit'">
-                    <!-- <mat-icon matSuffix>face</mat-icon> -->
-                    <mat-error *ngIf="contractTarrifForm.get('name').hasError('required')">
-                      Name is required
-                    </mat-error>
-                  </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" [attr.disabled]="data.actionName=='Edit'">
+                        <!-- <mat-icon matSuffix>face</mat-icon> -->
+                        <mat-error *ngIf="contractTarrifForm.get('name').hasError('required')">
+                            Name is required
+                        </mat-error>
+                    </mat-form-field>
                 </div>
                 <div class="col-md-6 col-sm-6 mb-2">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Rate Tarrif</mat-label>
-                    <input type="text" placeholder="Pick one" [listValidator]="filteredrateT | async" [validatorKey]="'rt_id'" aria-label="Number"  formControlName="rate_tarrif" matInput
-                    [matAutocomplete]="rate_tarrif" (input)='onChangeSearch(contractTarrifForm.value.rate_tarrif)'                    >
-                    <mat-autocomplete autoActiveFirstOption [displayWith]="displayrateT.bind(this)"
-                    #rate_tarrif="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredrateT | async" [value]="option.rt_id">
-                        {{option.rt_name}}
-                    </mat-option>
-                    </mat-autocomplete>
-                  
-                    <mat-error *ngIf="contractTarrifForm.get('rate_tarrif').hasError('required')">
-                        Rate Tarrif is required
-                    </mat-error>
-                    <mat-error *ngIf="contractTarrifForm.get('rate_tarrif').hasError('invalid')">
-                      Please select from list.
-                  </mat-error>
-                </mat-form-field>
-                 
+
+                    <ng-select (change)="onChangeDrowpDown(contractTarrifForm.value.rate_tarrif)"
+                        formControlName="rate_tarrif" name="rate_tarrif" placeholder="Select Rate Tarrif"
+                        (search)="Serachdata($event,'rate')" class="ng-select-bold-border chips-control"
+                        [ngClass]="{'error': contractTarrifForm.controls['rate_tarrif'].invalid}">
+                        <ng-option *ngFor="let item of ratetarflist" [value]="item.rt_id">{{item.rt_name}}</ng-option>
+                    </ng-select>
+                    <div
+                        *ngIf="contractTarrifForm.controls['rate_tarrif'].touched && contractTarrifForm.controls['rate_tarrif'].invalid">
+
+                        <mat-error *ngIf="contractTarrifForm.get('rate_tarrif').hasError('required')">
+                            Rate Tarrif is required
+                        </mat-error>
+                        <mat-error *ngIf="contractTarrifForm.get('rate_tarrif').hasError('invalid')">
+                            Please select from list.
+                        </mat-error>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-sm-6 mb-2">
-                    <mat-form-field class="example-full-width" appearance="outline">
+                    <!-- <mat-form-field class="example-full-width" appearance="outline">
                       <mat-label>Customer</mat-label>
                       <input type="text" placeholder="Pick one" [listValidator]="filteredcustomerslist | async" [validatorKey]="'customer_id'" aria-label="Number"  formControlName="customer" matInput
                       [matAutocomplete]="customer" (input)='onChangeSearch(contractTarrifForm.value.customer)'>
@@ -367,186 +382,205 @@
                       <mat-error *ngIf="contractTarrifForm.get('customer').hasError('invalid')">
                         Please select from list.
                     </mat-error>
-                  </mat-form-field>
-                   
-                  </div>
-              <div class="col-md-6 col-sm-6 mb-2">
-                <mat-form-field class="example-full-width" appearance="outline">
-                  <mat-label>GST%</mat-label>
-                  <input matInput type="number" min="1" formControlName="gst">
-                  <!-- <mat-icon matSuffix>face</mat-icon> -->
-                  <mat-error *ngIf="contractTarrifForm.get('gst').hasError('required')">
-                    GST is required
-                  </mat-error>
-                </mat-form-field>
-              </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-sm-6 mb-2">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>FSC%</mat-label>
-                <input matInput type="number" min="1" formControlName="fsc">
-                <!-- <mat-icon matSuffix>face</mat-icon> -->
-                <mat-error *ngIf="contractTarrifForm.get('fsc').hasError('required')">
-                  FSC is required
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-6 col-sm-6 mb-2">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Discount%</mat-label>
-                <input matInput type="number" min="1" formControlName="discount">
-                <!-- <mat-icon matSuffix>face</mat-icon> -->
-                <mat-error *ngIf="contractTarrifForm.get('discount').hasError('required')">
-                  Discount is required
-                </mat-error>
-              </mat-form-field>
-            </div>
-           
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-sm-6 mb-2">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>DSC</mat-label>
-                <input matInput type="number" min="1" formControlName="dsc">
-                <mat-error *ngIf="contractTarrifForm.get('dsc').hasError('required')">
-                  DSC is required
-                </mat-error>
-               
-              </mat-form-field>
-            </div>
-            <div class="col-md-6 col-sm-6 mb-2">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Insurance%</mat-label>
-                <input matInput type="number" min="1" formControlName="insurance">
-                
-                <mat-error *ngIf="contractTarrifForm.get('insurance').hasError('required')">
-                  Insurance is required
-                </mat-error>
-              </mat-form-field>
-            </div>
-           
-        </div>
-        <mat-divider></mat-divider>
-          <div class="row">
-            <div class="col-md-12 col-sm-12 mb-2 mt-2d">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Others</mat-label>
-                <input matInput type="number" min="1" formControlName="others">
+                  </mat-form-field> -->
+                    <ng-select (change)="onChangeDrowpDown(contractTarrifForm.value.customer)"
+                        formControlName="customer" name="customer" placeholder="Select Rate Tarrif"
+                        (search)="Serachdata($event,'location')" class="ng-select-bold-border chips-control"
+                        [ngClass]="{'error': contractTarrifForm.controls['customer'].invalid}">
+                        <ng-option *ngFor="let item of customerslist"
+                            [value]="item.customer_id">{{item.customer_name}}</ng-option>
+                    </ng-select>
+                    <div
+                        *ngIf="contractTarrifForm.controls['customer'].touched && contractTarrifForm.controls['customer'].invalid">
 
-                <!-- <textarea matInput formControlName="others"></textarea> -->
-               
-                
-                
-              </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <mat-error *ngIf="contractTarrifForm.get('customer').hasError('required')">
+                            customer is required
+                        </mat-error>
+                        <mat-error *ngIf="contractTarrifForm.get('customer').hasError('invalid')">
+                            Please select from list.
+                        </mat-error>
+                    </div>
+                </div>
 
-                <div class="example-button-row">
-                    <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="1" [disabled]="!contractTarrifForm.valid"
-                        (click)="oncontractTarrifSubmit(data.actionName,data.tabledatadeatils.Id)">Save</button>
-                    <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+                <div class="col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>GST%</mat-label>
+                        <input matInput type="number" min="1" formControlName="gst">
+                        <!-- <mat-icon matSuffix>face</mat-icon> -->
+                        <mat-error *ngIf="contractTarrifForm.get('gst').hasError('required')">
+                            GST is required
+                        </mat-error>
+                    </mat-form-field>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>FSC%</mat-label>
+                        <input matInput type="number" min="1" formControlName="fsc">
+                        <!-- <mat-icon matSuffix>face</mat-icon> -->
+                        <mat-error *ngIf="contractTarrifForm.get('fsc').hasError('required')">
+                            FSC is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Discount%</mat-label>
+                        <input matInput type="number" min="1" formControlName="discount">
+                        <!-- <mat-icon matSuffix>face</mat-icon> -->
+                        <mat-error *ngIf="contractTarrifForm.get('discount').hasError('required')">
+                            Discount is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>DSC</mat-label>
+                        <input matInput type="number" min="1" formControlName="dsc">
+                        <mat-error *ngIf="contractTarrifForm.get('dsc').hasError('required')">
+                            DSC is required
+                        </mat-error>
+
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Insurance%</mat-label>
+                        <input matInput type="number" min="1" formControlName="insurance">
+
+                        <mat-error *ngIf="contractTarrifForm.get('insurance').hasError('required')">
+                            Insurance is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <mat-divider></mat-divider>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-2 mt-2d">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Others</mat-label>
+                        <input matInput type="number" min="1" formControlName="others">
+
+                        <!-- <textarea matInput formControlName="others"></textarea> -->
+
+
+
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+
+                    <div class="example-button-row">
+                        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="1"
+                            [disabled]="!contractTarrifForm.valid"
+                            (click)="oncontractTarrifSubmit(data.actionName,data.tabledatadeatils.Id)">Save</button>
+                        <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+                    </div>
+                </div>
+            </div>
         </form>
-        <form class="register-form m-4"  [formGroup]="rateTarrifForm" *ngIf="this.data.tabledatadeatils.dailogPage=='ratTarrifDailog'">
+        <form class="register-form m-4" [formGroup]="rateTarrifForm"
+            *ngIf="this.data.tabledatadeatils.dailogPage=='ratTarrifDailog'">
             <div class="row">
                 <div class="col-md-6 col-sm-6 mb-2">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Name</mat-label>
-                    <input matInput formControlName="name">
-                    <!-- <mat-icon matSuffix>face</mat-icon> -->
-                    <mat-error *ngIf="rateTarrifForm.get('name').hasError('required')">
-                      Name is required
-                    </mat-error>
-                  </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name">
+                        <!-- <mat-icon matSuffix>face</mat-icon> -->
+                        <mat-error *ngIf="rateTarrifForm.get('name').hasError('required')">
+                            Name is required
+                        </mat-error>
+                    </mat-form-field>
                 </div>
                 <div class="col-md-6 col-sm-6 mb-2">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Location Tarrif</mat-label>
-                    <input type="text" placeholder="Pick one" [listValidator]="filteredlocationtar | async" [validatorKey]="'lt_id'" aria-label="Number"  formControlName="location_tarrif" matInput
-                    [matAutocomplete]="location_tarrif">
-                    <mat-autocomplete autoActiveFirstOption [displayWith]="displayloctar.bind(this)"
-                    #location_tarrif="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredlocationtar | async" [value]="option.lt_id">
-                        {{option.lt_name}}
-                    </mat-option>
-                    </mat-autocomplete>
-                  
-                    <mat-error *ngIf="rateTarrifForm.get('location_tarrif').hasError('required')">
-                      Location Tarrif is required
-                    </mat-error>
-                    <mat-error *ngIf="rateTarrifForm.get('location_tarrif').hasError('invalid')">
-                      Please select from list.
-                  </mat-error>
-                </mat-form-field>
-                 
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Location Tarrif</mat-label>
+                        <input type="text" placeholder="Pick one" [listValidator]="filteredlocationtar | async"
+                            [validatorKey]="'lt_id'" aria-label="Number" formControlName="location_tarrif" matInput
+                            [matAutocomplete]="location_tarrif">
+                        <mat-autocomplete autoActiveFirstOption [displayWith]="displayloctar.bind(this)"
+                            #location_tarrif="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredlocationtar | async" [value]="option.lt_id">
+                                {{option.lt_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                        <mat-error *ngIf="rateTarrifForm.get('location_tarrif').hasError('required')">
+                            Location Tarrif is required
+                        </mat-error>
+                        <mat-error *ngIf="rateTarrifForm.get('location_tarrif').hasError('invalid')">
+                            Please select from list.
+                        </mat-error>
+                    </mat-form-field>
+
                 </div>
             </div>
             <div class="row">
-              <!-- <div class="m-l-10" matTooltip="ADD"> -->
-                    <span>Changes details:</span>
-                    <button
-                    (click)="addcontent()" class="ml-auto" mat-stroked-button color="primary"
-                    >Add Data
-                    </button>
+                <!-- <div class="m-l-10" matTooltip="ADD"> -->
+                <span>Changes details:</span>
+                <button (click)="addcontent()" class="ml-auto" mat-stroked-button color="primary">Add Data
+                </button>
                 <div formArrayName="AddedControls">
                     <div class="datavalue-multiple"
-                    *ngFor="let n of rateTarrifForm.controls.AddedControls['controls']; index as r; last as isLast">
-                    <div [formGroupName]="r">
-                        <div class="row">
-                            <div class="col-md-2 col-sm-2 mb-2">
-                              <mat-form-field class="example-full-width" appearance="outline">
-                                <mat-label>Weight From</mat-label>
-                                <input matInput type="number" formControlName="weight_from">
-                                
-                               
-                              </mat-form-field>
-                            </div>
-                            <div class="col-md-2 col-sm-2 mb-2">
-                              <mat-form-field class="example-full-width" appearance="outline">
-                                <mat-label>Weight To</mat-label>
-                                <input matInput type="number" formControlName="weight_to">
-                                
-                               
-                              </mat-form-field>
-                            </div>
-                            <div class="col-md-2 col-sm-2 mb-2">
-                                <mat-form-field class="example-full-width" appearance="outline">
-                                  <mat-label>Price</mat-label>
-                                  <input matInput type="number" formControlName="price">
-                                  
-                                 
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-2 col-sm-2 mb-2">
-                                <mat-form-field class="example-full-width" appearance="outline">
-                                    <mat-label>Unit</mat-label>
-                                    <input type="text" placeholder="Pick one" [listValidator]="filteredparentoffice | async"
-                                        [validatorKey]="'office_id'" aria-label="Number" formControlName="unit" matInput
-                                        [matAutocomplete]="rate_options">
-                                    <!-- <mat-autocomplete autoActiveFirstOption [displayWith]="displayparentoffice.bind(this)"
+                        *ngFor="let n of rateTarrifForm.controls.AddedControls['controls']; index as r; last as isLast">
+                        <div [formGroupName]="r">
+                            <div class="row">
+                                <div class="col-md-2 col-sm-2 mb-2">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Weight From</mat-label>
+                                        <input matInput type="number" formControlName="weight_from">
+
+
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2 col-sm-2 mb-2">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Weight To</mat-label>
+                                        <input matInput type="number" formControlName="weight_to">
+
+
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2 col-sm-2 mb-2">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Price</mat-label>
+                                        <input matInput type="number" formControlName="price">
+
+
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2 col-sm-2 mb-2">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Unit</mat-label>
+                                        <input type="text" placeholder="Pick one"
+                                            [listValidator]="filteredparentoffice | async" [validatorKey]="'office_id'"
+                                            aria-label="Number" formControlName="unit" matInput
+                                            [matAutocomplete]="rate_options">
+                                        <!-- <mat-autocomplete autoActiveFirstOption [displayWith]="displayparentoffice.bind(this)"
                                         #rate_options="matAutocomplete">
                                         <mat-option *ngFor="let option of filteredparentoffice | async"
                                             [value]="option.office_id">
                                             {{option.office_name}}
                                         </mat-option>
                                     </mat-autocomplete> -->
-                                </mat-form-field>
-                                  
-        
+                                    </mat-form-field>
+
+
+                                </div>
+                                <!-- <div class="removedatavalue"> -->
+                                <button (click)="remove(r)" mat-icon-button color="warn">
+                                    <mat-icon>cancel</mat-icon>
+                                </button>
+                                <!-- </div> -->
+
                             </div>
-                            <!-- <div class="removedatavalue"> -->
-                            <button (click)="remove(r)" mat-icon-button color="warn">
-                                <mat-icon>cancel</mat-icon>
-                            </button>
-                            <!-- </div> -->
-                           
                         </div>
-                    </div>
                     </div>
                 </div>
                 <!-- </div> -->
@@ -555,14 +589,15 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
 
                     <div class="example-button-row">
-                        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="1" [disabled]="!rateTarrifForm.valid"
+                        <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="1"
+                            [disabled]="!rateTarrifForm.valid"
                             (click)="onrateTarrifFormSubmit(data.actionName,data.tabledatadeatils.id)">Save</button>
                         <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
                     </div>
                 </div>
             </div>
         </form>
-        
 
 
-</div>
+
+    </div>

@@ -73,6 +73,8 @@ export class TarrifaddComponent implements OnInit {
   dialogtitle: any;
   showCrossbutton: boolean=false;
   loctarfratedropdown: any;
+  ratetarflist: any;
+  customerslist: any;
   constructor(public dialogRef: MatDialogRef<TarrifaddComponent>,@Inject(MAT_DIALOG_DATA) public data,private _formBuilder: FormBuilder,public tarrifService:TreeTarriffsService){
     this.dialogtitle=data.actionName
   }
@@ -156,6 +158,8 @@ onChangeSearch(data){
     
   }
   private setFilters(){
+    this.ratetarflist=this.data.tabledatadeatils.ratetarftlist
+    this.customerslist=this.data.tabledatadeatils.customerslist
     this.filteredzone = this.locationTarrifForm.controls.from_zone.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -383,5 +387,27 @@ onChangeSearch(data){
    }
     
   }
+  
+  onChangeDrowpDown(value){
+  
+   console.log(value)
+  }
+  Serachdata(v,type){
+    if(type=='rate'){
+
+      this.tarrifService.searchRateTariff(v.term).subscribe(res=>{
+        this.ratetarflist=res.data
+        console.log(res)
+       })
+    }
+    else{
+      this.tarrifService.searchCustomer(v.term).subscribe(res=>{
+        this.customerslist=res.data
+          console.log(res)
+        })
+    }
+    console.log(v.term)
+  }
+  
  
 }

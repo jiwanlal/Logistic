@@ -57,7 +57,8 @@ export const environment = {
   customersdata:'tariffs/custfran/custarf',
   ratetarf:'tariffs/custarf/ratetarf',
   ratetarfdata:'tariffs/custfran/ratetarf',
-  loctarfrate:'tariffs/ratetarf/loctarf'
+  loctarfrate:'tariffs/ratetarf/loctarf',
+  dashboard:'dashboard/dashboard'
 
 
 
