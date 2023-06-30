@@ -69,7 +69,7 @@ export class SigninComponent
            // localStorage.setItem("currentUser", "All");
             if (res.accessToken!=null||res.accessToken!=undefined) {
               console.log(res.accessToken)
-              this.router.navigate(["/admin/dashboard/main"]);
+              this.router.navigate(["/admin/dashboards/main"]);
               
 
               setTimeout(() => {
@@ -78,7 +78,7 @@ export class SigninComponent
               const accessToken = this.authService.currentUserValue.accessToken;
              // localStorage.setItem('accessToken',res.accessToken);
            //  if(role=='Admin' ){
-              this.router.navigate(["/admin/dashboard/main"]);
+              this.router.navigate(["/admin/dashboards/main"]);
             // }
              
               

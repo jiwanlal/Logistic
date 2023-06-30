@@ -11,8 +11,12 @@ import { SalesdashboardComponent } from "./salesdashboard/salesdashboard.compone
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "sales",
+    redirectTo: "main",
     pathMatch: "full",
+  },
+  {
+    path: "main",
+    component: SalesdashboardComponent,
   },
   {
     path: "sales",

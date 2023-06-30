@@ -14,6 +14,7 @@ import {
   ApexFill,
   ApexResponsive,
 } from "ng-apexcharts";
+import { DashboardService } from "../dashboard.service";
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -52,7 +53,8 @@ export class SalesdashboardComponent implements OnInit {
 
   public areaChartOptions: Partial<ChartOptions>;
   public barChartOptions: Partial<ChartOptions>;
-  constructor() {}
+  dasboadCount: any;
+  constructor(public dasboard:DashboardService) {}
   ngOnInit() {
     this.smallChart1();
     this.smallChart2();
@@ -60,6 +62,7 @@ export class SalesdashboardComponent implements OnInit {
     this.smallChart4();
     this.chart1();
     this.chart2();
+    this.getdashboard()
   }
 
   private smallChart1() {
@@ -471,5 +474,11 @@ export class SalesdashboardComponent implements OnInit {
         },
       },
     };
+  }
+  getdashboard(){
+    this.dasboard.getdashboard().subscribe(res=>{
+      this.dasboadCount=res.data
+     console.log(res)  
+  })
   }
 }
