@@ -103,20 +103,20 @@ export class LocationTarrifComponent implements OnInit{
           "lt_name":'',
           "Id":null,
           dailogPage:this.pagename,
-          "from_city":'',
-          "from_country":'',
-          "from_post_code":'',
-          "from_zone":'',
-          "from_region":'',
-          "from_locality":'',
-          "from_state":'',
-          "to_city":'',
-          "to_country":'',
-          "to_post_code":'',
-          "to_zone":'',
-          "to_region":'',
-          "to_locality":'',
-          "to_state":'',
+          "from_city":null,
+          "from_country":null,
+          "from_post_code":null,
+          "from_zone":null,
+          "from_region":null,
+          "from_locality":null,
+          "from_state":null,
+          "to_city":null,
+          "to_country":null,
+          "to_post_code":null,
+          "to_zone":null,
+          "to_region":null,
+          "to_locality":null,
+          "to_state":null,
           "zoneData":this.dropdownzonedata,
           "regionData":this.dropdownregion,
           "cityData":this.dropdowncitydata,
@@ -269,13 +269,14 @@ export class LocationTarrifComponent implements OnInit{
     this.inload=false
     // this.LoaderService.Loaderpage.next(true)
    this.tarrifService.loctarFillvalues().subscribe(res=>{
-    this.dropdownpostcodedata=res.data[5]
-    this.dropdowncoutrydata=res.data[0]
-    this.dropdownzonedata=res.data[1]
-    this.dropdownregion=res.data[2]
-    this.dropdownstate=res.data[3]
-    this.dropdowncitydata=res.data[4]
-    this.dropdownlicality=res.data[6]
+    console.log(res.data.zone)
+    this.dropdownpostcodedata=res.data.postcode
+    this.dropdowncoutrydata=res.data.country
+    this.dropdownzonedata=res.data.zone
+    this.dropdownregion=res.data.region
+    this.dropdownstate=res.data.state
+    this.dropdowncitydata=res.data.city
+    this.dropdownlicality=res.data.locality
 
 
 

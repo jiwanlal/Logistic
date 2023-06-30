@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, map, startWith } from 'rxjs';
@@ -28,10 +28,9 @@ export class TarrifaddComponent implements OnInit {
   filteredrateT:Observable<any>;
   filteredcustomerslist:Observable<any>
   filteredlocationtar:Observable<any>
-  isDisabled:boolean
-
+  dropDownDisable:boolean=false
   locationTarrifForm = new FormGroup({
-    lt_name: new FormControl(this.data.tabledatadeatils.lt_name, []),
+    lt_name: new FormControl(this.data.tabledatadeatils.lt_name, [Validators.required]),
     from_locality: new FormControl(this.data.tabledatadeatils.from_locality, []),
     from_post_code: new FormControl(this.data.tabledatadeatils.from_post_code,[]),
     from_city:new FormControl(this.data.tabledatadeatils.from_city,[]),
@@ -75,7 +74,16 @@ export class TarrifaddComponent implements OnInit {
   loctarfratedropdown: any;
   ratetarflist: any;
   customerslist: any;
-  constructor(public dialogRef: MatDialogRef<TarrifaddComponent>,@Inject(MAT_DIALOG_DATA) public data,private _formBuilder: FormBuilder,public tarrifService:TreeTarriffsService){
+  countrylist: any;
+  zonelist: Observable<any>;
+  regionlist: any;
+  statelist: any;
+  citylist: any;
+  pincodelist: any;
+  localitylist: any;
+  saveDisable: any=true;
+  locationtarriflist: any;
+  constructor(public dialogRef: MatDialogRef<TarrifaddComponent>,@Inject(MAT_DIALOG_DATA) public data,private _formBuilder: FormBuilder,public tarrifService:TreeTarriffsService,private cd: ChangeDetectorRef){
     this.dialogtitle=data.actionName
   }
   ngOnInit(): void {
@@ -91,6 +99,10 @@ export class TarrifaddComponent implements OnInit {
   // } 
   onNoClick(){
     this.dialogRef.close(false);
+  }
+  ngAfterViewInit() {
+    console.log(document);
+    this.cd.detectChanges();
   }
   onlocationTarrifSubmit(item,id){
     console.log(item,id)
@@ -160,6 +172,15 @@ onChangeSearch(data){
   private setFilters(){
     this.ratetarflist=this.data.tabledatadeatils.ratetarftlist
     this.customerslist=this.data.tabledatadeatils.customerslist
+    this.countrylist=this.data.tabledatadeatils.countryData
+    this.zonelist=this.data.tabledatadeatils.zoneData
+    this.regionlist=this.data.tabledatadeatils.regionData
+    this.statelist=this.data.tabledatadeatils.stateData
+    this.citylist=this.data.tabledatadeatils.cityData
+    this.pincodelist=this.data.tabledatadeatils.postcodeData
+    this.localitylist=this.data.tabledatadeatils.localityData
+    this.locationtarriflist=this.data.tabledatadeatils.loctarfratedropdown
+
     this.filteredzone = this.locationTarrifForm.controls.from_zone.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -389,10 +410,18 @@ onChangeSearch(data){
   }
   
   onChangeDrowpDown(value){
-  
+  if(value!=null){
+   this.saveDisable=false
+   this.dropDownDisable=true
+  }
+  else{
+
+    this.saveDisable=true
+
+  }
    console.log(value)
   }
-  Serachdata(v,type){
+  Searcheddata(v,type){
     if(type=='rate'){
 
       this.tarrifService.searchRateTariff(v.term).subscribe(res=>{
@@ -400,14 +429,72 @@ onChangeSearch(data){
         console.log(res)
        })
     }
-    else{
+    else if(type=='customer'){
       this.tarrifService.searchCustomer(v.term).subscribe(res=>{
         this.customerslist=res.data
           console.log(res)
         })
     }
+    else if(type=='country'){
+      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+        this.countrylist=res.data
+        console.log(res)
+      })
+
+    }
+    else if(type=='locationtarrif'){
+      this.tarrifService.searchlocationtar(v.term).subscribe(res=>{
+        this.locationtarriflist=res.data
+      })
+    }
+    else if(type=='locality'){
+      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+        this.localitylist=res.data
+        console.log(res)
+      })
+
+    }
+    else if(type=='city'){
+      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+        this.citylist=res.data
+        console.log(res)
+      })
+
+    }
+    else if(type=='zone'){
+      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+        this.zonelist=res.data
+        console.log(res)
+      })
+
+    }
+    else if(type=='state'){
+      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+        this.statelist=res.data
+        console.log(res)
+      })
+
+    }
+    else if(type=='region'){
+      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+        this.regionlist=res.data
+        console.log(res)
+      })
+
+    }
+    else if(type=='postcode'){
+      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+        this.pincodelist=res.data
+        console.log(res)
+      })
+
+    }
+    
     console.log(v.term)
+    
   }
-  
+  Searchedloctar(item,type){
+  console.log(item,type)
+  }
  
 }

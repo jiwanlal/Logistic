@@ -135,6 +135,14 @@ export class TreeTarriffsService {
     const url = this.API_URL + environment.ratetarf +`?query=`+str
    return this.http.get<any>(url)
   }
+  searchlocationtar(str){
+    const url = this.API_URL + environment.loctarfrate +`?query=`+str
+   return this.http.get<any>(url)
+  }
+  searchedloctar(type,str){
+    const url = this.API_URL + environment.loctarFillvalues +`?locationtype=`+type+'&searchword='+str
+   return this.http.get<any>(url)
+  }
   getratetarfAlldata() {
     const url = this.API_URL + environment.ratetarfdata
     return this.http.get<any>(url)

@@ -52,6 +52,7 @@ export class MainComponent implements OnInit {
 
   public areaChartOptions: Partial<ChartOptions>;
   public barChartOptions: Partial<ChartOptions>;
+  dasboadCount: any;
   constructor(public dasboard:DashboardService) {}
   ngOnInit() {
     this.smallChart1();
@@ -475,6 +476,7 @@ export class MainComponent implements OnInit {
   }
   getdashboard(){
     this.dasboard.getdashboard().subscribe(res=>{
+      this.dasboadCount=res.data
      console.log(res)  
   })
   }

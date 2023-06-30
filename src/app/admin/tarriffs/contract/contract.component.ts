@@ -195,7 +195,7 @@ export class ContractComponent implements OnInit{
   }
   getcustomersdata(){
     this.inload=false
-    // this.LoaderService.Loaderpage.next(true)
+    this.LoaderService.Loaderpage.next(true)
     this.tarrifService.getcustomersdata().subscribe(res=>{
      console.log(res)
      this.dataobject=res

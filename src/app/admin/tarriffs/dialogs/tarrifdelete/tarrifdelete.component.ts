@@ -19,7 +19,7 @@ export class TarrifdeleteComponent {
    
       let sumiteddata={
         action:this.dialogtitle,
-        Id:item.tabledatadeatils.id,
+        Id:item.tabledatadeatils.dailogPage=="contractTarrifDailog"?item.tabledatadeatils.Id:item.tabledatadeatils.id,
         itemsumbited:{name:item.tabledatadeatils.lt_name,
         customername:item.tabledatadeatils.name}
       }
