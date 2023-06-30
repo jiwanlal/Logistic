@@ -4,20 +4,34 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { MainComponent } from "./main/main.component";
 import { Dashboard2Component } from "./dashboard2/dashboard2.component";
+import { PurchasesdashboardComponent } from "./purchasesdashboard/purchasesdashboard.component";
+import { OperationsdashboardComponent } from "./operationsdashboard/operationsdashboard.component";
+import { AccountsdashboardComponent } from "./accountsdashboard/accountsdashboard.component";
+import { SalesdashboardComponent } from "./salesdashboard/salesdashboard.component";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "main",
+    redirectTo: "sales",
     pathMatch: "full",
   },
   {
-    path: "main",
-    component: MainComponent,
+    path: "sales",
+    component: SalesdashboardComponent,
+  },
+
+  {
+    path: "purchases",
+    component: PurchasesdashboardComponent,
   },
   {
-    path: "dashboard2",
-    component: Dashboard2Component,
+    path: "operations",
+    component: OperationsdashboardComponent,
   },
+  {
+    path: "accounts",
+    component: AccountsdashboardComponent,
+  },
+  
   
   { path: "**", component: Page404Component },
 ];
