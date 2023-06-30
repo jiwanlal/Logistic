@@ -56,7 +56,12 @@ export const environment = {
   loctarFillvalues :'tariffs/custfran/loctarf/fillvalues',
   customersdata:'tariffs/custfran/custarf',
   customers:'tariffs/custarf/customers',
-  ratetarf:'tariffs/custarf/ratetarf'
+  ratetarf:'tariffs/custarf/ratetarf',
+  ratetarfdata:'tariffs/custfran/ratetarf',
+  loctarfrate:'tariffs/ratetarf/loctarf',
+  dashboard:'dashboard/dashboard'
+
+
 
 
 

@@ -27,6 +27,8 @@ import { ContractComponent } from './contract/contract.component';
 import { TarrifdeleteComponent } from './dialogs/tarrifdelete/tarrifdelete.component';
 import { RateTarrifComponent } from './rate-tarrif/rate-tarrif.component';
 import { TarrifaddComponent } from './dialogs/tarrifadd/tarrifadd.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 
 
@@ -66,7 +68,8 @@ import { TarrifaddComponent } from './dialogs/tarrifadd/tarrifadd.component';
     SharedModule,
     DatatableModule,
     MatAutocompleteModule,
-    MatIconModule
+    MatIconModule,
+    NgSelectModule
   ],
   entryComponents:[TarrifaddComponent]
 })
