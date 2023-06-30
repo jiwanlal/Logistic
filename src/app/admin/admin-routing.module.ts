@@ -4,7 +4,7 @@ import { AuthGuard } from '../core/guard/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'dashboard',
+    path: 'dashboards',
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
@@ -56,6 +56,8 @@ const routes: Routes = [
   },
   { path: 'search', loadChildren: () => import('./awbsearch/awbsearch.module').then(m => m.AwbsearchModule) },
   { path: 'tariffs', loadChildren: () => import('./tarriffs/tarriffs.module').then(m => m.TreeTarriffsModule) },
+  { path: 'emails', loadChildren: () => import('./email/email.module').then(m => m.EmailModule) },
+  { path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule) },
 ];
 
 @NgModule({
