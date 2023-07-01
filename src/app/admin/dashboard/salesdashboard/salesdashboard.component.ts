@@ -349,11 +349,11 @@ export class SalesdashboardComponent implements OnInit {
     this.areaChartOptions = {
       series: [
         {
-          name: "New Patients",
+          name: "Credit Booking",
           data: [31, 40, 28, 51, 42, 85, 77],
         },
         {
-          name: "Old Patients",
+          name: "Cash Booking",
           data: [11, 32, 45, 32, 34, 52, 41],
         },
       ],

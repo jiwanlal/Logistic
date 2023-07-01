@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Dashboad'" [items]="[]" [active_item]="'Dashboad'"></app-breadcrumb>
+        <app-breadcrumb [title]="'Dashboad'" [items]="[]" [active_item]="'Sales'"></app-breadcrumb>
       </div>
       <!-- Widgets -->
       <div class="row">
@@ -102,7 +102,7 @@
           <div class="card">
             <div class="header">
               <h2>
-                Hospital Survay</h2>
+                Sales</h2>
               <button mat-icon-button [matMenuTriggerFor]="menu" class="header-dropdown">
                 <mat-icon>more_vert</mat-icon>
               </button>
@@ -132,7 +132,7 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
           <div class="card">
             <div class="header">
-              <h2>Common Diseases Report</h2>
+              <h2>Monthly Sales</h2>
               <button mat-icon-button [matMenuTriggerFor]="menu" class="header-dropdown">
                 <mat-icon>more_vert</mat-icon>
               </button>
@@ -166,7 +166,7 @@
           <div class="card">
             <div class="header">
               <h2>
-                Booked Appointment</h2>
+                Office Sales Perfomance</h2>
               <button mat-icon-button [matMenuTriggerFor]="menu" class="header-dropdown">
                 <mat-icon>more_vert</mat-icon>
               </button>
@@ -191,10 +191,10 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Patient Name</th>
-                      <th>Assigned Doctor</th>
-                      <th>Date</th>
-                      <th>Diseases</th>
+                      <th>Office Name</th>
+                      <th>User Name</th>
+                      <th>Month</th>
+                      <th>Sales Amount</th>
                       <th>Actions </th>
                     </tr>
                   </thead>
@@ -323,7 +323,7 @@
           <div class="card">
             <div class="header">
               <h2>
-                Doctors List</h2>
+                User List</h2>
               <button mat-icon-button [matMenuTriggerFor]="menu" class="header-dropdown">
                 <mat-icon>more_vert</mat-icon>
               </button>
@@ -348,8 +348,8 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Doctor Name</th>
-                      <th>Status</th>
+                      <th>User Name</th>
+                      <th>Entries</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -443,7 +443,7 @@
           <div class="card">
             <div class="header">
               <h2>
-                Operations</h2>
+                Customers</h2>
               <button mat-icon-button [matMenuTriggerFor]="menu" class="header-dropdown">
                 <mat-icon>more_vert</mat-icon>
               </button>
@@ -468,11 +468,11 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Parient Name</th>
-                      <th>Doctors Team</th>
-                      <th>Date Of Operation</th>
+                      <th>Customers Name</th>
+                      <th>Team</th>
+                      <th>Date Of Invoice</th>
                       <th>Report</th>
-                      <th>Diseases</th>
+                      <th>Month</th>
                       <th>Actions</th>
                     </tr>
                   </thead>

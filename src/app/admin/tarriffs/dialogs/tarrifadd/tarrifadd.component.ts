@@ -435,60 +435,60 @@ onChangeSearch(data){
           console.log(res)
         })
     }
-    else if(type=='country'){
-      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
-        this.countrylist=res.data
-        console.log(res)
-      })
+    // else if(type=='country'){                             
+    //   this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+    //     this.countrylist=res.data
+    //     console.log(res)
+    //   })
 
-    }
-    else if(type=='locationtarrif'){
-      this.tarrifService.searchlocationtar(v.term).subscribe(res=>{
-        this.locationtarriflist=res.data
-      })
-    }
-    else if(type=='locality'){
-      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
-        this.localitylist=res.data
-        console.log(res)
-      })
+    // }
+    // else if(type=='locationtarrif'){
+    //   this.tarrifService.searchlocationtar(v.term).subscribe(res=>{
+    //     this.locationtarriflist=res.data
+    //   })
+    // }
+    // else if(type=='locality'){
+    //   this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+    //     this.localitylist=res.data
+    //     console.log(res)
+    //   })
 
-    }
-    else if(type=='city'){
-      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
-        this.citylist=res.data
-        console.log(res)
-      })
+    // }
+    // else if(type=='city'){
+    //   this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+    //     this.citylist=res.data
+    //     console.log(res)
+    //   })
 
-    }
-    else if(type=='zone'){
-      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
-        this.zonelist=res.data
-        console.log(res)
-      })
+    // }
+    // else if(type=='zone'){
+    //   this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+    //     this.zonelist=res.data
+    //     console.log(res)
+    //   })
 
-    }
-    else if(type=='state'){
-      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
-        this.statelist=res.data
-        console.log(res)
-      })
+    // }
+    // else if(type=='state'){
+    //   this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+    //     this.statelist=res.data
+    //     console.log(res)
+    //   })
 
-    }
-    else if(type=='region'){
-      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
-        this.regionlist=res.data
-        console.log(res)
-      })
+    // }
+    // else if(type=='region'){
+    //   this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+    //     this.regionlist=res.data
+    //     console.log(res)
+    //   })
 
-    }
-    else if(type=='postcode'){
-      this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
-        this.pincodelist=res.data
-        console.log(res)
-      })
+    // }
+    // else if(type=='postcode'){
+    //   this.tarrifService.searchedloctar(type,v.term).subscribe(res=>{
+    //     this.pincodelist=res.data
+    //     console.log(res)
+    //   })
 
-    }
+    // }
     
     console.log(v.term)
     
