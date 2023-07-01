@@ -142,11 +142,11 @@ export class PurchasesdashboardComponent  implements OnInit {
     this.areaChartOptions = {
       series: [
         {
-          name: "New Patients",
+          name: "Sales Amount",
           data: [31, 40, 28, 51, 42, 85, 77],
         },
         {
-          name: "Old Patients",
+          name: "Expenses Amount",
           data: [11, 32, 45, 32, 34, 52, 41],
         },
       ],
@@ -231,11 +231,11 @@ export class PurchasesdashboardComponent  implements OnInit {
     this.linechartOptions = {
       series: [
         {
-          name: "Male",
+          name: "Income",
           data: [44, 55, 57, 56, 61, 58],
         },
         {
-          name: "Female",
+          name: "Expenses",
           data: [76, 85, 101, 98, 87, 105],
         },
       ],
