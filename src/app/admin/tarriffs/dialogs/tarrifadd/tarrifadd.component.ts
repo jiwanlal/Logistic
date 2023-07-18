@@ -11,6 +11,7 @@ import { TreeTarriffsService } from '../../tarriffs.service';
 })
 export class TarrifaddComponent implements OnInit {
   filteredloctarf_from
+  
   filteredzone:Observable<any>;
   filteredregion:Observable<any>;
   filteredpincode:Observable<any>;
@@ -29,6 +30,8 @@ export class TarrifaddComponent implements OnInit {
   filteredcustomerslist:Observable<any>
   filteredlocationtar:Observable<any>
   dropDownDisable:boolean=false
+  AddedControls:FormArray
+
   locationTarrifForm = new FormGroup({
     lt_name: new FormControl(this.data.tabledatadeatils.lt_name, [Validators.required]),
     from_locality: new FormControl(this.data.tabledatadeatils.from_locality, []),
@@ -85,8 +88,37 @@ export class TarrifaddComponent implements OnInit {
   locationtarriflist: any;
   constructor(public dialogRef: MatDialogRef<TarrifaddComponent>,@Inject(MAT_DIALOG_DATA) public data,private _formBuilder: FormBuilder,public tarrifService:TreeTarriffsService,private cd: ChangeDetectorRef){
     this.dialogtitle=data.actionName
+    
+      
+    
   }
   ngOnInit(): void {
+    if(this.dialogtitle=='Edit'){
+      this.tarrifService.getratetarwithId(this.data.tabledatadeatils.id).subscribe(res=>{
+        console.log(res.data.charges_details,res.data.charges_details.length -1)
+        // this.rateTarrifForm = this._formBuilder.group({
+        //   name: [],
+        //   location_tarrif: [],
+        //   AddedControls: this._formBuilder.array([])
+        // })
+        console.log(res.data.charges_details[0].weight_from)
+        this.AddedControls = this.rateTarrifForm.get('AddedControls') as FormArray;
+        console.log(this.rateTarrifForm.controls.AddedControls["controls"].controls.weight_from.setValidators(Validators.required))
+        for(var i;i=0;i++ ){
+         console.log( this.rateTarrifForm.controls.AddedControls["controls"][i].controls.weight_from.setValue(res.data.charges_details[i].weight_from))
+        }
+        let item={
+          weight_from: res.data.charges_details[0].weight_from,
+          weight_to: res.data.charges_details[0].weight_to,
+          price: res.data.charges_details[0].price,
+          unit: res.data.charges_details[0].unit,
+        }
+        console.log(item)
+        
+          this.updateData(item)    
+        
+      })     
+     }
     console.log('DialogComponent',this.data,this.data.tabledatadeatils.loctarfratedropdown)
     this.setFilters()
   }
@@ -149,19 +181,31 @@ onChangeSearch(data){
  
   }
   }
-  get AddedControls() {
-    return this.rateTarrifForm.get("AddedControls") as FormArray;
-  }
+  // get AddedControls() {
+  //   return this.rateTarrifForm.get("AddedControls") as FormArray;
+  // }
   addcontent(item,data){
-    this.AddedControls.push(
-      new FormGroup({
-        weight_from: new FormControl(""),
-        weight_to: new FormControl(""),
-        unit: new FormControl(""),
-        price: new FormControl(""),
+    this.AddedControls = this.rateTarrifForm.get('AddedControls') as FormArray;
+    this.AddedControls.push(this.createItem());
+    // this.AddedControls.push(
+    //   new FormGroup({
+    //     weight_from: new FormControl(""),
+    //     weight_to: new FormControl(""),
+    //     unit: new FormControl(""),
+    //     price: new FormControl(""),
         
-      })
-    );
+    //   })
+    // );
+
+  }
+  createItem(): FormGroup {
+    return this._formBuilder.group({
+      weight_from: [""],
+      weight_to: [""],
+      unit: [""],
+      price: [""],
+     
+    });
 
   }
   remove(r){
@@ -393,7 +437,7 @@ onChangeSearch(data){
     this.locationTarrifForm.get('from_zone').setValue('')
   }
   onrateTarrifFormSubmit(item,id){
-    console.log(this.rateTarrifForm.value,id)
+    console.log(this.rateTarrifForm.value,id,this.rateTarrifForm.value.addControl)
     if(this.rateTarrifForm.invalid){
      return false
     }
@@ -401,7 +445,8 @@ onChangeSearch(data){
      let sumiteddata={
        action:item,
        id:id,
-       itemsumbited:this.rateTarrifForm.value
+       itemsumbited:this.rateTarrifForm.value,
+       addedcontrols:this.rateTarrifForm.value.addControl
      }
      this.dialogRef.close(sumiteddata)
   
@@ -497,4 +542,21 @@ onChangeSearch(data){
   console.log(item,type)
   }
  
+  createItemitem(item): FormGroup {
+  
+  
+    return this._formBuilder.group({
+      weight_from: [item.weight_from],
+      weight_to: [item.weight_to],
+      unit: [item.unit],
+      price: [item.price],
+    
+
+    });
+
+  }
+  updateData(item){
+    this.AddedControls = this.rateTarrifForm.get('AddedControls') as FormArray;
+    this.AddedControls.push(this.createItemitem(item));
+  }
 }

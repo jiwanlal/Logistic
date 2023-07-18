@@ -52,7 +52,7 @@ export class RateTarrifComponent implements OnInit{
     var dialogdata:any
     if(event.popupForm=='Edit'){
       console.log(event,event.actionName.Id)
-      this.getratetarwithId(event.actionName.Id)
+      // this.getratetarwithId(event.actionName.Id)
 
 
       dialogdata={
@@ -61,10 +61,6 @@ export class RateTarrifComponent implements OnInit{
           name:event.actionName.Name,
           id:event.actionName.Id,
           location_tarrif:event.actionName.LocationTariffId,
-          price:event.actionName,
-          unit:event.actionName,
-          weight_to:event.actionName,
-          weight_from:event.actionName,
           dailogPage:event.actionName.popupForm,
           loctarfratedropdown:this.loctarfratedropdown
 

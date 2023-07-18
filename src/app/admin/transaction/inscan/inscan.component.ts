@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { LoaderService } from 'src/app/core/service/loader.service';
 import { DeleteComponent } from '../dialogs/delete/delete.component';
+import { TransactionService } from '../transaction.service';
 
 @Component({
   selector: 'app-inscan',
@@ -21,9 +22,12 @@ export class InscanComponent {
    public tableheader
    public dataForTable
    public errormessage
-    constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService){ }
+  AllbugsNumberList: any;
+  dataobject: any;
+    constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService,public transactionService: TransactionService){ }
   ngOnInit(): void {
-   // this.Onbranchlist()
+    this.getAllbugNumber()
+    this.getAllinscanData()
     
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -37,6 +41,13 @@ export class InscanComponent {
       panelClass: colorName,
     });
   }
+  getAllbugNumber(){
+    this.transactionService.getAllbugNumber().subscribe(res=>{
+      this.AllbugsNumberList=res.data
+    console.log(res)
+    })
+  }
+  
   addItem(event){
     console.log(event)
     if(event.popupForm=='Edit'||event.popupForm=='Add')
@@ -57,10 +68,13 @@ export class InscanComponent {
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
-          name:event.actionName.branch_type,
-          id:event.actionName.branch_type_id,
-          description:event.actionName.description,
-          dailogPage:event.actionName.dailogPage
+          receiving_date:event.actionName.ReceivingDate,
+          bag_number:event.actionName.BagNumber,
+          id:event.actionName.Id,
+          awb_number:event.actionName.AwbNumber,
+          weight:event.actionName.Weight,
+          dailogPage:this.pagename,
+          bugNumberList:this.AllbugsNumberList
           }
         
       }
@@ -69,10 +83,13 @@ export class InscanComponent {
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
-          name:'',
-          description:'',
+          receiving_date:null,
+          bag_number:null,
           id:null,
-          dailogPage:this.pagename
+          awb_number:null,
+          weight:null,
+          dailogPage:this.pagename,
+          bugNumberList:this.AllbugsNumberList
           }
         
       }
@@ -98,15 +115,18 @@ export class InscanComponent {
      });
   }
   Ondelete(event){
-  
+  console.log(event)
     const dialogRef=this.dialog.open(DeleteComponent, {
      
       data: { actionName:event.popupForm,
         tabledatadeatils:{
-          name:event.actionName.branch_type,
-          id:event.actionName.branch_type_id,
-          description:event.actionName.description,
-          dailogPage:event.actionName.dailogPage
+          receiving_date:event.actionName.ReceivingDate,
+          bag_number:event.actionName.BagNumber,
+          id:event.actionName.Id,
+          awb_number:event.actionName.AwbNumber,
+          weight:event.actionName.Weight,
+          dailogPage:this.pagename,
+          bugNumberList:this.AllbugsNumberList
           }
         
       },
@@ -125,97 +145,97 @@ export class InscanComponent {
   }
   updateRowData(row_obj){
     console.log(row_obj)
-    let itemvalue={branch_type:row_obj.itemsumbited.CommonName,description:row_obj.itemsumbited.description}
-      // this.bussinessservice.branchput(row_obj.id,itemvalue).subscribe(res=>{
-      //   console.log(res)
-      //   this.showNotification(
-      //     "black",
-      //     "Edit Record Successfully...!!!",
-      //     "top",
-      //     "right"
-      //   );
-      //   this.Onbranchlist()
-      // })
+    let itemvalue={ins_receiving_date:row_obj.itemsumbited.recdate,ins_bag_number:row_obj.itemsumbited.begnumber,ins_awb_number:row_obj.itemsumbited.awbnumber,ins_weight:row_obj.itemsumbited.weight}
+      this.transactionService.inscanput(row_obj.Id,itemvalue).subscribe(res=>{
+        console.log(res)
+        this.showNotification(
+          "black",
+          "Edit Record Successfully...!!!",
+          "top",
+          "right"
+        );
+        this.getAllinscanData()
+      })
      
     }
   
   addRowData(row_obj){
    
     console.log(row_obj)
-    let itemvalue={branch_type:row_obj.itemsumbited.CommonName,description:row_obj.itemsumbited.description}
-      // this.bussinessservice.branchpost(itemvalue).subscribe(res=>{
-      //   console.log(res)
-      //   this.showNotification(
-      //     "snackbar-success",
-      //     "Add Record Successfully...!!!",
-      //     "top",
-      //     "right"
-      //   );
-      //   this.Onbranchlist()
-      // })
+    let itemvalue={ins_receiving_date:row_obj.itemsumbited.recdate,ins_awb_number:row_obj.itemsumbited.awbnumber,ins_weight:row_obj.itemsumbited.weight,ins_bag_number:row_obj.itemsumbited.begnumber
+     }
+      this.transactionService.postAllinscanData(itemvalue).subscribe(res=>{
+        console.log(res)
+        this.showNotification(
+          "snackbar-success",
+          "Add Record Successfully...!!!",
+          "top",
+          "right"
+        );
+        this.getAllinscanData()
+      })
     console.log(this.dataForTable)
    }
   deleteRowData(row_obj){
-  //   this.bussinessservice.branchdelete(row_obj.id).subscribe(res=>{
-  //   this.showNotification(
-  //     "snackbar-danger",
-  //     row_obj.itemsumbited.name + " Record Delete Successfully...!!!",
-  //     "top",
-  //     "right"
-  //   );
-  //   this.Onbranchlist()
-  // })
+    this.transactionService.inscandelete(row_obj.Id).subscribe(res=>{
+    this.showNotification(
+      "snackbar-danger",
+      row_obj.Id + " Record Delete Successfully...!!!",
+      "top",
+      "right"
+    );
+    this.getAllinscanData()
+  })
   }
   
-  Onbranchlist(){
+  getAllinscanData(){
     this.inload=false
     this.LoaderService.Loaderpage.next(true)
-    // this.bussinessservice.getbranchlist().subscribe(res=>{
-    //   console.log(res)
-    //   this.dataobject=res
-    //   this.errormessage=res['message']
-    //   if(this.dataobject.success==true){
+    this.transactionService.getAllinscanData().subscribe(res=>{
+      console.log(res)
+      this.dataobject=res
+      this.errormessage=res['message']
+      if(this.dataobject.success==true){
         
    
-    //     let tableColNamesFromAPI=[]
-    //       let tableColNamesWithSpace={}
-    //     if(this.dataobject.data.values){
+        let tableColNamesFromAPI=[]
+          let tableColNamesWithSpace={}
+        if(this.dataobject.data.values){
            
-    //           this.dataobject.data.values.forEach(element => {
-    //               element.popupForm=this.pagename
-    //              })
+              this.dataobject.data.values.forEach(element => {
+                  element.popupForm=this.pagename
+                 })
       
-    //             tableColNamesFromAPI=Object.keys(this.dataobject.data.values[0])
-    //             for(let i=0;i<tableColNamesFromAPI.length;i++){
-    //               tableColNamesWithSpace[tableColNamesFromAPI[i]] = this.insertSpaces(tableColNamesFromAPI[i])
-    //             }
-    //             this.tableheader=tableColNamesWithSpace
-    //             this.tableheader.branch_type='Branch Type'
-    //             this.tableheader.branch_type_id='Branch Id'
-    //             delete this.tableheader.actionIcons
-    //             delete this.tableheader.popupForm
-    //             delete this.tableheader.isVisible
-    //             delete this.tableheader.id
-    //             delete this.tableheader.dailogPage
-    //             delete this.tableheader.updated_at
-    //             delete this.tableheader.updated_by
-    //             delete this.tableheader.created_by
-    //             delete this.tableheader.created_at
+                tableColNamesFromAPI=Object.keys(this.dataobject.data.values[0])
+                for(let i=0;i<tableColNamesFromAPI.length;i++){
+                  tableColNamesWithSpace[tableColNamesFromAPI[i]] = this.insertSpaces(tableColNamesFromAPI[i])
+                }
+                this.tableheader=tableColNamesWithSpace
+             
+                delete this.tableheader.actionIcons
+                delete this.tableheader.popupForm
+                delete this.tableheader.isVisible
+                delete this.tableheader.id
+                delete this.tableheader.dailogPage
+                delete this.tableheader.updated_at
+                delete this.tableheader.updated_by
+                delete this.tableheader.created_by
+                delete this.tableheader.created_at
                 
-    //             this.dataForTable= this.dataobject.data.values
-    //             console.log(this.dataobject.data.values, this.tableheader)
+                this.dataForTable= this.dataobject.data.values
+                console.log(this.dataobject.data.values, this.tableheader)
                 
-    //     }
-    //     this.inload=true
-    //     }
-    //     this.LoaderService.Loaderpage.next(false)
-    // })
+        }
+        this.inload=true
+        }
+        this.LoaderService.Loaderpage.next(false)
+    })
   
   
   
     
   }
-     
+
     insertSpaces(string) {
       string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
       string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')

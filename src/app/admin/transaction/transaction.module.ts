@@ -27,6 +27,14 @@ import { AddeditComponent } from './dialogs/addedit/addedit.component';
 import { DeleteComponent } from './dialogs/delete/delete.component';
 import { DrsofdComponent } from './drsofd/drsofd.component';
 import { DeliveryComponent } from './delivery/delivery.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxMatDatetimePickerModule,NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { DrspodComponent } from './drspod/drspod.component';
+
+
+
 
 
 
@@ -36,7 +44,8 @@ import { DeliveryComponent } from './delivery/delivery.component';
     AddeditComponent,
     DeleteComponent,
     DrsofdComponent,
-    DeliveryComponent
+    DeliveryComponent,
+    DrspodComponent
 
   ],
   imports: [
@@ -63,7 +72,19 @@ import { DeliveryComponent } from './delivery/delivery.component';
     ComponentsModule,
     SharedModule,
     DatatableModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NgSelectModule,
+    NgxMatDatetimePickerModule,
+    MatMomentDateModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    TimepickerModule.forRoot()
+    
+
+    
+    
+
+    
   ],
   providers:[TransactionService],
   exports:[AddeditComponent,DeleteComponent]

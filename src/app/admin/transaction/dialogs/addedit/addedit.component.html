@@ -1,166 +1,259 @@
 
-<form class=" m-4" *ngIf="this.data.tabledatadeatils.dailogPage=='inscanDailog'">
+<form class=" m-4" *ngIf="this.data.tabledatadeatils.dailogPage=='inscanDailog'" [formGroup]="inscalForm">
     <div class="row">
         <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Receiving</mat-label>
-                <input matInput required>
-
+                <mat-label>Receiving Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="recdate">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <!-- <mat-error *ngIf="formdata.get('purchasedate').hasError('required')">
+                    Purchase date is required
+                </mat-error> -->
             </mat-form-field>
         </div>
         <div class="col-lg-12">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Bag Number</mat-label>
-                <input matInput>
-            </mat-form-field>
+            
+            <ng-select (focusout)="focusoutChange(inscalForm.controls.begnumber.value,'First')" 
+                            formControlName="begnumber" name="begnumber" placeholder="Select Beg Number"  
+                                 class="ng-select-bold-border chips-control" [ngClass]="{'error': inscalForm.controls['begnumber'].invalid}">
+                     <ng-option *ngFor="let item of bugNumberList" [value]="item.id">{{item.id}} </ng-option>
+            </ng-select>
         </div>
 
         <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Awb Number</mat-label>
-                <input matInput required>
+                <input matInput required formControlName="awbnumber" (keyup)="applyFilter($event.target.value)">
 
             </mat-form-field>
         </div>
         <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Weight</mat-label>
-                <input matInput>
+                <input matInput formControlName="weight" (keyup)="changeEvent($event.target.value)">
             </mat-form-field>
         </div>
     </div>
 </form>
-<form class=" m-4" *ngIf="this.data.tabledatadeatils.dailogPage=='drsofdDailog'">
+<form class=" m-4" *ngIf="this.data.tabledatadeatils.dailogPage=='drsofdDailog'" [formGroup]="drsofdForm">
     <div class="row">
         <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Office Name</mat-label>
-                <input matInput required>
+                <input matInput required formControlName="officeName" readonly>
 
             </mat-form-field>
         </div>
         <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Delivery Date</mat-label>
-                <input matInput>
+                <input matInput [matDatepicker]="picker" formControlName="delivery_date">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
 
+        <div class="col-lg-12">
+            <ng-select 
+                 formControlName="deliveryBoy" name="deliveryBoy" placeholder="Select" 
+                 class="ng-select-bold-border chips-control" [ngClass]="{'error': drsofdForm.controls['deliveryBoy'].invalid}">
+             <ng-option *ngFor="let item of deliveryBoylist" [value]="item.id">{{item.first_name}} </ng-option>
+            </ng-select>
+           
+        </div>
         <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Awb Number</mat-label>
-                <input matInput required>
-
-            </mat-form-field>
-        </div>
-        <div class="col-lg-12">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Delivery Boy </mat-label>
-                <input matInput>
-            </mat-form-field>
-        </div>
-        <div class="col-lg-12">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>AWB No </mat-label>
-                <input matInput>
+                <input matInput formControlName="awbNumber" (keyup)="awbNumberSearch($event.target.value)">
             </mat-form-field>
         </div>
     </div>
 </form>
-<form class=" m-4" *ngIf="this.data.tabledatadeatils.dailogPage=='deliveryDailog'">
+<form class=" m-4" *ngIf="this.data.tabledatadeatils.dailogPage=='deliveryDailog'" [formGroup]="deliveryForm">
     <div class="row">
         <div class="col-lg-12">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Office Name</mat-label>
-                <input matInput required>
 
-            </mat-form-field>
+            <ng-select 
+                  name="deliveryBoy" placeholder="Office Name" formControlName="office_id" (focusout)="Searcheddata(deliveryForm.controls.office_id.value)"
+                 class="ng-select-bold-border chips-control" >
+             <ng-option *ngFor="let item of deliveryOffice" [value]="item.office_id">{{item.office_name}} </ng-option>
+            </ng-select>
         </div>
         <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Delivery Date</mat-label>
-                <input matInput>
+                <input matInput [matDatepicker]="picker" formControlName="dl_delivery_date">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
 
         <div class="col-lg-12">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Awb Number</mat-label>
-                <input matInput required>
-
-            </mat-form-field>
+           
+            <ng-select 
+                name="deliveryBoy" placeholder="Awb Number" 
+                class="ng-select-bold-border chips-control" formControlName="drs_id" (focusout)="Searcheddatatab(deliveryForm.controls.drs_id.value)">
+             <ng-option *ngFor="let item of awbofficeData" [value]="item.drs_id">{{item.awb_number}} </ng-option>
+            </ng-select>
         </div>
-        <div class="col-lg-12">
+        <!-- <div class="col-lg-12">
+            <mat-form-field>
+                <input matInput [ngxMatDatetimePicker]="picker" placeholder="Office Delivery Time" [formControl]="dl_delivery_date"
+                   [min]="minDate" [max]="maxDate" [disabled]="disabled">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+              [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="touchUi"
+              [color]="color" [enableMeridian]="enableMeridian">
+            </ngx-mat-datetime-picker>
+             </mat-form-field>
+             
+        </div> -->
+        <!-- <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Office Delivery Time</mat-label>
                 <input matInput>
             </mat-form-field>
-        </div>
+        </div> -->
         <div class="col-lg-12">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Proof Time</mat-label>
-                <input matInput>
-            </mat-form-field>
-        </div>
-        <div class="col-lg-12">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Proof Of Delivery</mat-label>
-                <input matInput>
-            </mat-form-field>
+          
+
+                <ng-select 
+                      name="deliveryBoy" placeholder="Proof Of Delivery" 
+                     class="ng-select-bold-border chips-control" formControlName="proof_of_delivery">
+                 <ng-option *ngFor="let item of deliveryProof" [value]="item.pod_id">{{item.pod_name}} </ng-option>
+                </ng-select>
+           
         </div>
         <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Reciver Name</mat-label>
-                <input matInput>
+                <input matInput formControlName="reciver_name">
             </mat-form-field>
         </div>
         <div class="col-lg-12">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Reciver Phone</mat-label>
-                <input matInput>
+                <input matInput formControlName="reciver_phone">
             </mat-form-field>
         </div>
     </div>
 </form>
- 
+  <!-- <div class="container-fluid mt-3 mb-5 position-relative admin-side-table">
+    <div *ngIf="dataSource.filteredData.length==0" class="norecordsfound">
+      <mat-icon class="text-danger">warning</mat-icon>No Record Found
+    </div>
+  </div> -->
     <div class="mt-4 table-responsive">
-        <div class="table table-bordered">
-            <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th><mat-checkbox></mat-checkbox></th>
-                    <th>Origin Office</th>
-                    <th>Destination</th>
-                    <th>Tatal Awb</th>
-                    <th>Mode</th>
-                    <th>Total Weight</th>
-                    <th>Dispatch Date</th>
-                </tr>
-
-            </thead>
-            <tbody>
-                <tr>
-                    <td><mat-checkbox></mat-checkbox></td>
-                    <td>f</td>
-                    <td>f</td>
-                    <td>f</td>
-                    <td>f</td>
-                    <td>f</td>
-                    <td>f</td>
-                    
-                </tr>
-            </tbody>
-        </table>
-        </div>
+        
        
+        <div class="canvas-panel-box">
+            <!-- <as-split direction="vertical" restrictMove="false" [gutterSize]="0">
+        
+              <as-split-area size="90" class="canvas-droppanel CanvaPanelClass position-relative"
+                [hidden]="dataSource.length==0"> -->
+                <table mat-table [dataSource]="dataSource" class="elevationClass">
+                  <!-- <tr  *matHeaderRowDef="displayedColumns; sticky: true"></tr> -->
+                  <ng-container matColumnDef="OriginOffice" sticky>
+                    <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> Origin Office </th>
+                    <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass DgridClS hovertd" (click)="cellClicked(element.awb_number)">
+                      <div class="p-1">{{element.origin_office_name}}</div>
+                    </td>
+                  </ng-container>
+        
+                  <ng-container matColumnDef="Destination">
+                    <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> Destination </th>
+                    <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigUsrClass">
+                      <div class="DispgridCls p-1">{{element.destination_office_name}}</div>
+                    </td>
+                  </ng-container>
+        
+                  <ng-container matColumnDef="TatalAwb">
+                    <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead">Tatal Awb </th>
+                    <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass">
+                   
+                        <!-- <div class="d-flex align-items-center"><span>{{element.NextQuickRouterRun}}</span>
+                        </div> -->
+                     
+                    </td>
+                  </ng-container>
+        
+                  <ng-container matColumnDef="Mode">
+                    <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> Mode </th>
+                    <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass">
+                      
+                        <!-- <div class="d-flex align-items-center"><span>{{element.NextRouterRun}}</span></div> -->
+                    </td>
+                  </ng-container>
+        
+                  <ng-container matColumnDef="TotalWeight">
+                    <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> Total Weight </th>
+                    <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass">
+                      
+                       
+                        <!-- <div class="d-flex align-items-center"><span>{{element.NextContactRouterRun }}</span>
+                        </div> -->
+                      
+                    </td>
+                  </ng-container>
+        
+                  <ng-container matColumnDef="DispatchDate">
+                    <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> Dispatch Date </th>
+                    <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass">
+                     
+                        <!-- <div class="d-flex align-items-center"><span>{{element.NextAccountRouterRun | date:'hh:mm:ss'}}</span>
+                        </div> -->
+                     
+                    </td>
+                  </ng-container>
+        
+                  <ng-container matColumnDef="AwbNumber">
+                    <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> Awb Number </th>
+                    <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass">
+                    
+                        
+                        <div class="d-flex align-items-center"><span>{{element.awb_number}}</span>
+                        </div>
+                    
+                    </td>
+                  </ng-container>
+        
+                  
+        
+                  <!-- <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef class="pr-0 pl-0 text-center"> Actions </th>
+                    <td mat-cell *matCellDef="let element = index"
+                      class="pr-0 pl-1Class d-flex justify-content-center HeigClass">
+                      <button mat-icon-button color="primary"               
+                        matTooltip="View" 
+                        matTooltipClass="custom-tooltip-style"
+                        (click)="openDialog(element+currentPage*pageSize)"><mat-icon>visibility</mat-icon></button>
+                    </td>
+                  </ng-container> -->
+        
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+        
+              <!-- </as-split-area>
+              <as-split-area size="10" class="canvas-droppanel position-relative">
+                <mat-paginator class="PaginatorClass" [hidden]="dataSource.filteredData.length==0" #paginator
+                  [pageIndex]="this.ClientType == this.ClientStatusRunningForm.value.ClientType ? this.paginator.pageIndex : 0"
+                  [length]="pageLength" (page)="handlePageEvent($event)" [pageSize]="pageSize"
+                  [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="showFirstLastButtons"
+                  [ngClass]="{'paginatorLine': dataSource.length === 0}">
+                </mat-paginator>
+              </as-split-area>
+            </as-split> -->
+          </div>
     </div>
 
     <mat-dialog-actions align="end">
         <div class="m-4">
             <div class="row ">
                 <div class="col-xl-12">
-                    <button class="btn-space" mat-raised-button color="primary" [mat-dialog-close]="1" >Save</button>
-                    <button type="button" mat-raised-button color="warn" [mat-dialog-close]="1" >Reset</button>
+                    <button class="btn-space" mat-raised-button color="primary" [mat-dialog-close]="1" [disabled]="this.data.tabledatadeatils.dailogPage=='inscanDailog'?(!inscalForm.valid || buttonDisabled): !drsofdForm.valid" (click)="this.data.tabledatadeatils.dailogPage=='inscanDailog'?oninscanSubmit(data.actionName,data.tabledatadeatils.id):this.data.tabledatadeatils.dailogPage=='drsofdDailog'?onSubmitdrsofd(data.actionName,data.tabledatadeatils.id):onSubmitDelivery(data.actionName,data.tabledatadeatils.id)">Save</button>
+                    <button type="button" mat-raised-button color="warn" [mat-dialog-close]="1" >Cancel</button>
                 </div>
             </div>
         </div>

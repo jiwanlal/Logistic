@@ -58,7 +58,23 @@ export const environment = {
   ratetarf:'tariffs/custarf/ratetarf',
   ratetarfdata:'tariffs/custfran/ratetarf',
   loctarfrate:'tariffs/ratetarf/loctarf',
-  dashboard:'dashboard/dashboard'
+  dashboard:'dashboard/dashboard',
+  bugnumber:'inscans/inscan/bags',
+  awb:'inscans/inscan/awb',
+  inscan:'inscans/inscan',
+  drs:'drs/drs',
+  deliveryboys:'drs/drs/deliveryboys',
+  drsawb:'drs/drs/awb',
+  delivery:'deliveries/delivery',
+  deliveryoffice:'deliveries/delivery/office',
+  proof:'deliveries/delivery/proof',
+  officeawb:'deliveries/delivery/office/awb',
+  drsforimage:'drs/drsforimage',
+  image:'drs/drs/image',
+  desofd:'images/drs_ofd',
+  drsimage:'drs/drs/image/drs',
+  awbimage:'drs/drs/image/awb'
+
 
 
 

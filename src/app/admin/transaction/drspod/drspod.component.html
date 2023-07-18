@@ -1,0 +1,176 @@
+
+
+
+
+<section class="content ">
+    <div class="content-block">
+      <div class="block-header ">
+        <!-- breadcrumb -->
+        <!-- <app-breadcrumb [title]="'Ambulance List'" [items]="['Ambulance']" [active_item]="'List'">
+        </app-breadcrumb> -->
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+              <div *ngIf="this.errormessage=='Unauthorized'" class="text-center">
+                <mat-icon color="warn">report_problem</mat-icon><br>
+                You are not authorized
+              </div>
+
+              <div class="responsive_table" *ngIf="this.errormessage!='Unauthorized'">
+                <form class=" m-4"  [formGroup]="drspoddForm">
+                    <div class="materialTableHeader">
+                        <div class="row">
+                          <div class="col-8">
+                            <ul class="header-buttons-left ms-0">
+                              <li class="tbl-title">
+                                <h2>DRS/POD</h2>
+                              </li>
+                              <li class="tbl-search-box">
+                                  <ng-select  
+                                     formControlName="dropdownType" name="dropdownType" placeholder="Select"
+                                       class="ng-select-bold-border chips-control">
+                                     <ng-option value="drs">DRS</ng-option>
+                                     <ng-option value="awb">AWB Number</ng-option>
+                                  </ng-select>
+                                <!-- <app-datafilter></app-datafilter> -->
+                              </li>
+                              <li>
+                                  <input matInput required formControlName="Searchvalue" (focusout)="Searcheddata($event.target.value,drspoddForm.controls.dropdownType.value)">
+       
+                              </li>
+                              <li>
+                                <button [disabled]="uploadDisabled" (click)="onuploadProfileimg(drspoddForm.value)">Upload
+                                  <!-- <i class="material-icons">image</i> -->
+                                </button>
+                              </li>
+                            
+                          
+                            </ul>
+                            <ul>  
+                                <!-- <div class="profileimg"> -->
+                                <!-- <img src="{{userImg}}" class="user-img" width="110" alt=""> -->
+                             
+                                <!-- </div> -->
+                            </ul>
+                          </div>
+                       
+                        </div>
+                        <div>
+                          <div class="mt-4 table-responsive">
+        
+       
+                            <div class="canvas-panel-box">
+                                <!-- <as-split direction="vertical" restrictMove="false" [gutterSize]="0">
+                            
+                                  <as-split-area size="90" class="canvas-droppanel CanvaPanelClass position-relative"
+                                    [hidden]="dataSource.length==0"> -->
+                                    <table mat-table [dataSource]="dataSource" class="elevationClass">
+                                      <!-- <tr  *matHeaderRowDef="displayedColumns; sticky: true"></tr> -->
+                                      <ng-container matColumnDef="Id" sticky>
+                                        <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> ID</th>
+                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass DgridClS hovertd" (click)="cellClicked(element.AwbNumber,element.Id,element.InscanId)">
+                                          <div class="p-1">{{element.Id}}</div>
+                                        </td>
+                                      </ng-container>
+                            
+                                      <ng-container matColumnDef="DeliveryBoyFirstName">
+                                        <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> Delivery Boy FirstName </th>
+                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigUsrClass">
+                                          <div class="DispgridCls p-1">{{element.DeliveryBoyFirstName}}</div>
+                                        </td>
+                                      </ng-container>
+                            
+                                      <ng-container matColumnDef="DeliveryBoyEmail">
+                                        <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead">Delivery Boy Email </th>
+                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass">
+                                       
+                                             <div class="d-flex align-items-center"><span>{{element.DeliveryBoyEmail}}</span>
+                                            </div> 
+                                         
+                                        </td>
+                                      </ng-container>
+                            
+                                      <ng-container matColumnDef="AwbNumber">
+                                        <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> Awb Number </th>
+                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass">
+                                          
+                                            <div class="d-flex align-items-center"><span>{{element.AwbNumber}}</span></div>
+                                        </td>
+                                      </ng-container>
+                            
+                                      <ng-container matColumnDef="status">
+                                        <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> status </th>
+                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass">
+                                          
+                                           
+                                            <div class="d-flex align-items-center"><span>{{element.status }}</span>
+                                            </div>
+                                          
+                                        </td>
+                                      </ng-container>
+                            
+                                      <ng-container matColumnDef="InscanId">
+                                        <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> InscanId </th>
+                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass">
+                                         
+                                            <div class="d-flex align-items-center"><span>{{element.InscanId}}</span>
+                                            </div>
+                                         
+                                        </td>
+                                      </ng-container>
+                            
+                                      <!-- <ng-container matColumnDef="AwbNumber">
+                                        <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> Awb Number </th>
+                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass">
+                                        
+                                            
+                                            <div class="d-flex align-items-center"><span>{{element.awb_number}}</span>
+                                            </div>
+                                        
+                                        </td>
+                                      </ng-container> -->
+                            
+                                      
+                            
+                                      <!-- <ng-container matColumnDef="Actions">
+                                        <th mat-header-cell *matHeaderCellDef class="pr-0 pl-0 text-center"> Actions </th>
+                                        <td mat-cell *matCellDef="let element = index"
+                                          class="pr-0 pl-1Class d-flex justify-content-center HeigClass">
+                                          <button mat-icon-button color="primary"               
+                                            matTooltip="View" 
+                                            matTooltipClass="custom-tooltip-style"
+                                            (click)="openDialog(element+currentPage*pageSize)"><mat-icon>visibility</mat-icon></button>
+                                        </td>
+                                      </ng-container> -->
+                            
+                                      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+                                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    </table>
+                            
+                                  <!-- </as-split-area>
+                                  <as-split-area size="10" class="canvas-droppanel position-relative">
+                                    <mat-paginator class="PaginatorClass" [hidden]="dataSource.filteredData.length==0" #paginator
+                                      [pageIndex]="this.ClientType == this.ClientStatusRunningForm.value.ClientType ? this.paginator.pageIndex : 0"
+                                      [length]="pageLength" (page)="handlePageEvent($event)" [pageSize]="pageSize"
+                                      [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="showFirstLastButtons"
+                                      [ngClass]="{'paginatorLine': dataSource.length === 0}">
+                                    </mat-paginator>
+                                  </as-split-area>
+                                </as-split> -->
+                              </div>
+                        </div>
+                        </div>
+                      </div>
+                </form>
+                
+                <app-datatable *ngIf="inload" (dataChange)="addItem($event)"  [tabledata]="dataForTable"  [tableheader]="tableheader"></app-datatable>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

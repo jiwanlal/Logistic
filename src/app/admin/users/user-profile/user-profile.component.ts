@@ -49,6 +49,7 @@ export class UserProfileComponent implements OnInit {
  public userImg
   constructor(public userservice:UsersService,public businessservice:BusinessesService, public authservice:AuthService,private snackBar: MatSnackBar,public dialog: MatDialog,public formBuilder: FormBuilder,) {}
   ngOnInit(): void {
+    console.log(this.authservice)
     const id= this.authservice.currentUserValue.id
     this.userrole = this.authservice.currentUserValue.role;
     this.userImg = this.authservice.currentUserValue.img=='[object Object]'||this.authservice.currentUserValue.img==''||this.authservice.currentUserValue.img==null?this.img:this.imgurl+this.authservice.currentUserValue.img;
@@ -232,6 +233,7 @@ export class UserProfileComponent implements OnInit {
     }
   }
   onuploadProfileimg(){
+    console.log('test')
         const dialogRef=this.dialog.open(ProfileuploadComponent, {
           data:'',
            minWidth:'475px'

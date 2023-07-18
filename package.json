@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.1.0",
+    "@angular-material-components/datetime-picker": "^9.0.0",
     "@angular/animations": "^15.0.3",
     "@angular/cdk": "^15.0.2",
     "@angular/common": "^15.0.3",
@@ -58,6 +59,7 @@
     "ng-pick-datetime": "^7.0.0",
     "ng2-charts": "^2.4.2",
     "ng2-dragula": "^2.1.1",
+    "ngx-bootstrap": "^10.2.0",
     "ngx-dropzone-wrapper": "^13.0.0",
     "ngx-echarts": "^15.0.1",
     "ngx-gauge": "^6.0.0",

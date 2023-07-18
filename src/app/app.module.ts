@@ -52,6 +52,7 @@ export function createTranslateLoader(http: HttpClient): any {
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptorService, multi: true },
+        
     ],
     bootstrap: [AppComponent],
     imports: [

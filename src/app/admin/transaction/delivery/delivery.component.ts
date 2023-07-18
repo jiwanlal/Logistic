@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddeditComponent } from '../dialogs/addedit/addedit.component';
 import { DeleteComponent } from '../dialogs/delete/delete.component';
 import { LoaderService } from 'src/app/core/service/loader.service';
+import { TransactionService } from '../transaction.service';
 
 @Component({
   selector: 'app-delivery',
@@ -22,10 +23,14 @@ export class DeliveryComponent {
    public tableheader
    public dataForTable
    public errormessage
-    constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService){ }
+  dataobject: any;
+  deliveryOffice: any;
+  deliveryProof: any;
+    constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService,public TranscationService:TransactionService){ }
   ngOnInit(): void {
-   // this.Onbranchlist()
-    
+   this.getAlldeliverydata()
+   this.getdeliveryoffice()
+   this.getdeliveryproof() 
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes)
@@ -58,10 +63,16 @@ export class DeliveryComponent {
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
-          name:event.actionName.branch_type,
-          id:event.actionName.branch_type_id,
-          description:event.actionName.description,
-          dailogPage:event.actionName.dailogPage
+          reciver_name:event.actionName.ReciverName,
+          reciver_phone:event.actionName.ReciverPhone,
+          proof_of_delivery:event.actionName.ProofOfDeliveryId,
+          dl_delivery_date:event.actionName.DeliveryDate,
+          drs_id:event.actionName.drs_id,
+          office_id:event.actionName.OfficeId,
+          id:event.actionName.Id,
+          dailogPage:this.pagename,
+          deliveryOffice:this.deliveryOffice,
+          deliveryProof:this.deliveryProof
           }
         
       }
@@ -70,10 +81,16 @@ export class DeliveryComponent {
       dialogdata={
         actionName:event.popupForm,
         tabledatadeatils:{
-          name:'',
-          description:'',
+          reciver_name:'',
+          reciver_phone:'',
+          proof_of_delivery:null,
+          dl_delivery_date:'',
+          drs_id:null,
+          office_id:null,
           id:null,
-          dailogPage:this.pagename
+          dailogPage:this.pagename,
+          deliveryOffice:this.deliveryOffice,
+          deliveryProof:this.deliveryProof
           }
         
       }
@@ -104,10 +121,17 @@ export class DeliveryComponent {
      
       data: { actionName:event.popupForm,
         tabledatadeatils:{
-          name:event.actionName.branch_type,
-          id:event.actionName.branch_type_id,
-          description:event.actionName.description,
-          dailogPage:event.actionName.dailogPage
+          reciver_name:event.actionName.ReciverName,
+          reciver_phone:event.actionName.ReciverPhone,
+          proof_of_delivery:event.actionName.ProofOfDeliveryId,
+          dl_delivery_date:event.actionName.DeliveryDate,
+          drs_id:event.actionName.drs_id,
+          office_id:event.actionName.OfficeId,
+          id:event.actionName.Id,
+          dailogPage:this.pagename,
+          deliveryOffice:this.deliveryOffice,
+          deliveryProof:this.deliveryProof
+          
           }
         
       },
@@ -126,91 +150,90 @@ export class DeliveryComponent {
   }
   updateRowData(row_obj){
     console.log(row_obj)
-    let itemvalue={branch_type:row_obj.itemsumbited.CommonName,description:row_obj.itemsumbited.description}
-      // this.bussinessservice.branchput(row_obj.id,itemvalue).subscribe(res=>{
-      //   console.log(res)
-      //   this.showNotification(
-      //     "black",
-      //     "Edit Record Successfully...!!!",
-      //     "top",
-      //     "right"
-      //   );
-      //   this.Onbranchlist()
-      // })
+    let itemvalue={office_id:row_obj.itemsumbited.office_id,drs_id:row_obj.itemsumbited.drs_id,dl_delivery_date:row_obj.itemsumbited.dl_delivery_date,proof_of_delivery:row_obj.itemsumbited.proof_of_delivery,reciver_phone:row_obj.itemsumbited.reciver_phone,reciver_name:row_obj.itemsumbited.reciver_name}
+      this.TranscationService.Alldeliverydataput(row_obj.Id,itemvalue).subscribe(res=>{
+        console.log(res)
+        this.showNotification(
+          "black",
+          "Edit Record Successfully...!!!",
+          "top",
+          "right"
+        );
+        this.getAlldeliverydata()
+      })
      
     }
   
   addRowData(row_obj){
    
     console.log(row_obj)
-    let itemvalue={branch_type:row_obj.itemsumbited.CommonName,description:row_obj.itemsumbited.description}
-      // this.bussinessservice.branchpost(itemvalue).subscribe(res=>{
-      //   console.log(res)
-      //   this.showNotification(
-      //     "snackbar-success",
-      //     "Add Record Successfully...!!!",
-      //     "top",
-      //     "right"
-      //   );
-      //   this.Onbranchlist()
-      // })
+    let itemvalue={office_id:row_obj.itemsumbited.office_id,drs_id:row_obj.itemsumbited.drs_id,dl_delivery_date:row_obj.itemsumbited.dl_delivery_date,proof_of_delivery:row_obj.itemsumbited.proof_of_delivery,reciver_phone:row_obj.itemsumbited.reciver_phone,reciver_name:row_obj.itemsumbited.reciver_name}
+      this.TranscationService.Alldeliverydatapost(itemvalue).subscribe(res=>{
+        console.log(res)
+        this.showNotification(
+          "snackbar-success",
+          "Add Record Successfully...!!!",
+          "top",
+          "right"
+        );
+        this.getAlldeliverydata()
+      })
     console.log(this.dataForTable)
    }
   deleteRowData(row_obj){
-  //   this.bussinessservice.branchdelete(row_obj.id).subscribe(res=>{
-  //   this.showNotification(
-  //     "snackbar-danger",
-  //     row_obj.itemsumbited.name + " Record Delete Successfully...!!!",
-  //     "top",
-  //     "right"
-  //   );
-  //   this.Onbranchlist()
-  // })
+    this.TranscationService.deliverydatadelete(row_obj.Id).subscribe(res=>{
+    this.showNotification(
+      "snackbar-danger",
+      row_obj.Id + " Record Delete Successfully...!!!",
+      "top",
+      "right"
+    );
+    this.getAlldeliverydata()
+  })
   }
   
-  Onbranchlist(){
+  getAlldeliverydata(){
     this.inload=false
     this.LoaderService.Loaderpage.next(true)
-    // this.bussinessservice.getbranchlist().subscribe(res=>{
-    //   console.log(res)
-    //   this.dataobject=res
-    //   this.errormessage=res['message']
-    //   if(this.dataobject.success==true){
+    this.TranscationService.getAlldeliverydata().subscribe(res=>{
+      console.log(res)
+      this.dataobject=res
+      this.errormessage=res['message']
+      if(this.dataobject.success==true){
         
    
-    //     let tableColNamesFromAPI=[]
-    //       let tableColNamesWithSpace={}
-    //     if(this.dataobject.data.values){
+        let tableColNamesFromAPI=[]
+          let tableColNamesWithSpace={}
+        if(this.dataobject.data.values){
            
-    //           this.dataobject.data.values.forEach(element => {
-    //               element.popupForm=this.pagename
-    //              })
+              this.dataobject.data.values.forEach(element => {
+                  element.popupForm=this.pagename
+                 })
       
-    //             tableColNamesFromAPI=Object.keys(this.dataobject.data.values[0])
-    //             for(let i=0;i<tableColNamesFromAPI.length;i++){
-    //               tableColNamesWithSpace[tableColNamesFromAPI[i]] = this.insertSpaces(tableColNamesFromAPI[i])
-    //             }
-    //             this.tableheader=tableColNamesWithSpace
-    //             this.tableheader.branch_type='Branch Type'
-    //             this.tableheader.branch_type_id='Branch Id'
-    //             delete this.tableheader.actionIcons
-    //             delete this.tableheader.popupForm
-    //             delete this.tableheader.isVisible
-    //             delete this.tableheader.id
-    //             delete this.tableheader.dailogPage
-    //             delete this.tableheader.updated_at
-    //             delete this.tableheader.updated_by
-    //             delete this.tableheader.created_by
-    //             delete this.tableheader.created_at
+                tableColNamesFromAPI=Object.keys(this.dataobject.data.values[0])
+                for(let i=0;i<tableColNamesFromAPI.length;i++){
+                  tableColNamesWithSpace[tableColNamesFromAPI[i]] = this.insertSpaces(tableColNamesFromAPI[i])
+                }
+                this.tableheader=tableColNamesWithSpace
+              
+                delete this.tableheader.actionIcons
+                delete this.tableheader.popupForm
+                delete this.tableheader.isVisible
+                delete this.tableheader.id
+                delete this.tableheader.dailogPage
+                delete this.tableheader.updated_at
+                delete this.tableheader.updated_by
+                delete this.tableheader.created_by
+                delete this.tableheader.created_at
                 
-    //             this.dataForTable= this.dataobject.data.values
-    //             console.log(this.dataobject.data.values, this.tableheader)
+                this.dataForTable= this.dataobject.data.values
+                console.log(this.dataobject.data.values, this.tableheader)
                 
-    //     }
-    //     this.inload=true
-    //     }
-    //     this.LoaderService.Loaderpage.next(false)
-    // })
+        }
+        this.inload=true
+        }
+        this.LoaderService.Loaderpage.next(false)
+    })
   
   
   
@@ -221,5 +244,15 @@ export class DeliveryComponent {
       string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
       string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
       return string;
+    }
+    getdeliveryoffice(){
+      this.TranscationService.getdeliveryoffice().subscribe(res=>{
+        this.deliveryOffice=res.data
+      })
+    }
+    getdeliveryproof(){
+      this.TranscationService.getdeliveryproof().subscribe(res=>{
+        this.deliveryProof=res.data
+      })
     }
 }
