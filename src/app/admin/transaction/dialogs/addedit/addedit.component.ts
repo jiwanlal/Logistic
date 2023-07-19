@@ -48,7 +48,7 @@ export class AddeditComponent implements OnInit {
     selectedTime: Date;
 
 
-  displayedColumns: string[] = ['OriginOffice', 'Destination', 'TatalAwb', 'Mode', 'TotalWeight', 'DispatchDate', 'AwbNumber'];
+  displayedColumns: string[] = ['checked','OriginOffice', 'Destination', 'TatalAwb', 'Mode', 'TotalWeight', 'DispatchDate', 'AwbNumber'];
   @ViewChild (MatPaginator, {static: true}) paginator: MatPaginator;
   deliveryBoylist: any;
   Alldata: any;

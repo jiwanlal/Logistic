@@ -23,7 +23,7 @@ export class DrspodComponent implements OnInit {
   dataSource: any;
   public inscanmodel: drspodModel[] = [];
   uploadDisabled: boolean = true
-  displayedColumns: string[] = ['Id', 'DeliveryBoyFirstName', 'DeliveryBoyEmail', 'InscanId', 'AwbNumber', 'status', 'InscanId'];
+  displayedColumns: string[] = ['checked','Id', 'DeliveryBoyFirstName', 'DeliveryBoyEmail', 'InscanId', 'AwbNumber', 'status', 'InscanId'];
   inscanID: any;
   drsID: any
   inputboxdisabled:boolean=true
