@@ -22,8 +22,15 @@ export class DrspodComponent implements OnInit {
   public inscanmodel: drspodModel[] = [];
   uploadDisabled: boolean = true
   displayedColumns: string[] = ['Id', 'DeliveryBoyFirstName', 'DeliveryBoyEmail', 'InscanId', 'AwbNumber', 'status', 'InscanId'];
+<<<<<<< HEAD
   inScanID: any;
   drsID: any;
+=======
+  inscanID: any;
+  drsID: any
+  inputboxdisabled:boolean=true
+
+>>>>>>> 2767e2e4a80fd19b12b54f0a7b9646cdacbc565f
 
   constructor(private snackBar: MatSnackBar, public dialog: MatDialog, public LoaderService: LoaderService, public TransactionService: TransactionService) {
 
@@ -56,7 +63,8 @@ export class DrspodComponent implements OnInit {
         this.uploadDisabled = false
       }
       this.dataSource = new MatTableDataSource<drspodModel>(this.dropdowndata);
-
+       this.drsID=res.data[0].Id
+       this.inscanID=res.data[0].InscanId
       console.log(res)
     })
   }
@@ -87,8 +95,13 @@ export class DrspodComponent implements OnInit {
             );
           })
         }
+<<<<<<< HEAD
         else {
           this.TransactionService.awbimagepost(data.Searc, this.inScanID, formData).subscribe(res => {
+=======
+        else{
+          this.TransactionService.awbimagepost(this.drsID,this.inscanID,itemvalue).subscribe(res=>{
+>>>>>>> 2767e2e4a80fd19b12b54f0a7b9646cdacbc565f
             this.showNotification(
               "snackbar-success",
               res.message,
@@ -100,10 +113,16 @@ export class DrspodComponent implements OnInit {
       }
     });
   }
+<<<<<<< HEAD
 
   cellClicked(awb, drs, InscanId) {
     this.inScanID = InscanId
 
+=======
+  cellClicked(awb, drs,InscanId,Id) {
+    this.inscanID=InscanId
+    this.drsID=Id
+>>>>>>> 2767e2e4a80fd19b12b54f0a7b9646cdacbc565f
     if (this.drspoddForm.controls['dropdownType'].value == 'drs') {
       this.drspoddForm.controls['Searchvalue'].setValue(drs)
     }
@@ -112,7 +131,25 @@ export class DrspodComponent implements OnInit {
     }
     console.log(this.drspoddForm.controls['dropdownType'].value)
   }
+<<<<<<< HEAD
 
   drsimagepost() {}
+=======
+  drsimagepost() {
+   
+  }
+  
+  Onchange(value){
+    if(value!=null){
+      this.inputboxdisabled=false
+    }
+    else{
+      this.inputboxdisabled=true
+
+    }
+    console.log(value,this.inputboxdisabled
+      )
+  }
+>>>>>>> 2767e2e4a80fd19b12b54f0a7b9646cdacbc565f
 
 }

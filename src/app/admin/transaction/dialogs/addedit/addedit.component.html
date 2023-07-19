@@ -252,7 +252,7 @@
         <div class="m-4">
             <div class="row ">
                 <div class="col-xl-12">
-                    <button class="btn-space" mat-raised-button color="primary" [mat-dialog-close]="1" [disabled]="this.data.tabledatadeatils.dailogPage=='inscanDailog'?(!inscalForm.valid || buttonDisabled): !drsofdForm.valid" (click)="this.data.tabledatadeatils.dailogPage=='inscanDailog'?oninscanSubmit(data.actionName,data.tabledatadeatils.id):this.data.tabledatadeatils.dailogPage=='drsofdDailog'?onSubmitdrsofd(data.actionName,data.tabledatadeatils.id):onSubmitDelivery(data.actionName,data.tabledatadeatils.id)">Save</button>
+                    <button class="btn-space" mat-raised-button color="primary" [mat-dialog-close]="1" [disabled]="this.data.tabledatadeatils.dailogPage=='inscanDailog'?(!inscalForm.valid || buttonDisabled): !drsofdForm.valid" (click)="this.data.tabledatadeatils.dailogPage=='inscanDailog'?oninscanSubmit(data.actionName,data.tabledatadeatils.id):this.data.tabledatadeatils.dailogPage=='drsofdDailog'?onSubmitdrsofd(data.actionName,data.tabledatadeatils.id):onSubmitDelivery(data.actionName,data.tabledatadeatils.id,data.tabledatadeatils.InscanId)">Save</button>
                     <button type="button" mat-raised-button color="warn" [mat-dialog-close]="1" >Cancel</button>
                 </div>
             </div>

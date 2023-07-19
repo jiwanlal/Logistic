@@ -72,7 +72,8 @@ export class DeliveryComponent {
           id:event.actionName.Id,
           dailogPage:this.pagename,
           deliveryOffice:this.deliveryOffice,
-          deliveryProof:this.deliveryProof
+          deliveryProof:this.deliveryProof,
+          InscanId:event.actionName.InscanId
           }
         
       }
@@ -88,6 +89,7 @@ export class DeliveryComponent {
           drs_id:null,
           office_id:null,
           id:null,
+          InscanId:null,
           dailogPage:this.pagename,
           deliveryOffice:this.deliveryOffice,
           deliveryProof:this.deliveryProof
@@ -150,7 +152,7 @@ export class DeliveryComponent {
   }
   updateRowData(row_obj){
     console.log(row_obj)
-    let itemvalue={office_id:row_obj.itemsumbited.office_id,drs_id:row_obj.itemsumbited.drs_id,dl_delivery_date:row_obj.itemsumbited.dl_delivery_date,proof_of_delivery:row_obj.itemsumbited.proof_of_delivery,reciver_phone:row_obj.itemsumbited.reciver_phone,reciver_name:row_obj.itemsumbited.reciver_name}
+    let itemvalue={office_id:row_obj.itemsumbited.office_id,drs_id:row_obj.itemsumbited.drs_id,dl_delivery_date:row_obj.itemsumbited.dl_delivery_date,ins_id:row_obj.InscanId,proof_of_delivery:row_obj.itemsumbited.proof_of_delivery,reciver_phone:row_obj.itemsumbited.reciver_phone,reciver_name:row_obj.itemsumbited.reciver_name}
       this.TranscationService.Alldeliverydataput(row_obj.Id,itemvalue).subscribe(res=>{
         console.log(res)
         this.showNotification(
@@ -167,7 +169,7 @@ export class DeliveryComponent {
   addRowData(row_obj){
    
     console.log(row_obj)
-    let itemvalue={office_id:row_obj.itemsumbited.office_id,drs_id:row_obj.itemsumbited.drs_id,dl_delivery_date:row_obj.itemsumbited.dl_delivery_date,proof_of_delivery:row_obj.itemsumbited.proof_of_delivery,reciver_phone:row_obj.itemsumbited.reciver_phone,reciver_name:row_obj.itemsumbited.reciver_name}
+    let itemvalue={office_id:row_obj.itemsumbited.office_id,drs_id:row_obj.itemsumbited.drs_id,dl_delivery_date:row_obj.itemsumbited.dl_delivery_date,ins_id:row_obj.InscanId,proof_of_delivery:row_obj.itemsumbited.proof_of_delivery,reciver_phone:row_obj.itemsumbited.reciver_phone,reciver_name:row_obj.itemsumbited.reciver_name}
       this.TranscationService.Alldeliverydatapost(itemvalue).subscribe(res=>{
         console.log(res)
         this.showNotification(
