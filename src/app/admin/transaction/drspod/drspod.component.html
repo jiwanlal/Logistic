@@ -30,14 +30,14 @@
                               <li class="tbl-search-box">
                                   <ng-select  
                                      formControlName="dropdownType" name="dropdownType" placeholder="Select"
-                                       class="ng-select-bold-border chips-control">
+                                       class="ng-select-bold-border chips-control" (change)="Onchange(drspoddForm.value.dropdownType)">
                                      <ng-option value="drs">DRS</ng-option>
                                      <ng-option value="awb">AWB Number</ng-option>
                                   </ng-select>
                                 <!-- <app-datafilter></app-datafilter> -->
                               </li>
                               <li>
-                                  <input matInput required formControlName="Searchvalue" (focusout)="Searcheddata($event.target.value,drspoddForm.controls.dropdownType.value)">
+                                  <input matInput required formControlName="Searchvalue" (focusout)="Searcheddata($event.target.value,drspoddForm.controls.dropdownType.value)" [attr.disabled]="inputboxdisabled==true?'true':null">
        
                               </li>
                               <li>
@@ -70,7 +70,7 @@
                                       <!-- <tr  *matHeaderRowDef="displayedColumns; sticky: true"></tr> -->
                                       <ng-container matColumnDef="Id" sticky>
                                         <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> ID</th>
-                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass DgridClS hovertd" (click)="cellClicked(element.AwbNumber,element.Id,element.InscanId)">
+                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass DgridClS hovertd" (click)="cellClicked(element.AwbNumber,element.Id,element.InscanId,element.Id)">
                                           <div class="p-1">{{element.Id}}</div>
                                         </td>
                                       </ng-container>

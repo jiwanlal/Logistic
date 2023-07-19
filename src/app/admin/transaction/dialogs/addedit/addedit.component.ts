@@ -191,7 +191,7 @@ onSubmitdrsofd(item,id){
  
 }
 }
-onSubmitDelivery(item,id){
+onSubmitDelivery(item,id,InscanId){
   console.log(id,item,this.deliveryForm)
   // if(this.deliveryForm.invalid){
   //   return false
@@ -206,7 +206,8 @@ onSubmitDelivery(item,id){
     let sumiteddata={
       action:item,
       Id:id,
-      itemsumbited:this.deliveryForm.value
+      itemsumbited:this.deliveryForm.value,
+      InscanId:InscanId
     }
     console.log(this.deliveryForm.value,sumiteddata)
     this.dialogRef.close(sumiteddata)

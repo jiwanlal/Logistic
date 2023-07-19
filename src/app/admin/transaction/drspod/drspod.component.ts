@@ -24,7 +24,9 @@ export class DrspodComponent implements OnInit {
   public inscanmodel: drspodModel[] = [];
   uploadDisabled: boolean = true
   displayedColumns: string[] = ['Id', 'DeliveryBoyFirstName', 'DeliveryBoyEmail', 'InscanId', 'AwbNumber', 'status', 'InscanId'];
-  iscanID: any;
+  inscanID: any;
+  drsID: any
+  inputboxdisabled:boolean=true
 
 
   constructor(private snackBar: MatSnackBar, public dialog: MatDialog, public LoaderService: LoaderService, public TransactionService: TransactionService) {
@@ -57,7 +59,8 @@ export class DrspodComponent implements OnInit {
         this.uploadDisabled = false
       }
       this.dataSource = new MatTableDataSource<drspodModel>(this.dropdowndata);
-
+       this.drsID=res.data[0].Id
+       this.inscanID=res.data[0].InscanId
       console.log(res)
     })
   }
@@ -91,7 +94,7 @@ export class DrspodComponent implements OnInit {
           })
         }
         else{
-          this.TransactionService.awbimagepost(data.Searchvalue,this.iscanID,itemvalue).subscribe(res=>{
+          this.TransactionService.awbimagepost(this.drsID,this.inscanID,itemvalue).subscribe(res=>{
             this.showNotification(
               "snackbar-success",
               res.message,
@@ -111,8 +114,9 @@ export class DrspodComponent implements OnInit {
     });
 
   }
-  cellClicked(awb, drs,InscanId) {
-    this.iscanID=InscanId
+  cellClicked(awb, drs,InscanId,Id) {
+    this.inscanID=InscanId
+    this.drsID=Id
     if (this.drspoddForm.controls['dropdownType'].value == 'drs') {
       this.drspoddForm.controls['Searchvalue'].setValue(drs)
 
@@ -126,6 +130,17 @@ export class DrspodComponent implements OnInit {
   drsimagepost() {
    
   }
+  
+  Onchange(value){
+    if(value!=null){
+      this.inputboxdisabled=false
+    }
+    else{
+      this.inputboxdisabled=true
 
+    }
+    console.log(value,this.inputboxdisabled
+      )
+  }
 
 }
