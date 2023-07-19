@@ -80,7 +80,7 @@ export class DrspodComponent implements OnInit {
 
       if (result) {
         const formData = new FormData();
-        formData.append('file', result.profile_picture)
+        formData.append('profile_picture', result.profile_picture)
         console.log(result.profile_picture.name, this.drspoddForm.controls['Searchvalue'].value, data
         )
         //let itemvalue={file:result.profile_picture.name}
