@@ -51,7 +51,44 @@
     border-radius: 0 4px 4px 0;}
  }
 .mr-3{ margin-right: 1.25rem !important;}
-      
+.pmr-2{ left: 1.25rem !important;}    
+.ng-select.ng-select-single{
+  .ng-select-container {
+    height: 33px;
+    min-height: 33px; font-size: 13px;
+  }
+}
+
+  .ng-select-container {
+
+    border-radius: 2px;
+    border: 1px solid #ccc;
+
+  }
+
+
+
+.ng-errorvalue {
+  .ng-select-container {
+    border-color: #dc3545;
+  }
+}
+
+.ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+  border-radius: 2px;
+  border: 1px solid #ccc;
+
+  box-shadow: none;
+
+  border-color: #dc3545;
+}
+
+.ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container.ng-has-value {
+  border-radius: 2px;
+  border: 1px solid #ccc;
+
+  box-shadow: none;
+}
       /* Safari */
       @-webkit-keyframes spin {
         0% { -webkit-transform: rotate(0deg); }
