@@ -58,6 +58,12 @@ const routes: Routes = [
   { path: 'tariffs', loadChildren: () => import('./tarriffs/tarriffs.module').then(m => m.TreeTarriffsModule) },
   { path: 'emails', loadChildren: () => import('./email/email.module').then(m => m.EmailModule) },
   { path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule) },
+  {
+    path: 'reports',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./reports/reports.module').then((m) => m.ReportsModule),
+  },
 ];
 
 @NgModule({
