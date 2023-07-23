@@ -31,6 +31,7 @@ export class TarrifaddComponent implements OnInit {
   filteredlocationtar:Observable<any>
   dropDownDisable:boolean=false
   AddedControls:FormArray
+  dataAdd:any=[]
 
   locationTarrifForm = new FormGroup({
     lt_name: new FormControl(this.data.tabledatadeatils.lt_name, [Validators.required]),
@@ -86,6 +87,7 @@ export class TarrifaddComponent implements OnInit {
   localitylist: any;
   saveDisable: any=true;
   locationtarriflist: any;
+  getCharges_Details: any;
   constructor(public dialogRef: MatDialogRef<TarrifaddComponent>,@Inject(MAT_DIALOG_DATA) public data,private _formBuilder: FormBuilder,public tarrifService:TreeTarriffsService,private cd: ChangeDetectorRef){
     this.dialogtitle=data.actionName
     
@@ -96,39 +98,32 @@ export class TarrifaddComponent implements OnInit {
     if(this.dialogtitle=='Edit'){
       this.tarrifService.getratetarwithId(this.data.tabledatadeatils.id).subscribe(res=>{
         console.log(res.data.charges_details,res.data.charges_details.length -1)
-        // this.rateTarrifForm = this._formBuilder.group({
-        //   name: [],
-        //   location_tarrif: [],
-        //   AddedControls: this._formBuilder.array([])
-        // })
-        console.log(res.data.charges_details[0].weight_from)
-        this.AddedControls = this.rateTarrifForm.get('AddedControls') as FormArray;
-        console.log(this.rateTarrifForm.controls.AddedControls["controls"].controls.weight_from.setValidators(Validators.required))
-        for(var i;i=0;i++ ){
-         console.log( this.rateTarrifForm.controls.AddedControls["controls"][i].controls.weight_from.setValue(res.data.charges_details[i].weight_from))
-        }
-        let item={
-          weight_from: res.data.charges_details[0].weight_from,
-          weight_to: res.data.charges_details[0].weight_to,
-          price: res.data.charges_details[0].price,
-          unit: res.data.charges_details[0].unit,
-        }
-        console.log(item)
+        this.getCharges_Details=res.data.charges_details
         
-          this.updateData(item)    
+        if(this.getCharges_Details.length){
+          this.getCharges_Details.forEach(data=>{
+            this.dataAdd.push(
+              new FormGroup({
+                weight_from: new FormControl(data.weight_from),
+                weight_to: new FormControl(data.weight_to),
+                unit: new FormControl(data.unit),
+                price: new FormControl(data.price),
+                
+              })
+            )
+
+          })
+        }
+        this.rateTarrifForm.controls.AddedControls = this._formBuilder.array(this.dataAdd);
+
+        
         
       })     
      }
     console.log('DialogComponent',this.data,this.data.tabledatadeatils.loctarfratedropdown)
     this.setFilters()
   }
-  // private requireMatch(control: FormControl): ValidationErrors | null {
-  //   const selection: any = control.value;
-  //   if (this.data.tabledatadeatils.countryData && this.data.tabledatadeatils.countryData.indexOf(selection) < 0) {
-  //     return { requireMatch: true };
-  //   }
-  //   return null;
-  // } 
+  
   onNoClick(){
     this.dialogRef.close(false);
   }
@@ -155,14 +150,7 @@ export class TarrifaddComponent implements OnInit {
 }
 onChangeSearch(data){
   console.log(data)
-  // this.tarrifService.searchCustomer(data).subscribe(res=>{
-    
-  //   console.log(res)
-  // })
-  //   this.tarrifService.searchRateTariff(data).subscribe(res=>{
-    
-  //   console.log(res)
-  // })
+
  
 }
   oncontractTarrifSubmit(item,id){
@@ -186,16 +174,21 @@ onChangeSearch(data){
   // }
   addcontent(item,data){
     this.AddedControls = this.rateTarrifForm.get('AddedControls') as FormArray;
-    this.AddedControls.push(this.createItem());
-    // this.AddedControls.push(
-    //   new FormGroup({
-    //     weight_from: new FormControl(""),
-    //     weight_to: new FormControl(""),
-    //     unit: new FormControl(""),
-    //     price: new FormControl(""),
+    // this.AddedControls.push(this.createItem());
+    this.AddedControls.push(
+      new FormGroup({
+        weight_from: new FormControl(""),
+        weight_to: new FormControl(""),
+        unit: new FormControl(""),
+        price: new FormControl(""),
         
-    //   })
-    // );
+      })
+    );
+    this.getCharges_Details = this.AddedControls.value;
+    this.rateTarrifForm.value.AddedControls.push(this.AddedControls.value)
+    console.log(this.rateTarrifForm.value.AddedControls,this.getCharges_Details)
+
+
 
   }
   createItem(): FormGroup {
@@ -414,24 +407,7 @@ onChangeSearch(data){
   }
   onChange(value,event){
   console.log(value)
-  // if(value) {
-  //   console.log(this.showCrossbutton,this.locationTarrifForm.get('from_zone').value)
-  //   this.showCrossbutton=true
-  // } 
-  // else{
-  //   this.showCrossbutton=false
-  // }
-  // const index = this.filterdata.findIndex(x => x === value);
-  // this.filteredloctarf_from = this.filterdata.map(item=>{
-  //   console.log(item)
-  //   if(this.filterdata.indexOf(item)==index){
-  //     item.isDisabled=false
-  //   }
-  //   else{
-  //     item.isDisabled=true
-  //   }
-
-  // })
+  
   }
   clear(){
     this.locationTarrifForm.get('from_zone').setValue('')
@@ -542,21 +518,4 @@ onChangeSearch(data){
   console.log(item,type)
   }
  
-  createItemitem(item): FormGroup {
-  
-  
-    return this._formBuilder.group({
-      weight_from: [item.weight_from],
-      weight_to: [item.weight_to],
-      unit: [item.unit],
-      price: [item.price],
-    
-
-    });
-
-  }
-  updateData(item){
-    this.AddedControls = this.rateTarrifForm.get('AddedControls') as FormArray;
-    this.AddedControls.push(this.createItemitem(item));
-  }
 }

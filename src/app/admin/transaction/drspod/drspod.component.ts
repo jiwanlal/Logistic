@@ -7,6 +7,7 @@ import { ProfileuploadComponent } from '../../users/dialog/profileupload/profile
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { drspodModel, inscanDetialsModel } from '../transaction.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-drspod',
@@ -18,16 +19,19 @@ export class DrspodComponent implements OnInit {
   public errormessage
   dropdowndata: any;
   userImg = 'assets/images/user.png'
+  imgurl=environment.imgUrl
+
   dataSource: any;
   public inscanmodel: drspodModel[] = [];
   uploadDisabled: boolean = true
 
-  displayedColumns: string[] = ['Id', 'DeliveryBoyFirstName', 'DeliveryBoyEmail', 'InscanId', 'AwbNumber', 'status', 'InscanId'];
+  displayedColumns: string[] = ['checked','Id', 'DeliveryBoyFirstName', 'DeliveryBoyEmail', 'InscanId', 'AwbNumber', 'status', 'InscanId'];
 
   inscanID: any;
   drsID: any;
 
   inputboxdisabled:boolean=true
+  array: any=[];
 
 
 
@@ -51,8 +55,8 @@ export class DrspodComponent implements OnInit {
   ngOnInit() { }
 
   Searcheddata(value, type) {
-    console.log(value, type)
-    this.getdrsforimage(value, type)
+    console.log(value,type)
+    value!=''?this.getdrsforimage(value, type):''
   }
 
   getdrsforimage(id, type) {
@@ -64,7 +68,8 @@ export class DrspodComponent implements OnInit {
       this.dataSource = new MatTableDataSource<drspodModel>(this.dropdowndata);
        this.drsID=res.data[0].Id
        this.inscanID=res.data[0].InscanId
-      console.log(res)
+       this.userImg=res.data[0].image
+      console.log(res,res.data[0].image)
     })
   }
 
@@ -80,8 +85,8 @@ export class DrspodComponent implements OnInit {
 
       if (result) {
         const formData = new FormData();
-        formData.append('profile_picture', result.profile_picture)
-        console.log(result.profile_picture.name, this.drspoddForm.controls['Searchvalue'].value, data
+        formData.append('file', result.profile_picture)
+        console.log(result.profile_picture.name, this.drspoddForm.controls['Searchvalue'].value, data,formData
         )
         //let itemvalue={file:result.profile_picture.name}
         if (data.dropdownType == 'drs') {
@@ -95,7 +100,7 @@ export class DrspodComponent implements OnInit {
           })
         }
         else {
-          this.TransactionService.awbimagepost(data.drsID, this.inscanID, formData).subscribe(res => {
+          this.TransactionService.awbimagepost(this.drsID, this.inscanID, formData).subscribe(res => {
             this.showNotification(
               "snackbar-success",
               res.message,
@@ -105,11 +110,13 @@ export class DrspodComponent implements OnInit {
           })
         }
       }
+      this.getAlldrsdataist()
     });
   }
-  cellClicked(awb, drs,InscanId,Id) {
+  cellClicked(awb, drs,InscanId,Id,image) {
     this.inscanID=InscanId
     this.drsID=Id
+    this.userImg=this.imgurl+image
     if (this.drspoddForm.controls['dropdownType'].value == 'drs') {
       this.drspoddForm.controls['Searchvalue'].setValue(drs)
     }
@@ -128,10 +135,28 @@ export class DrspodComponent implements OnInit {
     }
     else{
       this.inputboxdisabled=true
+      this.drspoddForm.controls['Searchvalue'].setValue('')
+
 
     }
     console.log(value,this.inputboxdisabled
       )
+  }
+  getAlldrsdataist(){
+    this.TransactionService.getAlldrsdata().subscribe(res=>{
+      console.log(res)
+    })
+  }
+  CheckboxChange(event,InscanId){
+    console.log(event.checked,InscanId)
+    // if(this.array.forEach(ele=>{
+    //   if(ele!=InscanId) {
+    //    this.array.push(InscanId)
+
+    //  }
+    // }))
+    console.log(this.array)
+
   }
 
 }

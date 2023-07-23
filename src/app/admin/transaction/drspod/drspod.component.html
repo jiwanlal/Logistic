@@ -41,6 +41,9 @@
        
                               </li>
                               <li>
+                                <!-- <img src="{{userImg}}" class="user-img" width="110" alt=""> -->
+                                {{userImg}}
+
                                 <button [disabled]="uploadDisabled" (click)="onuploadProfileimg(drspoddForm.value)">Upload
                                   <!-- <i class="material-icons">image</i> -->
                                 </button>
@@ -71,12 +74,12 @@
                                       <ng-container matColumnDef="checked">
                                         <th mat-header-cell *matHeaderCellDef width="10%"> # </th>
                                         <td mat-cell *matCellDef="let element">
-                                          <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+                                          <mat-checkbox [(ngModel)]="element.checked" (change)="CheckboxChange($event,element.InscanId)"></mat-checkbox>
                                         </td>
                                       </ng-container>
                                       <ng-container matColumnDef="Id" sticky>
                                         <th mat-header-cell *matHeaderCellDef class="pr-0 pl-1ClassHead"> ID</th>
-                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass DgridClS hovertd" (click)="cellClicked(element.AwbNumber,element.Id,element.InscanId,element.Id)">
+                                        <td mat-cell *matCellDef="let element" class="pr-0 pl-1Class HeigClass DgridClS hovertd" (click)="cellClicked(element.AwbNumber,element.Id,element.InscanId,element.Id,element.image)">
                                           <div class="p-1">{{element.Id}}</div>
                                         </td>
                                       </ng-container>
