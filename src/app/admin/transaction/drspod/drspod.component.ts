@@ -8,6 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { drspodModel, inscanDetialsModel } from '../transaction.model';
 import { environment } from 'src/environments/environment';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-drspod',
@@ -20,6 +21,8 @@ export class DrspodComponent implements OnInit {
   dropdowndata: any;
   userImg = 'assets/images/user.png'
   imgurl=environment.imgUrl
+  selection = new SelectionModel<any>(true, []);
+  inscanIdArray:any=[]
 
   dataSource: any;
   public inscanmodel: drspodModel[] = [];
@@ -109,6 +112,11 @@ export class DrspodComponent implements OnInit {
             );
           })
         }
+        let itemvalue={drs_inscan_id:this.inscanIdArray}
+        this.TransactionService.drsofdpost(itemvalue).subscribe(res=>{
+        console.log(res)
+       
+      })
       }
       this.getAlldrsdataist()
     });
@@ -147,16 +155,11 @@ export class DrspodComponent implements OnInit {
       console.log(res)
     })
   }
-  CheckboxChange(event,InscanId){
-    console.log(event.checked,InscanId)
-    // if(this.array.forEach(ele=>{
-    //   if(ele!=InscanId) {
-    //    this.array.push(InscanId)
+ 
 
-    //  }
-    // }))
-    console.log(this.array)
-
-  }
-
+  selectHandler(row) {
+    this.selection.toggle(row);
+   this.inscanIdArray=this.selection.selected
+   console.log(this.inscanIdArray)
+}
 }
