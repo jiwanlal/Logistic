@@ -135,7 +135,7 @@ export class LocationTarrifComponent implements OnInit{
   
     const dialogRef=this.dialog.open(TarrifaddComponent, {
        data:dialogdata,
-       minWidth:'400px'
+       width:'500px'
      });
      dialogRef.afterClosed().subscribe(result => {
        console.log('The dialog was closed',result);
