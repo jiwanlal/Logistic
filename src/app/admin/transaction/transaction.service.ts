@@ -217,8 +217,9 @@ export class TransactionService {
       );
 
   }
-  public awbimagepost(drs: number,ins,data: any): Observable<any> {
+  public awbimagepost(drs,ins,data: any): Observable<any> {
     const url = this.API_URL + environment.awbimage+ `/${drs}` + `/${ins}`
+    console.log(url)
     return this.http.post<any>(url, data)
       .pipe(
         catchError((error: HttpErrorResponse) => {

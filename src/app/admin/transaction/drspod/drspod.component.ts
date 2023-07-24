@@ -103,6 +103,7 @@ export class DrspodComponent implements OnInit {
           })
         }
         else {
+          console.log('drs',this.drsID, this.inscanID)
           this.TransactionService.awbimagepost(this.drsID, this.inscanID, formData).subscribe(res => {
             this.showNotification(
               "snackbar-success",
