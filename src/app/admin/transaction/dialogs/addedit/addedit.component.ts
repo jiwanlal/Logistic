@@ -60,17 +60,34 @@ export class AddeditComponent implements OnInit {
 
  constructor(public dialogRef:MatDialogRef<AddeditComponent>,@Inject(MAT_DIALOG_DATA) public data, public fb:FormBuilder,public transactionservice:TransactionService,private datePipe:DatePipe){
   // console.log((this.datePipe.transform(new Date(this.data.tabledatadeatils.receiving_date),'dd/MM/yyyy')))
-
+console.log(this.data.tabledatadeatils.receiving_date)
  }
  drsofdForm =new FormGroup({
   officeName : new FormControl(this.data.tabledatadeatils.officeName),
-  delivery_date: new FormControl(this.data.tabledatadeatils.delivery_date),
+  delivery_date: new FormControl(new Date(this.data.tabledatadeatils.delivery_date)),
   deliveryBoy: new FormControl(this.data.tabledatadeatils.deliveryBoy),
   awbNumber: new FormControl(this.data.tabledatadeatils.awbNumber)
  })
+
+ convertToMaterialDateFormat(dateString: string): string {
+  const parts = dateString.split('/');
+  if (parts.length === 3) {
+    // Rearrange the date parts and construct a JavaScript Date object
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10);
+    const year = parseInt(parts[2], 10);
+    const dateObj = new Date(year, month -1 , day+2);
+
+    // Convert the date object to 'YYYY-MM-DD' format
+    const convertedDate = dateObj.toISOString().slice(0, 10);
+    return convertedDate;
+  }
+  // Return the original date if it couldn't be converted
+  return dateString;
+}
  inscalForm =new FormGroup(
   {
-    recdate: new FormControl(this.data.tabledatadeatils.receiving_date,[Validators.required]),
+    recdate: new FormControl(this.convertToMaterialDateFormat(this.data.tabledatadeatils.receiving_date),[Validators.required]),
     begnumber: new FormControl(this.data.tabledatadeatils.bag_number,[Validators.required]),
     awbnumber: new FormControl(this.data.tabledatadeatils.awb_number,[Validators.required]),
     weight: new FormControl(this.data.tabledatadeatils.weight,[Validators.required]),
@@ -79,11 +96,11 @@ export class AddeditComponent implements OnInit {
 
  
 )
-deliveryForm =new FormGroup(
+deliveryForm =this.fb.group(
   {
     office_id: new FormControl(this.data.tabledatadeatils.office_id,[Validators.required]),
     drs_id: new FormControl(this.data.tabledatadeatils.drs_id,[Validators.required]),
-    dl_delivery_date: new FormControl(this.data.tabledatadeatils.dl_delivery_date,[Validators.required]),
+    dl_delivery_date:new FormControl(new Date(this.data.tabledatadeatils.dl_delivery_date),[Validators.required]),
     proof_of_delivery: new FormControl(this.data.tabledatadeatils.proof_of_delivery,[Validators.required]),
     reciver_phone: new FormControl(this.data.tabledatadeatils.reciver_phone,[Validators.required]),
     reciver_name: new FormControl(this.data.tabledatadeatils.reciver_name,[Validators.required]),
@@ -153,7 +170,7 @@ oninscanSubmit(item,id){
     return false
   }
   else{
-    this.inscalForm.controls['recdate'].setValue(this.datePipe.transform(this.inscalForm.controls['recdate'].value,'yyyy-MM-dd'))
+ //   this.inscalForm.controls['recdate'].setValue(this.datePipe.transform(this.inscalForm.controls['recdate'].value,'yyyy-MM-dd'))
     console.log(this.inscalForm.value)
     let sumiteddata={
       action:item,
@@ -171,7 +188,8 @@ onSubmitdrsofd(item,id){
     return false
   }
   else{
-    this.drsofdForm.controls['delivery_date'].setValue(this.datePipe.transform(this.drsofdForm.controls['delivery_date'].value,'yyyy-MM-dd'))
+   // this.formdata.controls['dob'].setValue(this.datepipe.transform(this.formdata.controls['dob'].value,'dd/MM/yyyy'))
+    this.drsofdForm.controls['delivery_date'].setValue(new Date(this.datePipe.transform(this.drsofdForm.controls['delivery_date'].value,'dd/MM/yyyy')))
 
     console.log(this.drsofdForm.value)
     this.Alldata.forEach(element => {
@@ -197,7 +215,7 @@ onSubmitDelivery(item,id,InscanId){
   //   return false
   // }
   // else{
-    this.deliveryForm.controls['dl_delivery_date'].setValue(this.datePipe.transform(this.deliveryForm.controls['dl_delivery_date'].value,'yyyy-MM-dd'))
+   // this.deliveryForm.controls['dl_delivery_date'].setValue(new Date(this.datePipe.transform(this.deliveryForm.controls['dl_delivery_date'].value,'yyyy-MM-dd')))
 
     console.log(this.deliveryForm.value)
   

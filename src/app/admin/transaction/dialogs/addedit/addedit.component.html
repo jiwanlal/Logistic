@@ -55,8 +55,9 @@
         </div>
 
         <div class="col-lg-12">
+         
             <ng-select 
-                 formControlName="deliveryBoy" name="deliveryBoy" placeholder="Select" 
+                 formControlName="deliveryBoy" name="deliveryBoy" placeholder="Delivery Person Name" 
                  class="ng-select-bold-border chips-control" [ngClass]="{'error': drsofdForm.controls['deliveryBoy'].invalid}">
              <ng-option *ngFor="let item of deliveryBoylist" [value]="item.id">{{item.first_name}} </ng-option>
             </ng-select>

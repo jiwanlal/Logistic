@@ -85,7 +85,7 @@ export class TransactionService {
   }
   drsofddelete(id: number){
     const url = this.API_URL + environment.drs + `/${id}`
-    return this.http.get<any>(url)
+    return this.http.delete<any>(url)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return observableThrowError(error.error);

@@ -5,13 +5,36 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoaderService } from 'src/app/core/service/loader.service';
 import { DeleteComponent } from '../dialogs/delete/delete.component';
 import { TransactionService } from '../transaction.service';
-
+import { DatePipe } from '@angular/common';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+export const MY_FORMATS = {
+  parse: {
+    dateInput: "YYYY-MM-DD HH:mm:ss"
+  },
+  display: {
+    dateInput: "YYYY-MM-DD HH:mm:ss",
+    monthYearLabel: "MMM YYYY",
+    dateA11yLabel: "YYYY-MM-DD HH:mm:ss",
+    monthYearA11yLabel: "MMMM YYYY"
+  }
+};
 @Component({
   selector: 'app-inscan',
   templateUrl: './inscan.component.html',
-  styleUrls: ['./inscan.component.sass']
+  styleUrls: ['./inscan.component.sass'],
+  providers: [
+    // {
+    //   provide: DateAdapter,
+    //   useClass: MomentDateAdapter,
+    //   deps: [MAT_DATE_LOCALE]
+    // },
+    // { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    DatePipe
+  ]
 })
 export class InscanComponent {
+  
   public Titlename=""
   public pagename="inscanDailog"
   public AddAction={actionName:'Add',popupForm:this.pagename}
@@ -24,7 +47,7 @@ export class InscanComponent {
    public errormessage
   AllbugsNumberList: any;
   dataobject: any;
-    constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService,public transactionService: TransactionService){ }
+    constructor(private snackBar: MatSnackBar,public dialog: MatDialog,public LoaderService:LoaderService,public transactionService: TransactionService,private datePipe:DatePipe){ }
   ngOnInit(): void {
     this.getAllbugNumber()
     this.getAllinscanData()
@@ -145,7 +168,7 @@ export class InscanComponent {
   }
   updateRowData(row_obj){
     console.log(row_obj)
-    let itemvalue={ins_receiving_date:row_obj.itemsumbited.recdate,ins_bag_number:row_obj.itemsumbited.begnumber,ins_awb_number:row_obj.itemsumbited.awbnumber,ins_weight:row_obj.itemsumbited.weight}
+    let itemvalue={ins_receiving_date:this.datePipe.transform(row_obj.itemsumbited.recdate,'yyyy-MM-dd'),ins_bag_number:row_obj.itemsumbited.begnumber,ins_awb_number:row_obj.itemsumbited.awbnumber,ins_weight:row_obj.itemsumbited.weight}
       this.transactionService.inscanput(row_obj.Id,itemvalue).subscribe(res=>{
         console.log(res)
         this.showNotification(
@@ -178,8 +201,9 @@ export class InscanComponent {
    }
   deleteRowData(row_obj){
     this.transactionService.inscandelete(row_obj.Id).subscribe(res=>{
+      console.log('jiwan',res)
     this.showNotification(
-      "snackbar-danger",
+      "snackbar-success",
       row_obj.Id + " Record Delete Successfully...!!!",
       "top",
       "right"
