@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Account Dashboard'" [items]="[]" [active_item]="'Dashboard'"></app-breadcrumb>
+        <app-breadcrumb [title]="'Dashboard'" [items]="[]" [active_item]="'Accounts'"></app-breadcrumb>
       </div>
       <!-- Widgets -->
       <div class="row">
@@ -53,10 +53,10 @@
   
             </div>
             <div class="body">
-              <apx-chart [series]="areaChartOptions.series" [chart]="areaChartOptions.chart"
+              <!-- <apx-chart [series]="areaChartOptions.series" [chart]="areaChartOptions.chart"
                 [xaxis]="areaChartOptions.xaxis" [yaxis]="areaChartOptions.yaxis" [colors]="areaChartOptions.colors"
                 [stroke]="areaChartOptions.stroke" [legend]="areaChartOptions.legend" [tooltip]="areaChartOptions.tooltip"
-                [dataLabels]="areaChartOptions.dataLabels"></apx-chart>
+                [dataLabels]="areaChartOptions.dataLabels"></apx-chart> -->
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@
               <h2>P&L Review</h2>
   
             </div>
-            <div class="body">
+            <!-- <div class="body">
               <apx-chart [series]="radialChartOptions.series" [chart]="radialChartOptions.chart"
                 [plotOptions]="radialChartOptions.plotOptions" [labels]="radialChartOptions.labels"></apx-chart>
               <div class="text-center p-t-20">
@@ -86,7 +86,7 @@
               <div class="text-center p-t-20">
                 <button mat-stroked-button color="primary">Modify Availability</button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@
                       <th>Overdue Days</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <!-- <tbody>
                     <tr>
                       <td class="table-img">
                         <img src="assets/images/user/user1.jpg" alt="">
@@ -215,7 +215,7 @@
                         <button mat-stroked-button color="primary">Details</button>
                       </td>
                     </tr>
-                  </tbody>
+                  </tbody> -->
                 </table>
               </div>
             </div>
@@ -226,7 +226,7 @@
             <div class="header">
               <h2>Topmost Vendors</h2>
             </div>
-            <div class="list-body">
+            <!-- <div class="list-body">
               <ul class="list-unstyled list-unstyled-noborder">
                 <li class="patient-group-list">
                   <div class="d-flex">
@@ -295,7 +295,7 @@
                   </div>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -306,7 +306,7 @@
               <h2>
                 <strong>Todo</strong> List</h2>
             </div>
-            <div class="body">
+            <!-- <div class="body">
               <ng-scrollbar style="height: 370px" visibility="hover">
                 <div cdkDropList class="task-list" (cdkDropListDropped)="drop($event)">
                   <div class="task-box" *ngFor="let task of tasks" cdkDrag>
@@ -336,7 +336,7 @@
                   </div>
                 </div>
               </ng-scrollbar>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -356,7 +356,7 @@
                       <th>Status</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <!-- <tbody>
                     <tr>
                       <td class="table-img">
                         <img src="assets/images/user/user5.jpg" alt="">
@@ -435,7 +435,7 @@
                         <div class="badge col-green">Available</div>
                       </td>
                     </tr>
-                  </tbody>
+                  </tbody> -->
                 </table>
               </div>
             </div>
@@ -446,14 +446,14 @@
             <div class="header">
               <h2>Voucher Summary</h2>
             </div>
-            <div class="body">
+            <!-- <div class="body">
               <apx-chart [series]="linechartOptions.series" [chart]="linechartOptions.chart"
                 [dataLabels]="linechartOptions.dataLabels" [plotOptions]="linechartOptions.plotOptions"
                 [yaxis]="linechartOptions.yaxis" [legend]="linechartOptions.legend" [fill]="linechartOptions.fill"
                 [colors]="linechartOptions.colors" [stroke]="linechartOptions.stroke" [tooltip]="linechartOptions.tooltip"
                 [xaxis]="linechartOptions.xaxis">
               </apx-chart>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

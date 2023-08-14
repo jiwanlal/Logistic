@@ -4,10 +4,39 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
 import { AwbService } from '../../awb.service';
 
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import * as moment from 'moment';
+import 'moment-timezone';
+
+
 @Component({
   selector: 'app-add-awb-sale',
   templateUrl: './add-awb-sale.component.html',
-  styleUrls: ['./add-awb-sale.component.sass']
+  styleUrls: ['./add-awb-sale.component.sass'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+    {
+        provide: DateAdapter,
+        useClass: MomentDateAdapter,
+        deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {
+        provide: MAT_DATE_FORMATS,
+        useValue: {
+            parse: {
+                dateInput: 'LL',
+            },
+            display: {
+                dateInput: 'DD/MM/YYYY',
+                monthYearLabel: 'MMM YYYY',
+                dateA11yLabel: 'LL',
+                monthYearA11yLabel: 'MMMM YYYY',
+            },
+        },
+    },
+]
+
 })
 export class AddAwbSaleComponent {
   dialogtitle = "Add AWB Sales"
@@ -28,29 +57,24 @@ export class AddAwbSaleComponent {
   constructor(public dialogRef: MatDialogRef<AddAwbSaleComponent>,@Inject(MAT_DIALOG_DATA) public data,private awbService :AwbService){
     
     if(data){
-      console.log(data)
+      console.log(this.data)
       this.dialogtitle = "Edit AWB Sales";
      
     }
   }
 
   ngOnInit() {
+    this.getFillValues(() => {
+        this.setFilters();
 
-
-    this.getFillValues(()=>{
-
-      this.setFilters();
-
-      if(this.data)
-      this.setData(this.data);
-     
+        // Convert API date format to Angular Material DatePicker format
+        if (this.data) {
+          this.data.ValidTillDate = moment(this.data.ValidTillDate, 'DD/MM/YYYY').tz('Asia/Kolkata').toDate();
+            this.setData(this.data);
+        }
     });
+}
 
-
-  
-
-   
-  }
 
   private setFilters(){
     this.filteredAwbTypes = this.formdata.get('awbtype').valueChanges.pipe(
@@ -70,14 +94,13 @@ export class AddAwbSaleComponent {
     );
   }
 
-
-  private setData(data){
-
+  private setData(data) {
     this.formdata.controls.awbtype.setValue(data.AwbId);
     this.formdata.controls.office.setValue(data.OfficeId);
     this.formdata.controls.rate.setValue(data.SalesRate);
-    this.formdata.controls.validtill.setValue(data.ValidTillDate);
-  }
+    this.formdata.controls.validtill.setValue(moment(data.ValidTillDate).tz('Asia/Kolkata'));
+}
+
   displayAwbName(data): string {
 
     if(typeof(data) != 'object'){
@@ -113,21 +136,23 @@ export class AddAwbSaleComponent {
     this.dialogRef.close();
   }
 
-  onSubmit(){
-    if(this.formdata.invalid){
-      return;
+  onSubmit() {
+    if (this.formdata.invalid) {
+        return;
     }
 
-    this.awbService.createEditAwbSales(this.formdata.value,this.data?.id)
-    .subscribe(res=>{
+    const requestData = {
+        ...this.formdata.value,
+        validtill: moment(this.formdata.value.validtill).tz('Asia/Kolkata').format('YYYY-MM-DDTHH:mm:ss'),
+    };
 
-      if(res.success)
-        {
-          this.dialogRef.close(true);
+    this.awbService.createEditAwbSales(requestData, this.data?.id)
+    .subscribe(res => {
+        if (res.success) {
+            this.dialogRef.close(true);
         }
-    })
+    });
+}
 
-
-  }
 }
 
