@@ -6,13 +6,38 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { inscanDetialsModel } from '../../transaction.model';
 import { DatePipe } from '@angular/common';
-import { ThemePalette } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, ThemePalette } from '@angular/material/core';
+import * as _moment from 'moment';
+import 'moment-timezone';
+import * as moment from 'moment';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 @Component({
   selector: 'app-addedit',
   templateUrl: './addedit.component.html',
   styleUrls: ['./addedit.component.sass'],
-  providers:[DatePipe]
+  providers:[
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+    {
+        provide: DateAdapter,
+        useClass: MomentDateAdapter,
+        deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {
+        provide: MAT_DATE_FORMATS,
+        useValue: {
+            parse: {
+                dateInput: 'LL',
+            },
+            display: {
+                dateInput: 'DD/MM/YYYY',
+                monthYearLabel: 'MMM YYYY',
+                dateA11yLabel: 'LL',
+                monthYearA11yLabel: 'MMMM YYYY',
+            },
+        },
+    },
+  ],
 })
 export class AddeditComponent implements OnInit {
   myForm:FormGroup
@@ -55,39 +80,22 @@ export class AddeditComponent implements OnInit {
   deliveryProof: any;
   deliveryOffice: any;
   awbofficeData: any;
-  public dateControl = new FormControl(new Date(2021,9,4,5,6,7));
-  public dateControlMinMax = new FormControl(new Date());
+  formattedDate 
 
- constructor(public dialogRef:MatDialogRef<AddeditComponent>,@Inject(MAT_DIALOG_DATA) public data, public fb:FormBuilder,public transactionservice:TransactionService,private datePipe:DatePipe){
-  // console.log((this.datePipe.transform(new Date(this.data.tabledatadeatils.receiving_date),'dd/MM/yyyy')))
-console.log(this.data.tabledatadeatils.receiving_date)
- }
+ constructor(public dialogRef:MatDialogRef<AddeditComponent>,@Inject(MAT_DIALOG_DATA) public data, public fb:FormBuilder,public transactionservice:TransactionService){
+  
+}
  drsofdForm =new FormGroup({
   officeName : new FormControl(this.data.tabledatadeatils.officeName),
-  delivery_date: new FormControl(new Date(this.data.tabledatadeatils.delivery_date)),
+  delivery_date: new FormControl( moment(this.data.tabledatadeatils.delivery_date, 'DD/MM/YYYY').tz('Asia/Kolkata').toDate()),
   deliveryBoy: new FormControl(this.data.tabledatadeatils.deliveryBoy),
   awbNumber: new FormControl(this.data.tabledatadeatils.awbNumber)
  })
 
- convertToMaterialDateFormat(dateString: string): string {
-  const parts = dateString.split('/');
-  if (parts.length === 3) {
-    // Rearrange the date parts and construct a JavaScript Date object
-    const day = parseInt(parts[0], 10);
-    const month = parseInt(parts[1], 10);
-    const year = parseInt(parts[2], 10);
-    const dateObj = new Date(year, month -1 , day+2);
-
-    // Convert the date object to 'YYYY-MM-DD' format
-    const convertedDate = dateObj.toISOString().slice(0, 10);
-    return convertedDate;
-  }
-  // Return the original date if it couldn't be converted
-  return dateString;
-}
+ 
  inscalForm =new FormGroup(
   {
-    recdate: new FormControl(this.convertToMaterialDateFormat(this.data.tabledatadeatils.receiving_date),[Validators.required]),
+    recdate: new FormControl(moment(this.data.tabledatadeatils.receiving_date, 'DD/MM/YYYY').tz('Asia/Kolkata'),[Validators.required]),
     begnumber: new FormControl(this.data.tabledatadeatils.bag_number,[Validators.required]),
     awbnumber: new FormControl(this.data.tabledatadeatils.awb_number,[Validators.required]),
     weight: new FormControl(this.data.tabledatadeatils.weight,[Validators.required]),
@@ -100,7 +108,7 @@ deliveryForm =this.fb.group(
   {
     office_id: new FormControl(this.data.tabledatadeatils.office_id,[Validators.required]),
     drs_id: new FormControl(this.data.tabledatadeatils.drs_id,[Validators.required]),
-    dl_delivery_date:new FormControl(new Date(this.data.tabledatadeatils.dl_delivery_date),[Validators.required]),
+    dl_delivery_date:new FormControl(moment(this.data.tabledatadeatils.dl_delivery_date, 'DD/MM/YYYY').tz('Asia/Kolkata').toDate(),[Validators.required]),
     proof_of_delivery: new FormControl(this.data.tabledatadeatils.proof_of_delivery,[Validators.required]),
     reciver_phone: new FormControl(this.data.tabledatadeatils.reciver_phone,[Validators.required]),
     reciver_name: new FormControl(this.data.tabledatadeatils.reciver_name,[Validators.required]),
@@ -170,7 +178,8 @@ oninscanSubmit(item,id){
     return false
   }
   else{
- //   this.inscalForm.controls['recdate'].setValue(this.datePipe.transform(this.inscalForm.controls['recdate'].value,'yyyy-MM-dd'))
+    
+ // this.inscalForm.controls['recdate'].setValue(this.datePipe.transform(this.inscalForm.controls['recdate'].value,'yyyy-MM-dd'))
     console.log(this.inscalForm.value)
     let sumiteddata={
       action:item,
@@ -189,7 +198,7 @@ onSubmitdrsofd(item,id){
   }
   else{
    // this.formdata.controls['dob'].setValue(this.datepipe.transform(this.formdata.controls['dob'].value,'dd/MM/yyyy'))
-    this.drsofdForm.controls['delivery_date'].setValue(new Date(this.datePipe.transform(this.drsofdForm.controls['delivery_date'].value,'dd/MM/yyyy')))
+    this.drsofdForm.controls['delivery_date'].setValue( moment(this.drsofdForm.controls['delivery_date'].value, 'DD/MM/YYYY').tz('Asia/Kolkata').toDate())
 
     console.log(this.drsofdForm.value)
     this.Alldata.forEach(element => {
@@ -215,7 +224,7 @@ onSubmitDelivery(item,id,InscanId){
   //   return false
   // }
   // else{
-   // this.deliveryForm.controls['dl_delivery_date'].setValue(new Date(this.datePipe.transform(this.deliveryForm.controls['dl_delivery_date'].value,'yyyy-MM-dd')))
+    this.deliveryForm.controls['dl_delivery_date'].setValue( moment(this.deliveryForm.controls['dl_delivery_date'].value, 'DD/MM/YYYY').tz('Asia/Kolkata').toDate())
 
     console.log(this.deliveryForm.value)
   
