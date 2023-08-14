@@ -72,7 +72,9 @@ export const environment = {
   officeawb:'deliveries/delivery/office/awb',
   drsforimage:'drs/drsforimage',
   image:'drs/drs/image',
-  desofd:'images/drs_ofd'
+  desofd:'images/drs_ofd',
+  drsimage:'drs/drs/image/drs',
+  awbimage:'drs/drs/image/awb'
 
 
 
