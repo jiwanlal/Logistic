@@ -69,6 +69,9 @@ export class ManifestComponent {
   addRow() {
 
     const ref = this.dialogRef.open(AddManifestComponent, {
+      width: '50%',
+      height:'100%',
+      position: { right: '0',top:'0', bottom:'0'}
      
     });
 

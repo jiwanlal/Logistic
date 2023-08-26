@@ -28,25 +28,29 @@
                                 <h2>DRS/POD</h2>
                               </li>
                               <li class="tbl-search-box">
+                                <div class="d-flex">
                                   <ng-select  
-                                     formControlName="dropdownType" name="dropdownType" placeholder="Select"
-                                       class="ng-select-bold-border chips-control" (change)="Onchange(drspoddForm.value.dropdownType)">
+                                     formControlName="dropdownType"  name="dropdownType" placeholder="Select"
+                                       class="ng-select-bold-border hightdata chips-control" (change)="Onchange(drspoddForm.value.dropdownType)">
                                      <ng-option value="drs">DRS</ng-option>
                                      <ng-option value="awb">AWB Number</ng-option>
                                   </ng-select>
+                                  <input class="inputfile" matInput required formControlName="Searchvalue" (focusout)="Searcheddata($event.target.value,drspoddForm.controls.dropdownType.value)" [attr.disabled]="inputboxdisabled==true?'true':null">
+
+                                <!-- {{userImg}} -->
+
+                                <button [disabled]="uploadDisabled" class="btn btn-primary" (click)="onuploadProfileimg(drspoddForm.value)">Upload
+                                  <!-- <i class="material-icons">image</i> -->
+                                </button>
+                              </div>
                                 <!-- <app-datafilter></app-datafilter> -->
                               </li>
                               <li>
-                                  <input matInput required formControlName="Searchvalue" (focusout)="Searcheddata($event.target.value,drspoddForm.controls.dropdownType.value)" [attr.disabled]="inputboxdisabled==true?'true':null">
+                                <img style="height:40px" src="http://34.123.75.4:8080/api/images/{{userImg}}" alt="">
        
                               </li>
                               <li>
-                                <img src="http://34.123.75.4:8080/api/images/{{userImg}}" class="user-img" width="110" alt="">
-                                <!-- {{userImg}} -->
-
-                                <button [disabled]="uploadDisabled" (click)="onuploadProfileimg(drspoddForm.value)">Upload
-                                  <!-- <i class="material-icons">image</i> -->
-                                </button>
+                                
                               </li>
                             
                           

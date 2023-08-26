@@ -4,10 +4,37 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, startWith, map, combineLatest, tap, of } from 'rxjs';
 import { AwbService } from '../../awb.service';
 
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import * as moment from 'moment';
+import 'moment-timezone';
+
 @Component({
   selector: 'app-add-awb-issue',
   templateUrl: './add-awb-issue.component.html',
-  styleUrls: ['./add-awb-issue.component.sass']
+  styleUrls: ['./add-awb-issue.component.sass'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: 'LL',
+        },
+        display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMM YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MMMM YYYY',
+        },
+      },
+    },
+  ]
 })
 export class AddAwbIssueComponent {
 
@@ -226,6 +253,7 @@ export class AddAwbIssueComponent {
 
     let val:any = this.formdata.getRawValue();
     val.purchaseid = this.purchaseId
+    val.issuedate = moment(val.issuedate).tz('Asia/Kolkata').format('YYYY-MM-DDTHH:mm:ss');
     this.awbService.addEditAwbIssue(val,this.data?.id)
     .subscribe(res=>{
 

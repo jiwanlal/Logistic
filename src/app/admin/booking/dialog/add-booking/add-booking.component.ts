@@ -6,10 +6,37 @@ import { Observable } from 'rxjs/internal/Observable';
 import { BookingService } from '../../booking.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import * as moment from 'moment';
+import 'moment-timezone';
+
 @Component({
   selector: 'app-add-booking',
   templateUrl: './add-booking.component.html',
-  styleUrls: ['./add-booking.component.sass']
+  styleUrls: ['./add-booking.component.sass'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: 'LL',
+        },
+        display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMM YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MMMM YYYY',
+        },
+      },
+    },
+  ]
 })
 export class AddBookingComponent {
 

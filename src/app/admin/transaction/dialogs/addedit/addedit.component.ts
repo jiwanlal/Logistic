@@ -118,7 +118,7 @@ deliveryForm =this.fb.group(
 )
 
 ngOnInit() {
-  console.log(this.data)
+  console.log(this.data,this.data.tabledatadeatils.dailogPage)
   this.bugNumberList=this.data.tabledatadeatils.bugNumberList
   this.deliveryBoylist=this.data.tabledatadeatils.deliveryBoylist
   this.deliveryProof=this.data.tabledatadeatils.deliveryProof
@@ -131,7 +131,7 @@ ngOnInit() {
     this.focusoutChange(this.data.tabledatadeatils.bag_number,'second')
     
   }
-  else if(this.data.tabledatadeatils.dailogPage=='drsofdForm'){
+  else if(this.data.tabledatadeatils.dailogPage=='drsofdDailog'){
     this.awbNumberSearch(this.data.tabledatadeatils.awbNumber)
   }
 }
@@ -200,7 +200,7 @@ onSubmitdrsofd(item,id){
    // this.formdata.controls['dob'].setValue(this.datepipe.transform(this.formdata.controls['dob'].value,'dd/MM/yyyy'))
     this.drsofdForm.controls['delivery_date'].setValue( moment(this.drsofdForm.controls['delivery_date'].value, 'DD/MM/YYYY').tz('Asia/Kolkata').toDate())
 
-    console.log(this.drsofdForm.value)
+    //console.log(this.drsofdForm.value)
     this.Alldata.forEach(element => {
      if(element.awb_number==this.drsofdForm.value.awbNumber) {
       this.drsofdForm.controls['awbNumber'].setValue(element.inscan_id)
